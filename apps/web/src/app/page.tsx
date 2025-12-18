@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Header } from "@/components/layout/Header";
 import { LiveDashboardLayout } from "@/components/layout/LiveDashboardLayout";
 import { SessionSelector } from "@/components/layout/SessionSelector";
@@ -8,8 +8,11 @@ import { TimingTower } from "@/components/live/TimingTower";
 import { TrackMap } from "@/components/live/TrackMap";
 import { TelemetryPanel } from "@/components/live/TelemetryPanel";
 import { RaceInfo } from "@/components/live/RaceInfo";
+import { ReplayControls } from "@/components/live/ReplayControls";
 import { useLiveStore } from "@/stores/liveStore";
+import { useReplayStore } from "@/stores/replayStore";
 import { useLiveData } from "@/hooks/useLiveData";
+import { useReplayData } from "@/hooks/useReplayData";
 import type { DriverTelemetry } from "@/types/f1";
 
 export default function LiveDashboard() {
@@ -28,9 +31,16 @@ export default function LiveDashboard() {
     isConnected,
   } = useLiveStore();
 
-  // Enable live data polling when we have a session
+  const { isReplayMode, currentLap, totalLaps } = useReplayStore();
+
+  // Live data polling (disabled in replay mode)
   useLiveData({
-    enabled: sessionKey !== null,
+    enabled: sessionKey !== null && !isReplayMode,
+    sessionKey,
+  });
+
+  // Replay data management
+  const { loadSession, isLoading: isReplayLoading } = useReplayData({
     sessionKey,
   });
 
@@ -39,10 +49,11 @@ export default function LiveDashboard() {
     .map((code) => telemetry[code])
     .filter((t): t is DriverTelemetry => t !== undefined);
 
-  // Calculate lap count from timing data (estimate based on leader's lap)
-  const leaderTiming = timing.find((t) => t.position === 1);
-  const lapCount = leaderTiming
-    ? { current: Math.floor(leaderTiming.lastLap ? timing.length : 1), total: 0 }
+  // Lap count - use replay lap or estimate from data
+  const lapCount = isReplayMode
+    ? { current: currentLap, total: totalLaps }
+    : timing.length > 0
+    ? { current: timing[0]?.pitStops ? timing.length : 1, total: 0 }
     : undefined;
 
   return (
@@ -53,7 +64,7 @@ export default function LiveDashboard() {
             ? `${currentSession.meetingName} - ${currentSession.sessionName}`
             : undefined
         }
-        isLive={currentSession?.status === "live"}
+        isLive={currentSession?.status === "live" && !isReplayMode}
       />
 
       <LiveDashboardLayout
@@ -61,16 +72,31 @@ export default function LiveDashboard() {
           <div className="flex items-center gap-4 w-full">
             <SessionSelector
               currentSessionKey={sessionKey}
-              onSessionChange={setSessionKey}
+              onSessionChange={(key) => {
+                setSessionKey(key);
+                // Reset replay when changing session
+                if (isReplayMode) {
+                  useReplayStore.getState().disableReplayMode();
+                }
+              }}
             />
-            {!isConnected && sessionKey && (
+
+            {sessionKey && (
+              <ReplayControls
+                onLoadReplay={loadSession}
+                isLoading={isReplayLoading}
+              />
+            )}
+
+            {!isConnected && sessionKey && !isReplayMode && (
               <span className="text-yellow-500 text-sm">Connecting...</span>
             )}
+
             {raceControl.length > 0 && (
               <div className="flex-1 overflow-hidden">
-                <div className="animate-marquee whitespace-nowrap">
+                <div className="flex gap-8 animate-marquee whitespace-nowrap">
                   {raceControl.slice(0, 5).map((msg, i) => (
-                    <span key={i} className="mx-4 text-sm">
+                    <span key={i} className="text-sm">
                       <span className="text-muted-foreground">
                         {new Date(msg.timestamp).toLocaleTimeString()}
                       </span>
@@ -93,8 +119,12 @@ export default function LiveDashboard() {
               onDriverSelect={toggleDriverSelection}
             />
           ) : (
-            <div className="flex items-center justify-center h-full text-muted-foreground">
-              {sessionKey ? "Loading timing data..." : "Select a session"}
+            <div className="flex items-center justify-center h-full text-muted-foreground p-4 text-center">
+              {isReplayLoading
+                ? "Loading race data..."
+                : sessionKey
+                ? "Loading timing data..."
+                : "Select a session to view data"}
             </div>
           )
         }
