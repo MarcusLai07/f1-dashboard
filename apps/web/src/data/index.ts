@@ -166,8 +166,40 @@ export async function getTeamColorByDriverCode(
   return getTeamColor(driver.teamId, year);
 }
 
+// ============================================================================
+// CIRCUIT HELPERS
+// ============================================================================
+
+export async function getCircuitCorners(id: string) {
+  const circuit = await getCircuit(id);
+  return circuit?.corners || [];
+}
+
+export async function getCircuitDrsZones(id: string) {
+  const circuit = await getCircuit(id);
+  return circuit?.drsZones || [];
+}
+
+export async function getCircuitSectors(id: string) {
+  const circuit = await getCircuit(id);
+  return circuit?.sectors || [];
+}
+
+export async function getCircuitSvgPath(id: string) {
+  const circuit = await getCircuit(id);
+  return circuit?.svg.path || null;
+}
+
 // Re-export types
-export type { CircuitData, CircuitManifest } from "./circuits/_schema";
+export type {
+  CircuitData,
+  CircuitManifest,
+  Turn,
+  DRSZone,
+  Sector,
+  LapRecord,
+  CircuitSvg,
+} from "./circuits/_schema";
 export type {
   Team,
   DriverReference,

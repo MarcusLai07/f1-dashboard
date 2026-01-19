@@ -1,0 +1,179 @@
+{
+  "id": "las-vegas",
+  "name": "Las Vegas Strip Circuit",
+  "shortName": "Las Vegas",
+  "location": "Las Vegas",
+  "country": "USA",
+  "length": 6.201,
+  "turns": 17,
+  "laps": 50,
+  "raceDistance": 310.05,
+  "firstGP": 2023,
+  "svg": {
+    "viewBox": "0 0 500 400",
+    "path": "M 100,200 L 400,200"
+  },
+  "corners": [
+    {
+      "number": 1,
+      "type": "medium",
+      "gear": 4,
+      "speed": 152,
+      "position": 5.8
+    },
+    {
+      "number": 2,
+      "type": "medium",
+      "gear": 4,
+      "speed": 152,
+      "position": 7.1
+    },
+    {
+      "number": 3,
+      "type": "fast",
+      "gear": 6,
+      "speed": 224,
+      "position": 14.9
+    },
+    {
+      "number": 4,
+      "type": "fast",
+      "gear": 6,
+      "speed": 224,
+      "position": 16.5
+    },
+    {
+      "number": 5,
+      "type": "hairpin",
+      "gear": 2,
+      "speed": 66,
+      "position": 26.3
+    },
+    {
+      "number": 6,
+      "type": "hairpin",
+      "gear": 2,
+      "speed": 66,
+      "position": 28
+    },
+    {
+      "number": 7,
+      "type": "fast",
+      "gear": 5,
+      "speed": 189,
+      "position": 31.9
+    },
+    {
+      "number": 8,
+      "type": "fast",
+      "gear": 5,
+      "speed": 189,
+      "position": 33.9
+    },
+    {
+      "number": 9,
+      "type": "fast",
+      "gear": 5,
+      "speed": 189,
+      "position": 36.1
+    },
+    {
+      "number": 10,
+      "type": "fast",
+      "gear": 6,
+      "speed": 218,
+      "position": 39.4
+    },
+    {
+      "number": 11,
+      "type": "fast",
+      "gear": 6,
+      "speed": 218,
+      "position": 41.4
+    },
+    {
+      "number": 12,
+      "type": "slow",
+      "gear": 2,
+      "speed": 73,
+      "position": 51.9
+    },
+    {
+      "number": 13,
+      "type": "slow",
+      "gear": 2,
+      "speed": 73,
+      "position": 53.4
+    },
+    {
+      "number": 14,
+      "type": "hairpin",
+      "gear": 2,
+      "speed": 66,
+      "position": 68.7
+    },
+    {
+      "number": 15,
+      "type": "fast",
+      "gear": 5,
+      "speed": 194,
+      "position": 70.2
+    },
+    {
+      "number": 16,
+      "type": "fast",
+      "gear": 5,
+      "speed": 194,
+      "position": 72
+    },
+    {
+      "number": 17,
+      "type": "fast",
+      "gear": 5,
+      "speed": 175,
+      "position": 95.7
+    }
+  ],
+  "drsZones": [
+    {
+      "detection": 88,
+      "activation": 93,
+      "length": 740
+    },
+    {
+      "detection": 52,
+      "activation": 57,
+      "length": 620
+    }
+  ],
+  "sectors": [
+    {
+      "number": 1,
+      "startPercent": 0,
+      "endPercent": 32.5,
+      "color": "#ef4444"
+    },
+    {
+      "number": 2,
+      "startPercent": 32.5,
+      "endPercent": 66.5,
+      "color": "#3b82f6"
+    },
+    {
+      "number": 3,
+      "startPercent": 66.5,
+      "endPercent": 100,
+      "color": "#eab308"
+    }
+  ],
+  "pitLaneTimeLoss": 22,
+  "records": {
+    "lapRecord": {
+      "time": "1:35.490",
+      "driver": "Oscar Piastri",
+      "year": 2023
+    }
+  },
+  "lastUpdated": "2026-01-19",
+  "dataSource": "FastF1 2024 Qualifying + circuitFeatures.ts"
+}

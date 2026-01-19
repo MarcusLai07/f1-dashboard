@@ -1,0 +1,190 @@
+{
+  "id": "singapore",
+  "name": "Marina Bay Street Circuit",
+  "shortName": "Singapore",
+  "location": "Singapore",
+  "country": "Singapore",
+  "length": 4.94,
+  "turns": 19,
+  "laps": 62,
+  "raceDistance": 306.143,
+  "firstGP": 2008,
+  "svg": {
+    "viewBox": "0 0 500 400",
+    "path": "M 100,200 L 400,200"
+  },
+  "corners": [
+    {
+      "number": 1,
+      "type": "slow",
+      "gear": 2,
+      "speed": 97,
+      "position": 5.7
+    },
+    {
+      "number": 2,
+      "type": "slow",
+      "gear": 2,
+      "speed": 97,
+      "position": 7.9
+    },
+    {
+      "number": 3,
+      "type": "medium",
+      "gear": 4,
+      "speed": 163,
+      "position": 13.9
+    },
+    {
+      "number": 4,
+      "type": "fast",
+      "gear": 5,
+      "speed": 170,
+      "position": 18.9
+    },
+    {
+      "number": 5,
+      "name": "Esplanade",
+      "type": "slow",
+      "gear": 2,
+      "speed": 93,
+      "position": 21.6
+    },
+    {
+      "number": 6,
+      "type": "slow",
+      "gear": 2,
+      "speed": 93,
+      "position": 23.9
+    },
+    {
+      "number": 7,
+      "name": "Memorial",
+      "type": "hairpin",
+      "gear": 1,
+      "speed": 59,
+      "position": 29.9
+    },
+    {
+      "number": 8,
+      "type": "slow",
+      "gear": 2,
+      "speed": 81,
+      "position": 35.3
+    },
+    {
+      "number": 9,
+      "type": "slow",
+      "gear": 2,
+      "speed": 81,
+      "position": 36.9
+    },
+    {
+      "number": 10,
+      "type": "medium",
+      "gear": 3,
+      "speed": 104,
+      "position": 40.4
+    },
+    {
+      "number": 11,
+      "type": "fast",
+      "gear": 5,
+      "speed": 197,
+      "position": 50.6
+    },
+    {
+      "number": 12,
+      "type": "fast",
+      "gear": 5,
+      "speed": 197,
+      "position": 52.9
+    },
+    {
+      "number": 13,
+      "type": "medium",
+      "gear": 3,
+      "speed": 110,
+      "position": 60.6
+    },
+    {
+      "number": 14,
+      "type": "hairpin",
+      "gear": 2,
+      "speed": 63,
+      "position": 67
+    },
+    {
+      "number": 15,
+      "type": "fast",
+      "gear": 5,
+      "speed": 177,
+      "position": 70.9
+    },
+    {
+      "number": 16,
+      "type": "medium",
+      "gear": 4,
+      "speed": 146,
+      "position": 76.9
+    },
+    {
+      "number": 17,
+      "type": "slow",
+      "gear": 2,
+      "speed": 89,
+      "position": 80.1
+    },
+    {
+      "number": 18,
+      "type": "slow",
+      "gear": 2,
+      "speed": 89,
+      "position": 82.6
+    },
+    {
+      "number": 19,
+      "type": "medium",
+      "gear": 4,
+      "speed": 148,
+      "position": 88.6
+    }
+  ],
+  "drsZones": [
+    {
+      "detection": 88,
+      "activation": 93,
+      "length": 450
+    }
+  ],
+  "sectors": [
+    {
+      "number": 1,
+      "startPercent": 0,
+      "endPercent": 31.9,
+      "color": "#ef4444"
+    },
+    {
+      "number": 2,
+      "startPercent": 31.9,
+      "endPercent": 67.9,
+      "color": "#3b82f6"
+    },
+    {
+      "number": 3,
+      "startPercent": 67.9,
+      "endPercent": 100,
+      "color": "#eab308"
+    }
+  ],
+  "pitLaneTimeLoss": 25,
+  "records": {
+    "lapRecord": {
+      "time": "1:35.867",
+      "driver": "Lewis Hamilton",
+      "year": 2023
+    }
+  },
+  "lastUpdated": "2026-01-19",
+  "dataSource": "FastF1 2024 Qualifying + circuitFeatures.ts"
+}
