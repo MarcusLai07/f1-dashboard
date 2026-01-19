@@ -1,0 +1,4 @@
+{
+  "_comment": "Add overrides here when API data needs correction. Format: { '2026': { '2026-03-15': { 'sessions': { 'qualifying': '...' } } } }",
+  "2026": {}
+}

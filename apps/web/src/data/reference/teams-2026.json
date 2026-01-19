@@ -1,0 +1,104 @@
+{
+  "year": 2026,
+  "teams": [
+    {
+      "id": "red_bull",
+      "name": "Red Bull Racing",
+      "shortName": "Red Bull",
+      "color": "#3671C6",
+      "country": "Austria",
+      "principal": "Christian Horner",
+      "engine": "Honda"
+    },
+    {
+      "id": "ferrari",
+      "name": "Ferrari",
+      "shortName": "Ferrari",
+      "color": "#E8002D",
+      "country": "Italy",
+      "principal": "Frédéric Vasseur",
+      "engine": "Ferrari"
+    },
+    {
+      "id": "mercedes",
+      "name": "Mercedes",
+      "shortName": "Mercedes",
+      "color": "#27F4D2",
+      "country": "Germany",
+      "principal": "Toto Wolff",
+      "engine": "Mercedes"
+    },
+    {
+      "id": "mclaren",
+      "name": "McLaren",
+      "shortName": "McLaren",
+      "color": "#FF8000",
+      "country": "United Kingdom",
+      "principal": "Andrea Stella",
+      "engine": "Mercedes"
+    },
+    {
+      "id": "aston_martin",
+      "name": "Aston Martin",
+      "shortName": "Aston Martin",
+      "color": "#229971",
+      "country": "United Kingdom",
+      "principal": "Mike Krack",
+      "engine": "Honda"
+    },
+    {
+      "id": "alpine",
+      "name": "Alpine",
+      "shortName": "Alpine",
+      "color": "#00A1E8",
+      "country": "France",
+      "principal": "Oliver Oakes",
+      "engine": "Renault"
+    },
+    {
+      "id": "williams",
+      "name": "Williams",
+      "shortName": "Williams",
+      "color": "#1868DB",
+      "country": "United Kingdom",
+      "principal": "James Vowles",
+      "engine": "Mercedes"
+    },
+    {
+      "id": "racing_bulls",
+      "name": "Racing Bulls",
+      "shortName": "RB",
+      "color": "#6692FF",
+      "country": "Italy",
+      "principal": "Laurent Mekies",
+      "engine": "Honda"
+    },
+    {
+      "id": "audi",
+      "name": "Audi",
+      "shortName": "Audi",
+      "color": "#F50537",
+      "country": "Switzerland",
+      "principal": "Mattia Binotto",
+      "engine": "Audi"
+    },
+    {
+      "id": "cadillac",
+      "name": "Cadillac",
+      "shortName": "Cadillac",
+      "color": "#1C1C1C",
+      "country": "USA",
+      "principal": "TBC",
+      "engine": "Ferrari"
+    },
+    {
+      "id": "haas",
+      "name": "Haas F1 Team",
+      "shortName": "Haas",
+      "color": "#B6BABD",
+      "country": "USA",
+      "principal": "Ayao Komatsu",
+      "engine": "Ferrari"
+    }
+  ]
+}
