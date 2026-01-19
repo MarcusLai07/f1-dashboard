@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useMemo } from "react";
 import { useLiveStore } from "@/stores/liveStore";
 import {
   getSessions,
@@ -10,7 +10,7 @@ import {
   getRaceControl,
   getWeather,
 } from "@/lib/api";
-import { POLLING_INTERVALS } from "@/lib/constants";
+import { getPollingIntervals, deriveSessionType, type SessionType } from "./useSessionPolling";
 
 interface UseLiveDataOptions {
   enabled?: boolean;
@@ -21,6 +21,7 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
   const {
     setConnected,
     setSession,
+    currentSession,
     updateTiming,
     updatePositions,
     updateTelemetry,
@@ -29,6 +30,20 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
     selectedDrivers,
     raceControl,
   } = useLiveStore();
+
+  // Derive session type and live status for polling intervals
+  const sessionType: SessionType = useMemo(() => {
+    if (!currentSession?.sessionName) return "practice";
+    return deriveSessionType(currentSession.sessionName);
+  }, [currentSession?.sessionName]);
+
+  const isLive = currentSession?.status === "live";
+
+  // Get dynamic polling intervals based on session type
+  const pollingIntervals = useMemo(
+    () => getPollingIntervals(sessionType, isLive),
+    [sessionType, isLive]
+  );
 
   const timingIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const positionIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -57,8 +72,8 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
       try {
         const { timing } = await getTiming(key);
         updateTiming(timing);
-      } catch (error) {
-        console.error("Failed to fetch timing:", error);
+      } catch {
+        // Silently ignore - polling will retry
       }
     },
     [updateTiming]
@@ -70,8 +85,8 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
       try {
         const { positions } = await getPositions(key);
         updatePositions(positions);
-      } catch (error) {
-        console.error("Failed to fetch positions:", error);
+      } catch {
+        // Silently ignore - polling will retry
       }
     },
     [updatePositions]
@@ -95,8 +110,8 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
         Object.entries(telemetry).forEach(([code, data]) => {
           updateTelemetry(code, data);
         });
-      } catch (error) {
-        console.error("Failed to fetch telemetry:", error);
+      } catch {
+        // Silently ignore - polling will retry
       }
     },
     [updateTelemetry]
@@ -122,8 +137,8 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
         if (messages.length > 0) {
           lastRaceControlTimestamp.current = messages[0].timestamp;
         }
-      } catch (error) {
-        console.error("Failed to fetch race control:", error);
+      } catch {
+        // Silently ignore - polling will retry
       }
     },
     [addRaceControlMessage, raceControl]
@@ -137,8 +152,8 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
         if (weather) {
           updateWeather(weather);
         }
-      } catch (error) {
-        console.error("Failed to fetch weather:", error);
+      } catch {
+        // Silently ignore - polling will retry
       }
     },
     [updateWeather]
@@ -153,7 +168,7 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
     if (weatherIntervalRef.current) clearInterval(weatherIntervalRef.current);
   }, []);
 
-  // Start polling
+  // Start polling with session-aware intervals
   const startPolling = useCallback(
     (key: number) => {
       clearAllIntervals();
@@ -167,25 +182,25 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
         fetchTelemetry(key, selectedDrivers);
       }
 
-      // Set up polling intervals
+      // Set up polling intervals (session-aware: faster for race, slower for practice)
       timingIntervalRef.current = setInterval(
         () => fetchTiming(key),
-        POLLING_INTERVALS.timing
+        pollingIntervals.timing
       );
 
       positionIntervalRef.current = setInterval(
         () => fetchPositions(key),
-        POLLING_INTERVALS.position
+        pollingIntervals.position
       );
 
       raceControlIntervalRef.current = setInterval(
         () => fetchRaceControl(key),
-        POLLING_INTERVALS.raceControl
+        pollingIntervals.raceControl
       );
 
       weatherIntervalRef.current = setInterval(
         () => fetchWeather(key),
-        POLLING_INTERVALS.weather
+        pollingIntervals.weather
       );
     },
     [
@@ -196,6 +211,7 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
       fetchWeather,
       fetchTelemetry,
       selectedDrivers,
+      pollingIntervals,
     ]
   );
 
@@ -211,10 +227,10 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
       // Immediate fetch
       fetchTelemetry(sessionKey, selectedDrivers);
 
-      // Set up interval
+      // Set up interval (session-aware)
       telemetryIntervalRef.current = setInterval(
         () => fetchTelemetry(sessionKey, selectedDrivers),
-        POLLING_INTERVALS.telemetry
+        pollingIntervals.telemetry
       );
     }
 
@@ -223,7 +239,7 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
         clearInterval(telemetryIntervalRef.current);
       }
     };
-  }, [enabled, sessionKey, selectedDrivers, fetchTelemetry]);
+  }, [enabled, sessionKey, selectedDrivers, fetchTelemetry, pollingIntervals.telemetry]);
 
   // Main effect to manage session and polling
   useEffect(() => {
@@ -251,7 +267,18 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
     };
   }, [enabled, sessionKey, fetchSession, startPolling, clearAllIntervals]);
 
+  // Restart polling when session type or live status changes
+  useEffect(() => {
+    if (!enabled || !sessionKey) return;
+    // Restart polling with new intervals
+    startPolling(sessionKey);
+  }, [pollingIntervals, enabled, sessionKey, startPolling]);
+
   return {
     refresh: () => sessionKey && startPolling(sessionKey),
+    // Expose for debugging
+    sessionType,
+    isLive,
+    pollingIntervals,
   };
 }
