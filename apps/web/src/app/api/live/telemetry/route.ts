@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 const OPENF1_BASE = "https://api.openf1.org/v1";
 
+interface DriverInfo {
+  code: string;
+  teamColor: string;
+}
+
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const sessionKey = searchParams.get("session_key");
@@ -20,7 +25,7 @@ export async function GET(request: NextRequest) {
       `${OPENF1_BASE}/drivers?session_key=${sessionKey}`
     );
     const driversData = await driversRes.json();
-    const driverMap = new Map(
+    const driverMap = new Map<number, DriverInfo>(
       driversData.map((d: any) => [
         d.driver_number,
         {

@@ -10,8 +10,20 @@ import type {
 
 const API_BASE = "/api/live";
 
-// Generic fetch wrapper with error handling
+// Rate limit tracking
+let lastRequestTime = 0;
+const MIN_REQUEST_INTERVAL = 350; // ms between requests
+
+// Generic fetch wrapper with error handling and rate limiting
 async function fetchAPI<T>(endpoint: string, params?: Record<string, string>): Promise<T> {
+  // Enforce minimum interval between requests to avoid rate limiting
+  const now = Date.now();
+  const timeSinceLastRequest = now - lastRequestTime;
+  if (timeSinceLastRequest < MIN_REQUEST_INTERVAL) {
+    await new Promise(resolve => setTimeout(resolve, MIN_REQUEST_INTERVAL - timeSinceLastRequest));
+  }
+  lastRequestTime = Date.now();
+
   const url = new URL(endpoint, window.location.origin);
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
@@ -23,6 +35,11 @@ async function fetchAPI<T>(endpoint: string, params?: Record<string, string>): P
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({ error: "Unknown error" }));
+    // Silently handle rate limiting - don't throw, return empty data
+    if (response.status === 429 || error.error?.includes("rate") || error.error?.includes("limit")) {
+      console.debug("Rate limited, skipping request");
+      throw new Error("RATE_LIMITED");
+    }
     throw new Error(error.error || `API error: ${response.status}`);
   }
 

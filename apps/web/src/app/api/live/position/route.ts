@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 const OPENF1_BASE = "https://api.openf1.org/v1";
 
+interface DriverInfo {
+  code: string;
+  teamColor: string;
+}
+
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const sessionKey = searchParams.get("session_key");
@@ -20,25 +25,30 @@ export async function GET(request: NextRequest) {
       fetch(`${OPENF1_BASE}/position?session_key=${sessionKey}`),
     ]);
 
-    const [drivers, positions] = await Promise.all([
+    const [driversData, positionsData] = await Promise.all([
       driversRes.json(),
       positionsRes.json(),
     ]);
 
+    // Ensure arrays (API may return empty objects or null)
+    const drivers = Array.isArray(driversData) ? driversData : [];
+    const positions = Array.isArray(positionsData) ? positionsData : [];
+
     // Build driver info map
-    const driverMap = new Map(
-      drivers.map((d: any) => [
-        d.driver_number,
-        {
-          code: d.name_acronym,
+    const driverMap = new Map<number, DriverInfo>();
+    for (const d of drivers) {
+      if (d?.driver_number) {
+        driverMap.set(d.driver_number, {
+          code: d.name_acronym || `D${d.driver_number}`,
           teamColor: `#${d.team_colour || "808080"}`,
-        },
-      ])
-    );
+        });
+      }
+    }
 
     // Get latest position for each driver
     const latestPositions = new Map<number, any>();
     for (const pos of positions) {
+      if (!pos?.driver_number) continue;
       const driverNum = pos.driver_number;
       if (
         !latestPositions.has(driverNum) ||

@@ -32,10 +32,11 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
   } = useLiveStore();
 
   // Derive session type and live status for polling intervals
+  const sessionName = currentSession?.sessionName;
   const sessionType: SessionType = useMemo(() => {
-    if (!currentSession?.sessionName) return "practice";
-    return deriveSessionType(currentSession.sessionName);
-  }, [currentSession?.sessionName]);
+    if (!sessionName) return "practice";
+    return deriveSessionType(sessionName);
+  }, [sessionName]);
 
   const isLive = currentSession?.status === "live";
 

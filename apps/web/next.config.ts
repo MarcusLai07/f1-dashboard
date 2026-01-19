@@ -14,6 +14,18 @@ const nextConfig: NextConfig = {
     ],
   },
 
+  // Compiler optimizations
+  compiler: {
+    // Remove console logs in production
+    removeConsole: process.env.NODE_ENV === "production",
+  },
+
+  // Experimental features for better performance
+  experimental: {
+    // Optimize package imports for faster builds
+    optimizePackageImports: ["lucide-react", "animejs", "@radix-ui/react-icons"],
+  },
+
   // Headers for PWA
   async headers() {
     return [

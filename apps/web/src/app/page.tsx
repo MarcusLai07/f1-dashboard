@@ -5,14 +5,13 @@ import { Header } from "@/components/layout/Header";
 import { LiveDashboardLayout } from "@/components/layout/LiveDashboardLayout";
 import { SessionSelector } from "@/components/layout/SessionSelector";
 import { TimingTower } from "@/components/live/TimingTower";
-import { TrackMap } from "@/components/live/TrackMap";
+import { TrackMap3D } from "@/components/live/TrackMap3D";
 import { TelemetryPanel } from "@/components/live/TelemetryPanel";
 import { RaceInfo } from "@/components/live/RaceInfo";
-import { ReplayControls } from "@/components/live/ReplayControls";
+import { DebugPanel } from "@/components/debug/DebugPanel";
 import { useLiveStore } from "@/stores/liveStore";
-import { useReplayStore } from "@/stores/replayStore";
+import { useDebugStore } from "@/stores/debugStore";
 import { useLiveData } from "@/hooks/useLiveData";
-import { useReplayData } from "@/hooks/useReplayData";
 import type { DriverTelemetry } from "@/types/f1";
 
 export default function LiveDashboard() {
@@ -31,16 +30,11 @@ export default function LiveDashboard() {
     isConnected,
   } = useLiveStore();
 
-  const { isReplayMode, currentLap, totalLaps } = useReplayStore();
+  const { enabled: debugEnabled, simulatedSessionType } = useDebugStore();
 
-  // Live data polling (disabled in replay mode)
+  // Live data polling
   useLiveData({
-    enabled: sessionKey !== null && !isReplayMode,
-    sessionKey,
-  });
-
-  // Replay data management
-  const { loadSession, isLoading: isReplayLoading } = useReplayData({
+    enabled: sessionKey !== null,
     sessionKey,
   });
 
@@ -49,23 +43,39 @@ export default function LiveDashboard() {
     .map((code) => telemetry[code])
     .filter((t): t is DriverTelemetry => t !== undefined);
 
-  // Lap count - use replay lap or estimate from data
-  const lapCount = isReplayMode
-    ? { current: currentLap, total: totalLaps }
-    : timing.length > 0
+  // Lap count from timing data
+  const lapCount = timing.length > 0
     ? { current: timing[0]?.pitStops ? timing.length : 1, total: 0 }
     : undefined;
+
+  // Session name from current session
+  const displaySessionName = currentSession
+    ? `${currentSession.meetingName} - ${currentSession.sessionName}`
+    : undefined;
+
+  // Circuit name for track map
+  const circuitName = currentSession?.circuitShortName || "track";
+
+  // Determine session type for timing tower display
+  // Use debug session type if enabled, otherwise derive from session name
+  const sessionName = currentSession?.sessionName || "";
+  const sessionType: "race" | "qualifying" | "practice" = debugEnabled && simulatedSessionType
+    ? (simulatedSessionType === "sprint" ? "race" : simulatedSessionType)
+    : sessionName.toLowerCase().includes("race") || sessionName.toLowerCase().includes("sprint")
+      ? "race"
+      : sessionName.toLowerCase().includes("qualifying")
+        ? "qualifying"
+        : "practice";
 
   return (
     <div className="min-h-screen bg-background">
       <Header
-        sessionName={
-          currentSession
-            ? `${currentSession.meetingName} - ${currentSession.sessionName}`
-            : undefined
-        }
-        isLive={currentSession?.status === "live" && !isReplayMode}
+        sessionName={displaySessionName}
+        isLive={currentSession?.status === "live"}
       />
+
+      {/* Debug Panel */}
+      <DebugPanel mode="live" />
 
       <LiveDashboardLayout
         raceControlMessages={
@@ -74,28 +84,18 @@ export default function LiveDashboard() {
               currentSessionKey={sessionKey}
               onSessionChange={(key) => {
                 setSessionKey(key);
-                // Reset replay when changing session
-                if (isReplayMode) {
-                  useReplayStore.getState().disableReplayMode();
-                }
+                useLiveStore.setState({ raceControl: [], timing: [], positions: [] });
               }}
             />
 
-            {sessionKey && (
-              <ReplayControls
-                onLoadReplay={loadSession}
-                isLoading={isReplayLoading}
-              />
-            )}
-
-            {!isConnected && sessionKey && !isReplayMode && (
+            {!isConnected && sessionKey && (
               <span className="text-yellow-500 text-sm">Connecting...</span>
             )}
 
             {raceControl.length > 0 && (
               <div className="flex-1 overflow-hidden">
-                <div className="flex gap-8 animate-marquee whitespace-nowrap">
-                  {raceControl.slice(0, 5).map((msg, i) => (
+                <div className="flex gap-8 whitespace-nowrap">
+                  {raceControl.slice(0, 3).map((msg, i) => (
                     <span key={i} className="text-sm">
                       <span className="text-muted-foreground">
                         {new Date(msg.timestamp).toLocaleTimeString()}
@@ -117,20 +117,19 @@ export default function LiveDashboard() {
               drivers={timing}
               selectedDrivers={selectedDrivers}
               onDriverSelect={toggleDriverSelection}
+              sessionType={sessionType}
             />
           ) : (
             <div className="flex items-center justify-center h-full text-muted-foreground p-4 text-center">
-              {isReplayLoading
-                ? "Loading race data..."
-                : sessionKey
+              {sessionKey
                 ? "Loading timing data..."
                 : "Select a session to view data"}
             </div>
           )
         }
         trackMap={
-          <TrackMap
-            trackId={currentSession?.circuitShortName || "track"}
+          <TrackMap3D
+            trackName={circuitName}
             positions={positions}
             selectedDrivers={selectedDrivers}
           />

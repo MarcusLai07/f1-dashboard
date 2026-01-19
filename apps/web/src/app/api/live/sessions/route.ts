@@ -4,23 +4,34 @@ const OPENF1_BASE = "https://api.openf1.org/v1";
 
 export async function GET() {
   try {
-    // Get recent sessions (last 30 days)
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-    const dateFilter = thirtyDaysAgo.toISOString().split("T")[0];
+    // Get sessions from current year (or last year if early in season)
+    const currentYear = new Date().getFullYear();
+    // During off-season, include previous year's sessions
+    const yearToFetch = new Date().getMonth() < 2 ? currentYear - 1 : currentYear;
 
-    const response = await fetch(
-      `${OPENF1_BASE}/sessions?date_start>=${dateFilter}`,
-      {
-        next: { revalidate: 60 }, // Cache for 1 minute
-      }
-    );
+    // Fetch both sessions and meetings to get meeting names
+    const [sessionsRes, meetingsRes] = await Promise.all([
+      fetch(`${OPENF1_BASE}/sessions?year=${yearToFetch}`, {
+        next: { revalidate: 60 },
+      }),
+      fetch(`${OPENF1_BASE}/meetings?year=${yearToFetch}`, {
+        next: { revalidate: 60 },
+      }),
+    ]);
 
-    if (!response.ok) {
-      throw new Error(`OpenF1 API error: ${response.status}`);
+    if (!sessionsRes.ok || !meetingsRes.ok) {
+      throw new Error(`OpenF1 API error: ${sessionsRes.status}`);
     }
 
-    const sessions = await response.json();
+    const [sessions, meetings] = await Promise.all([
+      sessionsRes.json(),
+      meetingsRes.json(),
+    ]);
+
+    // Build meeting name lookup map
+    const meetingNameMap = new Map<number, string>(
+      meetings.map((m: any) => [m.meeting_key, m.meeting_name])
+    );
 
     // Sort by date descending and find current/latest
     const sortedSessions = sessions.sort(
@@ -48,7 +59,7 @@ export async function GET() {
             sessionName: currentSession.session_name,
             sessionType: currentSession.session_type,
             meetingKey: currentSession.meeting_key,
-            meetingName: currentSession.meeting_name,
+            meetingName: meetingNameMap.get(currentSession.meeting_key) || currentSession.location || "Unknown GP",
             circuitKey: currentSession.circuit_key,
             circuitShortName: currentSession.circuit_short_name,
             countryName: currentSession.country_name,
@@ -58,12 +69,12 @@ export async function GET() {
             status: currentSession.date_end ? "finished" : "live",
           }
         : null,
-      recent: sortedSessions.slice(0, 10).map((s: any) => ({
+      recent: sortedSessions.slice(0, 50).map((s: any) => ({
         sessionKey: s.session_key,
         sessionName: s.session_name,
         sessionType: s.session_type,
         meetingKey: s.meeting_key,
-        meetingName: s.meeting_name,
+        meetingName: meetingNameMap.get(s.meeting_key) || s.location || "Unknown GP",
         circuitShortName: s.circuit_short_name,
         countryName: s.country_name,
         startTime: s.date_start,

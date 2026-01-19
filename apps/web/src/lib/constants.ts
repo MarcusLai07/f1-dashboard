@@ -1,63 +1,90 @@
-// F1 Team Colors (2024-2025 Season)
+// F1 Team Colors (2026 Season)
 export const TEAM_COLORS: Record<string, string> = {
   "Red Bull Racing": "#3671C6",
   Ferrari: "#E8002D",
   Mercedes: "#27F4D2",
   McLaren: "#FF8000",
   "Aston Martin": "#229971",
-  Alpine: "#FF87BC",
-  Williams: "#64C4FF",
-  RB: "#6692FF",
-  "Kick Sauber": "#52E252",
+  Alpine: "#00A1E8",
+  Williams: "#1868DB",
+  "Racing Bulls": "#6692FF",
+  Audi: "#F50537",
+  Cadillac: "#1C1C1C",
   "Haas F1 Team": "#B6BABD",
 } as const;
 
-// Driver to Team mapping (2025)
+// Driver to Team mapping (2026 Season)
 export const DRIVER_TEAMS: Record<string, string> = {
+  // Red Bull Racing
   VER: "Red Bull Racing",
-  PER: "Red Bull Racing",
-  HAM: "Ferrari",
+  HAD: "Red Bull Racing", // Isack Hadjar
+  // Ferrari
   LEC: "Ferrari",
-  RUS: "Mercedes",
-  ANT: "Mercedes", // Antonelli
+  HAM: "Ferrari",
+  // McLaren (Norris is 2025 Champion)
   NOR: "McLaren",
   PIA: "McLaren",
+  // Mercedes
+  RUS: "Mercedes",
+  ANT: "Mercedes", // Kimi Antonelli
+  // Aston Martin
   ALO: "Aston Martin",
   STR: "Aston Martin",
+  // Alpine
   GAS: "Alpine",
-  DOO: "Alpine", // Doohan
+  COL: "Alpine", // Franco Colapinto
+  // Williams
   ALB: "Williams",
   SAI: "Williams",
-  TSU: "RB",
-  HAD: "RB", // Hadjar
-  BOT: "Kick Sauber",
-  BOR: "Kick Sauber", // Bortoleto
+  // Racing Bulls (formerly RB/AlphaTauri)
+  LAW: "Racing Bulls", // Liam Lawson
+  LIN: "Racing Bulls", // Arvid Lindblad (rookie)
+  // Audi (formerly Kick Sauber)
+  HUL: "Audi",
+  BOR: "Audi", // Gabriel Bortoleto
+  // Cadillac (new team for 2026)
+  PER: "Cadillac",
+  BOT: "Cadillac",
+  // Haas F1 Team
   OCO: "Haas F1 Team",
-  BEA: "Haas F1 Team", // Bearman
+  BEA: "Haas F1 Team", // Oliver Bearman
 } as const;
 
-// Driver Numbers
+// Driver Numbers (2026 Season)
 export const DRIVER_NUMBERS: Record<string, number> = {
-  VER: 1,
-  PER: 11,
-  HAM: 44,
+  // Red Bull Racing
+  VER: 3, // Verstappen switched from 33 to 3
+  HAD: 6, // Isack Hadjar
+  // Ferrari
   LEC: 16,
-  RUS: 63,
-  ANT: 12,
-  NOR: 4,
+  HAM: 44,
+  // McLaren
+  NOR: 1, // 2025 World Champion
   PIA: 81,
+  // Mercedes
+  RUS: 63,
+  ANT: 12, // Kimi Antonelli (tribute to Senna)
+  // Aston Martin
   ALO: 14,
   STR: 18,
+  // Alpine
   GAS: 10,
-  DOO: 7,
+  COL: 43, // Franco Colapinto
+  // Williams
   ALB: 23,
   SAI: 55,
-  TSU: 22,
-  HAD: 20,
+  // Racing Bulls
+  LAW: 30, // Liam Lawson
+  LIN: 41, // Arvid Lindblad (rookie, initials AL → 41)
+  // Audi
+  HUL: 27,
+  BOR: 5, // Gabriel Bortoleto
+  // Cadillac
+  PER: 11,
   BOT: 77,
-  BOR: 5,
+  // Haas F1 Team
   OCO: 31,
-  BEA: 87,
+  BEA: 87, // Oliver Bearman
 } as const;
 
 // Tyre Compound Colors
@@ -107,11 +134,11 @@ export const DRS_STATUS = {
 
 // Polling intervals in milliseconds
 export const POLLING_INTERVALS = {
-  timing: 1000, // 1 second
-  telemetry: 500, // 0.5 seconds
-  position: 1000, // 1 second
-  raceControl: 2000, // 2 seconds
-  weather: 30000, // 30 seconds
+  timing: 3000, // 3 seconds (OpenF1 rate limit: 3 req/sec)
+  telemetry: 2000, // 2 seconds
+  position: 4000, // 4 seconds
+  raceControl: 5000, // 5 seconds
+  weather: 60000, // 60 seconds
 } as const;
 
 // API Base URLs

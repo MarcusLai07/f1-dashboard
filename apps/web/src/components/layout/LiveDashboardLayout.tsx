@@ -27,7 +27,7 @@ export function LiveDashboardLayout({
       )}
 
       {/* Main Grid */}
-      <div className="flex-1 grid grid-cols-[320px_1fr_240px] gap-0 min-h-0">
+      <div className="flex-1 grid grid-cols-[minmax(600px,720px)_1fr_300px] gap-0 min-h-0">
         {/* Timing Tower - Left */}
         <div className="border-r border-border overflow-y-auto">
           {timingTower}

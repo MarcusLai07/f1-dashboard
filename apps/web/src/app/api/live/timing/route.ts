@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 const OPENF1_BASE = "https://api.openf1.org/v1";
 
+interface DriverInfo {
+  code: string;
+  teamName: string;
+  teamColor: string;
+}
+
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const sessionKey = searchParams.get("session_key");
@@ -22,24 +28,30 @@ export async function GET(request: NextRequest) {
       fetch(`${OPENF1_BASE}/intervals?session_key=${sessionKey}`),
     ]);
 
-    const [drivers, laps, stints, intervals] = await Promise.all([
+    const [driversData, lapsData, stintsData, intervalsData] = await Promise.all([
       driversRes.json(),
       lapsRes.json(),
       stintsRes.json(),
       intervalsRes.json(),
     ]);
 
+    // Ensure arrays (API may return empty objects or null)
+    const drivers = Array.isArray(driversData) ? driversData : [];
+    const laps = Array.isArray(lapsData) ? lapsData : [];
+    const stints = Array.isArray(stintsData) ? stintsData : [];
+    const intervals = Array.isArray(intervalsData) ? intervalsData : [];
+
     // Build driver info map
-    const driverMap = new Map(
-      drivers.map((d: any) => [
-        d.driver_number,
-        {
-          code: d.name_acronym,
-          teamName: d.team_name,
+    const driverMap = new Map<number, DriverInfo>();
+    for (const d of drivers) {
+      if (d?.driver_number) {
+        driverMap.set(d.driver_number, {
+          code: d.name_acronym || `D${d.driver_number}`,
+          teamName: d.team_name || "Unknown",
           teamColor: `#${d.team_colour || "808080"}`,
-        },
-      ])
-    );
+        });
+      }
+    }
 
     // Get latest lap for each driver
     const latestLaps = new Map<number, any>();
