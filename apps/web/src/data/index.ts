@@ -115,7 +115,8 @@ export async function getCalendarOverrides(
 ): Promise<Record<string, unknown>> {
   try {
     const data = await import("./overrides/calendar-overrides.json");
-    const overrides = data.default as CalendarOverrides;
+    // Use unknown first to handle the _comment field in the JSON
+    const overrides = data.default as unknown as Record<string, Record<string, unknown>>;
     return overrides[year.toString()] || {};
   } catch {
     return {};
