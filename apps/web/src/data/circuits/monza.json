@@ -1,0 +1,40 @@
+{
+  "id": "monza",
+  "name": "Autodromo Nazionale Monza",
+  "shortName": "Monza",
+  "location": "Monza",
+  "country": "Italy",
+  "length": 5.793,
+  "turns": 11,
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 100,300 L 100,180 C 100,140 140,100 200,100 L 700,100 C 760,100 800,140 820,180 L 880,300 C 900,340 900,400 880,440 L 780,540 C 740,580 680,580 620,560 L 500,500 C 460,480 420,480 380,500 L 280,560 C 220,590 160,570 140,520 L 100,400 C 100,360 100,340 100,300 Z",
+    "startFinish": {
+      "x": 100,
+      "y": 240,
+      "angle": -90
+    }
+  },
+  "sectors": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 0.33,
+      "color": "#ef4444"
+    },
+    {
+      "id": 2,
+      "start": 0.33,
+      "end": 0.66,
+      "color": "#eab308"
+    },
+    {
+      "id": 3,
+      "start": 0.66,
+      "end": 1,
+      "color": "#22d3ee"
+    }
+  ],
+  "corners": [],
+  "drsZones": []
+}

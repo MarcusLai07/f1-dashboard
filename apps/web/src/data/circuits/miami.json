@@ -1,0 +1,40 @@
+{
+  "id": "miami",
+  "name": "Miami International Autodrome",
+  "shortName": "Miami",
+  "location": "Miami Gardens, Florida",
+  "country": "USA",
+  "length": 5.412,
+  "turns": 19,
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 80,320 L 80,180 C 80,120 140,80 220,80 L 700,80 C 780,80 840,120 860,180 L 900,280 C 920,340 920,400 880,460 L 780,540 C 720,580 640,580 580,540 L 400,420 C 340,380 260,380 200,420 L 120,480 C 80,510 80,480 80,320 Z",
+    "startFinish": {
+      "x": 80,
+      "y": 250,
+      "angle": -90
+    }
+  },
+  "sectors": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 0.33,
+      "color": "#ef4444"
+    },
+    {
+      "id": 2,
+      "start": 0.33,
+      "end": 0.66,
+      "color": "#eab308"
+    },
+    {
+      "id": 3,
+      "start": 0.66,
+      "end": 1,
+      "color": "#22d3ee"
+    }
+  ],
+  "corners": [],
+  "drsZones": []
+}

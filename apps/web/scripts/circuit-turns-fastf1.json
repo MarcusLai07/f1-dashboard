@@ -1,0 +1,3346 @@
+{
+  "bahrain": {
+    "trackLength": 5380.1,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 13.2,
+        "svgX": 40.7,
+        "svgY": -136.1,
+        "angle": -246.61531114606282
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 15.0,
+        "svgX": 55.7,
+        "svgY": -164.2,
+        "angle": -101.17746928558444
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 17.1,
+        "svgX": 47.8,
+        "svgY": -202.7,
+        "angle": -261.39456176357044
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 27.9,
+        "svgX": 86.0,
+        "svgY": -401.9,
+        "angle": -349.5990658655476
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 32.9,
+        "svgX": 156.5,
+        "svgY": -345.2,
+        "angle": -211.50159707799352
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 34.7,
+        "svgX": 180.2,
+        "svgY": -323.3,
+        "angle": -76.37444237537011
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 36.5,
+        "svgX": 183.4,
+        "svgY": -291.3,
+        "angle": -258.95337199513926
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 41.3,
+        "svgX": 245.8,
+        "svgY": -230.1,
+        "angle": -114.65430945303928
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 48.2,
+        "svgX": 121.7,
+        "svgY": -233.6,
+        "angle": -344.90795562972295
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 49.9,
+        "svgX": 99.0,
+        "svgY": -211.1,
+        "angle": -270.0220000651102
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 64.3,
+        "svgX": 356.9,
+        "svgY": -220.9,
+        "angle": -100.99967138579512
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 71.8,
+        "svgX": 273.0,
+        "svgY": -319.4,
+        "angle": -272.81282353019
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 75.6,
+        "svgX": 311.8,
+        "svgY": -380.6,
+        "angle": -358.727848261899
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 90.6,
+        "svgX": 459.3,
+        "svgY": -144.0,
+        "angle": -110.52153187970453
+      },
+      {
+        "number": 15,
+        "letter": null,
+        "position": 92.3,
+        "svgX": 436.1,
+        "svgY": -128.8,
+        "angle": -169.0619991685993
+      }
+    ]
+  },
+  "jeddah": {
+    "trackLength": 6108.4,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 7.8,
+        "svgX": 305.0,
+        "svgY": 203.1,
+        "angle": 69.13662878898232
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 8.8,
+        "svgX": 306.0,
+        "svgY": 212.2,
+        "angle": 40.81141650006943
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 11.0,
+        "svgX": 283.7,
+        "svgY": 215.6,
+        "angle": -3.557132416786196
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 16.0,
+        "svgX": 237.9,
+        "svgY": 233.6,
+        "angle": 47.148851941157076
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 17.9,
+        "svgX": 230.4,
+        "svgY": 248.6,
+        "angle": 22.80346716811735
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 20.0,
+        "svgX": 206.5,
+        "svgY": 250.9,
+        "angle": -17.739135074836348
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 22.3,
+        "svgX": 189.0,
+        "svgY": 257.3,
+        "angle": 22.025440260194003
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 23.3,
+        "svgX": 183.1,
+        "svgY": 267.5,
+        "angle": 28.39364193520494
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 25.9,
+        "svgX": 159.0,
+        "svgY": 272.3,
+        "angle": 141.24659981410446
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 27.5,
+        "svgX": 145.9,
+        "svgY": 262.0,
+        "angle": -33.91941351687294
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 29.0,
+        "svgX": 129.4,
+        "svgY": 261.8,
+        "angle": -14.63405531867106
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 30.8,
+        "svgX": 115.0,
+        "svgY": 261.7,
+        "angle": -9.142795149235376
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 39.3,
+        "svgX": 40.5,
+        "svgY": 292.8,
+        "angle": 102.44055797680988
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 44.6,
+        "svgX": 84.6,
+        "svgY": 278.6,
+        "angle": -173.05277545528216
+      },
+      {
+        "number": 15,
+        "letter": null,
+        "position": 48.1,
+        "svgX": 117.3,
+        "svgY": 277.1,
+        "angle": -204.52800951234912
+      },
+      {
+        "number": 16,
+        "letter": null,
+        "position": 50.1,
+        "svgX": 138.2,
+        "svgY": 278.3,
+        "angle": 140.97019409517907
+      },
+      {
+        "number": 17,
+        "letter": null,
+        "position": 51.7,
+        "svgX": 149.9,
+        "svgY": 288.6,
+        "angle": -210.22979994929267
+      },
+      {
+        "number": 18,
+        "letter": null,
+        "position": 55.1,
+        "svgX": 184.3,
+        "svgY": 278.1,
+        "angle": -160.33138124745375
+      },
+      {
+        "number": 19,
+        "letter": null,
+        "position": 58.7,
+        "svgX": 211.8,
+        "svgY": 261.5,
+        "angle": -175.76376667524812
+      },
+      {
+        "number": 20,
+        "letter": null,
+        "position": 62.0,
+        "svgX": 242.8,
+        "svgY": 248.2,
+        "angle": -156.8365303890967
+      },
+      {
+        "number": 21,
+        "letter": null,
+        "position": 65.3,
+        "svgX": 268.8,
+        "svgY": 228.6,
+        "angle": -171.2512867068793
+      },
+      {
+        "number": 22,
+        "letter": null,
+        "position": 69.3,
+        "svgX": 307.2,
+        "svgY": 219.5,
+        "angle": -168.83778606792842
+      },
+      {
+        "number": 23,
+        "letter": null,
+        "position": 70.9,
+        "svgX": 316.5,
+        "svgY": 208.7,
+        "angle": -134.08095044212348
+      },
+      {
+        "number": 24,
+        "letter": null,
+        "position": 73.1,
+        "svgX": 336.7,
+        "svgY": 198.5,
+        "angle": -188.77163719765326
+      },
+      {
+        "number": 25,
+        "letter": null,
+        "position": 77.9,
+        "svgX": 383.6,
+        "svgY": 203.2,
+        "angle": -183.33071234860574
+      },
+      {
+        "number": 26,
+        "letter": null,
+        "position": 83.5,
+        "svgX": 434.2,
+        "svgY": 174.1,
+        "angle": -144.71499434218612
+      },
+      {
+        "number": 27,
+        "letter": null,
+        "position": 90.2,
+        "svgX": 457.5,
+        "svgY": 118.2,
+        "angle": -50.14775596432159
+      }
+    ]
+  },
+  "melbourne": {
+    "trackLength": 5231.8,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 6.6,
+        "svgX": 200.5,
+        "svgY": 12.8,
+        "angle": -176.6327301808908
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 8.3,
+        "svgX": 190.2,
+        "svgY": -0.8,
+        "angle": -1.517006670514226
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 20.5,
+        "svgX": 59.5,
+        "svgY": -25.1,
+        "angle": 162.2583145895855
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 23.4,
+        "svgX": 70.6,
+        "svgY": -53.7,
+        "angle": -23.426262936440693
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 27.3,
+        "svgX": 41.8,
+        "svgY": -83.8,
+        "angle": 159.21595924901473
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 35.4,
+        "svgX": 64.3,
+        "svgY": -169.9,
+        "angle": 96.73626629832673
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 37.6,
+        "svgX": 86.2,
+        "svgY": -177.4,
+        "angle": -104.06590313985107
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 41.6,
+        "svgX": 125.7,
+        "svgY": -191.3,
+        "angle": 39.145641733921856
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 62.5,
+        "svgX": 305.2,
+        "svgY": -76.7,
+        "angle": -101.19733361565356
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 64.8,
+        "svgX": 321.7,
+        "svgY": -94.2,
+        "angle": 73.47677062265704
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 77.9,
+        "svgX": 459.3,
+        "svgY": -59.0,
+        "angle": -15.779635368175516
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 83.2,
+        "svgX": 431.8,
+        "svgY": -12.2,
+        "angle": -106.08289509535402
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 87.8,
+        "svgX": 381.9,
+        "svgY": -20.1,
+        "angle": 89.83929687485767
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 90.7,
+        "svgX": 374.3,
+        "svgY": 11.3,
+        "angle": -97.4032457365232
+      }
+    ]
+  },
+  "suzuka": {
+    "trackLength": 5767.6,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 11.8,
+        "svgX": 445.2,
+        "svgY": 119.8,
+        "angle": -359.8591867320418
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 14.3,
+        "svgX": 452.7,
+        "svgY": 141.4,
+        "angle": -81.20528371107957
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 18.8,
+        "svgX": 404.5,
+        "svgY": 145.1,
+        "angle": -131.30409040377555
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 21.4,
+        "svgX": 381.4,
+        "svgY": 158.9,
+        "angle": -304.3435640806432
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 23.9,
+        "svgX": 350.7,
+        "svgY": 151.4,
+        "angle": -131.39838896954797
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 26.8,
+        "svgX": 321.9,
+        "svgY": 168.6,
+        "angle": -311.87967969172064
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 32.0,
+        "svgX": 267.2,
+        "svgY": 147.8,
+        "angle": -106.45904451685772
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 38.8,
+        "svgX": 250.0,
+        "svgY": 225.3,
+        "angle": -57.88888817950351
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 42.3,
+        "svgX": 232.5,
+        "svgY": 252.3,
+        "angle": -110.43184351822356
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 47.9,
+        "svgX": 174.5,
+        "svgY": 223.4,
+        "angle": -1.787031420163089
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 50.1,
+        "svgX": 155.5,
+        "svgY": 199.5,
+        "angle": -126.42301288127982
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 54.1,
+        "svgX": 161.5,
+        "svgY": 248.9,
+        "angle": -237.2773642687454
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 65.8,
+        "svgX": 49.7,
+        "svgY": 284.8,
+        "angle": -125.951757458712
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 67.7,
+        "svgX": 34.9,
+        "svgY": 310.8,
+        "angle": -201.69464756438072
+      },
+      {
+        "number": 15,
+        "letter": null,
+        "position": 86.0,
+        "svgX": 225.5,
+        "svgY": 232.8,
+        "angle": -254.71239024835026
+      },
+      {
+        "number": 16,
+        "letter": null,
+        "position": 92.7,
+        "svgX": 234.1,
+        "svgY": 152.6,
+        "angle": -293.9250164332062
+      },
+      {
+        "number": 17,
+        "letter": null,
+        "position": 94.4,
+        "svgX": 244.3,
+        "svgY": 143.7,
+        "angle": -50.27039270732172
+      },
+      {
+        "number": 18,
+        "letter": null,
+        "position": 96.6,
+        "svgX": 262.2,
+        "svgY": 117.1,
+        "angle": -291.6062103228687
+      }
+    ]
+  },
+  "shanghai": {
+    "trackLength": 5398.4,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 10.2,
+        "svgX": 254.2,
+        "svgY": -249.2,
+        "angle": -122.95430080435021
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 13.6,
+        "svgX": 290.2,
+        "svgY": -221.5,
+        "angle": -83.20236298780449
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 16.3,
+        "svgX": 251.9,
+        "svgY": -224.8,
+        "angle": 73.79008590491989
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 18.8,
+        "svgX": 271.8,
+        "svgY": -194.3,
+        "angle": 21.782231789704493
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 24.6,
+        "svgX": 366.6,
+        "svgY": -205.2,
+        "angle": -150.57583559261988
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 29.0,
+        "svgX": 439.3,
+        "svgY": -180.0,
+        "angle": 103.61731226810306
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 37.6,
+        "svgX": 304.5,
+        "svgY": -150.3,
+        "angle": 94.16150313928429
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 43.0,
+        "svgX": 318.1,
+        "svgY": -62.6,
+        "angle": -90.46179179521728
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 46.4,
+        "svgX": 262.6,
+        "svgY": -51.5,
+        "angle": 72.10546856627235
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 48.4,
+        "svgX": 269.8,
+        "svgY": -17.9,
+        "angle": -5.989765250345784
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 57.2,
+        "svgX": 420.3,
+        "svgY": -11.4,
+        "angle": 75.79399678987842
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 58.6,
+        "svgX": 420.7,
+        "svgY": -36.9,
+        "angle": -94.04726013490912
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 62.5,
+        "svgX": 459.1,
+        "svgY": -6.3,
+        "angle": 104.39145809042388
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 87.8,
+        "svgX": 37.9,
+        "svgY": 14.5,
+        "angle": -55.87044799728123
+      },
+      {
+        "number": 15,
+        "letter": null,
+        "position": 89.1,
+        "svgX": 58.7,
+        "svgY": 1.3,
+        "angle": -131.7243656201638
+      },
+      {
+        "number": 16,
+        "letter": null,
+        "position": 94.8,
+        "svgX": 152.0,
+        "svgY": -4.3,
+        "angle": 80.47928853000195
+      }
+    ]
+  },
+  "miami": {
+    "trackLength": 5343.2,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 6.8,
+        "svgX": 304.3,
+        "svgY": 188.3,
+        "angle": 13.105267748793366
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 8.6,
+        "svgX": 289.9,
+        "svgY": 212.8,
+        "angle": -204.28272131554675
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 10.2,
+        "svgX": 286.5,
+        "svgY": 237.9,
+        "angle": -26.05420127632257
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 20.9,
+        "svgX": 144.9,
+        "svgY": 215.3,
+        "angle": 98.59121328981095
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 23.4,
+        "svgX": 110.7,
+        "svgY": 232.8,
+        "angle": -88.84133007407493
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 25.9,
+        "svgX": 75.3,
+        "svgY": 213.0,
+        "angle": 76.7596891131636
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 28.8,
+        "svgX": 44.0,
+        "svgY": 231.9,
+        "angle": -206.14602841635806
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 30.4,
+        "svgX": 49.5,
+        "svgY": 256.2,
+        "angle": -103.47547732876453
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 40.6,
+        "svgX": 196.5,
+        "svgY": 257.1,
+        "angle": -103.85433294911317
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 45.7,
+        "svgX": 273.5,
+        "svgY": 272.8,
+        "angle": -89.35439995404974
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 57.4,
+        "svgX": 436.6,
+        "svgY": 203.7,
+        "angle": -14.93577695515648
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 59.5,
+        "svgX": 420.3,
+        "svgY": 178.4,
+        "angle": -190.68247210100918
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 62.2,
+        "svgX": 449.6,
+        "svgY": 162.7,
+        "angle": -65.47564941450844
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 63.5,
+        "svgX": 459.5,
+        "svgY": 145.2,
+        "angle": 12.80443445178615
+      },
+      {
+        "number": 15,
+        "letter": null,
+        "position": 63.9,
+        "svgX": 455.8,
+        "svgY": 141.3,
+        "angle": -150.4254968779324
+      },
+      {
+        "number": 16,
+        "letter": null,
+        "position": 65.6,
+        "svgX": 456.8,
+        "svgY": 116.3,
+        "angle": 26.564442806433156
+      },
+      {
+        "number": 17,
+        "letter": null,
+        "position": 90.3,
+        "svgX": 87.4,
+        "svgY": 117.8,
+        "angle": -197.70238483941122
+      },
+      {
+        "number": 18,
+        "letter": null,
+        "position": 92.9,
+        "svgX": 116.5,
+        "svgY": 138.1,
+        "angle": -93.53368255106844
+      },
+      {
+        "number": 19,
+        "letter": null,
+        "position": 96.8,
+        "svgX": 172.9,
+        "svgY": 123.3,
+        "angle": -94.33128150175669
+      }
+    ]
+  },
+  "imola": {
+    "trackLength": 4877.5,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 5.0,
+        "svgX": 293.1,
+        "svgY": 180.4,
+        "angle": -97.82392870469776
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 17.9,
+        "svgX": 149.5,
+        "svgY": 183.6,
+        "angle": 111.88313377257879
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 19.1,
+        "svgX": 142.7,
+        "svgY": 195.6,
+        "angle": -30.15716702996394
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 22.3,
+        "svgX": 116.6,
+        "svgY": 214.9,
+        "angle": 140.59195787354795
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 30.7,
+        "svgX": 80.7,
+        "svgY": 307.9,
+        "angle": -178.31172884591876
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 33.1,
+        "svgX": 83.4,
+        "svgY": 329.9,
+        "angle": -21.4386519733737
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 38.7,
+        "svgX": 41.0,
+        "svgY": 376.4,
+        "angle": -171.05139602443612
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 46.9,
+        "svgX": 129.1,
+        "svgY": 372.0,
+        "angle": 90.9730095125042
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 52.4,
+        "svgX": 184.7,
+        "svgY": 370.4,
+        "angle": -41.148155207078
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 54.9,
+        "svgX": 194.9,
+        "svgY": 341.3,
+        "angle": -180.56795042522023
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 60.2,
+        "svgX": 185.9,
+        "svgY": 284.4,
+        "angle": -191.14447209022003
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 62.0,
+        "svgX": 197.1,
+        "svgY": 266.2,
+        "angle": 115.09022178802522
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 63.6,
+        "svgX": 216.0,
+        "svgY": 268.1,
+        "angle": -90.97901268389123
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 72.3,
+        "svgX": 311.7,
+        "svgY": 264.6,
+        "angle": 64.02888553347759
+      },
+      {
+        "number": 15,
+        "letter": null,
+        "position": 73.3,
+        "svgX": 320.7,
+        "svgY": 270.9,
+        "angle": -96.25082233626188
+      },
+      {
+        "number": 16,
+        "letter": null,
+        "position": 84.4,
+        "svgX": 421.9,
+        "svgY": 196.7,
+        "angle": -51.56989885889029
+      },
+      {
+        "number": 17,
+        "letter": null,
+        "position": 88.5,
+        "svgX": 459.8,
+        "svgY": 174.7,
+        "angle": -7.579908469050402
+      },
+      {
+        "number": 18,
+        "letter": null,
+        "position": 91.1,
+        "svgX": 443.1,
+        "svgY": 149.7,
+        "angle": 86.24746693674015
+      },
+      {
+        "number": 19,
+        "letter": null,
+        "position": 97.8,
+        "svgX": 376.8,
+        "svgY": 176.5,
+        "angle": -73.50537254412396
+      }
+    ]
+  },
+  "monaco": {
+    "trackLength": 3265.0,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 5.6,
+        "svgX": 154.0,
+        "svgY": 26.0,
+        "angle": 140.3846313043515
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 17.6,
+        "svgX": 277.8,
+        "svgY": 99.7,
+        "angle": 103.01511724015117
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 22.6,
+        "svgX": 332.0,
+        "svgY": 117.1,
+        "angle": 168.94984234500842
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 26.5,
+        "svgX": 349.1,
+        "svgY": 75.3,
+        "angle": -174.39625672702851
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 33.4,
+        "svgX": 430.3,
+        "svgY": 63.9,
+        "angle": 76.19105663205922
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 37.4,
+        "svgX": 422.3,
+        "svgY": 104.8,
+        "angle": -85.86275308686861
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 39.8,
+        "svgX": 433.6,
+        "svgY": 81.9,
+        "angle": -14.461416055118015
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 42.5,
+        "svgX": 459.2,
+        "svgY": 95.6,
+        "angle": 44.79949514192601
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 52.9,
+        "svgX": 355.7,
+        "svgY": 154.0,
+        "angle": 125.0997533777758
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 62.4,
+        "svgX": 246.2,
+        "svgY": 103.6,
+        "angle": 144.84561051048868
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 64.2,
+        "svgX": 230.4,
+        "svgY": 97.3,
+        "angle": -103.72939595631462
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 70.9,
+        "svgX": 163.8,
+        "svgY": 46.1,
+        "angle": -54.9625873658003
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 75.8,
+        "svgX": 117.2,
+        "svgY": 74.0,
+        "angle": -155.76249696113177
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 76.4,
+        "svgX": 115.6,
+        "svgY": 84.9,
+        "angle": 21.944069983276485
+      },
+      {
+        "number": 15,
+        "letter": null,
+        "position": 80.3,
+        "svgX": 87.5,
+        "svgY": 125.6,
+        "angle": -10.762562523217996
+      },
+      {
+        "number": 16,
+        "letter": null,
+        "position": 81.2,
+        "svgX": 79.7,
+        "svgY": 126.9,
+        "angle": 153.79114079774385
+      },
+      {
+        "number": 17,
+        "letter": null,
+        "position": 83.4,
+        "svgX": 65.2,
+        "svgY": 149.4,
+        "angle": 27.71185341167223
+      },
+      {
+        "number": 18,
+        "letter": null,
+        "position": 87.1,
+        "svgX": 64.4,
+        "svgY": 192.2,
+        "angle": -7.508149364344431
+      },
+      {
+        "number": 19,
+        "letter": null,
+        "position": 89.9,
+        "svgX": 40.0,
+        "svgY": 174.9,
+        "angle": -137.085449208191
+      }
+    ]
+  },
+  "montreal": {
+    "trackLength": 4316.0,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 5.1,
+        "svgX": 437.8,
+        "svgY": -45.6,
+        "angle": -165.7042232224879
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 7.3,
+        "svgX": 458.3,
+        "svgY": -48.3,
+        "angle": -22.292628506519133
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 16.2,
+        "svgX": 397.0,
+        "svgY": -2.4,
+        "angle": -158.88211146259871
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 17.4,
+        "svgX": 385.9,
+        "svgY": -8.4,
+        "angle": 10.981968146091017
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 22.8,
+        "svgX": 337.9,
+        "svgY": 3.1,
+        "angle": 29.69970797495177
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 27.9,
+        "svgX": 292.3,
+        "svgY": -14.3,
+        "angle": 27.68189480956655
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 29.8,
+        "svgX": 279.6,
+        "svgY": -1.1,
+        "angle": -117.80501466388415
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 45.7,
+        "svgX": 151.4,
+        "svgY": -69.3,
+        "angle": 118.5937331062827
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 47.5,
+        "svgX": 149.5,
+        "svgY": -86.5,
+        "angle": -28.30519809467008
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 61.4,
+        "svgX": 40.3,
+        "svgY": -155.4,
+        "angle": 97.79649538436189
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 64.1,
+        "svgX": 61.9,
+        "svgY": -152.4,
+        "angle": 9.36772122115067
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 72.6,
+        "svgX": 143.2,
+        "svgY": -143.2,
+        "angle": -161.17004277640703
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 89.2,
+        "svgX": 297.3,
+        "svgY": -101.9,
+        "angle": -21.168127295710576
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 89.8,
+        "svgX": 301.4,
+        "svgY": -95.9,
+        "angle": 157.077799192522
+      }
+    ]
+  },
+  "barcelona": {
+    "trackLength": 4638.2,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 17.6,
+        "svgX": 100.5,
+        "svgY": 139.7,
+        "angle": -68.8993899041057
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 19.2,
+        "svgX": 92.3,
+        "svgY": 116.6,
+        "angle": -280.50076395537997
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 24.7,
+        "svgX": 40.0,
+        "svgY": 64.8,
+        "angle": -119.44019417308891
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 37.1,
+        "svgX": 183.5,
+        "svgY": 36.9,
+        "angle": -299.8502116752963
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 46.8,
+        "svgX": 97.1,
+        "svgY": 88.8,
+        "angle": -244.87246530888558
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 50.6,
+        "svgX": 146.8,
+        "svgY": 116.4,
+        "angle": -49.40879337476423
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 54.2,
+        "svgX": 197.7,
+        "svgY": 114.2,
+        "angle": -345.91597826102355
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 56.2,
+        "svgX": 204.1,
+        "svgY": 87.1,
+        "angle": -144.8408914632198
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 62.2,
+        "svgX": 257.2,
+        "svgY": 27.0,
+        "angle": -201.63831408978086
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 74.9,
+        "svgX": 417.7,
+        "svgY": 101.2,
+        "angle": -342.50296791471146
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 77.9,
+        "svgX": 399.1,
+        "svgY": 65.7,
+        "angle": -55.51605895562858
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 80.5,
+        "svgX": 376.7,
+        "svgY": 43.9,
+        "angle": -127.85336281470802
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 86.1,
+        "svgX": 450.2,
+        "svgY": 47.2,
+        "angle": -255.98300625823205
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 93.0,
+        "svgX": 446.5,
+        "svgY": 136.1,
+        "angle": -353.6644628431238
+      }
+    ]
+  },
+  "spielberg": {
+    "trackLength": 4297.7,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 9.9,
+        "svgX": 217.2,
+        "svgY": 8.6,
+        "angle": -115.77962454723948
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 24.6,
+        "svgX": 105.4,
+        "svgY": -170.9,
+        "angle": 32.816311235060375
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 31.6,
+        "svgX": 40.7,
+        "svgY": -244.7,
+        "angle": 147.53856789297933
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 50.5,
+        "svgX": 306.6,
+        "svgY": -223.7,
+        "angle": 16.276140875442245
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 54.9,
+        "svgX": 267.0,
+        "svgY": -181.8,
+        "angle": -75.64882051123584
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 62.7,
+        "svgX": 161.5,
+        "svgY": -175.3,
+        "angle": -39.52498788143804
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 69.9,
+        "svgX": 208.4,
+        "svgY": -93.6,
+        "angle": 96.4938007769575
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 74.5,
+        "svgX": 263.0,
+        "svgY": -131.2,
+        "angle": 108.03501663007374
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 87.2,
+        "svgX": 439.8,
+        "svgY": -131.0,
+        "angle": 51.29113873108554
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 91.6,
+        "svgX": 458.6,
+        "svgY": -72.3,
+        "angle": -9.155093979430859
+      }
+    ]
+  },
+  "silverstone": {
+    "trackLength": 5832.0,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 7.4,
+        "svgX": 252.0,
+        "svgY": -80.7,
+        "angle": 98.4899241531774
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 10.4,
+        "svgX": 251.7,
+        "svgY": -119.0,
+        "angle": -78.03462987143243
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 14.8,
+        "svgX": 215.2,
+        "svgY": -168.0,
+        "angle": 98.2555451956151
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 17.7,
+        "svgX": 242.6,
+        "svgY": -192.2,
+        "angle": -75.86392528573197
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 21.0,
+        "svgX": 200.4,
+        "svgY": -201.1,
+        "angle": 19.10473024407218
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 33.7,
+        "svgX": 97.3,
+        "svgY": -61.7,
+        "angle": 108.3056633014727
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 37.4,
+        "svgX": 131.5,
+        "svgY": -33.8,
+        "angle": -130.008186597324
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 43.2,
+        "svgX": 62.0,
+        "svgY": -63.6,
+        "angle": 122.63389803912163
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 52.3,
+        "svgX": 43.5,
+        "svgY": -187.4,
+        "angle": 59.40549721836916
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 61.8,
+        "svgX": 167.5,
+        "svgY": -225.8,
+        "angle": -159.3327248044901
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 63.1,
+        "svgX": 188.5,
+        "svgY": -232.3,
+        "angle": -0.7521081230510966
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 65.6,
+        "svgX": 223.3,
+        "svgY": -228.7,
+        "angle": 6.130680887505708
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 68.2,
+        "svgX": 254.7,
+        "svgY": -240.5,
+        "angle": -11.177492704699338
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 70.7,
+        "svgX": 280.2,
+        "svgY": -217.9,
+        "angle": 131.62596056517813
+      },
+      {
+        "number": 15,
+        "letter": null,
+        "position": 85.5,
+        "svgX": 459.4,
+        "svgY": -117.2,
+        "angle": -81.47941394640335
+      },
+      {
+        "number": 16,
+        "letter": null,
+        "position": 93.1,
+        "svgX": 386.7,
+        "svgY": -41.4,
+        "angle": 61.329159623640706
+      },
+      {
+        "number": 17,
+        "letter": null,
+        "position": 94.7,
+        "svgX": 391.1,
+        "svgY": -21.8,
+        "angle": -79.86563689483886
+      },
+      {
+        "number": 18,
+        "letter": null,
+        "position": 97.3,
+        "svgX": 366.7,
+        "svgY": 0.2,
+        "angle": -178.56504718884855
+      }
+    ]
+  },
+  "hungaroring": {
+    "trackLength": 4342.4,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 14.3,
+        "svgX": 52.8,
+        "svgY": -296.4,
+        "angle": 146.52177108363696
+      },
+      {
+        "number": 1,
+        "letter": "A",
+        "position": 18.8,
+        "svgX": 117.5,
+        "svgY": -336.6,
+        "angle": 60.47100123888616
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 25.9,
+        "svgX": 243.6,
+        "svgY": -357.8,
+        "angle": -50.33326808579322
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 30.2,
+        "svgX": 186.0,
+        "svgY": -403.5,
+        "angle": 5.32648440746904
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 41.1,
+        "svgX": 144.3,
+        "svgY": -602.4,
+        "angle": 158.73003851084664
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 46.5,
+        "svgX": 75.4,
+        "svgY": -674.0,
+        "angle": -45.15991642801586
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 54.2,
+        "svgX": 203.1,
+        "svgY": -684.6,
+        "angle": -6.843936823489347
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 55.2,
+        "svgX": 209.3,
+        "svgY": -667.2,
+        "angle": 171.75480558986533
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 59.2,
+        "svgX": 268.7,
+        "svgY": -629.8,
+        "angle": -132.68783680755217
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 62.4,
+        "svgX": 323.7,
+        "svgY": -646.4,
+        "angle": 31.117516949595743
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 67.0,
+        "svgX": 372.8,
+        "svgY": -580.5,
+        "angle": -166.6926884163716
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 71.1,
+        "svgX": 444.3,
+        "svgY": -539.0,
+        "angle": -16.988076264862677
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 80.5,
+        "svgX": 433.4,
+        "svgY": -371.3,
+        "angle": -88.47262054946576
+      },
+      {
+        "number": 12,
+        "letter": "A",
+        "position": 83.6,
+        "svgX": 379.8,
+        "svgY": -374.3,
+        "angle": 42.29777285333536
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 86.7,
+        "svgX": 332.3,
+        "svgY": -355.5,
+        "angle": 146.5172487406101
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 93.5,
+        "svgX": 429.4,
+        "svgY": -309.1,
+        "angle": -50.073920456133536
+      }
+    ]
+  },
+  "spa": {
+    "trackLength": 6958.7,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 5.2,
+        "svgX": 41.5,
+        "svgY": -9.5,
+        "angle": 145.68175941520641
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 14.9,
+        "svgX": 122.3,
+        "svgY": -120.5,
+        "angle": -118.1437971997148
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 16.6,
+        "svgX": 137.1,
+        "svgY": -137.8,
+        "angle": 21.623120750256426
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 18.1,
+        "svgX": 156.8,
+        "svgY": -143.0,
+        "angle": -159.37230591855115
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 34.2,
+        "svgX": 371.3,
+        "svgY": -234.9,
+        "angle": -19.044517633774447
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 35.4,
+        "svgX": 384.5,
+        "svgY": -225.4,
+        "angle": 162.88664031411616
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 37.9,
+        "svgX": 417.5,
+        "svgY": -228.9,
+        "angle": 153.5589625319835
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 43.4,
+        "svgX": 456.0,
+        "svgY": -163.7,
+        "angle": -147.87551693169823
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 46.9,
+        "svgX": 419.3,
+        "svgY": -190.7,
+        "angle": 172.22776136494474
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 54.6,
+        "svgX": 317.7,
+        "svgY": -158.9,
+        "angle": 40.95163822007065
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 58.1,
+        "svgX": 319.9,
+        "svgY": -112.3,
+        "angle": -46.08229755088073
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 64.0,
+        "svgX": 399.7,
+        "svgY": -78.8,
+        "angle": -49.676165997109315
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 66.3,
+        "svgX": 397.5,
+        "svgY": -48.1,
+        "angle": 102.89657229563842
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 70.5,
+        "svgX": 443.8,
+        "svgY": -11.1,
+        "angle": -69.16199272690382
+      },
+      {
+        "number": 15,
+        "letter": null,
+        "position": 74.2,
+        "svgX": 415.0,
+        "svgY": 27.1,
+        "angle": -173.38859911250455
+      },
+      {
+        "number": 16,
+        "letter": null,
+        "position": 84.4,
+        "svgX": 308.0,
+        "svgY": -69.0,
+        "angle": 142.6697670739105
+      },
+      {
+        "number": 17,
+        "letter": null,
+        "position": 88.5,
+        "svgX": 255.1,
+        "svgY": -88.4,
+        "angle": 2.717271720601312
+      },
+      {
+        "number": 18,
+        "letter": null,
+        "position": 96.1,
+        "svgX": 148.4,
+        "svgY": -59.0,
+        "angle": 157.75138809208076
+      },
+      {
+        "number": 19,
+        "letter": null,
+        "position": 97.1,
+        "svgX": 141.7,
+        "svgY": -69.8,
+        "angle": -14.515880956568681
+      }
+    ]
+  },
+  "zandvoort": {
+    "trackLength": 4237.9,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 8.0,
+        "svgX": 172.2,
+        "svgY": -508.4,
+        "angle": 66.66521149736246
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 15.4,
+        "svgX": 160.3,
+        "svgY": -385.0,
+        "angle": -18.440573067287406
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 19.4,
+        "svgX": 115.5,
+        "svgY": -340.8,
+        "angle": 29.283872373939637
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 24.5,
+        "svgX": 201.2,
+        "svgY": -350.4,
+        "angle": -86.77139363570106
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 29.3,
+        "svgX": 280.7,
+        "svgY": -343.1,
+        "angle": 95.34956286211948
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 32.8,
+        "svgX": 343.2,
+        "svgY": -371.5,
+        "angle": -70.12544359743099
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 40.1,
+        "svgX": 458.6,
+        "svgY": -343.9,
+        "angle": -165.84312436013732
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 47.5,
+        "svgX": 401.1,
+        "svgY": -224.5,
+        "angle": 108.73626160403413
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 52.6,
+        "svgX": 321.5,
+        "svgY": -256.1,
+        "angle": -1.4836214508567382
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 58.8,
+        "svgX": 406.2,
+        "svgY": -311.0,
+        "angle": -167.37565645128126
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 72.3,
+        "svgX": 171.0,
+        "svgY": -286.4,
+        "angle": 79.03280221304747
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 74.4,
+        "svgX": 138.4,
+        "svgY": -291.7,
+        "angle": -38.19603534570552
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 81.8,
+        "svgX": 150.4,
+        "svgY": -162.6,
+        "angle": 150.03500571783175
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 88.4,
+        "svgX": 45.7,
+        "svgY": -183.6,
+        "angle": 30.844208408407265
+      }
+    ]
+  },
+  "monza": {
+    "trackLength": 5754.0,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 15.3,
+        "svgX": 201.2,
+        "svgY": -16.0,
+        "angle": 153.78733177568182
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 16.3,
+        "svgX": 194.5,
+        "svgY": -23.3,
+        "angle": -13.83584308210785
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 25.2,
+        "svgX": 103.3,
+        "svgY": -29.5,
+        "angle": 133.0285175221899
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 36.3,
+        "svgX": 68.6,
+        "svgY": -142.7,
+        "angle": -54.042256120811224
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 37.3,
+        "svgX": 60.8,
+        "svgY": -148.1,
+        "angle": 121.75285797812727
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 43.6,
+        "svgX": 42.4,
+        "svgY": -210.7,
+        "angle": 54.6416550196045
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 49.0,
+        "svgX": 98.7,
+        "svgY": -223.5,
+        "angle": -29.053283096610013
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 67.8,
+        "svgX": 233.0,
+        "svgY": -77.5,
+        "angle": 163.07286056163184
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 69.4,
+        "svgX": 249.9,
+        "svgY": -77.4,
+        "angle": -21.066696185852937
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 71.0,
+        "svgX": 266.1,
+        "svgY": -67.8,
+        "angle": 152.54444074214535
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 90.1,
+        "svgX": 460.0,
+        "svgY": -48.3,
+        "angle": -95.85285360901966
+      }
+    ]
+  },
+  "baku": {
+    "trackLength": 5939.5,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 4.8,
+        "svgX": 459.1,
+        "svgY": 31.5,
+        "angle": -24.903645119677286
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 10.6,
+        "svgX": 436.3,
+        "svgY": -30.6,
+        "angle": 77.31677056705472
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 25.0,
+        "svgX": 274.9,
+        "svgY": 27.0,
+        "angle": 145.17933231096453
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 28.8,
+        "svgX": 286.7,
+        "svgY": 69.4,
+        "angle": -26.596082318859345
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 34.5,
+        "svgX": 228.0,
+        "svgY": 99.3,
+        "angle": -199.97457302181692
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 35.4,
+        "svgX": 229.6,
+        "svgY": 110.3,
+        "angle": -202.2750973368365
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 41.9,
+        "svgX": 165.8,
+        "svgY": 153.0,
+        "angle": 68.56357028741353
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 45.2,
+        "svgX": 153.7,
+        "svgY": 116.5,
+        "angle": 25.432318001574835
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 45.6,
+        "svgX": 150.0,
+        "svgY": 113.3,
+        "angle": 66.83944441448027
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 46.1,
+        "svgX": 144.5,
+        "svgY": 111.3,
+        "angle": 81.38530281497013
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 46.9,
+        "svgX": 135.3,
+        "svgY": 109.4,
+        "angle": -114.90392566439111
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 47.9,
+        "svgX": 131.4,
+        "svgY": 99.6,
+        "angle": 50.828198968469465
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 54.4,
+        "svgX": 58.0,
+        "svgY": 126.6,
+        "angle": 138.08555118825365
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 58.5,
+        "svgX": 41.8,
+        "svgY": 168.4,
+        "angle": -183.8775543415825
+      },
+      {
+        "number": 15,
+        "letter": null,
+        "position": 62.2,
+        "svgX": 40.4,
+        "svgY": 212.6,
+        "angle": -154.64793221960304
+      },
+      {
+        "number": 16,
+        "letter": null,
+        "position": 68.0,
+        "svgX": 102.1,
+        "svgY": 246.8,
+        "angle": -59.75879758332747
+      },
+      {
+        "number": 17,
+        "letter": null,
+        "position": 71.5,
+        "svgX": 122.6,
+        "svgY": 215.4,
+        "angle": -36.31538752111932
+      },
+      {
+        "number": 18,
+        "letter": null,
+        "position": 75.1,
+        "svgX": 157.8,
+        "svgY": 183.7,
+        "angle": -37.21067888992388
+      },
+      {
+        "number": 19,
+        "letter": null,
+        "position": 78.0,
+        "svgX": 169.3,
+        "svgY": 155.4,
+        "angle": -31.487940217715586
+      },
+      {
+        "number": 20,
+        "letter": null,
+        "position": 83.1,
+        "svgX": 220.0,
+        "svgY": 119.3,
+        "angle": -53.634965928817174
+      }
+    ]
+  },
+  "marina-bay": {
+    "trackLength": 4887.3,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 7.8,
+        "svgX": 460.0,
+        "svgY": -135.6,
+        "angle": 40.09899112559812
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 9.3,
+        "svgX": 446.8,
+        "svgY": -149.5,
+        "angle": -116.33812114496007
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 10.8,
+        "svgX": 436.1,
+        "svgY": -166.0,
+        "angle": 108.31812608238168
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 14.0,
+        "svgX": 414.4,
+        "svgY": -134.4,
+        "angle": -159.82584190332562
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 19.4,
+        "svgX": 392.3,
+        "svgY": -67.0,
+        "angle": -56.17507239255018
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 28.3,
+        "svgX": 285.4,
+        "svgY": -121.7,
+        "angle": -99.40534019082725
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 35.6,
+        "svgX": 220.6,
+        "svgY": -205.3,
+        "angle": 84.28802927725171
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 40.4,
+        "svgX": 165.2,
+        "svgY": -180.9,
+        "angle": -137.55488367522997
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 44.4,
+        "svgX": 141.6,
+        "svgY": -226.4,
+        "angle": -77.17835340212868
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 53.0,
+        "svgX": 43.2,
+        "svgY": -161.3,
+        "angle": -182.9285608765443
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 56.2,
+        "svgX": 54.8,
+        "svgY": -120.5,
+        "angle": 21.97298112607431
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 58.1,
+        "svgX": 52.3,
+        "svgY": -98.1,
+        "angle": -133.1642603505898
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 61.5,
+        "svgX": 68.9,
+        "svgY": -54.3,
+        "angle": -96.04299005964127
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 72.9,
+        "svgX": 173.0,
+        "svgY": -162.4,
+        "angle": 273.56261626114366
+      },
+      {
+        "number": 15,
+        "letter": null,
+        "position": 77.7,
+        "svgX": 201.0,
+        "svgY": -106.4,
+        "angle": 247.80392755981828
+      },
+      {
+        "number": 16,
+        "letter": null,
+        "position": 87.4,
+        "svgX": 320.2,
+        "svgY": -36.5,
+        "angle": 41.59452534061187
+      },
+      {
+        "number": 17,
+        "letter": null,
+        "position": 89.0,
+        "svgX": 321.0,
+        "svgY": -15.5,
+        "angle": 48.421856283785445
+      },
+      {
+        "number": 18,
+        "letter": null,
+        "position": 94.2,
+        "svgX": 385.0,
+        "svgY": 22.4,
+        "angle": 99.54974113843991
+      },
+      {
+        "number": 19,
+        "letter": null,
+        "position": 97.0,
+        "svgX": 414.2,
+        "svgY": 10.3,
+        "angle": -14.64865962944613
+      }
+    ]
+  },
+  "austin": {
+    "trackLength": 5421.9,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 11.7,
+        "svgX": 185.8,
+        "svgY": 72.2,
+        "angle": -44.65195695742783
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 16.2,
+        "svgX": 178.2,
+        "svgY": 18.5,
+        "angle": -200.3469641110752
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 21.0,
+        "svgX": 224.1,
+        "svgY": -19.5,
+        "angle": -43.71563655008453
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 22.6,
+        "svgX": 234.5,
+        "svgY": -36.6,
+        "angle": 141.14534006324735
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 24.3,
+        "svgX": 252.2,
+        "svgY": -50.5,
+        "angle": -30.322413912880773
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 26.8,
+        "svgX": 265.1,
+        "svgY": -77.5,
+        "angle": 129.91658034908926
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 31.0,
+        "svgX": 314.2,
+        "svgY": -75.1,
+        "angle": -75.27417115433745
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 33.7,
+        "svgX": 341.7,
+        "svgY": -96.5,
+        "angle": 94.00044337982348
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 35.5,
+        "svgX": 360.1,
+        "svgY": -86.7,
+        "angle": -109.78937699733613
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 39.3,
+        "svgX": 406.4,
+        "svgY": -98.1,
+        "angle": -57.57904768880108
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 46.5,
+        "svgX": 459.4,
+        "svgY": -167.1,
+        "angle": 32.93557808140348
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 68.0,
+        "svgX": 192.3,
+        "svgY": -113.3,
+        "angle": -215.09380810399114
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 72.3,
+        "svgX": 213.6,
+        "svgY": -68.5,
+        "angle": -35.26644068702872
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 73.7,
+        "svgX": 198.2,
+        "svgY": -67.9,
+        "angle": -125.80171331872026
+      },
+      {
+        "number": 15,
+        "letter": null,
+        "position": 77.5,
+        "svgX": 165.3,
+        "svgY": -91.1,
+        "angle": -205.71642813601727
+      },
+      {
+        "number": 16,
+        "letter": null,
+        "position": 81.2,
+        "svgX": 184.7,
+        "svgY": -53.8,
+        "angle": -166.36228991817734
+      },
+      {
+        "number": 17,
+        "letter": null,
+        "position": 83.3,
+        "svgX": 176.0,
+        "svgY": -25.7,
+        "angle": -49.84976314365157
+      },
+      {
+        "number": 18,
+        "letter": null,
+        "position": 86.0,
+        "svgX": 145.6,
+        "svgY": -20.5,
+        "angle": -104.60865513920405
+      },
+      {
+        "number": 19,
+        "letter": null,
+        "position": 91.3,
+        "svgX": 100.2,
+        "svgY": -64.5,
+        "angle": 74.12689300139989
+      },
+      {
+        "number": 20,
+        "letter": null,
+        "position": 96.9,
+        "svgX": 40.2,
+        "svgY": -35.1,
+        "angle": -171.08009883185278
+      }
+    ]
+  },
+  "mexico-city": {
+    "trackLength": 4233.8,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 28.1,
+        "svgX": 382.5,
+        "svgY": -236.5,
+        "angle": 26.961070822263267
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 29.9,
+        "svgX": 395.2,
+        "svgY": -220.5,
+        "angle": -161.45663106776647
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 31.2,
+        "svgX": 411.9,
+        "svgY": -217.3,
+        "angle": 26.924666969078046
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 47.6,
+        "svgX": 440.4,
+        "svgY": -23.9,
+        "angle": -166.07931388750785
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 49.2,
+        "svgX": 459.1,
+        "svgY": -19.9,
+        "angle": -0.2925522266947098
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 52.4,
+        "svgX": 445.7,
+        "svgY": 14.1,
+        "angle": -109.04601548928066
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 60.4,
+        "svgX": 395.2,
+        "svgY": -63.0,
+        "angle": 25.060336529280704
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 63.1,
+        "svgX": 363.4,
+        "svgY": -67.2,
+        "angle": -141.61977719510452
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 64.9,
+        "svgX": 343.1,
+        "svgY": -73.6,
+        "angle": 50.280962176467256
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 69.2,
+        "svgX": 294.4,
+        "svgY": -55.7,
+        "angle": -128.91348209261224
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 71.6,
+        "svgX": 267.9,
+        "svgY": -67.5,
+        "angle": 34.93331843558475
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 84.6,
+        "svgX": 121.6,
+        "svgY": -13.0,
+        "angle": -135.537659071418
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 88.8,
+        "svgX": 85.7,
+        "svgY": -45.5,
+        "angle": 78.13896702277137
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 90.5,
+        "svgX": 76.4,
+        "svgY": -30.0,
+        "angle": -83.4928059806544
+      },
+      {
+        "number": 15,
+        "letter": null,
+        "position": 91.4,
+        "svgX": 65.3,
+        "svgY": -24.1,
+        "angle": 81.51269427768005
+      },
+      {
+        "number": 16,
+        "letter": null,
+        "position": 93.0,
+        "svgX": 48.4,
+        "svgY": -19.1,
+        "angle": -157.50555604044234
+      },
+      {
+        "number": 17,
+        "letter": null,
+        "position": 95.9,
+        "svgX": 43.2,
+        "svgY": -50.5,
+        "angle": -241.96179963456407
+      }
+    ]
+  },
+  "interlagos": {
+    "trackLength": 4239.6,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 8.6,
+        "svgX": 50.5,
+        "svgY": -253.5,
+        "angle": -87.79175741763308
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 10.7,
+        "svgX": 60.9,
+        "svgY": -215.8,
+        "angle": -94.1689759560868
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 15.1,
+        "svgX": 43.7,
+        "svgY": -144.8,
+        "angle": -58.64512614629921
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 33.1,
+        "svgX": 310.4,
+        "svgY": 0.2,
+        "angle": 30.204598325065245
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 36.9,
+        "svgX": 337.3,
+        "svgY": -57.3,
+        "angle": 101.23021811722906
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 47.3,
+        "svgX": 230.8,
+        "svgY": -199.7,
+        "angle": -63.591039489545885
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 50.6,
+        "svgX": 251.5,
+        "svgY": -247.4,
+        "angle": 38.70287788765292
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 54.4,
+        "svgX": 315.2,
+        "svgY": -244.9,
+        "angle": 148.83843695055168
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 57.3,
+        "svgX": 303.3,
+        "svgY": -199.4,
+        "angle": -54.666533570246095
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 64.1,
+        "svgX": 409.9,
+        "svgY": -205.9,
+        "angle": 118.47024660701335
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 69.2,
+        "svgX": 356.4,
+        "svgY": -145.4,
+        "angle": 93.56740821839766
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 75.9,
+        "svgX": 431.8,
+        "svgY": -65.8,
+        "angle": -146.1850849034437
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 78.6,
+        "svgX": 456.4,
+        "svgY": -103.2,
+        "angle": 86.7865108166282
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 84.9,
+        "svgX": 438.2,
+        "svgY": -204.7,
+        "angle": 142.05075362970024
+      },
+      {
+        "number": 15,
+        "letter": null,
+        "position": 93.7,
+        "svgX": 292.6,
+        "svgY": -275.2,
+        "angle": 1.0861553243590512
+      }
+    ]
+  },
+  "las-vegas": {
+    "trackLength": 6164.8,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 4.5,
+        "svgX": 389.0,
+        "svgY": -40.1,
+        "angle": 9.795538591920971
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 6.1,
+        "svgX": 380.5,
+        "svgY": -23.8,
+        "angle": 103.78334152361211
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 9.2,
+        "svgX": 397.0,
+        "svgY": 11.0,
+        "angle": -106.56212302793445
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 11.2,
+        "svgX": 379.0,
+        "svgY": 28.3,
+        "angle": -168.51847408003212
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 25.0,
+        "svgX": 195.4,
+        "svgY": 33.3,
+        "angle": 144.53018155479614
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 29.2,
+        "svgX": 187.1,
+        "svgY": -21.4,
+        "angle": -59.42271244888282
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 32.8,
+        "svgX": 148.8,
+        "svgY": -38.9,
+        "angle": 231.86084892543946
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 33.7,
+        "svgX": 142.5,
+        "svgY": -30.0,
+        "angle": -162.718651359849
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 35.8,
+        "svgX": 117.0,
+        "svgY": -34.8,
+        "angle": 37.76413095008628
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 43.5,
+        "svgX": 104.5,
+        "svgY": 67.4,
+        "angle": 49.88141020779947
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 48.1,
+        "svgX": 56.8,
+        "svgY": 97.5,
+        "angle": 44.758308983178864
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 51.7,
+        "svgX": 41.4,
+        "svgY": 142.4,
+        "angle": 131.49571970573285
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 64.0,
+        "svgX": 192.3,
+        "svgY": 203.5,
+        "angle": 170.29968572912696
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 83.6,
+        "svgX": 445.2,
+        "svgY": 206.1,
+        "angle": -150.92660663222276
+      },
+      {
+        "number": 15,
+        "letter": null,
+        "position": 84.5,
+        "svgX": 451.1,
+        "svgY": 195.3,
+        "angle": 72.87141108251528
+      },
+      {
+        "number": 16,
+        "letter": null,
+        "position": 85.6,
+        "svgX": 458.3,
+        "svgY": 184.8,
+        "angle": -114.84690558811663
+      },
+      {
+        "number": 17,
+        "letter": null,
+        "position": 97.3,
+        "svgX": 455.8,
+        "svgY": 23.3,
+        "angle": -74.71852292472812
+      }
+    ]
+  },
+  "lusail": {
+    "trackLength": 5379.6,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 14.7,
+        "svgX": 72.4,
+        "svgY": -132.5,
+        "angle": -64.58557840889351
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 20.1,
+        "svgX": 137.7,
+        "svgY": -193.5,
+        "angle": 125.69052737981303
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 24.3,
+        "svgX": 82.2,
+        "svgY": -236.5,
+        "angle": -19.71812858827954
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 31.9,
+        "svgX": 45.1,
+        "svgY": -364.1,
+        "angle": -98.58410801377623
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 34.8,
+        "svgX": 91.8,
+        "svgY": -377.0,
+        "angle": -174.5257195157703
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 40.6,
+        "svgX": 139.5,
+        "svgY": -297.9,
+        "angle": 68.36502672094214
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 48.0,
+        "svgX": 176.7,
+        "svgY": -411.6,
+        "angle": -151.39251577200127
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 51.5,
+        "svgX": 208.7,
+        "svgY": -362.5,
+        "angle": -29.172323438973425
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 54.0,
+        "svgX": 233.4,
+        "svgY": -331.9,
+        "angle": 147.94255193426767
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 58.1,
+        "svgX": 228.4,
+        "svgY": -259.9,
+        "angle": -18.224830106039786
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 64.0,
+        "svgX": 311.3,
+        "svgY": -302.1,
+        "angle": -91.63734544672403
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 69.5,
+        "svgX": 355.3,
+        "svgY": -391.0,
+        "angle": -113.3319080016265
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 73.3,
+        "svgX": 418.0,
+        "svgY": -393.9,
+        "angle": 175.85083242802085
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 77.3,
+        "svgX": 447.7,
+        "svgY": -336.6,
+        "angle": 110.81396046187567
+      },
+      {
+        "number": 15,
+        "letter": null,
+        "position": 82.4,
+        "svgX": 390.9,
+        "svgY": -260.1,
+        "angle": -81.45270358793942
+      },
+      {
+        "number": 16,
+        "letter": null,
+        "position": 91.5,
+        "svgX": 459.1,
+        "svgY": -126.1,
+        "angle": 101.85221257440253
+      }
+    ]
+  },
+  "yas-marina": {
+    "trackLength": 5220.2,
+    "corners": [
+      {
+        "number": 1,
+        "letter": null,
+        "position": 7.2,
+        "svgX": 240.4,
+        "svgY": 172.7,
+        "angle": -35.34059995597422
+      },
+      {
+        "number": 2,
+        "letter": null,
+        "position": 12.0,
+        "svgX": 296.7,
+        "svgY": 151.1,
+        "angle": 42.198163677223626
+      },
+      {
+        "number": 3,
+        "letter": null,
+        "position": 16.0,
+        "svgX": 319.0,
+        "svgY": 104.2,
+        "angle": -163.16933202306825
+      },
+      {
+        "number": 4,
+        "letter": null,
+        "position": 19.3,
+        "svgX": 368.0,
+        "svgY": 100.0,
+        "angle": -8.298533240027417
+      },
+      {
+        "number": 5,
+        "letter": null,
+        "position": 27.1,
+        "svgX": 459.9,
+        "svgY": 69.7,
+        "angle": 84.3268470749317
+      },
+      {
+        "number": 6,
+        "letter": null,
+        "position": 50.1,
+        "svgX": 159.9,
+        "svgY": 18.2,
+        "angle": -148.9880374353488
+      },
+      {
+        "number": 7,
+        "letter": null,
+        "position": 51.3,
+        "svgX": 160.7,
+        "svgY": 32.9,
+        "angle": 46.32093034464459
+      },
+      {
+        "number": 8,
+        "letter": null,
+        "position": 55.1,
+        "svgX": 117.3,
+        "svgY": 60.4,
+        "angle": -144.58842947351582
+      },
+      {
+        "number": 9,
+        "letter": null,
+        "position": 70.5,
+        "svgX": 53.9,
+        "svgY": 244.3,
+        "angle": -21.95820525980746
+      },
+      {
+        "number": 10,
+        "letter": null,
+        "position": 77.1,
+        "svgX": 75.4,
+        "svgY": 171.2,
+        "angle": 82.8907618378775
+      },
+      {
+        "number": 11,
+        "letter": null,
+        "position": 80.2,
+        "svgX": 90.3,
+        "svgY": 133.8,
+        "angle": 34.85988973910911
+      },
+      {
+        "number": 12,
+        "letter": null,
+        "position": 82.5,
+        "svgX": 121.4,
+        "svgY": 124.0,
+        "angle": 149.6450958742448
+      },
+      {
+        "number": 13,
+        "letter": null,
+        "position": 84.5,
+        "svgX": 133.6,
+        "svgY": 147.7,
+        "angle": -41.8112415231557
+      },
+      {
+        "number": 14,
+        "letter": null,
+        "position": 86.9,
+        "svgX": 160.8,
+        "svgY": 140.4,
+        "angle": 54.746030923061184
+      },
+      {
+        "number": 15,
+        "letter": null,
+        "position": 92.0,
+        "svgX": 147.3,
+        "svgY": 74.6,
+        "angle": -112.58216166384628
+      },
+      {
+        "number": 16,
+        "letter": null,
+        "position": 96.6,
+        "svgX": 191.6,
+        "svgY": 40.7,
+        "angle": -23.292456563401426
+      }
+    ]
+  }
+}

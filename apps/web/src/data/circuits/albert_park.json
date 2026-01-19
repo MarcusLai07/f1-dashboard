@@ -1,0 +1,48 @@
+{
+  "id": "albert_park",
+  "name": "Albert Park Circuit",
+  "shortName": "Melbourne",
+  "location": "Melbourne",
+  "country": "Australia",
+  "length": 5.278,
+  "turns": 14,
+  "firstGP": 1996,
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 150,300 L 150,150 C 150,100 200,80 260,80 L 600,80 C 680,80 720,120 740,180 L 800,340 C 820,400 860,440 920,440 L 950,440 C 980,440 980,480 950,500 L 700,560 C 640,580 580,580 520,560 L 320,480 C 260,460 200,460 160,500 L 150,520 C 130,560 150,560 150,300 Z",
+    "startFinish": {
+      "x": 150,
+      "y": 220,
+      "angle": -90
+    }
+  },
+  "sectors": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 0.33,
+      "color": "#ef4444"
+    },
+    {
+      "id": 2,
+      "start": 0.33,
+      "end": 0.66,
+      "color": "#eab308"
+    },
+    {
+      "id": 3,
+      "start": 0.66,
+      "end": 1,
+      "color": "#22d3ee"
+    }
+  ],
+  "corners": [],
+  "drsZones": [],
+  "records": {
+    "lapRecord": {
+      "time": "1:19.813",
+      "driver": "Charles Leclerc",
+      "year": 2024
+    }
+  }
+}

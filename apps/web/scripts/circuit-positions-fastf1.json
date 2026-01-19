@@ -1,0 +1,117 @@
+{
+  "source": "FastF1",
+  "extractedAt": "2026-01-19",
+  "note": "Turn positions as percentage of track length from start/finish line",
+  "circuits": {
+    "melbourne": {
+      "trackLength": 5223.0,
+      "corners": [
+        { "number": 1, "distance": 351.4, "position": 6.7 },
+        { "number": 2, "distance": 433.1, "position": 8.3 },
+        { "number": 3, "distance": 1067.8, "position": 20.4 },
+        { "number": 4, "distance": 1219.7, "position": 23.4 },
+        { "number": 5, "distance": 1419.2, "position": 27.2 },
+        { "number": 6, "distance": 1845.4, "position": 35.3 },
+        { "number": 7, "distance": 1956.7, "position": 37.5 },
+        { "number": 8, "distance": 2153.2, "position": 41.2 },
+        { "number": 9, "distance": 3263.9, "position": 62.5 },
+        { "number": 10, "distance": 3375.3, "position": 64.6 },
+        { "number": 11, "distance": 4076.5, "position": 78.0 },
+        { "number": 12, "distance": 4335.3, "position": 83.0 },
+        { "number": 13, "distance": 4584.3, "position": 87.8 },
+        { "number": 14, "distance": 4748.8, "position": 90.9 }
+      ]
+    },
+    "bahrain": {
+      "trackLength": 5364.0,
+      "corners": [
+        { "number": 1, "distance": 712.3, "position": 13.3 },
+        { "number": 2, "distance": 811.8, "position": 15.1 },
+        { "number": 3, "distance": 921.3, "position": 17.2 },
+        { "number": 4, "distance": 1499.8, "position": 28.0 },
+        { "number": 5, "distance": 1767.8, "position": 33.0 },
+        { "number": 6, "distance": 1833.9, "position": 34.2 },
+        { "number": 7, "distance": 1967.4, "position": 36.7 },
+        { "number": 8, "distance": 2211.7, "position": 41.2 },
+        { "number": 9, "distance": 2574.5, "position": 48.0 },
+        { "number": 10, "distance": 2664.8, "position": 49.7 },
+        { "number": 11, "distance": 3451.8, "position": 64.4 },
+        { "number": 12, "distance": 3851.0, "position": 71.8 },
+        { "number": 13, "distance": 4060.8, "position": 75.7 },
+        { "number": 14, "distance": 4870.3, "position": 90.8 },
+        { "number": 15, "distance": 4953.3, "position": 92.3 }
+      ]
+    },
+    "monaco": {
+      "trackLength": 3284.0,
+      "corners": [
+        { "number": 1, "distance": 185.7, "position": 5.7 },
+        { "number": 2, "distance": 569.5, "position": 17.3 },
+        { "number": 3, "distance": 743.3, "position": 22.6 },
+        { "number": 4, "distance": 866.8, "position": 26.4 },
+        { "number": 5, "distance": 1089.9, "position": 33.2 },
+        { "number": 6, "distance": 1214.6, "position": 37.0 },
+        { "number": 7, "distance": 1295.4, "position": 39.4 },
+        { "number": 8, "distance": 1385.0, "position": 42.2 },
+        { "number": 9, "distance": 1716.0, "position": 52.3 },
+        { "number": 10, "distance": 2047.8, "position": 62.4 },
+        { "number": 11, "distance": 2102.7, "position": 64.0 },
+        { "number": 12, "distance": 2330.9, "position": 71.0 },
+        { "number": 13, "distance": 2482.7, "position": 75.6 },
+        { "number": 14, "distance": 2511.5, "position": 76.5 },
+        { "number": 15, "distance": 2650.0, "position": 80.7 },
+        { "number": 16, "distance": 2673.9, "position": 81.4 },
+        { "number": 17, "distance": 2748.0, "position": 83.7 },
+        { "number": 18, "distance": 2862.3, "position": 87.2 },
+        { "number": 19, "distance": 2951.0, "position": 89.9 }
+      ]
+    },
+    "silverstone": {
+      "trackLength": 5837.7,
+      "corners": [
+        { "number": 1, "distance": 462.6, "position": 7.9 },
+        { "number": 2, "distance": 609.6, "position": 10.4 },
+        { "number": 3, "distance": 862.3, "position": 14.8 },
+        { "number": 4, "distance": 1034.4, "position": 17.7 },
+        { "number": 5, "distance": 1230.1, "position": 21.1 },
+        { "number": 6, "distance": 1957.7, "position": 33.5 },
+        { "number": 7, "distance": 2183.4, "position": 37.4 },
+        { "number": 8, "distance": 2535.0, "position": 43.4 },
+        { "number": 9, "distance": 3057.0, "position": 52.4 },
+        { "number": 10, "distance": 3613.0, "position": 61.9 },
+        { "number": 11, "distance": 3699.6, "position": 63.4 },
+        { "number": 12, "distance": 3840.9, "position": 65.8 },
+        { "number": 13, "distance": 3985.5, "position": 68.3 },
+        { "number": 14, "distance": 4131.8, "position": 70.8 },
+        { "number": 15, "distance": 4998.3, "position": 85.6 },
+        { "number": 16, "distance": 5454.8, "position": 93.4 },
+        { "number": 17, "distance": 5536.9, "position": 94.8 },
+        { "number": 18, "distance": 5684.4, "position": 97.4 }
+      ]
+    },
+    "spa": {
+      "trackLength": 6942.9,
+      "corners": [
+        { "number": 1, "distance": 366.0, "position": 5.3 },
+        { "number": 2, "distance": 1053.2, "position": 15.2 },
+        { "number": 3, "distance": 1159.6, "position": 16.7 },
+        { "number": 4, "distance": 1252.7, "position": 18.0 },
+        { "number": 5, "distance": 2393.2, "position": 34.5 },
+        { "number": 6, "distance": 2467.2, "position": 35.5 },
+        { "number": 7, "distance": 2636.9, "position": 38.0 },
+        { "number": 8, "distance": 3024.5, "position": 43.6 },
+        { "number": 9, "distance": 3264.0, "position": 47.0 },
+        { "number": 10, "distance": 3781.6, "position": 54.5 },
+        { "number": 11, "distance": 4032.6, "position": 58.1 },
+        { "number": 12, "distance": 4446.4, "position": 64.0 },
+        { "number": 13, "distance": 4613.5, "position": 66.4 },
+        { "number": 14, "distance": 4898.0, "position": 70.5 },
+        { "number": 15, "distance": 5160.0, "position": 74.3 },
+        { "number": 16, "distance": 5853.5, "position": 84.3 },
+        { "number": 17, "distance": 6138.5, "position": 88.4 },
+        { "number": 18, "distance": 6667.6, "position": 96.0 },
+        { "number": 19, "distance": 6738.1, "position": 97.0 }
+      ]
+    }
+  }
+}

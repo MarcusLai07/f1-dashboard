@@ -1,0 +1,40 @@
+{
+  "id": "imola",
+  "name": "Autodromo Enzo e Dino Ferrari",
+  "shortName": "Imola",
+  "location": "Imola",
+  "country": "Italy",
+  "length": 4.909,
+  "turns": 19,
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 100,350 L 100,200 C 100,140 160,100 240,100 L 600,100 C 680,100 740,140 780,200 L 860,360 C 880,400 880,460 840,500 L 700,580 C 640,620 560,620 500,580 L 300,460 C 240,420 180,420 140,460 L 100,500 C 80,540 100,540 100,350 Z",
+    "startFinish": {
+      "x": 100,
+      "y": 280,
+      "angle": -90
+    }
+  },
+  "sectors": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 0.33,
+      "color": "#ef4444"
+    },
+    {
+      "id": 2,
+      "start": 0.33,
+      "end": 0.66,
+      "color": "#eab308"
+    },
+    {
+      "id": 3,
+      "start": 0.66,
+      "end": 1,
+      "color": "#22d3ee"
+    }
+  ],
+  "corners": [],
+  "drsZones": []
+}

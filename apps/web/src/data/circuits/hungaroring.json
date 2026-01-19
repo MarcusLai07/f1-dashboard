@@ -1,0 +1,40 @@
+{
+  "id": "hungaroring",
+  "name": "Hungaroring",
+  "shortName": "Hungary",
+  "location": "Mogyoród",
+  "country": "Hungary",
+  "length": 4.381,
+  "turns": 14,
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 120,350 L 120,200 C 120,140 180,100 260,100 L 500,100 C 580,100 640,140 680,200 L 780,380 C 820,460 880,480 940,460 L 960,450 C 980,440 980,500 940,520 L 700,580 C 600,600 500,580 420,540 L 240,440 C 180,410 140,420 120,480 C 100,540 120,540 120,350 Z",
+    "startFinish": {
+      "x": 120,
+      "y": 280,
+      "angle": -90
+    }
+  },
+  "sectors": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 0.33,
+      "color": "#ef4444"
+    },
+    {
+      "id": 2,
+      "start": 0.33,
+      "end": 0.66,
+      "color": "#eab308"
+    },
+    {
+      "id": 3,
+      "start": 0.66,
+      "end": 1,
+      "color": "#22d3ee"
+    }
+  ],
+  "corners": [],
+  "drsZones": []
+}

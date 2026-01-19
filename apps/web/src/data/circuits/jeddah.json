@@ -1,0 +1,40 @@
+{
+  "id": "jeddah",
+  "name": "Jeddah Corniche Circuit",
+  "shortName": "Jeddah",
+  "location": "Jeddah",
+  "country": "Saudi Arabia",
+  "length": 6.174,
+  "turns": 27,
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 60,400 L 60,200 C 60,140 100,100 160,100 L 400,100 C 440,100 480,120 500,160 L 560,280 C 580,320 620,340 680,340 L 800,340 C 860,340 900,380 920,420 L 960,540 C 980,580 940,600 900,580 L 600,480 C 540,460 480,460 420,480 L 200,560 C 140,580 80,540 80,480 L 60,400 Z",
+    "startFinish": {
+      "x": 60,
+      "y": 300,
+      "angle": -90
+    }
+  },
+  "sectors": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 0.33,
+      "color": "#ef4444"
+    },
+    {
+      "id": 2,
+      "start": 0.33,
+      "end": 0.66,
+      "color": "#eab308"
+    },
+    {
+      "id": 3,
+      "start": 0.66,
+      "end": 1,
+      "color": "#22d3ee"
+    }
+  ],
+  "corners": [],
+  "drsZones": []
+}

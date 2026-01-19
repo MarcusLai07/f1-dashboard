@@ -1,0 +1,48 @@
+{
+  "id": "suzuka",
+  "name": "Suzuka International Racing Course",
+  "shortName": "Suzuka",
+  "location": "Suzuka",
+  "country": "Japan",
+  "length": 5.807,
+  "turns": 18,
+  "firstGP": 1987,
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 150,350 C 150,280 200,220 280,200 L 400,180 C 460,170 500,200 520,260 L 540,340 C 560,400 620,420 680,400 L 800,340 C 860,310 900,340 900,400 L 900,480 C 900,540 860,580 800,580 L 500,580 C 440,580 400,540 400,480 L 400,420 C 400,360 360,320 300,320 L 200,340 C 160,350 150,380 150,350 Z",
+    "startFinish": {
+      "x": 150,
+      "y": 350,
+      "angle": 0
+    }
+  },
+  "sectors": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 0.33,
+      "color": "#ef4444"
+    },
+    {
+      "id": 2,
+      "start": 0.33,
+      "end": 0.66,
+      "color": "#eab308"
+    },
+    {
+      "id": 3,
+      "start": 0.66,
+      "end": 1,
+      "color": "#22d3ee"
+    }
+  ],
+  "corners": [],
+  "drsZones": [],
+  "records": {
+    "lapRecord": {
+      "time": "1:30.983",
+      "driver": "Lewis Hamilton",
+      "year": 2019
+    }
+  }
+}

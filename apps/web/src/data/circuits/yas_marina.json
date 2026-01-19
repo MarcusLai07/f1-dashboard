@@ -1,0 +1,48 @@
+{
+  "id": "yas_marina",
+  "name": "Yas Marina Circuit",
+  "shortName": "Yas Marina",
+  "location": "Abu Dhabi",
+  "country": "UAE",
+  "length": 5.281,
+  "turns": 16,
+  "firstGP": 2009,
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 180,300 L 180,180 C 180,140 220,100 280,100 L 500,100 C 540,100 560,120 580,140 L 680,240 C 720,280 760,280 800,260 L 880,220 C 920,200 940,220 940,260 L 940,380 C 940,420 920,440 880,440 L 760,440 C 720,440 700,460 700,500 L 700,520 C 700,560 660,580 620,580 L 380,580 C 340,580 300,560 280,520 L 200,380 C 180,340 180,320 180,300 Z",
+    "startFinish": {
+      "x": 180,
+      "y": 240,
+      "angle": -90
+    }
+  },
+  "sectors": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 0.33,
+      "color": "#ef4444"
+    },
+    {
+      "id": 2,
+      "start": 0.33,
+      "end": 0.66,
+      "color": "#eab308"
+    },
+    {
+      "id": 3,
+      "start": 0.66,
+      "end": 1,
+      "color": "#22d3ee"
+    }
+  ],
+  "corners": [],
+  "drsZones": [],
+  "records": {
+    "lapRecord": {
+      "time": "1:26.103",
+      "driver": "Max Verstappen",
+      "year": 2021
+    }
+  }
+}

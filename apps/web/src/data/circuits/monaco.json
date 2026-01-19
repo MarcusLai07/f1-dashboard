@@ -1,0 +1,48 @@
+{
+  "id": "monaco",
+  "name": "Circuit de Monaco",
+  "shortName": "Monaco",
+  "location": "Monte Carlo",
+  "country": "Monaco",
+  "length": 3.337,
+  "turns": 19,
+  "firstGP": 1950,
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 150,400 L 150,200 C 150,160 180,140 220,140 L 400,140 C 440,140 460,160 480,180 L 520,220 C 560,260 600,260 640,240 L 720,200 C 760,180 800,180 840,200 L 900,260 C 940,300 940,360 900,400 L 800,480 C 760,510 720,520 680,500 L 600,460 C 560,440 520,450 480,480 L 380,560 C 340,590 280,590 240,560 L 180,500 C 150,470 150,440 150,400 Z",
+    "startFinish": {
+      "x": 150,
+      "y": 300,
+      "angle": -90
+    }
+  },
+  "sectors": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 0.33,
+      "color": "#ef4444"
+    },
+    {
+      "id": 2,
+      "start": 0.33,
+      "end": 0.66,
+      "color": "#eab308"
+    },
+    {
+      "id": 3,
+      "start": 0.66,
+      "end": 1,
+      "color": "#22d3ee"
+    }
+  ],
+  "corners": [],
+  "drsZones": [],
+  "records": {
+    "lapRecord": {
+      "time": "1:12.909",
+      "driver": "Lewis Hamilton",
+      "year": 2021
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "zandvoort",
+  "name": "Circuit Zandvoort",
+  "shortName": "Zandvoort",
+  "location": "Zandvoort",
+  "country": "Netherlands",
+  "length": 4.259,
+  "turns": 14,
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 100,350 L 100,200 C 100,140 160,100 240,100 L 600,100 C 700,100 780,160 820,260 L 880,420 C 900,480 860,540 780,560 L 400,580 C 300,580 200,540 160,480 L 120,420 C 100,380 100,360 100,350 Z",
+    "startFinish": {
+      "x": 100,
+      "y": 280,
+      "angle": -90
+    }
+  },
+  "sectors": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 0.33,
+      "color": "#ef4444"
+    },
+    {
+      "id": 2,
+      "start": 0.33,
+      "end": 0.66,
+      "color": "#eab308"
+    },
+    {
+      "id": 3,
+      "start": 0.66,
+      "end": 1,
+      "color": "#22d3ee"
+    }
+  ],
+  "corners": [],
+  "drsZones": []
+}

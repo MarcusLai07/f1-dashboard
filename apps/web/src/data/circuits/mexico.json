@@ -1,0 +1,40 @@
+{
+  "id": "mexico",
+  "name": "Autodromo Hermanos Rodriguez",
+  "shortName": "Mexico City",
+  "location": "Mexico City",
+  "country": "Mexico",
+  "length": 4.304,
+  "turns": 17,
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 100,350 L 100,180 C 100,120 160,80 260,80 L 700,80 C 800,80 860,140 880,240 L 900,380 C 920,460 880,520 800,540 L 400,580 C 280,600 180,560 140,480 L 100,400 C 80,360 100,360 100,350 Z",
+    "startFinish": {
+      "x": 100,
+      "y": 260,
+      "angle": -90
+    }
+  },
+  "sectors": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 0.33,
+      "color": "#ef4444"
+    },
+    {
+      "id": 2,
+      "start": 0.33,
+      "end": 0.66,
+      "color": "#eab308"
+    },
+    {
+      "id": 3,
+      "start": 0.66,
+      "end": 1,
+      "color": "#22d3ee"
+    }
+  ],
+  "corners": [],
+  "drsZones": []
+}

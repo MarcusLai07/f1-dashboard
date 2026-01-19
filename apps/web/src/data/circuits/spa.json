@@ -1,0 +1,48 @@
+{
+  "id": "spa",
+  "name": "Circuit de Spa-Francorchamps",
+  "shortName": "Spa",
+  "location": "Stavelot",
+  "country": "Belgium",
+  "length": 7.004,
+  "turns": 19,
+  "firstGP": 1950,
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 80,400 L 80,280 C 80,240 100,200 140,180 L 280,120 C 320,100 360,100 400,120 L 500,180 L 600,140 C 660,110 720,110 780,140 L 900,220 C 940,250 960,300 940,360 L 880,480 C 860,520 820,540 780,540 L 600,540 C 560,540 520,520 500,480 L 420,340 C 400,300 360,280 320,300 L 200,380 C 160,400 120,420 100,460 L 80,520 C 60,560 80,560 80,400 Z",
+    "startFinish": {
+      "x": 80,
+      "y": 340,
+      "angle": -90
+    }
+  },
+  "sectors": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 0.33,
+      "color": "#ef4444"
+    },
+    {
+      "id": 2,
+      "start": 0.33,
+      "end": 0.66,
+      "color": "#eab308"
+    },
+    {
+      "id": 3,
+      "start": 0.66,
+      "end": 1,
+      "color": "#22d3ee"
+    }
+  ],
+  "corners": [],
+  "drsZones": [],
+  "records": {
+    "lapRecord": {
+      "time": "1:46.286",
+      "driver": "Valtteri Bottas",
+      "year": 2018
+    }
+  }
+}

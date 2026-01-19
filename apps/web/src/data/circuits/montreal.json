@@ -1,0 +1,40 @@
+{
+  "id": "montreal",
+  "name": "Circuit Gilles Villeneuve",
+  "shortName": "Montreal",
+  "location": "Montreal",
+  "country": "Canada",
+  "length": 4.361,
+  "turns": 14,
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 60,400 L 60,200 C 60,140 100,100 180,100 L 500,100 L 600,160 C 660,200 720,200 780,160 L 900,80 C 960,60 980,100 960,160 L 920,300 C 900,360 860,400 800,420 L 600,480 C 520,500 440,500 360,480 L 180,420 C 120,400 80,440 60,500 C 40,560 60,560 60,400 Z",
+    "startFinish": {
+      "x": 60,
+      "y": 300,
+      "angle": -90
+    }
+  },
+  "sectors": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 0.33,
+      "color": "#ef4444"
+    },
+    {
+      "id": 2,
+      "start": 0.33,
+      "end": 0.66,
+      "color": "#eab308"
+    },
+    {
+      "id": 3,
+      "start": 0.66,
+      "end": 1,
+      "color": "#22d3ee"
+    }
+  ],
+  "corners": [],
+  "drsZones": []
+}

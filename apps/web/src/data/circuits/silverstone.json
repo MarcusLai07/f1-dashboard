@@ -1,0 +1,48 @@
+{
+  "id": "silverstone",
+  "name": "Silverstone Circuit",
+  "shortName": "Silverstone",
+  "location": "Northamptonshire",
+  "country": "UK",
+  "length": 5.891,
+  "turns": 18,
+  "firstGP": 1950,
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 100,350 L 100,250 C 100,200 140,160 200,160 L 350,160 L 450,100 C 500,70 560,70 600,100 L 700,180 C 740,210 780,210 820,180 L 900,120 C 940,90 980,120 980,180 L 980,350 C 980,400 950,440 900,460 L 750,520 C 700,540 650,540 600,520 L 450,450 C 400,430 350,440 300,470 L 180,540 C 140,560 100,540 100,480 L 100,350 Z",
+    "startFinish": {
+      "x": 100,
+      "y": 300,
+      "angle": -90
+    }
+  },
+  "sectors": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 0.33,
+      "color": "#ef4444"
+    },
+    {
+      "id": 2,
+      "start": 0.33,
+      "end": 0.66,
+      "color": "#eab308"
+    },
+    {
+      "id": 3,
+      "start": 0.66,
+      "end": 1,
+      "color": "#22d3ee"
+    }
+  ],
+  "corners": [],
+  "drsZones": [],
+  "records": {
+    "lapRecord": {
+      "time": "1:27.097",
+      "driver": "Max Verstappen",
+      "year": 2020
+    }
+  }
+}

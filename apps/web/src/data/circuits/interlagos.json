@@ -1,0 +1,40 @@
+{
+  "id": "interlagos",
+  "name": "Autodromo Jose Carlos Pace",
+  "shortName": "Interlagos",
+  "location": "São Paulo",
+  "country": "Brazil",
+  "length": 4.309,
+  "turns": 15,
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 100,300 L 100,180 C 100,120 160,80 260,80 L 600,80 C 700,80 780,140 820,240 L 880,400 C 900,480 860,540 760,560 L 400,580 C 280,600 180,560 140,480 L 100,380 C 80,320 100,320 100,300 Z",
+    "startFinish": {
+      "x": 100,
+      "y": 240,
+      "angle": -90
+    }
+  },
+  "sectors": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 0.33,
+      "color": "#ef4444"
+    },
+    {
+      "id": 2,
+      "start": 0.33,
+      "end": 0.66,
+      "color": "#eab308"
+    },
+    {
+      "id": 3,
+      "start": 0.66,
+      "end": 1,
+      "color": "#22d3ee"
+    }
+  ],
+  "corners": [],
+  "drsZones": []
+}

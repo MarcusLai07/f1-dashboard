@@ -1,0 +1,40 @@
+{
+  "id": "red_bull_ring",
+  "name": "Red Bull Ring",
+  "shortName": "Austria",
+  "location": "Spielberg",
+  "country": "Austria",
+  "length": 4.318,
+  "turns": 10,
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 120,400 L 120,200 C 120,140 180,100 260,100 L 600,100 C 700,100 780,160 820,260 L 880,440 C 900,500 860,560 780,560 L 400,560 C 300,560 220,520 180,460 L 120,360 C 100,320 120,420 120,400 Z",
+    "startFinish": {
+      "x": 120,
+      "y": 300,
+      "angle": -90
+    }
+  },
+  "sectors": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 0.33,
+      "color": "#ef4444"
+    },
+    {
+      "id": 2,
+      "start": 0.33,
+      "end": 0.66,
+      "color": "#eab308"
+    },
+    {
+      "id": 3,
+      "start": 0.66,
+      "end": 1,
+      "color": "#22d3ee"
+    }
+  ],
+  "corners": [],
+  "drsZones": []
+}

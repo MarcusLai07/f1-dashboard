@@ -1,0 +1,40 @@
+{
+  "id": "barcelona",
+  "name": "Circuit de Barcelona-Catalunya",
+  "shortName": "Barcelona",
+  "location": "Montmeló",
+  "country": "Spain",
+  "length": 4.657,
+  "turns": 16,
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 100,350 L 100,180 C 100,120 160,80 240,80 L 500,80 C 560,80 600,100 640,140 L 760,280 C 800,320 860,340 920,320 L 960,300 C 980,290 980,340 960,380 L 860,500 C 800,560 720,580 640,560 L 400,480 C 320,460 240,480 180,520 L 120,560 C 80,580 100,540 100,350 Z",
+    "startFinish": {
+      "x": 100,
+      "y": 260,
+      "angle": -90
+    }
+  },
+  "sectors": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 0.33,
+      "color": "#ef4444"
+    },
+    {
+      "id": 2,
+      "start": 0.33,
+      "end": 0.66,
+      "color": "#eab308"
+    },
+    {
+      "id": 3,
+      "start": 0.66,
+      "end": 1,
+      "color": "#22d3ee"
+    }
+  ],
+  "corners": [],
+  "drsZones": []
+}

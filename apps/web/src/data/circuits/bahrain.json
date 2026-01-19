@@ -1,0 +1,48 @@
+{
+  "id": "bahrain",
+  "name": "Bahrain International Circuit",
+  "shortName": "Bahrain",
+  "location": "Sakhir",
+  "country": "Bahrain",
+  "length": 5.412,
+  "turns": 15,
+  "firstGP": 2004,
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 120,350 L 120,200 C 120,160 160,120 220,120 L 500,120 C 560,120 600,160 620,200 L 700,380 C 720,420 760,440 820,440 L 900,440 C 940,440 960,480 960,520 L 960,540 C 960,580 920,600 880,580 L 700,500 C 660,480 620,480 580,500 L 400,580 C 340,600 280,580 260,540 L 140,380 C 120,340 120,370 120,350 Z",
+    "startFinish": {
+      "x": 120,
+      "y": 280,
+      "angle": -90
+    }
+  },
+  "sectors": [
+    {
+      "id": 1,
+      "start": 0,
+      "end": 0.33,
+      "color": "#ef4444"
+    },
+    {
+      "id": 2,
+      "start": 0.33,
+      "end": 0.66,
+      "color": "#eab308"
+    },
+    {
+      "id": 3,
+      "start": 0.66,
+      "end": 1,
+      "color": "#22d3ee"
+    }
+  ],
+  "corners": [],
+  "drsZones": [],
+  "records": {
+    "lapRecord": {
+      "time": "1:31.447",
+      "driver": "Pedro de la Rosa",
+      "year": 2005
+    }
+  }
+}
