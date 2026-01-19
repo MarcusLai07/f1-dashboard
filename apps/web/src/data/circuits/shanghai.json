@@ -1,0 +1,29 @@
+{
+  "id": "shanghai",
+  "name": "Shanghai International Circuit",
+  "shortName": "Shanghai",
+  "location": "Shanghai",
+  "country": "China",
+  "length": 5.451,
+  "turns": 16,
+  "firstGP": 2004,
+
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 150,350 L 150,200 C 150,150 200,100 280,100 L 500,100 C 560,100 600,130 620,180 L 680,320 C 700,380 750,400 820,380 L 900,340 C 940,320 960,350 940,400 L 880,500 C 840,560 780,580 700,560 L 450,480 C 380,460 320,480 280,520 L 200,580 C 160,600 140,570 150,520 L 150,350 Z",
+    "startFinish": { "x": 150, "y": 280, "angle": -90 }
+  },
+
+  "sectors": [
+    { "id": 1, "start": 0, "end": 0.33, "color": "#ef4444" },
+    { "id": 2, "start": 0.33, "end": 0.66, "color": "#eab308" },
+    { "id": 3, "start": 0.66, "end": 1, "color": "#22d3ee" }
+  ],
+
+  "corners": [],
+  "drsZones": [],
+
+  "records": {
+    "lapRecord": { "time": "1:32.238", "driver": "Michael Schumacher", "year": 2004 }
+  }
+}

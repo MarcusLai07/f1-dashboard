@@ -1,0 +1,29 @@
+{
+  "id": "baku",
+  "name": "Baku City Circuit",
+  "shortName": "Baku",
+  "location": "Baku",
+  "country": "Azerbaijan",
+  "length": 6.003,
+  "turns": 20,
+  "firstGP": 2016,
+
+  "svg": {
+    "viewBox": "0 0 1000 600",
+    "path": "M 100,300 L 100,150 C 100,100 150,80 200,80 L 700,80 C 750,80 800,100 850,150 L 900,250 C 920,300 920,350 900,400 L 800,500 C 750,550 700,550 650,520 L 500,450 C 450,420 400,420 350,450 L 200,530 C 150,560 100,530 100,480 L 100,300 Z",
+    "startFinish": { "x": 100, "y": 220, "angle": -90 }
+  },
+
+  "sectors": [
+    { "id": 1, "start": 0, "end": 0.33, "color": "#ef4444" },
+    { "id": 2, "start": 0.33, "end": 0.66, "color": "#eab308" },
+    { "id": 3, "start": 0.66, "end": 1, "color": "#22d3ee" }
+  ],
+
+  "corners": [],
+  "drsZones": [],
+
+  "records": {
+    "lapRecord": { "time": "1:43.009", "driver": "Charles Leclerc", "year": 2019 }
+  }
+}
