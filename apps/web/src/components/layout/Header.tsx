@@ -56,6 +56,17 @@ export function Header({ sessionName, isLive = false }: HeaderProps) {
           >
             Season
           </Link>
+          <Link
+            href="/calendar"
+            className={cn(
+              "px-3 py-1.5 rounded-md text-sm font-medium transition-colors",
+              pathname === "/calendar"
+                ? "bg-secondary text-foreground"
+                : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+            )}
+          >
+            Calendar
+          </Link>
         </nav>
       </div>
 

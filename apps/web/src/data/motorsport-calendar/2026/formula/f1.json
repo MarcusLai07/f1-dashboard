@@ -1,0 +1,786 @@
+{
+  "seriesId": "f1",
+  "year": 2026,
+  "events": [
+    {
+      "id": "f1-2026-launch-01",
+      "seriesId": "f1",
+      "name": "Red Bull / Racing Bulls Launch",
+      "country": "USA",
+      "circuit": "Detroit Event Center",
+      "location": "Detroit, Michigan",
+      "dates": { "start": "2026-01-15", "end": "2026-01-15" },
+      "sessions": [
+        { "name": "Car Reveal", "shortName": "Reveal", "dateTime": "2026-01-15T18:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "eventType": "launch"
+    },
+    {
+      "id": "f1-2026-launch-02",
+      "seriesId": "f1",
+      "name": "Haas Launch",
+      "country": "USA",
+      "circuit": "Online",
+      "location": "Online",
+      "dates": { "start": "2026-01-19", "end": "2026-01-19" },
+      "sessions": [
+        { "name": "Car Reveal", "shortName": "Reveal", "dateTime": "2026-01-19T14:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "eventType": "launch"
+    },
+    {
+      "id": "f1-2026-launch-03",
+      "seriesId": "f1",
+      "name": "Audi Launch",
+      "country": "Germany",
+      "circuit": "Berlin Event",
+      "location": "Berlin",
+      "dates": { "start": "2026-01-20", "end": "2026-01-20" },
+      "sessions": [
+        { "name": "Car Reveal", "shortName": "Reveal", "dateTime": "2026-01-20T11:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "eventType": "launch"
+    },
+    {
+      "id": "f1-2026-launch-04",
+      "seriesId": "f1",
+      "name": "Honda Power Unit Reveal",
+      "country": "Japan",
+      "circuit": "Tokyo Event",
+      "location": "Tokyo",
+      "dates": { "start": "2026-01-20", "end": "2026-01-20" },
+      "sessions": [
+        { "name": "PU Reveal", "shortName": "Reveal", "dateTime": "2026-01-20T04:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "eventType": "launch"
+    },
+    {
+      "id": "f1-2026-launch-05",
+      "seriesId": "f1",
+      "name": "Mercedes Launch",
+      "country": "Great Britain",
+      "circuit": "Online",
+      "location": "Online",
+      "dates": { "start": "2026-01-22", "end": "2026-01-22" },
+      "sessions": [
+        { "name": "Car Reveal", "shortName": "Reveal", "dateTime": "2026-01-22T10:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "eventType": "launch"
+    },
+    {
+      "id": "f1-2026-launch-06",
+      "seriesId": "f1",
+      "name": "Alpine Launch",
+      "country": "Spain",
+      "circuit": "Circuit de Barcelona-Catalunya",
+      "location": "Barcelona",
+      "dates": { "start": "2026-01-23", "end": "2026-01-23" },
+      "sessions": [
+        { "name": "Car Reveal", "shortName": "Reveal", "dateTime": "2026-01-23T10:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "eventType": "launch"
+    },
+    {
+      "id": "f1-2026-launch-07",
+      "seriesId": "f1",
+      "name": "Ferrari Launch",
+      "country": "Italy",
+      "circuit": "TBC",
+      "location": "TBC",
+      "dates": { "start": "2026-01-23", "end": "2026-01-23" },
+      "sessions": [
+        { "name": "Car Reveal", "shortName": "Reveal", "dateTime": "2026-01-23T14:00:00Z", "type": "race" }
+      ],
+      "status": "provisional",
+      "eventType": "launch"
+    },
+    {
+      "id": "f1-2026-test-shakedown",
+      "seriesId": "f1",
+      "name": "Barcelona Shakedown Week",
+      "country": "Spain",
+      "circuit": "Circuit de Barcelona-Catalunya",
+      "circuitId": "barcelona",
+      "location": "Barcelona",
+      "dates": { "start": "2026-01-26", "end": "2026-01-30" },
+      "sessions": [
+        { "name": "Morning Session", "shortName": "AM", "dateTime": "2026-01-26T08:00:00Z", "type": "shakedown" },
+        { "name": "Afternoon Session", "shortName": "PM", "dateTime": "2026-01-26T13:00:00Z", "type": "shakedown" }
+      ],
+      "status": "confirmed",
+      "eventType": "testing",
+      "timezone": "Europe/Madrid"
+    },
+    {
+      "id": "f1-2026-launch-08",
+      "seriesId": "f1",
+      "name": "Mercedes (Second Event)",
+      "country": "Great Britain",
+      "circuit": "Online",
+      "location": "Online",
+      "dates": { "start": "2026-02-02", "end": "2026-02-02" },
+      "sessions": [
+        { "name": "Car Reveal", "shortName": "Reveal", "dateTime": "2026-02-02T10:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "eventType": "launch"
+    },
+    {
+      "id": "f1-2026-launch-09",
+      "seriesId": "f1",
+      "name": "Williams Launch",
+      "country": "Great Britain",
+      "circuit": "Online",
+      "location": "Online",
+      "dates": { "start": "2026-02-03", "end": "2026-02-03" },
+      "sessions": [
+        { "name": "Car Reveal", "shortName": "Reveal", "dateTime": "2026-02-03T10:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "eventType": "launch"
+    },
+    {
+      "id": "f1-2026-launch-10",
+      "seriesId": "f1",
+      "name": "Cadillac Launch",
+      "country": "USA",
+      "circuit": "Super Bowl TV Ad",
+      "location": "Super Bowl",
+      "dates": { "start": "2026-02-08", "end": "2026-02-08" },
+      "sessions": [
+        { "name": "TV Reveal", "shortName": "Reveal", "dateTime": "2026-02-08T23:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "eventType": "launch"
+    },
+    {
+      "id": "f1-2026-launch-11",
+      "seriesId": "f1",
+      "name": "Aston Martin Launch",
+      "country": "Great Britain",
+      "circuit": "TBC",
+      "location": "TBC",
+      "dates": { "start": "2026-02-09", "end": "2026-02-09" },
+      "sessions": [
+        { "name": "Car Reveal", "shortName": "Reveal", "dateTime": "2026-02-09T10:00:00Z", "type": "race" }
+      ],
+      "status": "provisional",
+      "eventType": "launch"
+    },
+    {
+      "id": "f1-2026-launch-12",
+      "seriesId": "f1",
+      "name": "McLaren Launch",
+      "country": "Bahrain",
+      "circuit": "Bahrain International Circuit",
+      "location": "Sakhir",
+      "dates": { "start": "2026-02-09", "end": "2026-02-09" },
+      "sessions": [
+        { "name": "Car Reveal", "shortName": "Reveal", "dateTime": "2026-02-09T12:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "eventType": "launch"
+    },
+    {
+      "id": "f1-2026-test-01",
+      "seriesId": "f1",
+      "name": "Pre-Season Testing 1",
+      "country": "Bahrain",
+      "circuit": "Bahrain International Circuit",
+      "circuitId": "bahrain",
+      "location": "Sakhir",
+      "dates": { "start": "2026-02-11", "end": "2026-02-13" },
+      "sessions": [
+        { "name": "Day 1 Morning", "shortName": "D1 AM", "dateTime": "2026-02-11T06:00:00Z", "type": "practice" },
+        { "name": "Day 1 Afternoon", "shortName": "D1 PM", "dateTime": "2026-02-11T11:00:00Z", "type": "practice" },
+        { "name": "Day 2 Morning", "shortName": "D2 AM", "dateTime": "2026-02-12T06:00:00Z", "type": "practice" },
+        { "name": "Day 2 Afternoon", "shortName": "D2 PM", "dateTime": "2026-02-12T11:00:00Z", "type": "practice" },
+        { "name": "Day 3 Morning", "shortName": "D3 AM", "dateTime": "2026-02-13T06:00:00Z", "type": "practice" },
+        { "name": "Day 3 Afternoon", "shortName": "D3 PM", "dateTime": "2026-02-13T11:00:00Z", "type": "practice" }
+      ],
+      "status": "confirmed",
+      "eventType": "testing",
+      "timezone": "Asia/Bahrain"
+    },
+    {
+      "id": "f1-2026-test-02",
+      "seriesId": "f1",
+      "name": "Pre-Season Testing 2",
+      "country": "Bahrain",
+      "circuit": "Bahrain International Circuit",
+      "circuitId": "bahrain",
+      "location": "Sakhir",
+      "dates": { "start": "2026-02-18", "end": "2026-02-20" },
+      "sessions": [
+        { "name": "Day 1 Morning", "shortName": "D1 AM", "dateTime": "2026-02-18T06:00:00Z", "type": "practice" },
+        { "name": "Day 1 Afternoon", "shortName": "D1 PM", "dateTime": "2026-02-18T11:00:00Z", "type": "practice" },
+        { "name": "Day 2 Morning", "shortName": "D2 AM", "dateTime": "2026-02-19T06:00:00Z", "type": "practice" },
+        { "name": "Day 2 Afternoon", "shortName": "D2 PM", "dateTime": "2026-02-19T11:00:00Z", "type": "practice" },
+        { "name": "Day 3 Morning", "shortName": "D3 AM", "dateTime": "2026-02-20T06:00:00Z", "type": "practice" },
+        { "name": "Day 3 Afternoon", "shortName": "D3 PM", "dateTime": "2026-02-20T11:00:00Z", "type": "practice" }
+      ],
+      "status": "confirmed",
+      "eventType": "testing",
+      "timezone": "Asia/Bahrain"
+    },
+    {
+      "id": "f1-2026-01",
+      "seriesId": "f1",
+      "name": "Australian Grand Prix",
+      "officialName": "FORMULA 1 QATAR AIRWAYS AUSTRALIAN GRAND PRIX 2026",
+      "country": "Australia",
+      "circuit": "Albert Park Circuit",
+      "circuitId": "albert-park",
+      "location": "Melbourne",
+      "round": 1,
+      "dates": { "start": "2026-03-06", "end": "2026-03-08" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-03-06T01:30:00Z", "type": "practice" },
+        { "name": "Free Practice 2", "shortName": "FP2", "dateTime": "2026-03-06T05:00:00Z", "type": "practice" },
+        { "name": "Free Practice 3", "shortName": "FP3", "dateTime": "2026-03-07T01:30:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-03-07T05:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-03-08T04:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": false,
+      "eventType": "race",
+      "timezone": "Australia/Melbourne"
+    },
+    {
+      "id": "f1-2026-02",
+      "seriesId": "f1",
+      "name": "Chinese Grand Prix",
+      "officialName": "FORMULA 1 HEINEKEN CHINESE GRAND PRIX 2026",
+      "country": "China",
+      "circuit": "Shanghai International Circuit",
+      "circuitId": "shanghai",
+      "location": "Shanghai",
+      "round": 2,
+      "dates": { "start": "2026-03-13", "end": "2026-03-15" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-03-13T03:30:00Z", "type": "practice" },
+        { "name": "Sprint Qualifying", "shortName": "SQ", "dateTime": "2026-03-13T07:30:00Z", "type": "sprint_qualifying" },
+        { "name": "Sprint", "shortName": "S", "dateTime": "2026-03-14T03:00:00Z", "type": "sprint" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-03-14T07:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-03-15T07:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": true,
+      "eventType": "race",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "f1-2026-03",
+      "seriesId": "f1",
+      "name": "Japanese Grand Prix",
+      "officialName": "FORMULA 1 ARAMCO JAPANESE GRAND PRIX 2026",
+      "country": "Japan",
+      "circuit": "Suzuka International Racing Course",
+      "circuitId": "suzuka",
+      "location": "Suzuka",
+      "round": 3,
+      "dates": { "start": "2026-03-27", "end": "2026-03-29" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-03-27T02:30:00Z", "type": "practice" },
+        { "name": "Free Practice 2", "shortName": "FP2", "dateTime": "2026-03-27T06:00:00Z", "type": "practice" },
+        { "name": "Free Practice 3", "shortName": "FP3", "dateTime": "2026-03-28T02:30:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-03-28T06:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-03-29T05:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": false,
+      "eventType": "race",
+      "timezone": "Asia/Tokyo"
+    },
+    {
+      "id": "f1-2026-04",
+      "seriesId": "f1",
+      "name": "Bahrain Grand Prix",
+      "officialName": "FORMULA 1 GULF AIR BAHRAIN GRAND PRIX 2026",
+      "country": "Bahrain",
+      "circuit": "Bahrain International Circuit",
+      "circuitId": "bahrain",
+      "location": "Sakhir",
+      "round": 4,
+      "dates": { "start": "2026-04-10", "end": "2026-04-12" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-04-10T11:30:00Z", "type": "practice" },
+        { "name": "Free Practice 2", "shortName": "FP2", "dateTime": "2026-04-10T15:00:00Z", "type": "practice" },
+        { "name": "Free Practice 3", "shortName": "FP3", "dateTime": "2026-04-11T12:30:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-04-11T16:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-04-12T15:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": false,
+      "eventType": "race",
+      "timezone": "Asia/Bahrain"
+    },
+    {
+      "id": "f1-2026-05",
+      "seriesId": "f1",
+      "name": "Saudi Arabian Grand Prix",
+      "officialName": "FORMULA 1 STC SAUDI ARABIAN GRAND PRIX 2026",
+      "country": "Saudi Arabia",
+      "circuit": "Jeddah Corniche Circuit",
+      "circuitId": "jeddah",
+      "location": "Jeddah",
+      "round": 5,
+      "dates": { "start": "2026-04-17", "end": "2026-04-19" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-04-17T13:30:00Z", "type": "practice" },
+        { "name": "Free Practice 2", "shortName": "FP2", "dateTime": "2026-04-17T17:00:00Z", "type": "practice" },
+        { "name": "Free Practice 3", "shortName": "FP3", "dateTime": "2026-04-18T13:30:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-04-18T17:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-04-19T17:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": false,
+      "eventType": "race",
+      "timezone": "Asia/Riyadh"
+    },
+    {
+      "id": "f1-2026-06",
+      "seriesId": "f1",
+      "name": "Miami Grand Prix",
+      "officialName": "FORMULA 1 CRYPTO.COM MIAMI GRAND PRIX 2026",
+      "country": "USA",
+      "circuit": "Miami International Autodrome",
+      "circuitId": "miami",
+      "location": "Miami",
+      "round": 6,
+      "dates": { "start": "2026-05-01", "end": "2026-05-03" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-05-01T16:30:00Z", "type": "practice" },
+        { "name": "Sprint Qualifying", "shortName": "SQ", "dateTime": "2026-05-01T20:30:00Z", "type": "sprint_qualifying" },
+        { "name": "Sprint", "shortName": "S", "dateTime": "2026-05-02T16:00:00Z", "type": "sprint" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-05-02T20:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-05-03T20:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": true,
+      "eventType": "race",
+      "timezone": "America/New_York"
+    },
+    {
+      "id": "f1-2026-07",
+      "seriesId": "f1",
+      "name": "Canadian Grand Prix",
+      "officialName": "FORMULA 1 LENOVO CANADIAN GRAND PRIX 2026",
+      "country": "Canada",
+      "circuit": "Circuit Gilles Villeneuve",
+      "circuitId": "montreal",
+      "location": "Montreal",
+      "round": 7,
+      "dates": { "start": "2026-05-22", "end": "2026-05-24" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-05-22T17:30:00Z", "type": "practice" },
+        { "name": "Sprint Qualifying", "shortName": "SQ", "dateTime": "2026-05-22T21:30:00Z", "type": "sprint_qualifying" },
+        { "name": "Sprint", "shortName": "S", "dateTime": "2026-05-23T16:00:00Z", "type": "sprint" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-05-23T20:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-05-24T18:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": true,
+      "eventType": "race",
+      "timezone": "America/Toronto"
+    },
+    {
+      "id": "f1-2026-08",
+      "seriesId": "f1",
+      "name": "Monaco Grand Prix",
+      "officialName": "FORMULA 1 LOUIS VUITTON MONACO GRAND PRIX 2026",
+      "country": "Monaco",
+      "circuit": "Circuit de Monaco",
+      "circuitId": "monaco",
+      "location": "Monte Carlo",
+      "round": 8,
+      "dates": { "start": "2026-06-05", "end": "2026-06-07" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-06-05T11:30:00Z", "type": "practice" },
+        { "name": "Free Practice 2", "shortName": "FP2", "dateTime": "2026-06-05T15:00:00Z", "type": "practice" },
+        { "name": "Free Practice 3", "shortName": "FP3", "dateTime": "2026-06-06T10:30:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-06-06T14:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-06-07T13:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isFeatured": true,
+      "isSprint": false,
+      "eventType": "race",
+      "timezone": "Europe/Monaco"
+    },
+    {
+      "id": "f1-2026-09",
+      "seriesId": "f1",
+      "name": "Barcelona-Catalunya Grand Prix",
+      "officialName": "FORMULA 1 MSC CRUISES BARCELONA-CATALUNYA GRAND PRIX 2026",
+      "country": "Spain",
+      "circuit": "Circuit de Barcelona-Catalunya",
+      "circuitId": "barcelona",
+      "location": "Barcelona",
+      "round": 9,
+      "dates": { "start": "2026-06-12", "end": "2026-06-14" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-06-12T11:30:00Z", "type": "practice" },
+        { "name": "Free Practice 2", "shortName": "FP2", "dateTime": "2026-06-12T15:00:00Z", "type": "practice" },
+        { "name": "Free Practice 3", "shortName": "FP3", "dateTime": "2026-06-13T10:30:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-06-13T14:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-06-14T13:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": false,
+      "eventType": "race",
+      "timezone": "Europe/Madrid"
+    },
+    {
+      "id": "f1-2026-10",
+      "seriesId": "f1",
+      "name": "Austrian Grand Prix",
+      "officialName": "FORMULA 1 LENOVO AUSTRIAN GRAND PRIX 2026",
+      "country": "Austria",
+      "circuit": "Red Bull Ring",
+      "circuitId": "red-bull-ring",
+      "location": "Spielberg",
+      "round": 10,
+      "dates": { "start": "2026-06-26", "end": "2026-06-28" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-06-26T11:30:00Z", "type": "practice" },
+        { "name": "Free Practice 2", "shortName": "FP2", "dateTime": "2026-06-26T15:00:00Z", "type": "practice" },
+        { "name": "Free Practice 3", "shortName": "FP3", "dateTime": "2026-06-27T10:30:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-06-27T14:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-06-28T13:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": false,
+      "eventType": "race",
+      "timezone": "Europe/Vienna"
+    },
+    {
+      "id": "f1-2026-11",
+      "seriesId": "f1",
+      "name": "British Grand Prix",
+      "officialName": "FORMULA 1 PIRELLI BRITISH GRAND PRIX 2026",
+      "country": "Great Britain",
+      "circuit": "Silverstone Circuit",
+      "circuitId": "silverstone",
+      "location": "Silverstone",
+      "round": 11,
+      "dates": { "start": "2026-07-03", "end": "2026-07-05" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-07-03T11:30:00Z", "type": "practice" },
+        { "name": "Sprint Qualifying", "shortName": "SQ", "dateTime": "2026-07-03T15:30:00Z", "type": "sprint_qualifying" },
+        { "name": "Sprint", "shortName": "S", "dateTime": "2026-07-04T11:00:00Z", "type": "sprint" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-07-04T15:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-07-05T14:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": true,
+      "eventType": "race",
+      "timezone": "Europe/London"
+    },
+    {
+      "id": "f1-2026-12",
+      "seriesId": "f1",
+      "name": "Belgian Grand Prix",
+      "officialName": "FORMULA 1 BELGIAN GRAND PRIX 2026",
+      "country": "Belgium",
+      "circuit": "Circuit de Spa-Francorchamps",
+      "circuitId": "spa",
+      "location": "Stavelot",
+      "round": 12,
+      "dates": { "start": "2026-07-17", "end": "2026-07-19" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-07-17T11:30:00Z", "type": "practice" },
+        { "name": "Free Practice 2", "shortName": "FP2", "dateTime": "2026-07-17T15:00:00Z", "type": "practice" },
+        { "name": "Free Practice 3", "shortName": "FP3", "dateTime": "2026-07-18T10:30:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-07-18T14:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-07-19T13:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": false,
+      "eventType": "race",
+      "timezone": "Europe/Brussels"
+    },
+    {
+      "id": "f1-2026-13",
+      "seriesId": "f1",
+      "name": "Hungarian Grand Prix",
+      "officialName": "FORMULA 1 AWS HUNGARIAN GRAND PRIX 2026",
+      "country": "Hungary",
+      "circuit": "Hungaroring",
+      "circuitId": "hungaroring",
+      "location": "Budapest",
+      "round": 13,
+      "dates": { "start": "2026-07-24", "end": "2026-07-26" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-07-24T11:30:00Z", "type": "practice" },
+        { "name": "Free Practice 2", "shortName": "FP2", "dateTime": "2026-07-24T15:00:00Z", "type": "practice" },
+        { "name": "Free Practice 3", "shortName": "FP3", "dateTime": "2026-07-25T10:30:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-07-25T14:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-07-26T13:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": false,
+      "eventType": "race",
+      "timezone": "Europe/Budapest"
+    },
+    {
+      "id": "f1-2026-14",
+      "seriesId": "f1",
+      "name": "Dutch Grand Prix",
+      "officialName": "FORMULA 1 HEINEKEN DUTCH GRAND PRIX 2026",
+      "country": "Netherlands",
+      "circuit": "Circuit Zandvoort",
+      "circuitId": "zandvoort",
+      "location": "Zandvoort",
+      "round": 14,
+      "dates": { "start": "2026-08-21", "end": "2026-08-23" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-08-21T10:30:00Z", "type": "practice" },
+        { "name": "Sprint Qualifying", "shortName": "SQ", "dateTime": "2026-08-21T14:30:00Z", "type": "sprint_qualifying" },
+        { "name": "Sprint", "shortName": "S", "dateTime": "2026-08-22T10:00:00Z", "type": "sprint" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-08-22T14:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-08-23T13:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": true,
+      "eventType": "race",
+      "timezone": "Europe/Amsterdam"
+    },
+    {
+      "id": "f1-2026-15",
+      "seriesId": "f1",
+      "name": "Italian Grand Prix",
+      "officialName": "FORMULA 1 PIRELLI ITALIAN GRAND PRIX 2026",
+      "country": "Italy",
+      "circuit": "Autodromo Nazionale Monza",
+      "circuitId": "monza",
+      "location": "Monza",
+      "round": 15,
+      "dates": { "start": "2026-09-04", "end": "2026-09-06" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-09-04T11:30:00Z", "type": "practice" },
+        { "name": "Free Practice 2", "shortName": "FP2", "dateTime": "2026-09-04T15:00:00Z", "type": "practice" },
+        { "name": "Free Practice 3", "shortName": "FP3", "dateTime": "2026-09-05T10:30:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-09-05T14:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-09-06T13:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": false,
+      "eventType": "race",
+      "timezone": "Europe/Rome"
+    },
+    {
+      "id": "f1-2026-16",
+      "seriesId": "f1",
+      "name": "Spanish Grand Prix",
+      "officialName": "FORMULA 1 TAG HEUER SPANISH GRAND PRIX 2026",
+      "country": "Spain",
+      "circuit": "Madrid Street Circuit",
+      "circuitId": "madrid",
+      "location": "Madrid",
+      "round": 16,
+      "dates": { "start": "2026-09-11", "end": "2026-09-13" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-09-11T11:30:00Z", "type": "practice" },
+        { "name": "Free Practice 2", "shortName": "FP2", "dateTime": "2026-09-11T15:00:00Z", "type": "practice" },
+        { "name": "Free Practice 3", "shortName": "FP3", "dateTime": "2026-09-12T10:30:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-09-12T14:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-09-13T13:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": false,
+      "eventType": "race",
+      "timezone": "Europe/Madrid"
+    },
+    {
+      "id": "f1-2026-17",
+      "seriesId": "f1",
+      "name": "Azerbaijan Grand Prix",
+      "officialName": "FORMULA 1 QATAR AIRWAYS AZERBAIJAN GRAND PRIX 2026",
+      "country": "Azerbaijan",
+      "circuit": "Baku City Circuit",
+      "circuitId": "baku",
+      "location": "Baku",
+      "round": 17,
+      "dates": { "start": "2026-09-24", "end": "2026-09-26" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-09-24T08:30:00Z", "type": "practice" },
+        { "name": "Free Practice 2", "shortName": "FP2", "dateTime": "2026-09-24T12:00:00Z", "type": "practice" },
+        { "name": "Free Practice 3", "shortName": "FP3", "dateTime": "2026-09-25T08:30:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-09-25T12:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-09-26T11:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": false,
+      "eventType": "race",
+      "timezone": "Asia/Baku"
+    },
+    {
+      "id": "f1-2026-18",
+      "seriesId": "f1",
+      "name": "Singapore Grand Prix",
+      "officialName": "FORMULA 1 SINGAPORE AIRLINES SINGAPORE GRAND PRIX 2026",
+      "country": "Singapore",
+      "circuit": "Marina Bay Street Circuit",
+      "circuitId": "marina-bay",
+      "location": "Singapore",
+      "round": 18,
+      "dates": { "start": "2026-10-09", "end": "2026-10-11" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-10-09T09:30:00Z", "type": "practice" },
+        { "name": "Sprint Qualifying", "shortName": "SQ", "dateTime": "2026-10-09T13:30:00Z", "type": "sprint_qualifying" },
+        { "name": "Sprint", "shortName": "S", "dateTime": "2026-10-10T09:00:00Z", "type": "sprint" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-10-10T13:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-10-11T12:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": true,
+      "eventType": "race",
+      "timezone": "Asia/Singapore"
+    },
+    {
+      "id": "f1-2026-19",
+      "seriesId": "f1",
+      "name": "United States Grand Prix",
+      "officialName": "FORMULA 1 MSC CRUISES UNITED STATES GRAND PRIX 2026",
+      "country": "USA",
+      "circuit": "Circuit of The Americas",
+      "circuitId": "cota",
+      "location": "Austin",
+      "round": 19,
+      "dates": { "start": "2026-10-23", "end": "2026-10-25" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-10-23T17:30:00Z", "type": "practice" },
+        { "name": "Free Practice 2", "shortName": "FP2", "dateTime": "2026-10-23T21:00:00Z", "type": "practice" },
+        { "name": "Free Practice 3", "shortName": "FP3", "dateTime": "2026-10-24T18:30:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-10-24T22:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-10-25T19:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": false,
+      "eventType": "race",
+      "timezone": "America/Chicago"
+    },
+    {
+      "id": "f1-2026-20",
+      "seriesId": "f1",
+      "name": "Mexican Grand Prix",
+      "officialName": "FORMULA 1 MEXICAN GRAND PRIX 2026",
+      "country": "Mexico",
+      "circuit": "Autódromo Hermanos Rodríguez",
+      "circuitId": "mexico-city",
+      "location": "Mexico City",
+      "round": 20,
+      "dates": { "start": "2026-10-30", "end": "2026-11-01" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-10-30T18:30:00Z", "type": "practice" },
+        { "name": "Free Practice 2", "shortName": "FP2", "dateTime": "2026-10-30T22:00:00Z", "type": "practice" },
+        { "name": "Free Practice 3", "shortName": "FP3", "dateTime": "2026-10-31T17:30:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-10-31T21:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-11-01T20:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": false,
+      "eventType": "race",
+      "timezone": "America/Mexico_City"
+    },
+    {
+      "id": "f1-2026-21",
+      "seriesId": "f1",
+      "name": "Brazilian Grand Prix",
+      "officialName": "FORMULA 1 MSC CRUISES BRAZILIAN GRAND PRIX 2026",
+      "country": "Brazil",
+      "circuit": "Autódromo José Carlos Pace",
+      "circuitId": "interlagos",
+      "location": "São Paulo",
+      "round": 21,
+      "dates": { "start": "2026-11-06", "end": "2026-11-08" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-11-06T14:30:00Z", "type": "practice" },
+        { "name": "Free Practice 2", "shortName": "FP2", "dateTime": "2026-11-06T18:00:00Z", "type": "practice" },
+        { "name": "Free Practice 3", "shortName": "FP3", "dateTime": "2026-11-07T13:30:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-11-07T17:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-11-08T17:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": false,
+      "eventType": "race",
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "id": "f1-2026-22",
+      "seriesId": "f1",
+      "name": "Las Vegas Grand Prix",
+      "officialName": "FORMULA 1 HEINEKEN LAS VEGAS GRAND PRIX 2026",
+      "country": "USA",
+      "circuit": "Las Vegas Strip Circuit",
+      "circuitId": "las-vegas",
+      "location": "Las Vegas",
+      "round": 22,
+      "dates": { "start": "2026-11-20", "end": "2026-11-22" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-11-21T02:30:00Z", "type": "practice" },
+        { "name": "Free Practice 2", "shortName": "FP2", "dateTime": "2026-11-21T06:00:00Z", "type": "practice" },
+        { "name": "Free Practice 3", "shortName": "FP3", "dateTime": "2026-11-22T02:30:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-11-22T06:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-11-23T06:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": false,
+      "eventType": "race",
+      "timezone": "America/Los_Angeles"
+    },
+    {
+      "id": "f1-2026-23",
+      "seriesId": "f1",
+      "name": "Qatar Grand Prix",
+      "officialName": "FORMULA 1 QATAR AIRWAYS QATAR GRAND PRIX 2026",
+      "country": "Qatar",
+      "circuit": "Lusail International Circuit",
+      "circuitId": "lusail",
+      "location": "Lusail",
+      "round": 23,
+      "dates": { "start": "2026-11-27", "end": "2026-11-29" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-11-27T13:30:00Z", "type": "practice" },
+        { "name": "Free Practice 2", "shortName": "FP2", "dateTime": "2026-11-27T17:30:00Z", "type": "practice" },
+        { "name": "Free Practice 3", "shortName": "FP3", "dateTime": "2026-11-28T14:30:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-11-28T18:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-11-29T17:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": false,
+      "eventType": "race",
+      "timezone": "Asia/Qatar"
+    },
+    {
+      "id": "f1-2026-24",
+      "seriesId": "f1",
+      "name": "Abu Dhabi Grand Prix",
+      "officialName": "FORMULA 1 ETIHAD AIRWAYS ABU DHABI GRAND PRIX 2026",
+      "country": "UAE",
+      "circuit": "Yas Marina Circuit",
+      "circuitId": "yas-marina",
+      "location": "Abu Dhabi",
+      "round": 24,
+      "dates": { "start": "2026-12-04", "end": "2026-12-06" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-12-04T09:30:00Z", "type": "practice" },
+        { "name": "Free Practice 2", "shortName": "FP2", "dateTime": "2026-12-04T13:00:00Z", "type": "practice" },
+        { "name": "Free Practice 3", "shortName": "FP3", "dateTime": "2026-12-05T10:30:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-12-05T14:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-12-06T13:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isSprint": false,
+      "eventType": "race",
+      "timezone": "Asia/Dubai"
+    }
+  ]
+}

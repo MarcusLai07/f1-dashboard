@@ -1,0 +1,152 @@
+{
+  "seriesId": "motogp",
+  "year": 2026,
+  "events": [
+    {
+      "id": "motogp-2026-01",
+      "seriesId": "motogp",
+      "name": "Thailand Grand Prix",
+      "country": "Thailand",
+      "circuit": "Chang International Circuit",
+      "location": "Buriram",
+      "dates": { "start": "2026-02-27", "end": "2026-03-01" },
+      "sessions": [
+        { "name": "Practice 1", "shortName": "P1", "dateTime": "2026-02-27T04:45:00Z", "type": "practice" },
+        { "name": "Practice 2", "shortName": "P2", "dateTime": "2026-02-27T09:00:00Z", "type": "practice" },
+        { "name": "Practice 3", "shortName": "P3", "dateTime": "2026-02-28T04:10:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-02-28T08:50:00Z", "type": "qualifying" },
+        { "name": "Sprint", "shortName": "SPR", "dateTime": "2026-02-28T10:00:00Z", "type": "sprint" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-03-01T08:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed"
+    },
+    {
+      "id": "motogp-2026-02",
+      "seriesId": "motogp",
+      "name": "Brazilian Grand Prix",
+      "country": "Brazil",
+      "circuit": "Autodromo Internacional de Goiania",
+      "location": "Goiania",
+      "dates": { "start": "2026-03-20", "end": "2026-03-22" },
+      "sessions": [
+        { "name": "Practice 1", "shortName": "P1", "dateTime": "2026-03-20T14:00:00Z", "type": "practice" },
+        { "name": "Practice 2", "shortName": "P2", "dateTime": "2026-03-20T18:00:00Z", "type": "practice" },
+        { "name": "Practice 3", "shortName": "P3", "dateTime": "2026-03-21T14:00:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-03-21T17:50:00Z", "type": "qualifying" },
+        { "name": "Sprint", "shortName": "SPR", "dateTime": "2026-03-21T19:00:00Z", "type": "sprint" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-03-22T18:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isFeatured": true
+    },
+    {
+      "id": "motogp-2026-03",
+      "seriesId": "motogp",
+      "name": "Spanish Grand Prix",
+      "country": "Spain",
+      "circuit": "Circuito de Jerez",
+      "location": "Jerez",
+      "dates": { "start": "2026-04-24", "end": "2026-04-26" },
+      "sessions": [
+        { "name": "Practice 1", "shortName": "P1", "dateTime": "2026-04-24T09:45:00Z", "type": "practice" },
+        { "name": "Practice 2", "shortName": "P2", "dateTime": "2026-04-24T14:00:00Z", "type": "practice" },
+        { "name": "Practice 3", "shortName": "P3", "dateTime": "2026-04-25T09:45:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-04-25T13:50:00Z", "type": "qualifying" },
+        { "name": "Sprint", "shortName": "SPR", "dateTime": "2026-04-25T15:00:00Z", "type": "sprint" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-04-26T14:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed"
+    },
+    {
+      "id": "motogp-2026-04",
+      "seriesId": "motogp",
+      "name": "French Grand Prix",
+      "country": "France",
+      "circuit": "Le Mans",
+      "location": "Le Mans",
+      "dates": { "start": "2026-05-15", "end": "2026-05-17" },
+      "sessions": [
+        { "name": "Practice 1", "shortName": "P1", "dateTime": "2026-05-15T09:45:00Z", "type": "practice" },
+        { "name": "Practice 2", "shortName": "P2", "dateTime": "2026-05-15T14:00:00Z", "type": "practice" },
+        { "name": "Practice 3", "shortName": "P3", "dateTime": "2026-05-16T09:45:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-05-16T13:50:00Z", "type": "qualifying" },
+        { "name": "Sprint", "shortName": "SPR", "dateTime": "2026-05-16T15:00:00Z", "type": "sprint" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-05-17T14:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed"
+    },
+    {
+      "id": "motogp-2026-05",
+      "seriesId": "motogp",
+      "name": "Italian Grand Prix",
+      "country": "Italy",
+      "circuit": "Autodromo del Mugello",
+      "location": "Mugello",
+      "dates": { "start": "2026-05-29", "end": "2026-05-31" },
+      "sessions": [
+        { "name": "Practice 1", "shortName": "P1", "dateTime": "2026-05-29T09:45:00Z", "type": "practice" },
+        { "name": "Practice 2", "shortName": "P2", "dateTime": "2026-05-29T14:00:00Z", "type": "practice" },
+        { "name": "Practice 3", "shortName": "P3", "dateTime": "2026-05-30T09:45:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-05-30T13:50:00Z", "type": "qualifying" },
+        { "name": "Sprint", "shortName": "SPR", "dateTime": "2026-05-30T15:00:00Z", "type": "sprint" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-05-31T14:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isFeatured": true
+    },
+    {
+      "id": "motogp-2026-06",
+      "seriesId": "motogp",
+      "name": "German Grand Prix",
+      "country": "Germany",
+      "circuit": "Sachsenring",
+      "location": "Hohenstein-Ernstthal",
+      "dates": { "start": "2026-07-10", "end": "2026-07-12" },
+      "sessions": [
+        { "name": "Practice 1", "shortName": "P1", "dateTime": "2026-07-10T09:45:00Z", "type": "practice" },
+        { "name": "Practice 2", "shortName": "P2", "dateTime": "2026-07-10T14:00:00Z", "type": "practice" },
+        { "name": "Practice 3", "shortName": "P3", "dateTime": "2026-07-11T09:45:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-07-11T13:50:00Z", "type": "qualifying" },
+        { "name": "Sprint", "shortName": "SPR", "dateTime": "2026-07-11T15:00:00Z", "type": "sprint" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-07-12T14:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed"
+    },
+    {
+      "id": "motogp-2026-07",
+      "seriesId": "motogp",
+      "name": "British Grand Prix",
+      "country": "Great Britain",
+      "circuit": "Silverstone Circuit",
+      "location": "Silverstone",
+      "dates": { "start": "2026-08-21", "end": "2026-08-23" },
+      "sessions": [
+        { "name": "Practice 1", "shortName": "P1", "dateTime": "2026-08-21T09:45:00Z", "type": "practice" },
+        { "name": "Practice 2", "shortName": "P2", "dateTime": "2026-08-21T14:00:00Z", "type": "practice" },
+        { "name": "Practice 3", "shortName": "P3", "dateTime": "2026-08-22T09:45:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-08-22T13:50:00Z", "type": "qualifying" },
+        { "name": "Sprint", "shortName": "SPR", "dateTime": "2026-08-22T15:00:00Z", "type": "sprint" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-08-23T14:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed"
+    },
+    {
+      "id": "motogp-2026-08",
+      "seriesId": "motogp",
+      "name": "Valencia Grand Prix",
+      "country": "Spain",
+      "circuit": "Circuit Ricardo Tormo",
+      "location": "Valencia",
+      "dates": { "start": "2026-11-13", "end": "2026-11-15" },
+      "sessions": [
+        { "name": "Practice 1", "shortName": "P1", "dateTime": "2026-11-13T09:45:00Z", "type": "practice" },
+        { "name": "Practice 2", "shortName": "P2", "dateTime": "2026-11-13T14:00:00Z", "type": "practice" },
+        { "name": "Practice 3", "shortName": "P3", "dateTime": "2026-11-14T09:45:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-11-14T13:50:00Z", "type": "qualifying" },
+        { "name": "Sprint", "shortName": "SPR", "dateTime": "2026-11-14T15:00:00Z", "type": "sprint" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-11-15T14:00:00Z", "type": "race" }
+      ],
+      "status": "confirmed"
+    }
+  ]
+}

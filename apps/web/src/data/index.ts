@@ -2,7 +2,47 @@
 // Single entry point for all F1 data - circuits, teams, drivers, calendar
 
 import type { CircuitData, CircuitManifest } from "./circuits/_schema";
-import type { F1Event, PreSeasonEvent, CalendarData } from "./calendar/_schema";
+import type { MotorsportEvent, MotorsportSession } from "./motorsport-calendar/_schema";
+
+// Legacy types for backward compatibility with Season panel
+export interface F1Event {
+  round: number;
+  name: string;
+  officialName: string;
+  country: string;
+  circuit: string;
+  circuitId: string;
+  dates: { start: string; end: string };
+  sessions: {
+    fp1?: string;
+    fp2?: string;
+    fp3?: string;
+    sprintQualifying?: string;
+    sprint?: string;
+    qualifying: string;
+    race: string;
+  };
+  isSprint: boolean;
+  timezone: string;
+}
+
+export interface PreSeasonEvent {
+  name: string;
+  location: string;
+  circuit?: string;
+  dates: { start: string; end: string };
+  sessions?: { morning: string; afternoon: string };
+  type: "testing" | "shakedown" | "launch";
+  timezone?: string;
+}
+
+export interface CalendarData {
+  year: number;
+  races: F1Event[];
+  preseason: PreSeasonEvent[];
+  launches: PreSeasonEvent[];
+  sprintRounds: number[];
+}
 import type { TeamFull, TeamsData } from "./teams/_schema";
 import type { DriverFull, DriversData } from "./drivers/_schema";
 import type { CalendarOverrides } from "./types";
@@ -46,10 +86,72 @@ export function clearCircuitCache(): void {
 }
 
 // ============================================================================
-// CALENDAR (Unified JSON data)
+// CALENDAR (Reads from unified motorsport-calendar, transforms for Season panel)
 // ============================================================================
 
 const calendarCache = new Map<number, CalendarData>();
+
+// Helper to find session time by type
+function findSessionTime(sessions: MotorsportSession[], type: string): string | undefined {
+  const session = sessions.find((s) => s.type === type || s.shortName === type);
+  return session?.dateTime;
+}
+
+// Transform unified MotorsportEvent to legacy F1Event format
+function transformToF1Event(event: MotorsportEvent): F1Event {
+  const sessions = event.sessions;
+
+  // Find FP sessions by shortName
+  const fp1 = sessions.find((s) => s.shortName === "FP1")?.dateTime;
+  const fp2 = sessions.find((s) => s.shortName === "FP2")?.dateTime;
+  const fp3 = sessions.find((s) => s.shortName === "FP3")?.dateTime;
+  const sprintQualifying = sessions.find((s) => s.type === "sprint_qualifying")?.dateTime;
+  const sprint = sessions.find((s) => s.type === "sprint")?.dateTime;
+  const qualifying = sessions.find((s) => s.type === "qualifying")?.dateTime || "";
+  const race = sessions.find((s) => s.type === "race")?.dateTime || "";
+
+  return {
+    round: event.round || 0,
+    name: event.name,
+    officialName: event.officialName || event.name,
+    country: event.country,
+    circuit: event.circuit,
+    circuitId: event.circuitId || event.circuit.toLowerCase().replace(/\s+/g, "-"),
+    dates: event.dates,
+    sessions: {
+      fp1,
+      fp2,
+      fp3,
+      sprintQualifying,
+      sprint,
+      qualifying,
+      race,
+    },
+    isSprint: event.isSprint || false,
+    timezone: event.timezone || "UTC",
+  };
+}
+
+// Transform unified MotorsportEvent to legacy PreSeasonEvent format
+function transformToPreSeasonEvent(event: MotorsportEvent): PreSeasonEvent {
+  const sessions = event.sessions;
+  const morningSession = sessions.find((s) => s.shortName?.includes("AM") || s.name.includes("Morning"));
+  const afternoonSession = sessions.find((s) => s.shortName?.includes("PM") || s.name.includes("Afternoon"));
+
+  return {
+    name: event.name,
+    location: event.location || event.country,
+    circuit: event.circuit,
+    dates: event.dates,
+    sessions: morningSession && afternoonSession ? {
+      morning: morningSession.dateTime,
+      afternoon: afternoonSession.dateTime,
+    } : undefined,
+    type: event.eventType === "launch" ? "launch" :
+          event.sessions.some((s) => s.type === "shakedown") ? "shakedown" : "testing",
+    timezone: event.timezone,
+  };
+}
 
 export async function getCalendar(year: number = 2026): Promise<CalendarData | null> {
   if (calendarCache.has(year)) {
@@ -57,12 +159,33 @@ export async function getCalendar(year: number = 2026): Promise<CalendarData | n
   }
 
   try {
-    const data = await import(`./calendar/${year}.json`);
-    const calendar = data.default as CalendarData;
+    // Load from unified motorsport-calendar
+    const data = await import(`./motorsport-calendar/${year}/formula/f1.json`);
+    const events = (data.default as { events: MotorsportEvent[] }).events;
+
+    // Separate events by type
+    const raceEvents = events.filter((e) => e.eventType === "race");
+    const testingEvents = events.filter((e) => e.eventType === "testing");
+    const launchEvents = events.filter((e) => e.eventType === "launch");
+
+    // Transform to legacy format
+    const races = raceEvents.map(transformToF1Event);
+    const preseason = testingEvents.map(transformToPreSeasonEvent);
+    const launches = launchEvents.map(transformToPreSeasonEvent);
+    const sprintRounds = raceEvents.filter((e) => e.isSprint).map((e) => e.round || 0);
+
+    const calendar: CalendarData = {
+      year,
+      races,
+      preseason,
+      launches,
+      sprintRounds,
+    };
+
     calendarCache.set(year, calendar);
     return calendar;
-  } catch {
-    console.warn(`Calendar not found for year: ${year}`);
+  } catch (error) {
+    console.warn(`Calendar not found for year: ${year}`, error);
     return null;
   }
 }
@@ -97,22 +220,19 @@ export async function getNextEvent(year: number = 2026): Promise<F1Event | PreSe
   const calendar = await getCalendar(year);
   if (!calendar) return null;
 
-  // Check launches first
-  for (const event of calendar.launches) {
-    const eventDate = new Date(event.dates.start);
-    if (eventDate > now) return event;
-  }
+  // Combine all events with their dates and sort
+  const allEvents: Array<{ event: F1Event | PreSeasonEvent; date: Date }> = [
+    ...calendar.launches.map((e) => ({ event: e, date: new Date(e.dates.start) })),
+    ...calendar.preseason.map((e) => ({ event: e, date: new Date(e.dates.start) })),
+    ...calendar.races.map((e) => ({ event: e, date: new Date(e.dates.start) })),
+  ];
 
-  // Check preseason events
-  for (const event of calendar.preseason) {
-    const eventDate = new Date(event.dates.start);
-    if (eventDate > now) return event;
-  }
+  // Sort by date
+  allEvents.sort((a, b) => a.date.getTime() - b.date.getTime());
 
-  // Then races
-  for (const event of calendar.races) {
-    const eventDate = new Date(event.dates.start);
-    if (eventDate > now) return event;
+  // Find next upcoming event
+  for (const { event, date } of allEvents) {
+    if (date > now) return event;
   }
 
   return null;
@@ -496,11 +616,7 @@ export type {
   LapRecord,
   CircuitSvg,
 } from "./circuits/_schema";
-export type {
-  F1Event,
-  PreSeasonEvent,
-  CalendarData,
-} from "./calendar/_schema";
+// F1Event, PreSeasonEvent, CalendarData are defined inline above for backward compatibility
 export type {
   TeamFull,
   TeamsData,
@@ -518,3 +634,30 @@ export type {
   SessionSchedule,
   DataSourceInfo,
 } from "./types";
+
+// ============================================================================
+// MOTORSPORT CALENDAR (Unified multi-series calendar)
+// ============================================================================
+
+export {
+  getSeriesMetadata,
+  getSeriesInfo,
+  getSeriesByCategory,
+  getSeriesEvents,
+  getAllMotorsportEvents,
+  getEventsByCategory,
+  getEventsByDate,
+  getEventsInRange,
+  getNextMotorsportEvent,
+  clearMotorsportCalendarCache,
+} from "./motorsport-calendar";
+
+export type {
+  SeriesInfo,
+  MotorsportEvent,
+  MotorsportSession,
+  SeriesCalendar,
+  MotorsportCategory,
+  SessionType,
+  EventType,
+} from "./motorsport-calendar";

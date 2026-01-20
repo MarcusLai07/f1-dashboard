@@ -1,0 +1,120 @@
+{
+  "seriesId": "wrc",
+  "year": 2026,
+  "events": [
+    {
+      "id": "wrc-2026-01",
+      "seriesId": "wrc",
+      "name": "Rallye Monte-Carlo",
+      "country": "Monaco",
+      "circuit": "Monaco Region",
+      "location": "Monaco",
+      "dates": { "start": "2026-01-22", "end": "2026-01-25" },
+      "sessions": [
+        { "name": "Shakedown", "shortName": "SH", "dateTime": "2026-01-22T08:00:00Z", "type": "shakedown" },
+        { "name": "Day 1 (SS1-SS6)", "shortName": "D1", "dateTime": "2026-01-23T07:00:00Z", "type": "stage" },
+        { "name": "Day 2 (SS7-SS12)", "shortName": "D2", "dateTime": "2026-01-24T07:00:00Z", "type": "stage" },
+        { "name": "Day 3 Power Stage", "shortName": "D3", "dateTime": "2026-01-25T07:00:00Z", "type": "stage" }
+      ],
+      "status": "confirmed",
+      "isFeatured": true
+    },
+    {
+      "id": "wrc-2026-02",
+      "seriesId": "wrc",
+      "name": "Rally Sweden",
+      "country": "Sweden",
+      "circuit": "Umea Region",
+      "location": "Umea",
+      "dates": { "start": "2026-02-12", "end": "2026-02-15" },
+      "sessions": [
+        { "name": "Shakedown", "shortName": "SH", "dateTime": "2026-02-12T08:00:00Z", "type": "shakedown" },
+        { "name": "Day 1", "shortName": "D1", "dateTime": "2026-02-13T07:00:00Z", "type": "stage" },
+        { "name": "Day 2", "shortName": "D2", "dateTime": "2026-02-14T07:00:00Z", "type": "stage" },
+        { "name": "Day 3", "shortName": "D3", "dateTime": "2026-02-15T07:00:00Z", "type": "stage" }
+      ],
+      "status": "confirmed"
+    },
+    {
+      "id": "wrc-2026-03",
+      "seriesId": "wrc",
+      "name": "Safari Rally Kenya",
+      "country": "Kenya",
+      "circuit": "Naivasha Region",
+      "location": "Naivasha",
+      "dates": { "start": "2026-03-12", "end": "2026-03-15" },
+      "sessions": [
+        { "name": "Shakedown", "shortName": "SH", "dateTime": "2026-03-12T06:00:00Z", "type": "shakedown" },
+        { "name": "Day 1", "shortName": "D1", "dateTime": "2026-03-13T05:00:00Z", "type": "stage" },
+        { "name": "Day 2", "shortName": "D2", "dateTime": "2026-03-14T05:00:00Z", "type": "stage" },
+        { "name": "Day 3", "shortName": "D3", "dateTime": "2026-03-15T05:00:00Z", "type": "stage" }
+      ],
+      "status": "confirmed"
+    },
+    {
+      "id": "wrc-2026-04",
+      "seriesId": "wrc",
+      "name": "Croatia Rally",
+      "country": "Croatia",
+      "circuit": "Zagreb Region",
+      "location": "Zagreb",
+      "dates": { "start": "2026-04-09", "end": "2026-04-12" },
+      "sessions": [
+        { "name": "Shakedown", "shortName": "SH", "dateTime": "2026-04-09T07:00:00Z", "type": "shakedown" },
+        { "name": "Day 1", "shortName": "D1", "dateTime": "2026-04-10T06:00:00Z", "type": "stage" },
+        { "name": "Day 2", "shortName": "D2", "dateTime": "2026-04-11T06:00:00Z", "type": "stage" },
+        { "name": "Day 3", "shortName": "D3", "dateTime": "2026-04-12T06:00:00Z", "type": "stage" }
+      ],
+      "status": "confirmed"
+    },
+    {
+      "id": "wrc-2026-05",
+      "seriesId": "wrc",
+      "name": "Rally de Portugal",
+      "country": "Portugal",
+      "circuit": "Matosinhos Region",
+      "location": "Porto",
+      "dates": { "start": "2026-05-07", "end": "2026-05-10" },
+      "sessions": [
+        { "name": "Shakedown", "shortName": "SH", "dateTime": "2026-05-07T08:00:00Z", "type": "shakedown" },
+        { "name": "Day 1", "shortName": "D1", "dateTime": "2026-05-08T07:00:00Z", "type": "stage" },
+        { "name": "Day 2", "shortName": "D2", "dateTime": "2026-05-09T07:00:00Z", "type": "stage" },
+        { "name": "Day 3", "shortName": "D3", "dateTime": "2026-05-10T07:00:00Z", "type": "stage" }
+      ],
+      "status": "confirmed"
+    },
+    {
+      "id": "wrc-2026-06",
+      "seriesId": "wrc",
+      "name": "Rally Finland",
+      "country": "Finland",
+      "circuit": "Jyvaskyla Region",
+      "location": "Jyvaskyla",
+      "dates": { "start": "2026-07-30", "end": "2026-08-02" },
+      "sessions": [
+        { "name": "Shakedown", "shortName": "SH", "dateTime": "2026-07-30T06:00:00Z", "type": "shakedown" },
+        { "name": "Day 1", "shortName": "D1", "dateTime": "2026-07-31T05:00:00Z", "type": "stage" },
+        { "name": "Day 2", "shortName": "D2", "dateTime": "2026-08-01T05:00:00Z", "type": "stage" },
+        { "name": "Day 3", "shortName": "D3", "dateTime": "2026-08-02T05:00:00Z", "type": "stage" }
+      ],
+      "status": "confirmed",
+      "isFeatured": true
+    },
+    {
+      "id": "wrc-2026-07",
+      "seriesId": "wrc",
+      "name": "Rally Saudi Arabia",
+      "country": "Saudi Arabia",
+      "circuit": "Jeddah Region",
+      "location": "Jeddah",
+      "dates": { "start": "2026-11-11", "end": "2026-11-14" },
+      "sessions": [
+        { "name": "Shakedown", "shortName": "SH", "dateTime": "2026-11-11T07:00:00Z", "type": "shakedown" },
+        { "name": "Day 1", "shortName": "D1", "dateTime": "2026-11-12T06:00:00Z", "type": "stage" },
+        { "name": "Day 2", "shortName": "D2", "dateTime": "2026-11-13T06:00:00Z", "type": "stage" },
+        { "name": "Day 3", "shortName": "D3", "dateTime": "2026-11-14T06:00:00Z", "type": "stage" }
+      ],
+      "status": "confirmed"
+    }
+  ]
+}

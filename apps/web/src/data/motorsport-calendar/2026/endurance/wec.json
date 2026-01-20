@@ -1,0 +1,127 @@
+{
+  "seriesId": "wec",
+  "year": 2026,
+  "events": [
+    {
+      "id": "wec-2026-01",
+      "seriesId": "wec",
+      "name": "Qatar 1812km",
+      "country": "Qatar",
+      "circuit": "Lusail International Circuit",
+      "location": "Lusail",
+      "dates": { "start": "2026-03-28", "end": "2026-03-28" },
+      "sessions": [
+        { "name": "Free Practice 1", "shortName": "FP1", "dateTime": "2026-03-27T07:00:00Z", "type": "practice" },
+        { "name": "Free Practice 2", "shortName": "FP2", "dateTime": "2026-03-27T11:30:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-03-27T15:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-03-28T12:00:00Z", "duration": "8h", "type": "race" }
+      ],
+      "status": "confirmed"
+    },
+    {
+      "id": "wec-2026-02",
+      "seriesId": "wec",
+      "name": "6 Hours of Imola",
+      "country": "Italy",
+      "circuit": "Autodromo Enzo e Dino Ferrari",
+      "location": "Imola",
+      "dates": { "start": "2026-04-19", "end": "2026-04-19" },
+      "sessions": [
+        { "name": "Free Practice", "shortName": "FP", "dateTime": "2026-04-18T09:00:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-04-18T14:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-04-19T11:00:00Z", "duration": "6h", "type": "race" }
+      ],
+      "status": "confirmed"
+    },
+    {
+      "id": "wec-2026-03",
+      "seriesId": "wec",
+      "name": "6 Hours of Spa-Francorchamps",
+      "country": "Belgium",
+      "circuit": "Circuit de Spa-Francorchamps",
+      "location": "Spa",
+      "dates": { "start": "2026-05-09", "end": "2026-05-09" },
+      "sessions": [
+        { "name": "Free Practice", "shortName": "FP", "dateTime": "2026-05-08T09:00:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-05-08T14:30:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-05-09T11:00:00Z", "duration": "6h", "type": "race" }
+      ],
+      "status": "confirmed"
+    },
+    {
+      "id": "wec-2026-04",
+      "seriesId": "wec",
+      "name": "24 Hours of Le Mans",
+      "country": "France",
+      "circuit": "Circuit de la Sarthe",
+      "location": "Le Mans",
+      "dates": { "start": "2026-06-13", "end": "2026-06-14" },
+      "sessions": [
+        { "name": "Hyperpole", "shortName": "HP", "dateTime": "2026-06-12T19:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-06-13T14:00:00Z", "duration": "24h", "type": "race" }
+      ],
+      "status": "confirmed",
+      "isFeatured": true
+    },
+    {
+      "id": "wec-2026-05",
+      "seriesId": "wec",
+      "name": "6 Hours of Sao Paulo",
+      "country": "Brazil",
+      "circuit": "Autodromo Jose Carlos Pace",
+      "location": "Sao Paulo",
+      "dates": { "start": "2026-07-12", "end": "2026-07-12" },
+      "sessions": [
+        { "name": "Free Practice", "shortName": "FP", "dateTime": "2026-07-11T13:00:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-07-11T17:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-07-12T14:00:00Z", "duration": "6h", "type": "race" }
+      ],
+      "status": "confirmed"
+    },
+    {
+      "id": "wec-2026-06",
+      "seriesId": "wec",
+      "name": "Lone Star Le Mans",
+      "country": "USA",
+      "circuit": "Circuit of the Americas",
+      "location": "Austin",
+      "dates": { "start": "2026-09-06", "end": "2026-09-06" },
+      "sessions": [
+        { "name": "Free Practice", "shortName": "FP", "dateTime": "2026-09-05T15:00:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-09-05T20:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-09-06T17:00:00Z", "duration": "6h", "type": "race" }
+      ],
+      "status": "confirmed"
+    },
+    {
+      "id": "wec-2026-07",
+      "seriesId": "wec",
+      "name": "6 Hours of Fuji",
+      "country": "Japan",
+      "circuit": "Fuji Speedway",
+      "location": "Oyama",
+      "dates": { "start": "2026-09-27", "end": "2026-09-27" },
+      "sessions": [
+        { "name": "Free Practice", "shortName": "FP", "dateTime": "2026-09-26T01:00:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-09-26T05:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-09-27T03:00:00Z", "duration": "6h", "type": "race" }
+      ],
+      "status": "confirmed"
+    },
+    {
+      "id": "wec-2026-08",
+      "seriesId": "wec",
+      "name": "8 Hours of Bahrain",
+      "country": "Bahrain",
+      "circuit": "Bahrain International Circuit",
+      "location": "Sakhir",
+      "dates": { "start": "2026-11-07", "end": "2026-11-07" },
+      "sessions": [
+        { "name": "Free Practice", "shortName": "FP", "dateTime": "2026-11-06T09:00:00Z", "type": "practice" },
+        { "name": "Qualifying", "shortName": "Q", "dateTime": "2026-11-06T14:00:00Z", "type": "qualifying" },
+        { "name": "Race", "shortName": "R", "dateTime": "2026-11-07T11:00:00Z", "duration": "8h", "type": "race" }
+      ],
+      "status": "confirmed"
+    }
+  ]
+}

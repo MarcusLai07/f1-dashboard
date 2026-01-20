@@ -25,16 +25,7 @@ import { cn } from "@/lib/utils";
 import { getCircuitByName, getTurnTypeColor, type CircuitData } from "@/data";
 import { InteractiveTrackMap } from "./InteractiveTrackMap";
 
-// Types for circuit data
-interface CircuitGeoData {
-  name: string;
-  location: string;
-  length: number;
-  coordinates: [number, number][];
-  svgPath: string;
-  viewBox: string;
-}
-
+// Types for circuit history (optional external API data)
 interface RaceResult {
   year: number;
   driver: string;
@@ -126,7 +117,6 @@ export function CircuitInfoSlidePanel({
 }: CircuitInfoSlidePanelProps) {
   const [mounted, setMounted] = useState(false);
   const [showDebugMarkers, setShowDebugMarkers] = useState(false);
-  const [circuitGeo, setCircuitGeo] = useState<CircuitGeoData | null>(null);
   const [circuitHistory, setCircuitHistory] = useState<CircuitHistory | null>(null);
   const [circuitFeats, setCircuitFeats] = useState<CircuitData | null>(null);
   const [loading, setLoading] = useState(false);
@@ -146,35 +136,25 @@ export function CircuitInfoSlidePanel({
       setLoading(true);
       setError(null);
 
-      // Load local circuit features data and API data in parallel
-      Promise.all([
-        getCircuitByName(circuitName),
-        fetch(`/api/circuit?name=${encodeURIComponent(circuitName)}`).then((r) => r.json()),
-        fetch(`/api/circuit/history?circuit=${encodeURIComponent(circuitName)}`).then((r) => r.json()),
-      ])
-        .then(([circuitData, geoData, historyData]) => {
-          // Set local circuit data
-          setCircuitFeats(circuitData);
-
-          if (geoData.error) {
-            console.warn("Circuit geo error:", geoData.error);
+      // Load local circuit data (contains SVG, corners, DRS zones, etc.)
+      getCircuitByName(circuitName)
+        .then((circuitData) => {
+          if (circuitData) {
+            setCircuitFeats(circuitData);
+            setLoading(false);
           } else {
-            setCircuitGeo(geoData);
+            setError("Circuit data not found");
+            setLoading(false);
           }
-
-          if (historyData.error) {
-            console.warn("Circuit history error:", historyData.error);
-          } else {
-            setCircuitHistory(historyData);
-          }
-
-          setLoading(false);
         })
         .catch((err) => {
-          console.error("Failed to fetch circuit data:", err);
+          console.error("Failed to load circuit data:", err);
           setError("Failed to load circuit data");
           setLoading(false);
         });
+
+      // History data is optional - could be fetched from external API later
+      setCircuitHistory(null);
     }
   }, [isOpen, circuitName]);
 
@@ -301,11 +281,11 @@ export function CircuitInfoSlidePanel({
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    {circuitGeo?.svgPath ? (
+                    {circuitFeats?.svg?.path ? (
                       <div className="relative bg-gradient-to-b from-secondary/30 to-secondary/10 rounded-lg p-2">
                         <InteractiveTrackMap
-                          svgPath={circuitGeo.svgPath}
-                          viewBox={circuitGeo.viewBox}
+                          svgPath={circuitFeats.svg.path}
+                          viewBox={circuitFeats.svg.viewBox}
                           circuitFeatures={circuitFeats}
                           className="w-full aspect-[4/3]"
                           showAnimation={true}
@@ -315,7 +295,7 @@ export function CircuitInfoSlidePanel({
                         {/* Track info overlay */}
                         <div className="absolute bottom-2 right-2 flex gap-2">
                           <Badge variant="secondary" className="text-xs bg-black/60">
-                            {circuitFeats?.length?.toFixed(3) || (circuitGeo.length > 0 ? (circuitGeo.length / 1000).toFixed(3) : "N/A")}km
+                            {circuitFeats.length.toFixed(3)}km
                           </Badge>
                         </div>
 
@@ -352,7 +332,7 @@ export function CircuitInfoSlidePanel({
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                       <div className="bg-secondary/30 rounded-lg p-3 text-center">
                         <div className="text-2xl font-bold text-primary">
-                          {circuitFeats?.length?.toFixed(3) || (circuitGeo?.length ? (circuitGeo.length / 1000).toFixed(3) : "N/A")}
+                          {circuitFeats?.length?.toFixed(3) || "N/A"}
                         </div>
                         <div className="text-xs text-muted-foreground">Length (km)</div>
                       </div>

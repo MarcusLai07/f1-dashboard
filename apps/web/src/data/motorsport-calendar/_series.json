@@ -1,0 +1,108 @@
+{
+  "series": [
+    {
+      "id": "f1",
+      "name": "FIA Formula 1 World Championship",
+      "shortName": "F1",
+      "category": "formula",
+      "color": "#E10600",
+      "website": "https://www.formula1.com"
+    },
+    {
+      "id": "f2",
+      "name": "FIA Formula 2 Championship",
+      "shortName": "F2",
+      "category": "formula",
+      "color": "#0090D0",
+      "website": "https://www.fiaformula2.com"
+    },
+    {
+      "id": "f3",
+      "name": "FIA Formula 3 Championship",
+      "shortName": "F3",
+      "category": "formula",
+      "color": "#00875F",
+      "website": "https://www.fiaformula3.com"
+    },
+    {
+      "id": "fe",
+      "name": "ABB FIA Formula E World Championship",
+      "shortName": "Formula E",
+      "category": "formula",
+      "color": "#14B8A6",
+      "website": "https://www.fiaformulae.com"
+    },
+    {
+      "id": "wec",
+      "name": "FIA World Endurance Championship",
+      "shortName": "WEC",
+      "category": "endurance",
+      "color": "#C41E3A",
+      "website": "https://www.fiawec.com"
+    },
+    {
+      "id": "imsa",
+      "name": "IMSA WeatherTech SportsCar Championship",
+      "shortName": "IMSA",
+      "category": "endurance",
+      "color": "#003DA5",
+      "website": "https://www.imsa.com"
+    },
+    {
+      "id": "wrc",
+      "name": "FIA World Rally Championship",
+      "shortName": "WRC",
+      "category": "rally",
+      "color": "#00AEEF",
+      "website": "https://www.wrc.com"
+    },
+    {
+      "id": "motogp",
+      "name": "MotoGP World Championship",
+      "shortName": "MotoGP",
+      "category": "motorcycle",
+      "color": "#BE0A26",
+      "website": "https://www.motogp.com"
+    },
+    {
+      "id": "wsbk",
+      "name": "FIM Superbike World Championship",
+      "shortName": "WorldSBK",
+      "category": "motorcycle",
+      "color": "#FF6B00",
+      "website": "https://www.worldsbk.com"
+    },
+    {
+      "id": "nascar",
+      "name": "NASCAR Cup Series",
+      "shortName": "NASCAR",
+      "category": "stock",
+      "color": "#FFCC00",
+      "website": "https://www.nascar.com"
+    },
+    {
+      "id": "indycar",
+      "name": "NTT IndyCar Series",
+      "shortName": "IndyCar",
+      "category": "formula",
+      "color": "#DA291C",
+      "website": "https://www.indycar.com"
+    },
+    {
+      "id": "dtm",
+      "name": "Deutsche Tourenwagen Masters",
+      "shortName": "DTM",
+      "category": "touring",
+      "color": "#1E1E1E",
+      "website": "https://www.dtm.com"
+    },
+    {
+      "id": "festivals",
+      "name": "Motorsport Festivals & Special Events",
+      "shortName": "Festival",
+      "category": "special",
+      "color": "#9333EA",
+      "website": null
+    }
+  ]
+}
