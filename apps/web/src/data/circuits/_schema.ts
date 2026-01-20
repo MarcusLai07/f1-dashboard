@@ -89,6 +89,23 @@ export interface CircuitData {
     };
   };
 
+  // === Race History ===
+  history?: {
+    winners: Array<{
+      year: number;
+      driver: string;
+      driverCode: string;
+      team: string;
+    }>;
+    poles: Array<{
+      year: number;
+      driver: string;
+      driverCode: string;
+      team: string;
+      time?: string;
+    }>;
+  };
+
   // === Metadata ===
   lastUpdated?: string; // ISO date
   dataSource?: string; // e.g., "FastF1 2024 Qualifying"

@@ -48,7 +48,7 @@ interface EventCardProps {
 }
 
 export function EventCard({ event, timezone }: EventCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
 
   const flag = COUNTRY_FLAGS[event.country] || "🏁";
 

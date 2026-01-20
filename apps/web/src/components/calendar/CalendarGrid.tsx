@@ -188,11 +188,11 @@ export function CalendarGrid({
       </div>
 
       {/* Day Headers */}
-      <div className="grid grid-cols-7 gap-1">
+      <div className="grid grid-cols-7">
         {dayNames.map((day) => (
           <div
             key={day}
-            className="text-center text-xs text-muted-foreground py-2"
+            className="text-center text-xs text-muted-foreground py-2 border-b border-border"
           >
             {day}
           </div>
@@ -200,10 +200,15 @@ export function CalendarGrid({
       </div>
 
       {/* Calendar Days */}
-      <div className="grid grid-cols-7 gap-1">
+      <div className="grid grid-cols-7 flex-1">
         {weeks.flat().map((day, index) => {
           if (day === null) {
-            return <div key={`empty-${index}`} className="aspect-square" />;
+            return (
+              <div
+                key={`empty-${index}`}
+                className="min-h-[110px] border-b border-r border-border/30"
+              />
+            );
           }
 
           const dayEvents = calendarData.eventsByDay.get(day) || [];
@@ -216,8 +221,8 @@ export function CalendarGrid({
               key={day}
               onClick={() => handleDayClick(day)}
               className={cn(
-                "min-h-[100px] flex flex-col items-stretch justify-start p-1 rounded-md text-sm relative transition-colors",
-                isToday && "ring-2 ring-primary",
+                "min-h-[110px] flex flex-col items-stretch justify-start p-1.5 text-sm relative transition-colors border-b border-r border-border/30",
+                isToday && "ring-2 ring-primary ring-inset",
                 isSelected && "bg-primary/10",
                 !isSelected && hasEvents && "hover:bg-secondary/30",
                 !isSelected && !hasEvents && "hover:bg-secondary/20"
@@ -230,11 +235,11 @@ export function CalendarGrid({
               )}>{day}</span>
               {/* Event entries - Apple Calendar style */}
               {dayEvents.length > 0 && (
-                <div className="flex flex-col gap-0.5 overflow-hidden">
+                <div className="flex flex-col gap-0.5 overflow-hidden flex-1">
                   {dayEvents.slice(0, 4).map((e) => (
                     <div
                       key={e.id}
-                      className="text-[9px] font-medium px-1 py-0.5 rounded truncate text-white"
+                      className="text-[10px] font-medium px-1.5 py-0.5 rounded truncate text-white"
                       style={{ backgroundColor: e.color }}
                       title={e.label}
                     >
@@ -242,7 +247,7 @@ export function CalendarGrid({
                     </div>
                   ))}
                   {dayEvents.length > 4 && (
-                    <span className="text-[9px] text-muted-foreground text-center">
+                    <span className="text-[10px] text-muted-foreground text-center">
                       +{dayEvents.length - 4} more
                     </span>
                   )}

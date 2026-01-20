@@ -141,6 +141,32 @@ export function CircuitInfoSlidePanel({
         .then((circuitData) => {
           if (circuitData) {
             setCircuitFeats(circuitData);
+
+            // Load history from local circuit data if available
+            if (circuitData.history) {
+              setCircuitHistory({
+                circuit: null,
+                winners: circuitData.history.winners.map((w) => ({
+                  year: w.year,
+                  driver: w.driver,
+                  driverCode: w.driverCode,
+                  team: w.team,
+                })),
+                poles: circuitData.history.poles.map((p) => ({
+                  year: p.year,
+                  driver: p.driver,
+                  driverCode: p.driverCode,
+                  team: p.team,
+                  q3Time: p.time,
+                })),
+                totalRaces: circuitData.history.winners.length,
+                firstRaceYear: circuitData.firstGP || null,
+                lastRaceYear: circuitData.history.winners[0]?.year || null,
+              });
+            } else {
+              setCircuitHistory(null);
+            }
+
             setLoading(false);
           } else {
             setError("Circuit data not found");
@@ -152,9 +178,6 @@ export function CircuitInfoSlidePanel({
           setError("Failed to load circuit data");
           setLoading(false);
         });
-
-      // History data is optional - could be fetched from external API later
-      setCircuitHistory(null);
     }
   }, [isOpen, circuitName]);
 
@@ -497,15 +520,15 @@ export function CircuitInfoSlidePanel({
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="max-h-48 overflow-y-auto">
+                      <div className="max-h-64 overflow-y-auto">
                         <div className="grid grid-cols-2 gap-2">
                           {circuitFeats.corners.map((turn) => (
                             <div
                               key={turn.number}
-                              className="flex items-center gap-2 p-2 bg-secondary/20 rounded text-xs"
+                              className="flex items-center gap-3 p-3 bg-secondary/20 rounded text-sm"
                             >
                               <div
-                                className="w-6 h-6 rounded-full flex items-center justify-center font-bold text-[10px]"
+                                className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs"
                                 style={{
                                   backgroundColor: `${getTurnTypeColor(turn.type)}30`,
                                   color: getTurnTypeColor(turn.type),
@@ -517,7 +540,7 @@ export function CircuitInfoSlidePanel({
                                 <div className="font-medium truncate">
                                   {turn.name || `Turn ${turn.number}`}
                                 </div>
-                                <div className="text-muted-foreground text-[10px]">
+                                <div className="text-muted-foreground text-xs">
                                   {turn.speed && `${turn.speed}km/h`}
                                   {turn.gear && ` • Gear ${turn.gear}`}
                                 </div>
