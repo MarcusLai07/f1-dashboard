@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# FastF1 cache
+scripts/.fastf1_cache/
+*.ff1pkl
+*.sqlite
