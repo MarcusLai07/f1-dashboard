@@ -19,7 +19,8 @@ import { TeamsTab } from "@/components/season/TeamsTab";
 import { DebugPanel } from "@/components/debug/DebugPanel";
 import { useSeasonStore } from "@/stores/seasonStore";
 import { useSeasonData } from "@/hooks/useSeasonData";
-import { generateICS, CALENDAR_2026 } from "@/lib/calendar2026";
+import { getRaces, type F1Event } from "@/data";
+import { generateICS } from "@/lib/calendarUtils";
 
 // Common timezones
 const TIMEZONES = [
@@ -51,6 +52,12 @@ export default function SeasonPage() {
   const { refresh } = useSeasonData();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [activeTab, setActiveTab] = useState("calendar");
+  const [races, setRaces] = useState<F1Event[]>([]);
+
+  // Fetch races for calendar download
+  useEffect(() => {
+    getRaces().then(setRaces);
+  }, []);
 
   // Update "time ago" display
   const [timeAgo, setTimeAgo] = useState(formatTimeSince(lastUpdated));
@@ -80,7 +87,8 @@ export default function SeasonPage() {
 
   // Download full calendar
   const handleDownloadCalendar = useCallback(() => {
-    const icsContent = generateICS(CALENDAR_2026);
+    if (races.length === 0) return;
+    const icsContent = generateICS(races);
     const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
@@ -90,7 +98,7 @@ export default function SeasonPage() {
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-  }, []);
+  }, [races]);
 
   return (
     <div className="h-screen flex flex-col bg-background overflow-hidden">
@@ -126,6 +134,7 @@ export default function SeasonPage() {
                     variant="outline"
                     size="sm"
                     onClick={handleDownloadCalendar}
+                    disabled={races.length === 0}
                     className="h-8 gap-1.5"
                   >
                     <Download className="h-3 w-3" />

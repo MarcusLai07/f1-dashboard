@@ -7,8 +7,8 @@ import { Bell, Calendar, BellOff, Sun, Moon, Sunrise, Sunset } from "lucide-reac
 import { useSeasonStore } from "@/stores/seasonStore";
 import { useDebugStore } from "@/stores/debugStore";
 import { useNotificationPermission, useSessionNotifications } from "@/hooks/useSeasonData";
-import { CALENDAR_2026, PRE_SEASON_2026, type F1Event, type PreSeasonEvent } from "@/lib/calendar2026";
-import { generateICS } from "@/lib/calendar2026";
+import { getRaces, getPreseason, type F1Event, type PreSeasonEvent } from "@/data";
+import { generateICS } from "@/lib/calendarUtils";
 import { MiniF1Car } from "@/components/ui/f1-loader";
 import { animate } from "animejs";
 
@@ -232,10 +232,10 @@ type NextEventResult =
   | { event: PreSeasonEvent; sessionType: string; sessionTime: Date; isPreSeason: true }
   | null;
 
-function getNextEvent(now: number): NextEventResult {
+function getNextEvent(now: number, races: F1Event[], preseason: PreSeasonEvent[]): NextEventResult {
 
   // Check pre-season events first (shakedown & testing)
-  for (const event of PRE_SEASON_2026) {
+  for (const event of preseason) {
     // Only include shakedown and testing events that have session times
     if ((event.type === "shakedown" || event.type === "testing") && event.sessions) {
       // Check morning session
@@ -279,7 +279,7 @@ function getNextEvent(now: number): NextEventResult {
   }
 
   // Then check race calendar
-  for (const event of CALENDAR_2026) {
+  for (const event of races) {
     // Check each session in order
     const sessions = [
       { type: "FP1", time: event.sessions.fp1 },
@@ -315,11 +315,25 @@ export function CountdownHero() {
   const now = useCurrentTime();
 
   const [timeRemaining, setTimeRemaining] = useState<TimeRemaining | null>(null);
-  const [nextEvent, setNextEvent] = useState<ReturnType<typeof getNextEvent>>(null);
+  const [nextEvent, setNextEvent] = useState<NextEventResult>(null);
+  const [races, setRaces] = useState<F1Event[]>([]);
+  const [preseason, setPreseason] = useState<PreSeasonEvent[]>([]);
+  const [dataLoaded, setDataLoaded] = useState(false);
 
-  // Update next event when simulated time changes
+  // Fetch calendar data
   useEffect(() => {
-    const event = getNextEvent(now);
+    Promise.all([getRaces(), getPreseason()]).then(([racesData, preseasonData]) => {
+      setRaces(racesData);
+      setPreseason(preseasonData);
+      setDataLoaded(true);
+    });
+  }, []);
+
+  // Update next event when simulated time changes or data loads
+  useEffect(() => {
+    if (!dataLoaded) return;
+
+    const event = getNextEvent(now, races, preseason);
     setNextEvent(event);
 
     if (!event) {
@@ -339,7 +353,7 @@ export function CountdownHero() {
       seconds: Math.floor(((event.sessionTime.getTime() - now) / 1000) % 60),
     };
     setTimeRemaining(adjustedRemaining);
-  }, [now]);
+  }, [now, dataLoaded, races, preseason]);
 
   // Get time of day for the session
   const timeOfDay = useMemo(() => {
@@ -421,6 +435,18 @@ export function CountdownHero() {
       URL.revokeObjectURL(url);
     }
   }, [nextEvent]);
+
+  if (!dataLoaded) {
+    return (
+      <Card className="bg-gradient-to-r from-card to-card/80 border-border">
+        <CardContent className="py-8 text-center">
+          <div className="flex items-center justify-center">
+            <MiniF1Car spinning />
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   if (!nextEvent || !timeRemaining) {
     return (

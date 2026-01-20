@@ -6,108 +6,126 @@ import { NextRequest, NextResponse } from "next/server";
 import { getCircuit, getAllCircuitIds } from "@/data";
 
 // Map various circuit name aliases to canonical IDs in src/data/circuits/
+// Uses circuit-based IDs (e.g., "albert-park", "silverstone", "monza")
 const CIRCUIT_NAME_MAP: Record<string, string> = {
-  // Abu Dhabi / Yas Marina
-  "yas marina": "yas_marina",
-  "yas_marina": "yas_marina",
-  "abu dhabi": "yas_marina",
-  "abu_dhabi": "yas_marina",
-  "united arab emirates": "yas_marina",
+  // Albert Park (Australia)
+  "albert park": "albert-park",
+  "albert park circuit": "albert-park",
+  "albert park grand prix circuit": "albert-park",
+  "melbourne": "albert-park",
+  "australia": "albert-park",
   // Bahrain
   "bahrain": "bahrain",
+  "bahrain international circuit": "bahrain",
   "sakhir": "bahrain",
-  "bahrain international": "bahrain",
-  // Saudi Arabia
-  "jeddah": "jeddah",
-  "saudi arabia": "jeddah",
-  "saudi": "jeddah",
-  "corniche": "jeddah",
-  // Australia
-  "melbourne": "albert_park",
-  "albert park": "albert_park",
-  "albert_park": "albert_park",
-  "australia": "albert_park",
-  // Japan
-  "suzuka": "suzuka",
-  "japan": "suzuka",
-  // China
-  "shanghai": "shanghai",
-  "china": "shanghai",
-  // Miami
-  "miami": "miami",
-  // Imola
-  "imola": "imola",
-  "emilia romagna": "imola",
-  "emilia-romagna": "imola",
-  // Monaco
-  "monaco": "monaco",
-  "monte carlo": "monaco",
-  // Canada
-  "montreal": "montreal",
-  "canada": "montreal",
-  "gilles villeneuve": "montreal",
-  // Spain
+  // Baku (Azerbaijan)
+  "baku": "baku",
+  "baku city circuit": "baku",
+  "azerbaijan": "baku",
+  // Barcelona (Spain)
   "barcelona": "barcelona",
+  "circuit de barcelona-catalunya": "barcelona",
   "spain": "barcelona",
   "catalunya": "barcelona",
   "catalonia": "barcelona",
-  // Austria
-  "spielberg": "red_bull_ring",
-  "austria": "red_bull_ring",
-  "red bull ring": "red_bull_ring",
-  // Silverstone
-  "silverstone": "silverstone",
-  "uk": "silverstone",
-  "britain": "silverstone",
-  "great britain": "silverstone",
-  // Hungary
+  // COTA (USA - Austin)
+  "cota": "cota",
+  "circuit of the americas": "cota",
+  "austin": "cota",
+  "texas": "cota",
+  "usa": "cota",
+  // Hungaroring (Hungary)
   "hungaroring": "hungaroring",
   "hungary": "hungaroring",
   "budapest": "hungaroring",
-  // Spa
-  "spa": "spa",
-  "belgium": "spa",
-  "spa-francorchamps": "spa",
-  "francorchamps": "spa",
-  // Zandvoort
-  "zandvoort": "zandvoort",
-  "netherlands": "zandvoort",
-  "dutch": "zandvoort",
-  // Monza
-  "monza": "monza",
-  "italy": "monza",
-  "italian": "monza",
-  // Baku
-  "baku": "baku",
-  "azerbaijan": "baku",
-  // Singapore
-  "marina bay": "marina_bay",
-  "marina-bay": "marina_bay",
-  "marina_bay": "marina_bay",
-  "singapore": "marina_bay",
-  // Austin / COTA
-  "cota": "cota",
-  "austin": "cota",
-  "texas": "cota",
-  "circuit of the americas": "cota",
-  // Mexico
-  "mexico city": "mexico",
-  "mexico-city": "mexico",
-  "mexico": "mexico",
-  "hermanos rodriguez": "mexico",
-  // Interlagos
+  // Imola
+  "imola": "imola",
+  "autodromo enzo e dino ferrari": "imola",
+  "emilia romagna": "imola",
+  "emilia-romagna": "imola",
+  // Interlagos (Brazil)
   "interlagos": "interlagos",
+  "autódromo josé carlos pace": "interlagos",
+  "autodromo jose carlos pace": "interlagos",
   "brazil": "interlagos",
   "sao paulo": "interlagos",
   "são paulo": "interlagos",
+  // Jeddah (Saudi Arabia)
+  "jeddah": "jeddah",
+  "jeddah corniche circuit": "jeddah",
+  "saudi arabia": "jeddah",
+  "saudi": "jeddah",
+  "corniche": "jeddah",
   // Las Vegas
-  "las vegas": "las_vegas",
-  "las-vegas": "las_vegas",
-  "las_vegas": "las_vegas",
-  "vegas": "las_vegas",
-  // Qatar
+  "las vegas": "las-vegas",
+  "las vegas strip circuit": "las-vegas",
+  "vegas": "las-vegas",
+  // Lusail (Qatar)
   "lusail": "lusail",
+  "lusail international circuit": "lusail",
   "qatar": "lusail",
+  // Marina Bay (Singapore)
+  "marina bay": "marina-bay",
+  "marina bay street circuit": "marina-bay",
+  "singapore": "marina-bay",
+  // Mexico City
+  "mexico city": "mexico-city",
+  "autódromo hermanos rodríguez": "mexico-city",
+  "autodromo hermanos rodriguez": "mexico-city",
+  "mexico": "mexico-city",
+  "hermanos rodriguez": "mexico-city",
+  // Miami
+  "miami": "miami",
+  "miami international autodrome": "miami",
+  // Monaco
+  "monaco": "monaco",
+  "circuit de monaco": "monaco",
+  "monte carlo": "monaco",
+  // Montreal (Canada)
+  "montreal": "montreal",
+  "circuit gilles villeneuve": "montreal",
+  "canada": "montreal",
+  "gilles villeneuve": "montreal",
+  // Monza (Italy)
+  "monza": "monza",
+  "autodromo nazionale monza": "monza",
+  "italy": "monza",
+  "italian": "monza",
+  // Red Bull Ring (Austria)
+  "red bull ring": "red-bull-ring",
+  "spielberg": "red-bull-ring",
+  "austria": "red-bull-ring",
+  // Shanghai (China)
+  "shanghai": "shanghai",
+  "shanghai international circuit": "shanghai",
+  "china": "shanghai",
+  // Silverstone (Great Britain)
+  "silverstone": "silverstone",
+  "silverstone circuit": "silverstone",
+  "great britain": "silverstone",
+  "britain": "silverstone",
+  "uk": "silverstone",
+  // Spa (Belgium)
+  "spa": "spa",
+  "circuit de spa-francorchamps": "spa",
+  "spa-francorchamps": "spa",
+  "belgium": "spa",
+  "francorchamps": "spa",
+  // Suzuka (Japan)
+  "suzuka": "suzuka",
+  "suzuka international racing course": "suzuka",
+  "japan": "suzuka",
+  // Yas Marina (Abu Dhabi)
+  "yas marina": "yas-marina",
+  "yas marina circuit": "yas-marina",
+  "abu dhabi": "yas-marina",
+  "uae": "yas-marina",
+  "united arab emirates": "yas-marina",
+  // Zandvoort (Netherlands)
+  "zandvoort": "zandvoort",
+  "circuit zandvoort": "zandvoort",
+  "netherlands": "zandvoort",
+  "dutch": "zandvoort",
 };
 
 // Response format expected by TrackMap3D component

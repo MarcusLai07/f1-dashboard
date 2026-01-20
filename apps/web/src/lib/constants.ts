@@ -1,92 +1,3 @@
-// F1 Team Colors (2026 Season)
-export const TEAM_COLORS: Record<string, string> = {
-  "Red Bull Racing": "#3671C6",
-  Ferrari: "#E8002D",
-  Mercedes: "#27F4D2",
-  McLaren: "#FF8000",
-  "Aston Martin": "#229971",
-  Alpine: "#00A1E8",
-  Williams: "#1868DB",
-  "Racing Bulls": "#6692FF",
-  Audi: "#F50537",
-  Cadillac: "#1C1C1C",
-  "Haas F1 Team": "#B6BABD",
-} as const;
-
-// Driver to Team mapping (2026 Season)
-export const DRIVER_TEAMS: Record<string, string> = {
-  // Red Bull Racing
-  VER: "Red Bull Racing",
-  HAD: "Red Bull Racing", // Isack Hadjar
-  // Ferrari
-  LEC: "Ferrari",
-  HAM: "Ferrari",
-  // McLaren (Norris is 2025 Champion)
-  NOR: "McLaren",
-  PIA: "McLaren",
-  // Mercedes
-  RUS: "Mercedes",
-  ANT: "Mercedes", // Kimi Antonelli
-  // Aston Martin
-  ALO: "Aston Martin",
-  STR: "Aston Martin",
-  // Alpine
-  GAS: "Alpine",
-  COL: "Alpine", // Franco Colapinto
-  // Williams
-  ALB: "Williams",
-  SAI: "Williams",
-  // Racing Bulls (formerly RB/AlphaTauri)
-  LAW: "Racing Bulls", // Liam Lawson
-  LIN: "Racing Bulls", // Arvid Lindblad (rookie)
-  // Audi (formerly Kick Sauber)
-  HUL: "Audi",
-  BOR: "Audi", // Gabriel Bortoleto
-  // Cadillac (new team for 2026)
-  PER: "Cadillac",
-  BOT: "Cadillac",
-  // Haas F1 Team
-  OCO: "Haas F1 Team",
-  BEA: "Haas F1 Team", // Oliver Bearman
-} as const;
-
-// Driver Numbers (2026 Season)
-export const DRIVER_NUMBERS: Record<string, number> = {
-  // Red Bull Racing
-  VER: 3, // Verstappen switched from 33 to 3
-  HAD: 6, // Isack Hadjar
-  // Ferrari
-  LEC: 16,
-  HAM: 44,
-  // McLaren
-  NOR: 1, // 2025 World Champion
-  PIA: 81,
-  // Mercedes
-  RUS: 63,
-  ANT: 12, // Kimi Antonelli (tribute to Senna)
-  // Aston Martin
-  ALO: 14,
-  STR: 18,
-  // Alpine
-  GAS: 10,
-  COL: 43, // Franco Colapinto
-  // Williams
-  ALB: 23,
-  SAI: 55,
-  // Racing Bulls
-  LAW: 30, // Liam Lawson
-  LIN: 41, // Arvid Lindblad (rookie, initials AL → 41)
-  // Audi
-  HUL: 27,
-  BOR: 5, // Gabriel Bortoleto
-  // Cadillac
-  PER: 11,
-  BOT: 77,
-  // Haas F1 Team
-  OCO: 31,
-  BEA: 87, // Oliver Bearman
-} as const;
-
 // Tyre Compound Colors
 export const TYRE_COLORS: Record<string, string> = {
   SOFT: "#ff0000",
@@ -146,12 +57,6 @@ export const API_URLS = {
   openF1: "https://api.openf1.org/v1",
   local: "/api",
 } as const;
-
-// Helper function to get team color by driver code
-export function getTeamColor(driverCode: string): string {
-  const team = DRIVER_TEAMS[driverCode];
-  return team ? TEAM_COLORS[team] : "#808080";
-}
 
 // Helper function to get tyre color
 export function getTyreColor(compound: string): string {

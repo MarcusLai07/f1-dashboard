@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useCallback, useRef } from "react";
+import { useEffect, useCallback, useRef, useState } from "react";
 import { useSeasonStore } from "@/stores/seasonStore";
-import { CALENDAR_2026 } from "@/lib/calendar2026";
+import { getRaces, type F1Event } from "@/data";
 
 // Event-aware refresh intervals (in milliseconds)
 const REFRESH_INTERVALS = {
@@ -14,10 +14,10 @@ const REFRESH_INTERVALS = {
   postSession: 2 * 60 * 1000, // Just ended: every 2 minutes
 };
 
-function getTimeToNextSession(): number {
+function getTimeToNextSession(races: F1Event[]): number {
   const now = Date.now();
 
-  for (const event of CALENDAR_2026) {
+  for (const event of races) {
     const sessions = [
       event.sessions.fp1,
       event.sessions.fp2,
@@ -40,10 +40,10 @@ function getTimeToNextSession(): number {
   return Infinity; // Season over
 }
 
-function isSessionLive(): boolean {
+function isSessionLive(races: F1Event[]): boolean {
   const now = Date.now();
 
-  for (const event of CALENDAR_2026) {
+  for (const event of races) {
     const sessions = [
       { time: event.sessions.fp1, duration: 60 },
       { time: event.sessions.fp2, duration: 60 },
@@ -67,11 +67,11 @@ function isSessionLive(): boolean {
   return false;
 }
 
-function sessionJustEnded(): boolean {
+function sessionJustEnded(races: F1Event[]): boolean {
   const now = Date.now();
   const thirtyMinutesAgo = now - 30 * 60 * 1000;
 
-  for (const event of CALENDAR_2026) {
+  for (const event of races) {
     const sessions = [
       { time: event.sessions.qualifying, duration: 60 },
       { time: event.sessions.sprint, duration: 45 },
@@ -91,17 +91,17 @@ function sessionJustEnded(): boolean {
   return false;
 }
 
-function calculateRefreshInterval(): number {
+function calculateRefreshInterval(races: F1Event[]): number {
   // Check special conditions first
-  if (sessionJustEnded()) {
+  if (sessionJustEnded(races)) {
     return REFRESH_INTERVALS.postSession;
   }
 
-  if (isSessionLive()) {
+  if (isSessionLive(races)) {
     return REFRESH_INTERVALS.live;
   }
 
-  const timeToNext = getTimeToNextSession();
+  const timeToNext = getTimeToNextSession(races);
 
   if (timeToNext === Infinity) {
     return REFRESH_INTERVALS.distant;
@@ -129,6 +129,7 @@ export function useSeasonData(options: UseSeasonDataOptions = {}) {
   const { enabled = true } = options;
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const lastFetchRef = useRef<number>(0);
+  const [races, setRaces] = useState<F1Event[]>([]);
 
   const {
     setDriverStandings,
@@ -139,6 +140,11 @@ export function useSeasonData(options: UseSeasonDataOptions = {}) {
     setLoading,
     setError,
   } = useSeasonStore();
+
+  // Fetch races data for refresh interval calculations
+  useEffect(() => {
+    getRaces().then(setRaces);
+  }, []);
 
   const fetchStandings = useCallback(async () => {
     try {
@@ -194,7 +200,7 @@ export function useSeasonData(options: UseSeasonDataOptions = {}) {
       clearTimeout(intervalRef.current);
     }
 
-    const interval = calculateRefreshInterval();
+    const interval = calculateRefreshInterval(races);
     console.log(`[SeasonData] Next refresh in ${Math.round(interval / 60000)} minutes`);
 
     intervalRef.current = setTimeout(() => {
@@ -202,7 +208,7 @@ export function useSeasonData(options: UseSeasonDataOptions = {}) {
         scheduleNextRefresh();
       });
     }, interval);
-  }, [fetchAll]);
+  }, [fetchAll, races]);
 
   // Initial fetch and setup
   useEffect(() => {

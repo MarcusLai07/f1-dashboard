@@ -3,13 +3,13 @@
 import React, { useRef, useEffect, useState, useMemo, useCallback } from "react";
 import { animate } from "animejs";
 import { cn } from "@/lib/utils";
-import { type CircuitFeatures, type Turn } from "@/lib/circuitFeatures";
+import { type CircuitData, type Turn } from "@/data";
 import { ZoomIn, ZoomOut, RotateCcw, Maximize2 } from "lucide-react";
 
 interface InteractiveTrackMapProps {
   svgPath: string;
   viewBox: string;
-  circuitFeatures?: CircuitFeatures | null;
+  circuitFeatures?: CircuitData | null;
   className?: string;
   showAnimation?: boolean;
   showTurns?: boolean;
@@ -99,13 +99,13 @@ export function InteractiveTrackMap({
 
   // Calculate turn positions outside the track with collision avoidance
   useEffect(() => {
-    if (!trackPathRef.current || pathLength === 0 || !circuitFeatures?.turns || !showTurns) {
+    if (!trackPathRef.current || pathLength === 0 || !circuitFeatures?.corners || !showTurns) {
       setTurnMarkers([]);
       return;
     }
 
     const path = trackPathRef.current;
-    const turns = circuitFeatures.turns;
+    const turns = circuitFeatures.corners;
     const totalTurns = turns.length;
     const baseOffset = 18; // Base distance outside the track
     const markerRadius = 8; // Radius of turn number circle
@@ -245,7 +245,7 @@ export function InteractiveTrackMap({
     }
 
     setTurnMarkers(resolvedMarkers);
-  }, [pathLength, circuitFeatures?.turns, circuitFeatures?.pathStartOffset, showTurns, viewBoxDims, trackBounds]);
+  }, [pathLength, circuitFeatures?.corners, circuitFeatures?.pathStartOffset, showTurns, viewBoxDims, trackBounds]);
 
   // Animate the track drawing
   useEffect(() => {

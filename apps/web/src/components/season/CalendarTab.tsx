@@ -7,12 +7,14 @@ import { Bell, Calendar, ChevronDown, ChevronRight, ChevronLeft, CheckCircle } f
 import { useSeasonStore } from "@/stores/seasonStore";
 import { useDebugStore } from "@/stores/debugStore";
 import { useNotificationPermission, useSessionNotifications } from "@/hooks/useSeasonData";
-import { CALENDAR_2026, PRE_SEASON_2026, generateICS, formatSessionTime, type F1Event, type PreSeasonEvent } from "@/lib/calendar2026";
+import { getRaces, getPreseason, type F1Event, type PreSeasonEvent } from "@/data";
+import { generateICS, formatSessionTime } from "@/lib/calendarUtils";
 import { CalendarExport } from "./CalendarExport";
+import { F1Loader } from "@/components/ui/f1-loader";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { animate } from "animejs";
-import { getCircuit, type CircuitData } from "@/lib/circuits";
+import { getCircuitByName, type CircuitData } from "@/data";
 import { MapPin, Trophy, Flag, Timer, Route, Repeat, Info } from "lucide-react";
 import { CircuitInfoSlidePanel } from "./CircuitInfoSlidePanel";
 
@@ -67,11 +69,11 @@ interface EventDateInfo {
   events: Array<{ name: string; type: "testing" | "race"; isSprint?: boolean; round?: number; event: F1Event | PreSeasonEvent }>;
 }
 
-function getEventDatesForMonth(year: number, month: number): Map<number, EventDateInfo> {
+function getEventDatesForMonth(year: number, month: number, races: F1Event[], preseason: PreSeasonEvent[]): Map<number, EventDateInfo> {
   const eventDates = new Map<number, EventDateInfo>();
 
   // Add pre-season testing dates
-  for (const event of PRE_SEASON_2026) {
+  for (const event of preseason) {
     const startDate = new Date(event.dates.start);
     const endDate = new Date(event.dates.end);
 
@@ -94,7 +96,7 @@ function getEventDatesForMonth(year: number, month: number): Map<number, EventDa
   }
 
   // Add race weekend dates
-  for (const event of CALENDAR_2026) {
+  for (const event of races) {
     const startDate = new Date(event.dates.start);
     const endDate = new Date(event.dates.end);
 
@@ -129,6 +131,8 @@ function getEventDatesForMonth(year: number, month: number): Map<number, EventDa
 interface MiniCalendarProps {
   onEventSelect: (event: F1Event | PreSeasonEvent, type: "testing" | "race") => void;
   now: number;
+  races: F1Event[];
+  preseason: PreSeasonEvent[];
 }
 
 // Get all days that belong to an event
@@ -147,7 +151,7 @@ function getEventDays(event: F1Event | PreSeasonEvent, year: number, month: numb
   return days;
 }
 
-function MiniCalendar({ onEventSelect, now }: MiniCalendarProps) {
+function MiniCalendar({ onEventSelect, now, races, preseason }: MiniCalendarProps) {
   const [currentMonth, setCurrentMonth] = useState(() => {
     const currentDate = new Date(now);
     return { year: currentDate.getFullYear(), month: currentDate.getMonth() };
@@ -174,13 +178,13 @@ function MiniCalendar({ onEventSelect, now }: MiniCalendarProps) {
     const daysInMonth = lastDay.getDate();
     const startDayOfWeek = firstDay.getDay();
 
-    const eventDates = getEventDatesForMonth(year, month);
+    const eventDates = getEventDatesForMonth(year, month, races, preseason);
     const today = new Date(now);
     const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
     const todayDate = isCurrentMonth ? today.getDate() : -1;
 
     return { year, month, daysInMonth, startDayOfWeek, eventDates, todayDate };
-  }, [currentMonth, now]);
+  }, [currentMonth, now, races, preseason]);
 
   const goToPrevMonth = () => {
     setCurrentMonth((prev) => {
@@ -400,13 +404,13 @@ function MiniCalendar({ onEventSelect, now }: MiniCalendarProps) {
 
 type EventStatus = "completed" | "next" | "upcoming";
 
-function getEventStatus(event: F1Event, now: number): EventStatus {
+function getEventStatus(event: F1Event, now: number, races: F1Event[]): EventStatus {
   const raceEnd = new Date(event.sessions.race).getTime() + 2 * 60 * 60 * 1000;
 
   if (now > raceEnd) return "completed";
 
   // Find the next upcoming event
-  const nextEvent = CALENDAR_2026.find((e) => {
+  const nextEvent = races.find((e) => {
     const eRaceEnd = new Date(e.sessions.race).getTime() + 2 * 60 * 60 * 1000;
     return now <= eRaceEnd;
   });
@@ -423,9 +427,10 @@ interface SessionRowProps {
   sessionType: string;
   showActions?: boolean;
   now: number;
+  races: F1Event[];
 }
 
-function SessionRow({ label, time, timezone, eventRound, sessionType, showActions, now }: SessionRowProps) {
+function SessionRow({ label, time, timezone, eventRound, sessionType, showActions, now, races }: SessionRowProps) {
   const { notifications } = useSeasonStore();
   const { requestPermission } = useNotificationPermission();
   const { scheduleNotification, cancelNotification } = useSessionNotifications();
@@ -449,7 +454,7 @@ function SessionRow({ label, time, timezone, eventRound, sessionType, showAction
   };
 
   const handleAddToCal = () => {
-    const event = CALENDAR_2026.find((e) => e.round === eventRound);
+    const event = races.find((e) => e.round === eventRound);
     if (!event) return;
 
     const icsContent = generateICS([event]);
@@ -517,7 +522,11 @@ interface CircuitInfoButtonProps {
 }
 
 function CircuitInfoButton({ circuitName, eventName, country, onOpenPanel }: CircuitInfoButtonProps) {
-  const circuit = getCircuit(circuitName);
+  const [circuit, setCircuit] = useState<CircuitData | null>(null);
+
+  useEffect(() => {
+    getCircuitByName(circuitName).then(setCircuit);
+  }, [circuitName]);
 
   return (
     <div className="mt-3 pt-3 border-t border-border/50">
@@ -549,9 +558,10 @@ interface EventCardProps {
   defaultExpanded?: boolean;
   now: number;
   forceExpanded?: boolean; // When true, forces the card to be expanded (from illumination)
+  races: F1Event[];
 }
 
-function EventCard({ event, status, defaultExpanded = false, now, forceExpanded }: EventCardProps) {
+function EventCard({ event, status, defaultExpanded = false, now, forceExpanded, races }: EventCardProps) {
   const [expanded, setExpanded] = useState(defaultExpanded || status === "next");
   const [circuitPanelOpen, setCircuitPanelOpen] = useState(false);
   const { timezone } = useSeasonStore();
@@ -600,20 +610,20 @@ function EventCard({ event, status, defaultExpanded = false, now, forceExpanded 
       {expanded && (
         <CardContent className="pt-0 pb-3 px-3">
           <div className="space-y-1 mt-2">
-            <SessionRow label="FP1" time={event.sessions.fp1} timezone={timezone} eventRound={event.round} sessionType="FP1" now={now} />
+            <SessionRow label="FP1" time={event.sessions.fp1} timezone={timezone} eventRound={event.round} sessionType="FP1" now={now} races={races} />
             {event.isSprint ? (
               <>
-                <SessionRow label="SQ" time={event.sessions.sprintQualifying} timezone={timezone} eventRound={event.round} sessionType="SQ" now={now} />
-                <SessionRow label="SPR" time={event.sessions.sprint} timezone={timezone} eventRound={event.round} sessionType="Sprint" showActions now={now} />
+                <SessionRow label="SQ" time={event.sessions.sprintQualifying} timezone={timezone} eventRound={event.round} sessionType="SQ" now={now} races={races} />
+                <SessionRow label="SPR" time={event.sessions.sprint} timezone={timezone} eventRound={event.round} sessionType="Sprint" showActions now={now} races={races} />
               </>
             ) : (
               <>
-                <SessionRow label="FP2" time={event.sessions.fp2} timezone={timezone} eventRound={event.round} sessionType="FP2" now={now} />
-                <SessionRow label="FP3" time={event.sessions.fp3} timezone={timezone} eventRound={event.round} sessionType="FP3" now={now} />
+                <SessionRow label="FP2" time={event.sessions.fp2} timezone={timezone} eventRound={event.round} sessionType="FP2" now={now} races={races} />
+                <SessionRow label="FP3" time={event.sessions.fp3} timezone={timezone} eventRound={event.round} sessionType="FP3" now={now} races={races} />
               </>
             )}
-            <SessionRow label="QUAL" time={event.sessions.qualifying} timezone={timezone} eventRound={event.round} sessionType="Qualifying" showActions now={now} />
-            <SessionRow label="RACE" time={event.sessions.race} timezone={timezone} eventRound={event.round} sessionType="Race" showActions now={now} />
+            <SessionRow label="QUAL" time={event.sessions.qualifying} timezone={timezone} eventRound={event.round} sessionType="Qualifying" showActions now={now} races={races} />
+            <SessionRow label="RACE" time={event.sessions.race} timezone={timezone} eventRound={event.round} sessionType="Race" showActions now={now} races={races} />
           </div>
 
           {/* Circuit Info Button - Opens slide panel */}
@@ -645,7 +655,19 @@ interface CalendarTabProps {
 export function CalendarTab({ hideExport = false }: CalendarTabProps) {
   const [showCompleted, setShowCompleted] = useState(false);
   const [illuminatedEventId, setIlluminatedEventId] = useState<string | null>(null); // Track which event is illuminated/expanded
+  const [races, setRaces] = useState<F1Event[]>([]);
+  const [preseason, setPreseason] = useState<PreSeasonEvent[]>([]);
+  const [dataLoaded, setDataLoaded] = useState(false);
   const now = useCurrentTime();
+
+  // Fetch calendar data
+  useEffect(() => {
+    Promise.all([getRaces(), getPreseason()]).then(([racesData, preseasonData]) => {
+      setRaces(racesData);
+      setPreseason(preseasonData);
+      setDataLoaded(true);
+    });
+  }, []);
 
   const { completed, next, upcoming } = useMemo(() => {
     const result = {
@@ -654,8 +676,8 @@ export function CalendarTab({ hideExport = false }: CalendarTabProps) {
       upcoming: [] as F1Event[],
     };
 
-    for (const event of CALENDAR_2026) {
-      const status = getEventStatus(event, now);
+    for (const event of races) {
+      const status = getEventStatus(event, now, races);
       if (status === "completed") {
         result.completed.push(event);
       } else if (status === "next") {
@@ -666,12 +688,12 @@ export function CalendarTab({ hideExport = false }: CalendarTabProps) {
     }
 
     return result;
-  }, [now]);
+  }, [now, races]);
 
   // Check if pre-season is completed
   const preSeasonCompleted = useMemo(() => {
-    return PRE_SEASON_2026.every((e) => new Date(e.dates.end).getTime() < now);
-  }, [now]);
+    return preseason.every((e) => new Date(e.dates.end).getTime() < now);
+  }, [now, preseason]);
 
   // Scroll to element and apply illumination animation
   const scrollToAndIlluminate = useCallback((element: Element, color: string) => {
@@ -744,12 +766,20 @@ export function CalendarTab({ hideExport = false }: CalendarTabProps) {
     }
   }, [completed, showCompleted, scrollToAndIlluminate]);
 
+  if (!dataLoaded) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <F1Loader text="Loading calendar..." />
+      </div>
+    );
+  }
+
   return (
     <div className="flex gap-3 lg:gap-4">
       {/* Mini Calendar - Responsive sidebar on desktop */}
       <div className="hidden lg:block w-56 xl:w-64 2xl:w-72 flex-shrink-0">
         <div className="sticky top-4">
-          <MiniCalendar onEventSelect={handleEventSelect} now={now} />
+          <MiniCalendar onEventSelect={handleEventSelect} now={now} races={races} preseason={preseason} />
         </div>
       </div>
 
@@ -757,7 +787,7 @@ export function CalendarTab({ hideExport = false }: CalendarTabProps) {
       <div className="flex-1 space-y-4 min-w-0">
         {/* Mobile Mini Calendar */}
         <div className="lg:hidden max-w-sm mx-auto">
-          <MiniCalendar onEventSelect={handleEventSelect} now={now} />
+          <MiniCalendar onEventSelect={handleEventSelect} now={now} races={races} preseason={preseason} />
         </div>
 
         {/* Calendar Export - only show if not hidden */}
@@ -771,7 +801,7 @@ export function CalendarTab({ hideExport = false }: CalendarTabProps) {
               TESTING
             </h3>
             <div className="space-y-2">
-              {PRE_SEASON_2026.map((event, i) => {
+              {preseason.map((event, i) => {
                 const isPast = new Date(event.dates.end).getTime() < now;
                 return (
                   <Card
@@ -824,6 +854,7 @@ export function CalendarTab({ hideExport = false }: CalendarTabProps) {
                     status="completed"
                     now={now}
                     forceExpanded={illuminatedEventId === `race-${event.round}`}
+                    races={races}
                   />
                 ))}
               </div>
@@ -856,6 +887,7 @@ export function CalendarTab({ hideExport = false }: CalendarTabProps) {
               defaultExpanded
               now={now}
               forceExpanded={illuminatedEventId === `race-${next.round}` ? true : undefined}
+              races={races}
             />
           </div>
         )}
@@ -872,6 +904,7 @@ export function CalendarTab({ hideExport = false }: CalendarTabProps) {
                   status="upcoming"
                   now={now}
                   forceExpanded={illuminatedEventId === `race-${event.round}`}
+                  races={races}
                 />
               ))}
             </div>

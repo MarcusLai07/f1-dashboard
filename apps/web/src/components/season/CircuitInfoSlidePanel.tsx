@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import { animate } from "animejs";
 import { cn } from "@/lib/utils";
-import { getCircuitFeatures, getTurnTypeColor, type CircuitFeatures } from "@/lib/circuitFeatures";
+import { getCircuitByName, getTurnTypeColor, type CircuitData } from "@/data";
 import { InteractiveTrackMap } from "./InteractiveTrackMap";
 
 // Types for circuit data
@@ -128,7 +128,7 @@ export function CircuitInfoSlidePanel({
   const [showDebugMarkers, setShowDebugMarkers] = useState(false);
   const [circuitGeo, setCircuitGeo] = useState<CircuitGeoData | null>(null);
   const [circuitHistory, setCircuitHistory] = useState<CircuitHistory | null>(null);
-  const [circuitFeats, setCircuitFeats] = useState<CircuitFeatures | null>(null);
+  const [circuitFeats, setCircuitFeats] = useState<CircuitData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -146,16 +146,16 @@ export function CircuitInfoSlidePanel({
       setLoading(true);
       setError(null);
 
-      // Load local circuit features data immediately
-      const features = getCircuitFeatures(circuitName);
-      setCircuitFeats(features);
-
-      // Fetch both circuit geometry and history in parallel
+      // Load local circuit features data and API data in parallel
       Promise.all([
+        getCircuitByName(circuitName),
         fetch(`/api/circuit?name=${encodeURIComponent(circuitName)}`).then((r) => r.json()),
         fetch(`/api/circuit/history?circuit=${encodeURIComponent(circuitName)}`).then((r) => r.json()),
       ])
-        .then(([geoData, historyData]) => {
+        .then(([circuitData, geoData, historyData]) => {
+          // Set local circuit data
+          setCircuitFeats(circuitData);
+
           if (geoData.error) {
             console.warn("Circuit geo error:", geoData.error);
           } else {
@@ -295,7 +295,7 @@ export function CircuitInfoSlidePanel({
                       Track Layout
                       {circuitFeats && (
                         <Badge variant="outline" className="text-[10px] ml-auto">
-                          {circuitFeats.turns.length} turns • {circuitFeats.drsZones.length} DRS
+                          {circuitFeats.corners.length} turns • {circuitFeats.drsZones.length} DRS
                         </Badge>
                       )}
                     </CardTitle>
@@ -358,7 +358,7 @@ export function CircuitInfoSlidePanel({
                       </div>
                       <div className="bg-secondary/30 rounded-lg p-3 text-center">
                         <div className="text-2xl font-bold">
-                          {circuitFeats?.turns?.length || "N/A"}
+                          {circuitFeats?.corners?.length || "N/A"}
                         </div>
                         <div className="text-xs text-muted-foreground">Turns</div>
                       </div>
@@ -405,17 +405,17 @@ export function CircuitInfoSlidePanel({
                     </div>
 
                     {/* Lap Record */}
-                    {(circuitFeats?.lapRecord || circuitHistory?.winners?.[0]) && (
+                    {(circuitFeats?.records?.lapRecord || circuitHistory?.winners?.[0]) && (
                       <div className="mt-4 p-3 bg-purple-500/10 border border-purple-500/20 rounded-lg">
                         <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1">
                           <Timer className="h-3 w-3" />
                           Lap Record
                         </div>
                         <div className="text-xl font-bold text-purple-400">
-                          {circuitFeats?.lapRecord?.time || "N/A"}
+                          {circuitFeats?.records?.lapRecord?.time || "N/A"}
                         </div>
                         <div className="text-xs text-muted-foreground">
-                          {circuitFeats?.lapRecord?.driver} ({circuitFeats?.lapRecord?.year})
+                          {circuitFeats?.records?.lapRecord?.driver} ({circuitFeats?.records?.lapRecord?.year})
                         </div>
                       </div>
                     )}
@@ -482,11 +482,11 @@ export function CircuitInfoSlidePanel({
                       {/* Turn Types Legend */}
                       <div>
                         <div className="text-xs text-muted-foreground mb-2">
-                          Turns by Type ({circuitFeats.turns.length} total)
+                          Turns by Type ({circuitFeats.corners.length} total)
                         </div>
                         <div className="grid grid-cols-5 gap-2 text-xs">
                           {["hairpin", "slow", "medium", "fast", "chicane"].map((type) => {
-                            const count = circuitFeats.turns.filter((t) => t.type === type).length;
+                            const count = circuitFeats.corners.filter((t) => t.type === type).length;
                             return (
                               <div
                                 key={type}
@@ -508,7 +508,7 @@ export function CircuitInfoSlidePanel({
                 )}
 
                 {/* Turn Details - Expandable */}
-                {circuitFeats && circuitFeats.turns.length > 0 && (
+                {circuitFeats && circuitFeats.corners.length > 0 && (
                   <Card>
                     <CardHeader className="pb-2">
                       <CardTitle className="text-sm flex items-center gap-2">
@@ -519,7 +519,7 @@ export function CircuitInfoSlidePanel({
                     <CardContent>
                       <div className="max-h-48 overflow-y-auto">
                         <div className="grid grid-cols-2 gap-2">
-                          {circuitFeats.turns.map((turn) => (
+                          {circuitFeats.corners.map((turn) => (
                             <div
                               key={turn.number}
                               className="flex items-center gap-2 p-2 bg-secondary/20 rounded text-xs"

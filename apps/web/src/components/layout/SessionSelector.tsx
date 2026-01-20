@@ -8,10 +8,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { ChevronDown, Calendar, Flag, Wrench } from "lucide-react";
+import { ChevronDown, Flag, Wrench } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getSessions } from "@/lib/api";
-import { CALENDAR_2026, PRE_SEASON_2026, type F1Event, type PreSeasonEvent } from "@/lib/calendar2026";
+import { getRaces, getPreseason, type F1Event, type PreSeasonEvent } from "@/data";
 import { useDebugStore, getSimulatedNow } from "@/stores/debugStore";
 import type { Session } from "@/types/f1";
 
@@ -56,20 +56,6 @@ const SESSION_BADGES: Record<string, { label: string; className: string }> = {
   "PM": { label: "PM", className: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30" },
 };
 
-// Format time for display
-function formatSessionTime(dateString: string, timezone: string = "Asia/Kuala_Lumpur"): string {
-  const date = new Date(dateString);
-  return date.toLocaleString("en-GB", {
-    timeZone: timezone,
-    weekday: "short",
-    day: "numeric",
-    month: "short",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
-}
-
 function formatShortTime(dateString: string, timezone: string = "Asia/Kuala_Lumpur"): string {
   const date = new Date(dateString);
   return date.toLocaleString("en-GB", {
@@ -82,11 +68,11 @@ function formatShortTime(dateString: string, timezone: string = "Asia/Kuala_Lump
 }
 
 // Build selectable events from calendar data
-function buildEvents(now: Date, debugEnabled: boolean): SelectableEvent[] {
+function buildEvents(now: Date, debugEnabled: boolean, races: F1Event[], preseason: PreSeasonEvent[]): SelectableEvent[] {
   const events: SelectableEvent[] = [];
 
   // Add pre-season testing events
-  for (const test of PRE_SEASON_2026) {
+  for (const test of preseason) {
     if (test.type !== "testing" && test.type !== "shakedown") continue;
 
     const eventEnd = new Date(test.dates.end);
@@ -145,7 +131,7 @@ function buildEvents(now: Date, debugEnabled: boolean): SelectableEvent[] {
   }
 
   // Add race events
-  for (const race of CALENDAR_2026) {
+  for (const race of races) {
     const eventEnd = new Date(race.dates.end);
     const isPastEvent = eventEnd < now;
     if (isPastEvent && !debugEnabled) continue;
@@ -279,13 +265,28 @@ export function SessionSelector({
   const [selectedCalendarKey, setSelectedCalendarKey] = useState<string | null>(null);
   const [sessions, setSessions] = useState<Session[]>([]);
   const [loading, setLoading] = useState(true);
+  const [races, setRaces] = useState<F1Event[]>([]);
+  const [preseason, setPreseason] = useState<PreSeasonEvent[]>([]);
+  const [dataLoaded, setDataLoaded] = useState(false);
   const { enabled: debugEnabled } = useDebugStore();
+
+  // Fetch calendar data
+  useEffect(() => {
+    Promise.all([getRaces(), getPreseason()]).then(([racesData, preseasonData]) => {
+      setRaces(racesData);
+      setPreseason(preseasonData);
+      setDataLoaded(true);
+    });
+  }, []);
 
   // Get simulated time
   const now = useMemo(() => new Date(getSimulatedNow()), [debugEnabled]);
 
   // Build events list
-  const events = useMemo(() => buildEvents(now, debugEnabled), [now, debugEnabled]);
+  const events = useMemo(() => {
+    if (!dataLoaded) return [];
+    return buildEvents(now, debugEnabled, races, preseason);
+  }, [now, debugEnabled, dataLoaded, races, preseason]);
 
   // Fetch API sessions for debug mode (don't auto-select from these)
   useEffect(() => {
@@ -365,7 +366,7 @@ export function SessionSelector({
     setOpen(false);
   };
 
-  if (loading) {
+  if (loading || !dataLoaded) {
     return <div className="h-9 w-72 bg-secondary animate-pulse rounded-md" />;
   }
 

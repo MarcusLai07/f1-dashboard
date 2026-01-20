@@ -1,15 +1,38 @@
 import { NextResponse } from "next/server";
-import { TEAM_COLORS } from "@/lib/constants";
+import { getTeamColors } from "@/data";
 
 // Jolpica API (Ergast continuation)
 const JOLPICA_BASE = "https://api.jolpi.ca/ergast/f1";
 
 interface StandingsResponse {
-  driverStandings: any[];
-  constructorStandings: any[];
+  driverStandings: DriverStanding[];
+  constructorStandings: ConstructorStanding[];
   round: number;
   season: number;
   timestamp: string;
+  stale?: boolean;
+}
+
+interface DriverStanding {
+  position: number;
+  driverCode: string;
+  driverNumber: number;
+  firstName: string;
+  lastName: string;
+  nationality: string;
+  team: string;
+  teamColor: string;
+  points: number;
+  wins: number;
+}
+
+interface ConstructorStanding {
+  position: number;
+  name: string;
+  nationality: string;
+  points: number;
+  wins: number;
+  color: string;
 }
 
 // Cache standings for 5 minutes
@@ -72,16 +95,20 @@ function normalizeTeamName(name: string): string {
   return teamNameMap[name] || name;
 }
 
-function getTeamColor(teamName: string): string {
-  const normalized = normalizeTeamName(teamName);
-  return TEAM_COLORS[normalized] || "#808080";
-}
-
 export async function GET() {
   try {
     // Check cache
     if (standingsCache && Date.now() - standingsCache.timestamp < CACHE_TTL) {
       return NextResponse.json(standingsCache.data);
+    }
+
+    // Fetch team colors from unified data layer
+    const teamColors = await getTeamColors();
+
+    // Helper function to get team color
+    function getTeamColor(teamName: string): string {
+      const normalized = normalizeTeamName(teamName);
+      return teamColors[normalized] || "#808080";
     }
 
     // Fetch both standings in parallel
@@ -112,7 +139,7 @@ export async function GET() {
     const season = parseInt(driverData?.MRData?.StandingsTable?.StandingsLists?.[0]?.season || "2026");
 
     // Transform driver standings
-    const driverStandings = driverStandingsList.map((ds) => {
+    const driverStandings: DriverStanding[] = driverStandingsList.map((ds) => {
       const teamName = ds.Constructors?.[0]?.name || "Unknown";
       const normalizedTeam = normalizeTeamName(teamName);
       return {
@@ -130,7 +157,7 @@ export async function GET() {
     });
 
     // Transform constructor standings
-    const constructorStandings = constructorStandingsList.map((cs) => {
+    const constructorStandings: ConstructorStanding[] = constructorStandingsList.map((cs) => {
       const normalizedName = normalizeTeamName(cs.Constructor.name);
       return {
         position: parseInt(cs.position),
@@ -142,7 +169,7 @@ export async function GET() {
       };
     });
 
-    const responseData = {
+    const responseData: StandingsResponse = {
       driverStandings,
       constructorStandings,
       round,

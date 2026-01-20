@@ -4,9 +4,9 @@ import { useState, useEffect, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChevronUp, ChevronDown, Minus } from "lucide-react";
 import { useSeasonStore, type DriverStanding, type ConstructorStanding } from "@/stores/seasonStore";
-import { TEAM_COLORS, DRIVER_TEAMS, DRIVER_NUMBERS } from "@/lib/constants";
+import { getTeamColors, getDriverTeams, getDriverNumbers } from "@/data";
 import { F1Loader } from "@/components/ui/f1-loader";
-import { animate, stagger } from "animejs";
+import { animate } from "animejs";
 
 // Position change indicator with animation
 interface PositionIndicatorProps {
@@ -264,31 +264,35 @@ const DRIVER_INFO: Record<string, { firstName: string; lastName: string; nationa
   SAI: { firstName: "Carlos", lastName: "Sainz", nationality: "Spanish" },
   LAW: { firstName: "Liam", lastName: "Lawson", nationality: "New Zealander" },
   LIN: { firstName: "Arvid", lastName: "Lindblad", nationality: "British" },
-  HUL: { firstName: "Nico", lastName: "Hülkenberg", nationality: "German" },
+  HUL: { firstName: "Nico", lastName: "Hulkenberg", nationality: "German" },
   BOR: { firstName: "Gabriel", lastName: "Bortoleto", nationality: "Brazilian" },
-  PER: { firstName: "Sergio", lastName: "Pérez", nationality: "Mexican" },
+  PER: { firstName: "Sergio", lastName: "Perez", nationality: "Mexican" },
   BOT: { firstName: "Valtteri", lastName: "Bottas", nationality: "Finnish" },
   OCO: { firstName: "Esteban", lastName: "Ocon", nationality: "French" },
   BEA: { firstName: "Oliver", lastName: "Bearman", nationality: "British" },
 };
 
 // Generate placeholder driver standings based on 2025 championship order
-function generatePlaceholderDriverStandings(): DriverStanding[] {
+function generatePlaceholderDriverStandings(
+  driverTeams: Record<string, string>,
+  driverNumbers: Record<string, number>,
+  teamColors: Record<string, string>
+): DriverStanding[] {
   const driverOrder = ["NOR", "PIA", "VER", "HAD", "LEC", "HAM", "RUS", "ANT", "ALO", "STR", "GAS", "COL", "ALB", "SAI", "LAW", "LIN", "HUL", "BOR", "PER", "BOT", "OCO", "BEA"];
 
   return driverOrder.map((code, index) => {
-    const team = DRIVER_TEAMS[code] || "Unknown";
+    const team = driverTeams[code] || "Unknown";
     const info = DRIVER_INFO[code] || { firstName: "", lastName: code, nationality: "Unknown" };
 
     return {
       position: index + 1,
       driverCode: code,
-      driverNumber: DRIVER_NUMBERS[code] || 0,
+      driverNumber: driverNumbers[code] || 0,
       firstName: info.firstName,
       lastName: info.lastName,
       nationality: info.nationality,
       team,
-      teamColor: TEAM_COLORS[team] || "#808080",
+      teamColor: teamColors[team] || "#808080",
       points: 0,
       wins: 0,
     };
@@ -296,7 +300,9 @@ function generatePlaceholderDriverStandings(): DriverStanding[] {
 }
 
 // Generate placeholder constructor standings
-function generatePlaceholderConstructorStandings(): ConstructorStanding[] {
+function generatePlaceholderConstructorStandings(
+  teamColors: Record<string, string>
+): ConstructorStanding[] {
   const teamInfo: { name: string; nationality: string }[] = [
     { name: "McLaren", nationality: "British" },
     { name: "Ferrari", nationality: "Italian" },
@@ -315,7 +321,7 @@ function generatePlaceholderConstructorStandings(): ConstructorStanding[] {
     position: index + 1,
     name: team.name,
     nationality: team.nationality,
-    color: TEAM_COLORS[team.name] || "#808080",
+    color: teamColors[team.name] || "#808080",
     points: 0,
     wins: 0,
   }));
@@ -326,22 +332,44 @@ export function StandingsTab() {
     useSeasonStore();
 
   const [highlightedTeam, setHighlightedTeam] = useState<string | null>(null);
+  const [teamColors, setTeamColors] = useState<Record<string, string>>({});
+  const [driverTeams, setDriverTeams] = useState<Record<string, string>>({});
+  const [driverNumbers, setDriverNumbers] = useState<Record<string, number>>({});
+  const [dataLoaded, setDataLoaded] = useState(false);
+
+  // Fetch reference data from the data layer
+  useEffect(() => {
+    Promise.all([
+      getTeamColors(),
+      getDriverTeams(),
+      getDriverNumbers(),
+    ]).then(([colors, teams, numbers]) => {
+      setTeamColors(colors);
+      setDriverTeams(teams);
+      setDriverNumbers(numbers);
+      setDataLoaded(true);
+    });
+  }, []);
 
   // Use actual standings or placeholder if not available
   const displayDriverStandings = driverStandings.length > 0
     ? driverStandings
-    : generatePlaceholderDriverStandings();
+    : dataLoaded
+      ? generatePlaceholderDriverStandings(driverTeams, driverNumbers, teamColors)
+      : [];
 
   const displayConstructorStandings = constructorStandings.length > 0
     ? constructorStandings
-    : generatePlaceholderConstructorStandings();
+    : dataLoaded
+      ? generatePlaceholderConstructorStandings(teamColors)
+      : [];
 
   const isPreSeason = driverStandings.length === 0;
 
   const maxDriverPoints = displayDriverStandings.length > 0 ? Math.max(displayDriverStandings[0].points, 1) : 1;
   const maxConstructorPoints = displayConstructorStandings.length > 0 ? Math.max(displayConstructorStandings[0].points, 1) : 1;
 
-  if (isLoading && driverStandings.length === 0) {
+  if ((isLoading && driverStandings.length === 0) || !dataLoaded) {
     return (
       <div className="flex items-center justify-center h-64">
         <F1Loader text="Loading standings..." />
@@ -356,11 +384,11 @@ export function StandingsTab() {
         {isPreSeason ? (
           <span className="flex items-center gap-2">
             <span className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse" />
-            Pre-Season • 2026 Season
+            Pre-Season - 2026 Season
           </span>
         ) : (
           <span>
-            After Round {standingsRound} • {standingsYear} Season
+            After Round {standingsRound} - {standingsYear} Season
           </span>
         )}
         {isPreSeason && (
