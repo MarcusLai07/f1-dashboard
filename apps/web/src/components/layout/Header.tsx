@@ -67,6 +67,17 @@ export function Header({ sessionName, isLive = false }: HeaderProps) {
           >
             Calendar
           </Link>
+          <Link
+            href="/about"
+            className={cn(
+              "px-3 py-1.5 rounded-md text-sm font-medium transition-colors",
+              pathname === "/about"
+                ? "bg-secondary text-foreground"
+                : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+            )}
+          >
+            About
+          </Link>
         </nav>
       </div>
 
