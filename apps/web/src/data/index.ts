@@ -5,11 +5,7 @@ import type { CircuitData, CircuitManifest } from "./circuits/_schema";
 import type { F1Event, PreSeasonEvent, CalendarData } from "./calendar/_schema";
 import type { TeamFull, TeamsData } from "./teams/_schema";
 import type { DriverFull, DriversData } from "./drivers/_schema";
-import type {
-  Team,
-  DriverReference,
-  CalendarOverrides,
-} from "./types";
+import type { CalendarOverrides } from "./types";
 
 // ============================================================================
 // CIRCUITS (Manual JSON files)
@@ -47,66 +43,6 @@ export async function getAllCircuits(): Promise<CircuitData[]> {
 
 export function clearCircuitCache(): void {
   circuitCache.clear();
-}
-
-// ============================================================================
-// TEAMS (Manual JSON files)
-// ============================================================================
-
-export async function getTeams(year: number = 2026): Promise<Team[]> {
-  try {
-    const data = await import(`./reference/teams-${year}.json`);
-    return data.default.teams as Team[];
-  } catch {
-    console.warn(`Teams not found for year: ${year}`);
-    return [];
-  }
-}
-
-export async function getTeam(
-  teamId: string,
-  year: number = 2026
-): Promise<Team | null> {
-  const teams = await getTeams(year);
-  return teams.find((t) => t.id === teamId) || null;
-}
-
-export async function getTeamColor(
-  teamId: string,
-  year: number = 2026
-): Promise<string> {
-  const team = await getTeam(teamId, year);
-  return team?.color || "#808080";
-}
-
-// ============================================================================
-// DRIVERS (Manual JSON files)
-// ============================================================================
-
-export async function getDrivers(year: number = 2026): Promise<DriverReference[]> {
-  try {
-    const data = await import(`./reference/drivers-${year}.json`);
-    return data.default.drivers as DriverReference[];
-  } catch {
-    console.warn(`Drivers not found for year: ${year}`);
-    return [];
-  }
-}
-
-export async function getDriver(
-  code: string,
-  year: number = 2026
-): Promise<DriverReference | null> {
-  const drivers = await getDrivers(year);
-  return drivers.find((d) => d.code === code) || null;
-}
-
-export async function getDriverByNumber(
-  number: number,
-  year: number = 2026
-): Promise<DriverReference | null> {
-  const drivers = await getDrivers(year);
-  return drivers.find((d) => d.number === number) || null;
 }
 
 // ============================================================================
@@ -343,19 +279,6 @@ export function mergeWithOverrides<T extends Record<string, unknown>>(
   }
 
   return merged;
-}
-
-// ============================================================================
-// COMPATIBILITY: Helper for getting team color by driver code
-// ============================================================================
-
-export async function getTeamColorByDriverCode(
-  driverCode: string,
-  year: number = 2026
-): Promise<string> {
-  const driver = await getDriver(driverCode, year);
-  if (!driver) return "#808080";
-  return getTeamColor(driver.teamId, year);
 }
 
 // ============================================================================
