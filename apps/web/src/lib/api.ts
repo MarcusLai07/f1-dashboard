@@ -47,12 +47,15 @@ async function fetchAPI<T>(endpoint: string, params?: Record<string, string>): P
 }
 
 // Session APIs
-export async function getSessions(): Promise<{
+export async function getSessions(year?: number): Promise<{
   current: Session | null;
   recent: Session[];
+  year: number;
   timestamp: string;
 }> {
-  return fetchAPI(`${API_BASE}/sessions`);
+  const params: Record<string, string> = {};
+  if (year) params.year = year.toString();
+  return fetchAPI(`${API_BASE}/sessions`, params);
 }
 
 // Driver APIs

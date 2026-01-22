@@ -1,13 +1,17 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 const OPENF1_BASE = "https://api.openf1.org/v1";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const yearParam = searchParams.get("year");
+
   try {
-    // Get sessions from current year (or last year if early in season)
+    // Use requested year, or default to current/previous year
     const currentYear = new Date().getFullYear();
-    // During off-season, include previous year's sessions
-    const yearToFetch = new Date().getMonth() < 2 ? currentYear - 1 : currentYear;
+    // During off-season (Jan-Feb), default to previous year's sessions
+    const defaultYear = new Date().getMonth() < 2 ? currentYear - 1 : currentYear;
+    const yearToFetch = yearParam ? parseInt(yearParam) : defaultYear;
 
     // Fetch both sessions and meetings to get meeting names
     const [sessionsRes, meetingsRes] = await Promise.all([
@@ -82,6 +86,7 @@ export async function GET() {
         year: s.year,
         status: s.date_end ? "finished" : "live",
       })),
+      year: yearToFetch,
       timestamp: new Date().toISOString(),
     });
   } catch (error) {

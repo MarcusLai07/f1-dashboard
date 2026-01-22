@@ -6,6 +6,9 @@ import type { Weather, TrackStatus, RaceControlMessage } from "@/types/f1";
 interface RaceInfoProps {
   lapCount?: { current: number; total: number };
   sessionTime?: string;
+  remainingTime?: string; // For practice/qualifying, format "MM:SS" countdown
+  sessionType?: "race" | "qualifying" | "practice";
+  qualifyingRound?: "Q1" | "Q2" | "Q3" | "SQ1" | "SQ2" | "SQ3" | null;
   weather: Weather | null;
   trackStatus: TrackStatus;
   recentMessages?: RaceControlMessage[];
@@ -14,10 +17,18 @@ interface RaceInfoProps {
 export function RaceInfo({
   lapCount,
   sessionTime,
+  remainingTime,
+  sessionType = "practice",
+  qualifyingRound,
   weather,
   trackStatus,
   recentMessages = [],
 }: RaceInfoProps) {
+  // Determine what to show based on session type
+  const isRaceSession = sessionType === "race";
+  const isQualifying = sessionType === "qualifying";
+  const isSprintQualifying = qualifyingRound?.startsWith("SQ");
+
   return (
     <div className="flex flex-col divide-y divide-border">
       {/* Session Info */}
@@ -26,7 +37,8 @@ export function RaceInfo({
           Session
         </h3>
 
-        {lapCount && (
+        {/* For race sessions, show lap count */}
+        {isRaceSession && lapCount && lapCount.total > 0 && (
           <div className="flex justify-between items-center">
             <span className="text-sm text-muted-foreground">Lap</span>
             <span className="font-mono font-bold">
@@ -36,10 +48,37 @@ export function RaceInfo({
           </div>
         )}
 
-        {sessionTime && (
+        {/* For qualifying, show the round */}
+        {isQualifying && qualifyingRound && (
           <div className="flex justify-between items-center">
-            <span className="text-sm text-muted-foreground">Time</span>
-            <span className="font-mono font-bold">{sessionTime}</span>
+            <span className="text-sm text-muted-foreground">Round</span>
+            <span className={cn(
+              "font-mono font-bold px-2 py-0.5 rounded",
+              isSprintQualifying ? "bg-orange-500/20 text-orange-400" : "bg-primary/20 text-primary"
+            )}>
+              {qualifyingRound}
+            </span>
+          </div>
+        )}
+
+        {/* Remaining time countdown for practice/qualifying */}
+        {remainingTime && !isRaceSession && (
+          <div className="flex justify-between items-center">
+            <span className="text-sm text-muted-foreground">Remaining</span>
+            <span className={cn(
+              "font-mono font-bold text-lg",
+              remainingTime.startsWith("0") || remainingTime.startsWith("-") ? "text-red-500" : "text-green-500"
+            )}>
+              {remainingTime}
+            </span>
+          </div>
+        )}
+
+        {/* Session start time (only if no remaining time) */}
+        {sessionTime && !remainingTime && (
+          <div className="flex justify-between items-center">
+            <span className="text-sm text-muted-foreground">Started</span>
+            <span className="font-mono text-sm">{sessionTime}</span>
           </div>
         )}
       </div>

@@ -212,17 +212,29 @@ export function DebugPanel({ mode = "auto" }: DebugPanelProps) {
           )}
         </div>
 
-        {/* Status */}
-        <div className="pt-2 border-t border-border text-xs text-muted-foreground space-y-1">
-          <div className="flex justify-between">
-            <span>Debug Mode:</span>
-            <span className={enabled ? "text-green-500" : "text-muted-foreground"}>
+        {/* Debug Mode Toggle */}
+        <div className="pt-2 border-t border-border space-y-2">
+          <div className="flex items-center justify-between">
+            <label className="text-xs font-medium text-muted-foreground">
+              Debug Mode
+            </label>
+            <Button
+              variant={enabled ? "default" : "outline"}
+              size="sm"
+              className={`h-7 text-xs px-3 ${enabled ? "bg-green-600 hover:bg-green-700" : ""}`}
+              onClick={() => setEnabled(!enabled)}
+            >
               {enabled ? "ON" : "OFF"}
-            </span>
+            </Button>
           </div>
+          {enabled && (
+            <p className="text-xs text-green-500">
+              ✓ 2025 historical sessions available in selector
+            </p>
+          )}
           {enabled && simulatedSessionType && (
-            <div className="flex justify-between">
-              <span>Session Type:</span>
+            <div className="flex items-center justify-between text-xs">
+              <span className="text-muted-foreground">Session Type:</span>
               <Badge
                 variant="outline"
                 className={SESSION_TYPE_COLORS[simulatedSessionType]}

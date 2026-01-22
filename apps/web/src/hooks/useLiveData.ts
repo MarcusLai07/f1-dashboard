@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useCallback, useMemo } from "react";
 import { useLiveStore } from "@/stores/liveStore";
+import { useReplayStore } from "@/stores/replayStore";
 import {
   getSessions,
   getTiming,
@@ -15,9 +16,14 @@ import { getPollingIntervals, deriveSessionType, type SessionType } from "./useS
 interface UseLiveDataOptions {
   enabled?: boolean;
   sessionKey?: number | null;
+  replayMode?: boolean;
 }
 
-export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions = {}) {
+export function useLiveData({ enabled = true, sessionKey, replayMode = false }: UseLiveDataOptions = {}) {
+  const { isReplayMode } = useReplayStore();
+
+  // Don't poll when in replay mode
+  const shouldPoll = enabled && !replayMode && !isReplayMode;
   const {
     setConnected,
     setSession,
@@ -27,6 +33,7 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
     updateTelemetry,
     addRaceControlMessage,
     updateWeather,
+    updateTrackStatus,
     selectedDrivers,
     raceControl,
   } = useLiveStore();
@@ -118,6 +125,104 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
     [updateTelemetry]
   );
 
+  // Derive track status from race control messages
+  const deriveTrackStatus = useCallback((messages: typeof raceControl) => {
+    if (messages.length === 0) return;
+
+    // Search from newest to oldest for track status indicators
+    for (const msg of messages) {
+      const flag = msg.flag?.toUpperCase();
+      const message = msg.message?.toLowerCase() || "";
+      const category = msg.category?.toUpperCase();
+
+      if (flag === "RED") {
+        updateTrackStatus({ status: "Red", message: msg.message });
+        return;
+      } else if (category === "SAFETY_CAR" || message.includes("safety car deployed")) {
+        updateTrackStatus({ status: "SCDeployed", message: msg.message });
+        return;
+      } else if (category === "VSC" || message.includes("virtual safety car") || message.includes("vsc deployed")) {
+        updateTrackStatus({ status: "VSCDeployed", message: msg.message });
+        return;
+      } else if (flag === "YELLOW" || flag === "DOUBLE_YELLOW" || flag === "DOUBLE YELLOW") {
+        updateTrackStatus({ status: "Yellow", message: msg.message });
+        return;
+      } else if (flag === "GREEN" || message.includes("track clear") || message.includes("green light")) {
+        updateTrackStatus({ status: "AllClear", message: msg.message });
+        return;
+      } else if (message.includes("safety car in") || message.includes("vsc ending")) {
+        updateTrackStatus({ status: "AllClear", message: msg.message });
+        return;
+      }
+    }
+  }, [updateTrackStatus]);
+
+  // Derive investigation/penalty status from race control messages and update timing
+  const deriveIncidentStatus = useCallback((messages: typeof raceControl) => {
+    if (messages.length === 0) return;
+
+    const timing = useLiveStore.getState().timing;
+    if (timing.length === 0) return;
+
+    // Build a map of driver incidents from messages
+    const driverIncidents = new Map<number, { isUnderInvestigation: boolean; hasPenalty: boolean; penaltySeconds?: number }>();
+
+    // Process messages from newest to oldest for each driver
+    for (const msg of messages) {
+      const driverNumber = msg.driverNumber;
+      if (!driverNumber) continue;
+
+      // Skip if we already have a status for this driver (we process newest first)
+      if (driverIncidents.has(driverNumber)) continue;
+
+      const msgText = msg.message?.toUpperCase() || "";
+
+      if (msgText.includes("TIME PENALTY") || msgText.includes("SECOND TIME PENALTY") || msgText.includes("SEC PENALTY")) {
+        const match = msgText.match(/(\d+)\s*SECOND/);
+        driverIncidents.set(driverNumber, {
+          isUnderInvestigation: false,
+          hasPenalty: true,
+          penaltySeconds: match ? parseInt(match[1], 10) : undefined,
+        });
+      } else if (msgText.includes("PENALTY") && !msgText.includes("NO FURTHER")) {
+        driverIncidents.set(driverNumber, {
+          isUnderInvestigation: false,
+          hasPenalty: true,
+          penaltySeconds: undefined,
+        });
+      } else if (msgText.includes("NO FURTHER ACTION") || msgText.includes("NO INVESTIGATION")) {
+        driverIncidents.set(driverNumber, {
+          isUnderInvestigation: false,
+          hasPenalty: false,
+          penaltySeconds: undefined,
+        });
+      } else if (msgText.includes("UNDER INVESTIGATION") || msgText.includes("NOTED") || msgText.includes("WILL BE INVESTIGATED")) {
+        driverIncidents.set(driverNumber, {
+          isUnderInvestigation: true,
+          hasPenalty: false,
+          penaltySeconds: undefined,
+        });
+      }
+    }
+
+    // Update timing data with incident status
+    if (driverIncidents.size > 0) {
+      const updatedTiming = timing.map((driver) => {
+        const incident = driverIncidents.get(driver.driverNumber);
+        if (incident) {
+          return {
+            ...driver,
+            isUnderInvestigation: incident.isUnderInvestigation,
+            hasPenalty: incident.hasPenalty,
+            penaltySeconds: incident.penaltySeconds,
+          };
+        }
+        return driver;
+      });
+      updateTiming(updatedTiming);
+    }
+  }, [updateTiming]);
+
   // Fetch race control messages
   const fetchRaceControl = useCallback(
     async (key: number) => {
@@ -138,11 +243,18 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
         if (messages.length > 0) {
           lastRaceControlTimestamp.current = messages[0].timestamp;
         }
+
+        // Derive track status from all messages (including existing)
+        const allMessages = [...newMessages, ...raceControl];
+        deriveTrackStatus(allMessages);
+
+        // Derive investigation/penalty status
+        deriveIncidentStatus(allMessages);
       } catch {
         // Silently ignore - polling will retry
       }
     },
-    [addRaceControlMessage, raceControl]
+    [addRaceControlMessage, raceControl, deriveTrackStatus, deriveIncidentStatus]
   );
 
   // Fetch weather
@@ -218,7 +330,7 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
 
   // Handle telemetry polling separately (depends on selected drivers)
   useEffect(() => {
-    if (!enabled || !sessionKey) return;
+    if (!shouldPoll || !sessionKey) return;
 
     if (telemetryIntervalRef.current) {
       clearInterval(telemetryIntervalRef.current);
@@ -240,11 +352,11 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
         clearInterval(telemetryIntervalRef.current);
       }
     };
-  }, [enabled, sessionKey, selectedDrivers, fetchTelemetry, pollingIntervals.telemetry]);
+  }, [shouldPoll, sessionKey, selectedDrivers, fetchTelemetry, pollingIntervals.telemetry]);
 
   // Main effect to manage session and polling
   useEffect(() => {
-    if (!enabled) {
+    if (!shouldPoll) {
       clearAllIntervals();
       return;
     }
@@ -266,14 +378,14 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
     return () => {
       clearAllIntervals();
     };
-  }, [enabled, sessionKey, fetchSession, startPolling, clearAllIntervals]);
+  }, [shouldPoll, sessionKey, fetchSession, startPolling, clearAllIntervals]);
 
   // Restart polling when session type or live status changes
   useEffect(() => {
-    if (!enabled || !sessionKey) return;
+    if (!shouldPoll || !sessionKey) return;
     // Restart polling with new intervals
     startPolling(sessionKey);
-  }, [pollingIntervals, enabled, sessionKey, startPolling]);
+  }, [pollingIntervals, shouldPoll, sessionKey, startPolling]);
 
   return {
     refresh: () => sessionKey && startPolling(sessionKey),
@@ -281,5 +393,6 @@ export function useLiveData({ enabled = true, sessionKey }: UseLiveDataOptions =
     sessionType,
     isLive,
     pollingIntervals,
+    isReplayMode,
   };
 }

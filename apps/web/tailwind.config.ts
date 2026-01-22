@@ -68,6 +68,21 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-geist-sans)"],
         mono: ["var(--font-geist-mono)"],
+        f1: ["var(--font-f1)", "sans-serif"],
+        timing: ["var(--font-f1)", "var(--font-geist-mono)", "monospace"],
+      },
+      animation: {
+        "pulse-subtle": "pulse-subtle 2s ease-in-out infinite",
+      },
+      keyframes: {
+        "pulse-subtle": {
+          "0%, 100%": {
+            backgroundColor: "transparent",
+          },
+          "50%": {
+            backgroundColor: "rgba(249, 115, 22, 0.15)",
+          },
+        },
       },
     },
   },

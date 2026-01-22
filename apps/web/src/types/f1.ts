@@ -39,7 +39,7 @@ export interface Driver {
   headshotUrl?: string;
 }
 
-export type DriverStatus = "RACING" | "PIT" | "OUT" | "FINISHED";
+export type DriverStatus = "RACING" | "PIT" | "OUT" | "FINISHED" | "RETIRED" | "STOPPED" | "KNOCKED_OUT";
 
 // =============================================================================
 // Timing Types
@@ -58,11 +58,81 @@ export interface DriverTiming {
   sector1: number | null;
   sector2: number | null;
   sector3: number | null;
+  sector1Best?: boolean; // Session best for sector 1
+  sector2Best?: boolean; // Session best for sector 2
+  sector3Best?: boolean; // Session best for sector 3
+  sector1PersonalBest?: boolean; // Personal best for sector 1
+  sector2PersonalBest?: boolean; // Personal best for sector 2
+  sector3PersonalBest?: boolean; // Personal best for sector 3
   tyre: TyreInfo;
+  stintHistory?: Stint[]; // All stints for this driver in the session
   pitStops: number;
   status: DriverStatus;
   isPersonalBest: boolean;
   isOverallBest: boolean;
+  // Investigation and penalty tracking
+  isUnderInvestigation?: boolean;
+  hasPenalty?: boolean;
+  penaltySeconds?: number; // Time penalty in seconds (5, 10, etc.)
+  // Qualifying specific
+  q1Time?: number | null;
+  q2Time?: number | null;
+  q3Time?: number | null;
+  isKnockedOut?: boolean; // Eliminated from qualifying
+  // Race specific
+  positionGained?: number; // +/- positions from grid/previous
+  hasFastestLap?: boolean;
+  inDrsRange?: boolean; // Within 1 second of car ahead
+  // Lap tracking
+  currentLap?: number;
+  totalLaps?: number;
+  // Mini-sectors (Practice & Qualifying only)
+  miniSectors?: {
+    sector1: (number | null)[];
+    sector2: (number | null)[];
+    sector3: (number | null)[];
+  };
+}
+
+// =============================================================================
+// Mini-Sector Types (Practice & Qualifying Only)
+// =============================================================================
+
+/**
+ * Mini-sector segment status values from OpenF1
+ * These represent the performance in each mini-sector segment
+ */
+export type MiniSectorStatus = 2048 | 2049 | 2051 | 2064;
+
+export const MINI_SECTOR_VALUES = {
+  YELLOW: 2048, // Slower than personal best
+  GREEN: 2049, // Personal best
+  PURPLE: 2051, // Overall session best
+  PITLANE: 2064, // In pitlane
+} as const;
+
+/**
+ * Mini-sector data for a single lap
+ * Note: Mini-sectors are NOT available during Race or Sprint Race sessions
+ */
+export interface MiniSectorData {
+  segmentsSector1: MiniSectorStatus[]; // Mini-sector values for Sector 1
+  segmentsSector2: MiniSectorStatus[]; // Mini-sector values for Sector 2
+  segmentsSector3: MiniSectorStatus[]; // Mini-sector values for Sector 3
+}
+
+/**
+ * Extended lap data including mini-sectors (for Practice/Qualifying)
+ */
+export interface LapDataWithMiniSectors extends LapData {
+  miniSectors?: MiniSectorData; // Only present in FP1/FP2/FP3/Q/SQ sessions
+}
+
+/**
+ * Driver timing with mini-sector progress (for live timing tower)
+ */
+export interface DriverTimingWithMiniSectors extends DriverTiming {
+  currentMiniSectors?: MiniSectorData; // Current lap mini-sector progress
 }
 
 export interface TimingData {
@@ -89,6 +159,19 @@ export interface Stint {
   startLap: number;
   endLap: number | null;
   tyreAge: number;
+}
+
+// =============================================================================
+// Pit Stop Types
+// =============================================================================
+
+export interface PitStop {
+  driverNumber: number;
+  lapNumber: number;
+  pitDuration: number; // Total pit time in seconds
+  timestamp: string;
+  sessionKey: number;
+  meetingKey: number;
 }
 
 // =============================================================================

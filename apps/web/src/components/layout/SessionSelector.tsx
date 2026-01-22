@@ -288,11 +288,12 @@ export function SessionSelector({
     return buildEvents(now, debugEnabled, races, preseason);
   }, [now, debugEnabled, dataLoaded, races, preseason]);
 
-  // Fetch API sessions for debug mode (don't auto-select from these)
+  // Fetch API sessions - always fetch 2025 for historical data
   useEffect(() => {
     async function fetchSessions() {
       try {
-        const { recent } = await getSessions();
+        // Fetch 2025 season for historical debugging
+        const { recent } = await getSessions(2025);
         setSessions(recent);
       } catch (error) {
         console.error("Failed to fetch sessions:", error);
@@ -436,132 +437,250 @@ export function SessionSelector({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[600px] p-0" align="start">
-        <div className="flex h-80">
-          {/* Left Panel - Events */}
-          <div className="w-1/2 border-r border-border overflow-y-auto">
-            <div className="p-2 border-b border-border bg-secondary/30">
-              <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                Select Event
-              </span>
+        {/* Debug Mode - Show ONLY 2025 OpenF1 sessions */}
+        {debugEnabled ? (
+          sessions.length > 0 ? (
+            <HistoricalSessionsPanel
+              sessions={sessions}
+              currentSessionKey={currentSessionKey}
+              onSessionSelect={handleApiSessionSelect}
+            />
+          ) : (
+            <div className="p-8 text-center text-muted-foreground">
+              Loading 2025 sessions...
             </div>
-            <div className="py-1">
-              {events.map((event) => (
-                <button
-                  key={event.id}
-                  onClick={() => handleEventSelect(event.id)}
-                  className={cn(
-                    "w-full px-3 py-2 text-left text-sm flex items-center gap-2 hover:bg-secondary/50 transition-colors",
-                    selectedEventId === event.id && "bg-secondary"
-                  )}
-                >
-                  {event.type === "testing" ? (
-                    <Wrench className="h-3.5 w-3.5 text-cyan-400 flex-shrink-0" />
-                  ) : (
-                    <Flag className="h-3.5 w-3.5 text-primary flex-shrink-0" />
-                  )}
-                  <span className="flex-1 truncate">{event.shortName}</span>
-                  {event.isSprint && (
-                    <Badge variant="outline" className="text-[9px] px-1 py-0 bg-orange-500/10 text-orange-400 border-orange-500/30">
-                      SPRINT
-                    </Badge>
-                  )}
-                  {event.type === "testing" && (
-                    <Badge variant="outline" className="text-[9px] px-1 py-0 bg-cyan-500/10 text-cyan-400 border-cyan-500/30">
-                      TEST
-                    </Badge>
-                  )}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Right Panel - Sessions */}
-          <div className="w-1/2 overflow-y-auto">
-            <div className="p-2 border-b border-border bg-secondary/30">
-              <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                {selectedEvent?.name || "Select Session"}
-              </span>
-            </div>
-            {selectedEvent && (
+          )
+        ) : (
+          /* Normal Mode - Show calendar-based events */
+          <div className="flex h-80">
+            {/* Left Panel - Events */}
+            <div className="w-1/2 border-r border-border overflow-y-auto">
+              <div className="p-2 border-b border-border bg-secondary/30">
+                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                  Select Event
+                </span>
+              </div>
               <div className="py-1">
-                {selectedEvent.sessions.map((session) => (
+                {events.map((event) => (
                   <button
-                    key={session.key}
-                    onClick={() => handleSessionSelect(session.key)}
-                    disabled={!debugEnabled && session.isPast}
+                    key={event.id}
+                    onClick={() => handleEventSelect(event.id)}
                     className={cn(
                       "w-full px-3 py-2 text-left text-sm flex items-center gap-2 hover:bg-secondary/50 transition-colors",
-                      selectedCalendarKey === session.key && "bg-primary/10 border-l-2 border-l-primary",
-                      !debugEnabled && session.isPast && "opacity-40 cursor-not-allowed"
+                      selectedEventId === event.id && "bg-secondary"
                     )}
                   >
-                    <Badge variant="outline" className={cn("text-[9px] px-1.5 py-0", session.badge.className)}>
-                      {session.badge.label}
-                    </Badge>
-                    <span className="flex-1 truncate">{session.shortName}</span>
-                    <span className="text-[10px] text-muted-foreground">
-                      {formatShortTime(session.time)}
-                    </span>
-                    {session.isNow && (
-                      <span className="text-[9px] text-green-400 font-medium">NOW</span>
+                    {event.type === "testing" ? (
+                      <Wrench className="h-3.5 w-3.5 text-cyan-400 flex-shrink-0" />
+                    ) : (
+                      <Flag className="h-3.5 w-3.5 text-primary flex-shrink-0" />
+                    )}
+                    <span className="flex-1 truncate">{event.shortName}</span>
+                    {event.isSprint && (
+                      <Badge variant="outline" className="text-[9px] px-1 py-0 bg-orange-500/10 text-orange-400 border-orange-500/30">
+                        SPRINT
+                      </Badge>
+                    )}
+                    {event.type === "testing" && (
+                      <Badge variant="outline" className="text-[9px] px-1 py-0 bg-cyan-500/10 text-cyan-400 border-cyan-500/30">
+                        TEST
+                      </Badge>
                     )}
                   </button>
                 ))}
               </div>
-            )}
-          </div>
-        </div>
-
-        {/* Debug Mode - Past API Sessions */}
-        {debugEnabled && sessions.length > 0 && (
-          <div className="border-t border-border">
-            <div className="p-2 bg-yellow-500/5">
-              <span className="text-xs font-medium text-yellow-500 uppercase tracking-wide flex items-center gap-1">
-                Past Sessions (Debug Mode)
-              </span>
             </div>
-            <div className="max-h-32 overflow-y-auto py-1">
-              {sessions.slice(0, 10).map((session) => (
-                <button
-                  key={session.sessionKey}
-                  onClick={() => handleApiSessionSelect(session.sessionKey)}
-                  className={cn(
-                    "w-full px-3 py-1.5 text-left text-sm flex items-center gap-2 hover:bg-secondary/50 transition-colors",
-                    currentSessionKey === session.sessionKey && "bg-yellow-500/10 border-l-2 border-l-yellow-500"
-                  )}
-                >
-                  <Badge
-                    variant="outline"
-                    className={cn(
-                      "text-[9px] px-1 py-0",
-                      SESSION_BADGES[
-                        session.sessionName === "Practice 1" ? "FP1" :
-                        session.sessionName === "Practice 2" ? "FP2" :
-                        session.sessionName === "Practice 3" ? "FP3" :
-                        session.sessionName === "Qualifying" ? "QUAL" :
-                        session.sessionName === "Sprint Qualifying" ? "SQ" :
-                        session.sessionName === "Sprint" ? "SPRINT" : "RACE"
-                      ]?.className
-                    )}
-                  >
-                    {session.sessionName === "Practice 1" ? "FP1" :
-                      session.sessionName === "Practice 2" ? "FP2" :
-                      session.sessionName === "Practice 3" ? "FP3" :
-                      session.sessionName === "Qualifying" ? "QUAL" :
-                      session.sessionName === "Sprint Qualifying" ? "SQ" :
-                      session.sessionName === "Sprint" ? "SPRINT" : "RACE"
-                    }
-                  </Badge>
-                  <span className="truncate">{session.meetingName}</span>
-                  {session.status === "live" && (
-                    <span className="text-[9px] text-red-500 font-medium animate-pulse">LIVE</span>
-                  )}
-                </button>
-              ))}
+
+            {/* Right Panel - Sessions */}
+            <div className="w-1/2 overflow-y-auto">
+              <div className="p-2 border-b border-border bg-secondary/30">
+                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+                  {selectedEvent?.name || "Select Session"}
+                </span>
+              </div>
+              {selectedEvent && (
+                <div className="py-1">
+                  {selectedEvent.sessions.map((session) => (
+                    <button
+                      key={session.key}
+                      onClick={() => handleSessionSelect(session.key)}
+                      disabled={session.isPast}
+                      className={cn(
+                        "w-full px-3 py-2 text-left text-sm flex items-center gap-2 hover:bg-secondary/50 transition-colors",
+                        selectedCalendarKey === session.key && "bg-primary/10 border-l-2 border-l-primary",
+                        session.isPast && "opacity-40 cursor-not-allowed"
+                      )}
+                    >
+                      <Badge variant="outline" className={cn("text-[9px] px-1.5 py-0", session.badge.className)}>
+                        {session.badge.label}
+                      </Badge>
+                      <span className="flex-1 truncate">{session.shortName}</span>
+                      <span className="text-[10px] text-muted-foreground">
+                        {formatShortTime(session.time)}
+                      </span>
+                      {session.isNow && (
+                        <span className="text-[9px] text-green-400 font-medium">NOW</span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )}
       </PopoverContent>
     </Popover>
+  );
+}
+
+// =============================================================================
+// Historical Sessions Panel for Debug Mode
+// =============================================================================
+
+interface HistoricalSessionsPanelProps {
+  sessions: Session[];
+  currentSessionKey: number | null | undefined;
+  onSessionSelect: (sessionKey: number) => void;
+}
+
+function HistoricalSessionsPanel({
+  sessions,
+  currentSessionKey,
+  onSessionSelect,
+}: HistoricalSessionsPanelProps) {
+  const [selectedMeeting, setSelectedMeeting] = useState<string | null>(null);
+
+  // Group sessions by meeting
+  const sessionsByMeeting = useMemo(() => {
+    const grouped = new Map<string, Session[]>();
+
+    for (const session of sessions) {
+      const meetingName = session.meetingName || "Unknown";
+      if (!grouped.has(meetingName)) {
+        grouped.set(meetingName, []);
+      }
+      grouped.get(meetingName)!.push(session);
+    }
+
+    // Sort sessions within each meeting by date
+    for (const [, meetingSessions] of grouped) {
+      meetingSessions.sort(
+        (a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime()
+      );
+    }
+
+    // Sort meetings by their first session date
+    const sortedEntries = Array.from(grouped.entries()).sort(([, a], [, b]) => {
+      return new Date(a[0].startTime).getTime() - new Date(b[0].startTime).getTime();
+    });
+
+    return new Map(sortedEntries);
+  }, [sessions]);
+
+  // Get meeting list
+  const meetings = Array.from(sessionsByMeeting.keys());
+
+  // Auto-select first meeting if none selected
+  useEffect(() => {
+    if (!selectedMeeting && meetings.length > 0) {
+      setSelectedMeeting(meetings[0]);
+    }
+  }, [meetings, selectedMeeting]);
+
+  // Get sessions for selected meeting
+  const selectedMeetingSessions = selectedMeeting
+    ? sessionsByMeeting.get(selectedMeeting) || []
+    : [];
+
+  const getSessionBadge = (sessionName: string) => {
+    const badges: Record<string, { label: string; className: string }> = {
+      "Practice 1": { label: "FP1", className: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
+      "Practice 2": { label: "FP2", className: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
+      "Practice 3": { label: "FP3", className: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
+      "Qualifying": { label: "QUAL", className: "bg-purple-500/20 text-purple-400 border-purple-500/30" },
+      "Sprint Qualifying": { label: "SQ", className: "bg-orange-500/20 text-orange-400 border-orange-500/30" },
+      "Sprint Shootout": { label: "SQ", className: "bg-orange-500/20 text-orange-400 border-orange-500/30" },
+      "Sprint": { label: "SPRINT", className: "bg-orange-500/20 text-orange-400 border-orange-500/30" },
+      "Race": { label: "RACE", className: "bg-green-500/20 text-green-400 border-green-500/30" },
+    };
+    return badges[sessionName] || { label: sessionName.slice(0, 4).toUpperCase(), className: "bg-gray-500/20 text-gray-400 border-gray-500/30" };
+  };
+
+  return (
+    <div>
+      <div className="p-2 bg-yellow-500/10 border-b border-yellow-500/30">
+        <span className="text-xs font-medium text-yellow-500 uppercase tracking-wide">
+          2025 F1 Season - {meetings.length} Events, {sessions.length} Sessions
+        </span>
+      </div>
+      <div className="flex h-80">
+        {/* Left - Meetings List */}
+        <div className="w-1/2 border-r border-border overflow-y-auto">
+          <div className="py-1">
+            {meetings.map((meeting) => {
+              const meetingSessions = sessionsByMeeting.get(meeting) || [];
+              const hasRace = meetingSessions.some(s => s.sessionName === "Race");
+              const hasSprint = meetingSessions.some(s => s.sessionName === "Sprint");
+
+              return (
+                <button
+                  key={meeting}
+                  onClick={() => setSelectedMeeting(meeting)}
+                  className={cn(
+                    "w-full px-3 py-1.5 text-left text-xs flex items-center gap-2 hover:bg-yellow-500/10 transition-colors",
+                    selectedMeeting === meeting && "bg-yellow-500/20 border-l-2 border-l-yellow-500"
+                  )}
+                >
+                  <Flag className="h-3 w-3 text-yellow-500 flex-shrink-0" />
+                  <span className="flex-1 truncate">{meeting.replace(" Grand Prix", " GP")}</span>
+                  {hasSprint && (
+                    <Badge variant="outline" className="text-[8px] px-1 py-0 bg-orange-500/10 text-orange-400 border-orange-500/30">
+                      SPRINT
+                    </Badge>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Right - Sessions for selected meeting */}
+        <div className="w-1/2 overflow-y-auto">
+          <div className="p-2 bg-secondary/30 border-b border-border">
+            <span className="text-xs font-medium text-muted-foreground truncate block">
+              {selectedMeeting?.replace(" Grand Prix", " GP") || "Select Meeting"}
+            </span>
+          </div>
+          <div className="py-1">
+            {selectedMeetingSessions.map((session) => {
+              const badge = getSessionBadge(session.sessionName);
+              const isSelected = currentSessionKey === session.sessionKey;
+
+              return (
+                <button
+                  key={session.sessionKey}
+                  onClick={() => onSessionSelect(session.sessionKey)}
+                  className={cn(
+                    "w-full px-3 py-1.5 text-left text-xs flex items-center gap-2 hover:bg-yellow-500/10 transition-colors",
+                    isSelected && "bg-yellow-500/20 border-l-2 border-l-yellow-500"
+                  )}
+                >
+                  <Badge variant="outline" className={cn("text-[9px] px-1 py-0", badge.className)}>
+                    {badge.label}
+                  </Badge>
+                  <span className="flex-1 truncate">{session.sessionName}</span>
+                  <span className="text-[9px] text-muted-foreground">
+                    {new Date(session.startTime).toLocaleDateString("en-GB", {
+                      day: "numeric",
+                      month: "short",
+                    })}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

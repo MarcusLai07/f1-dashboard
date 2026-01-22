@@ -26,20 +26,20 @@ export function LiveDashboardLayout({
         </div>
       )}
 
-      {/* Main Grid */}
-      <div className="flex-1 grid grid-cols-[minmax(600px,720px)_1fr_300px] gap-0 min-h-0">
-        {/* Timing Tower - Left */}
-        <div className="border-r border-border overflow-y-auto">
+      {/* Main Content - Flexbox for dynamic sizing */}
+      <div className="flex-1 flex min-h-0">
+        {/* Timing Tower - Left (takes natural width, max 55% of screen) */}
+        <div className="border-r border-border overflow-y-auto overflow-x-hidden shrink-0 max-w-[55%]">
           {timingTower}
         </div>
 
-        {/* Track Map - Center */}
-        <div className="flex items-center justify-center p-4 overflow-hidden">
+        {/* Track Map - Center (fills remaining space) */}
+        <div className="flex-1 flex items-center justify-center p-4 overflow-hidden min-w-[200px]">
           {trackMap}
         </div>
 
-        {/* Race Info - Right */}
-        <div className="border-l border-border overflow-y-auto">
+        {/* Race Info - Right (fixed width) */}
+        <div className="w-[280px] shrink-0 border-l border-border overflow-y-auto">
           {raceInfo}
         </div>
       </div>
