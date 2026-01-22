@@ -11,6 +11,7 @@ interface TelemetryPanelProps {
 // Store telemetry history for traces
 const telemetryHistory = new Map<string, TelemetrySnapshot[]>();
 const MAX_HISTORY = 50; // Keep last 50 data points
+const MAX_DRIVERS_IN_HISTORY = 10; // Maximum drivers to keep in history
 
 interface TelemetrySnapshot {
   timestamp: number;
@@ -21,7 +22,29 @@ interface TelemetrySnapshot {
   rpm: number;
 }
 
+// Clean up old driver entries from telemetry history to prevent unbounded growth
+function cleanupTelemetryHistory(activeDriverCodes: string[]) {
+  const activeSet = new Set(activeDriverCodes);
+
+  // If we have too many drivers in history, remove ones that aren't active
+  if (telemetryHistory.size > MAX_DRIVERS_IN_HISTORY) {
+    const keysToDelete: string[] = [];
+    for (const key of telemetryHistory.keys()) {
+      if (!activeSet.has(key)) {
+        keysToDelete.push(key);
+      }
+    }
+    // Remove oldest inactive drivers first (keeping most recent)
+    keysToDelete.forEach(key => telemetryHistory.delete(key));
+  }
+}
+
 export function TelemetryPanel({ drivers }: TelemetryPanelProps) {
+  // Clean up telemetry history when drivers change
+  useEffect(() => {
+    cleanupTelemetryHistory(drivers.map(d => d.driverCode));
+  }, [drivers]);
+
   if (drivers.length === 0) {
     return (
       <div className="h-full flex items-center justify-center text-muted-foreground">
@@ -71,40 +94,51 @@ function DriverTelemetryCard({ driver }: DriverTelemetryCardProps) {
 
   // Animate bars
   useEffect(() => {
-    import("animejs").then(({ animate }) => {
-      if (throttleBarRef.current) {
-        animate(throttleBarRef.current, {
-          width: `${driver.throttle}%`,
-          duration: 150,
-          easing: "easeOutQuad",
-        });
-      }
-      if (brakeBarRef.current) {
-        animate(brakeBarRef.current, {
-          width: `${driver.brake}%`,
-          duration: 150,
-          easing: "easeOutQuad",
-        });
-      }
-    });
+    import("animejs")
+      .then(({ animate }) => {
+        if (throttleBarRef.current) {
+          animate(throttleBarRef.current, {
+            width: `${driver.throttle}%`,
+            duration: 150,
+            easing: "easeOutQuad",
+          });
+        }
+        if (brakeBarRef.current) {
+          animate(brakeBarRef.current, {
+            width: `${driver.brake}%`,
+            duration: 150,
+            easing: "easeOutQuad",
+          });
+        }
+      })
+      .catch(() => {
+        // Silently fail if animation library fails to load
+      });
   }, [driver.throttle, driver.brake]);
 
   // Animate speed counter
   useEffect(() => {
     if (speedRef.current && prevSpeedRef.current !== driver.speed) {
-      import("animejs").then(({ animate }) => {
-        const obj = { value: prevSpeedRef.current };
-        animate(obj, {
-          value: driver.speed,
-          duration: 200,
-          easing: "easeOutQuad",
-          onUpdate: () => {
-            if (speedRef.current) {
-              speedRef.current.textContent = Math.round(obj.value).toString();
-            }
-          },
+      import("animejs")
+        .then(({ animate }) => {
+          const obj = { value: prevSpeedRef.current };
+          animate(obj, {
+            value: driver.speed,
+            duration: 200,
+            easing: "easeOutQuad",
+            onUpdate: () => {
+              if (speedRef.current) {
+                speedRef.current.textContent = Math.round(obj.value).toString();
+              }
+            },
+          });
+        })
+        .catch(() => {
+          // Silently fail - just update the value directly
+          if (speedRef.current) {
+            speedRef.current.textContent = driver.speed.toString();
+          }
         });
-      });
       prevSpeedRef.current = driver.speed;
     }
   }, [driver.speed]);

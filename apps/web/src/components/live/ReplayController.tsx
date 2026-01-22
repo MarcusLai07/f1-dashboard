@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import {
@@ -10,8 +10,10 @@ import {
   SkipForward,
   FastForward,
   Loader2,
+  Clock,
+  Flag,
 } from "lucide-react";
-import { useReplayStore, getCurrentSnapshot } from "@/stores/replayStore";
+import { useReplayStore, getCurrentSnapshot, type ReplayMode } from "@/stores/replayStore";
 import { useLiveStore } from "@/stores/liveStore";
 
 interface ReplayControllerProps {
@@ -26,9 +28,12 @@ export function ReplayController({ sessionKey, onClose }: ReplayControllerProps)
     playbackSpeed,
     currentLap,
     totalLaps,
+    totalSnapshots,
     lapSnapshots,
     sessionType,
     sessionStartTime,
+    replayMode,
+    intervalSeconds,
     isLoading,
     error,
     setPlaying,
@@ -40,12 +45,9 @@ export function ReplayController({ sessionKey, onClose }: ReplayControllerProps)
     reset,
   } = useReplayStore();
 
-  // Determine if this is a time-based session (practice/qualifying)
-  const isTimedSession = sessionType
-    ? sessionType.toLowerCase().includes("practice") ||
-      sessionType.toLowerCase().includes("qualifying") ||
-      sessionType.toLowerCase().includes("shootout")
-    : false;
+  // Local state for mode selection before loading
+  const [selectedMode, setSelectedMode] = useState<ReplayMode>("time");
+  const [selectedInterval, setSelectedInterval] = useState(2); // 2s matches live qualifying polling
 
   // Calculate elapsed time for current snapshot
   const getCurrentElapsedTime = () => {
@@ -81,15 +83,18 @@ export function ReplayController({ sessionKey, onClose }: ReplayControllerProps)
   const { updateTiming, setConnected, updateWeather, updateTrackStatus } = useLiveStore();
   const playIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Load session data when component mounts
+  // Effective total for navigation (use totalSnapshots in time mode)
+  const effectiveTotal = replayMode === "time" ? totalSnapshots : totalLaps;
+
+  // Load session data when component mounts or mode changes
   useEffect(() => {
     if (sessionKey) {
-      loadSession(sessionKey);
+      loadSession(sessionKey, selectedMode, selectedInterval);
     }
     return () => {
       // Don't reset on unmount - keep state for resuming
     };
-  }, [sessionKey, loadSession]);
+  }, [sessionKey, loadSession, selectedMode, selectedInterval]);
 
   // Update timing data in liveStore when lap changes
   useEffect(() => {
@@ -124,10 +129,17 @@ export function ReplayController({ sessionKey, onClose }: ReplayControllerProps)
 
   // Handle playback
   useEffect(() => {
-    if (isPlaying && totalLaps > 0) {
-      // Calculate interval based on playback speed
-      // Base interval: 2 seconds per lap (adjust as needed)
-      const baseInterval = 2000;
+    if (isPlaying && effectiveTotal > 0) {
+      // Calculate interval based on playback speed and mode
+      let baseInterval: number;
+      if (replayMode === "time") {
+        // In time mode, each snapshot represents `intervalSeconds` of real time
+        // At 1x speed, advance every `intervalSeconds` seconds (real-time simulation)
+        baseInterval = intervalSeconds * 1000;
+      } else {
+        // In lap mode, use fixed interval per lap
+        baseInterval = 2000;
+      }
       const interval = baseInterval / playbackSpeed;
 
       playIntervalRef.current = setInterval(() => {
@@ -145,7 +157,7 @@ export function ReplayController({ sessionKey, onClose }: ReplayControllerProps)
         clearInterval(playIntervalRef.current);
       }
     };
-  }, [isPlaying, playbackSpeed, nextLap, totalLaps]);
+  }, [isPlaying, playbackSpeed, nextLap, effectiveTotal, replayMode, intervalSeconds]);
 
   // Handle keyboard shortcuts
   useEffect(() => {
@@ -217,23 +229,27 @@ export function ReplayController({ sessionKey, onClose }: ReplayControllerProps)
     );
   }
 
-  if (!isReplayMode || totalLaps === 0) {
+  if (!isReplayMode || effectiveTotal === 0) {
     return null;
   }
 
   return (
-    <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-background/95 backdrop-blur border border-border rounded-lg p-4 shadow-xl min-w-[400px]">
+    <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 bg-background/95 backdrop-blur border border-border rounded-lg p-4 shadow-xl min-w-[450px]">
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <span className="text-xs font-medium text-primary">REPLAY MODE</span>
-          {isTimedSession && elapsedTime ? (
+          {replayMode === "time" && elapsedTime ? (
             <span className="text-xs text-muted-foreground">
               {elapsedTime} {durationLabel && `• ${durationLabel}`}
             </span>
-          ) : (
+          ) : replayMode === "lap" ? (
             <span className="text-xs text-muted-foreground">
               Lap {currentLap + 1} / {totalLaps}
+            </span>
+          ) : (
+            <span className="text-xs text-muted-foreground">
+              Snapshot {currentLap + 1} / {effectiveTotal}
             </span>
           )}
         </div>
@@ -250,21 +266,63 @@ export function ReplayController({ sessionKey, onClose }: ReplayControllerProps)
         </Button>
       </div>
 
+      {/* Mode selection */}
+      <div className="flex items-center gap-2 mb-3">
+        <span className="text-xs text-muted-foreground">Mode:</span>
+        <div className="flex gap-1">
+          <Button
+            variant={selectedMode === "time" ? "default" : "outline"}
+            size="sm"
+            className="h-6 px-2 text-xs gap-1"
+            onClick={() => setSelectedMode("time")}
+          >
+            <Clock className="h-3 w-3" />
+            Time
+          </Button>
+          <Button
+            variant={selectedMode === "lap" ? "default" : "outline"}
+            size="sm"
+            className="h-6 px-2 text-xs gap-1"
+            onClick={() => setSelectedMode("lap")}
+          >
+            <Flag className="h-3 w-3" />
+            Lap
+          </Button>
+        </div>
+        {selectedMode === "time" && (
+          <div className="flex items-center gap-1 ml-2">
+            <span className="text-xs text-muted-foreground">Interval:</span>
+            <select
+              value={selectedInterval}
+              onChange={(e) => setSelectedInterval(Number(e.target.value))}
+              className="h-6 px-1 text-xs bg-background border border-border rounded"
+            >
+              <option value={1}>1s (Live-like)</option>
+              <option value={2}>2s</option>
+              <option value={5}>5s</option>
+              <option value={10}>10s</option>
+              <option value={30}>30s</option>
+              <option value={60}>1m</option>
+            </select>
+          </div>
+        )}
+      </div>
+
       {/* Progress slider */}
       <div className="mb-3">
         <Slider
           value={[currentLap]}
           onValueChange={handleSliderChange}
-          max={totalLaps - 1}
+          max={effectiveTotal - 1}
           step={1}
           className="w-full"
         />
         <div className="flex justify-between mt-1">
-          {isTimedSession ? (
+          {replayMode === "time" ? (
             <>
               <span className="text-[10px] text-muted-foreground">Start</span>
               <span className="text-[10px] text-muted-foreground">
-                {totalLaps} snapshots
+                {effectiveTotal} snapshots ({intervalSeconds}s each)
               </span>
             </>
           ) : (
@@ -284,7 +342,7 @@ export function ReplayController({ sessionKey, onClose }: ReplayControllerProps)
           size="sm"
           className="h-8 w-8 p-0"
           onClick={() => setCurrentLap(0)}
-          title={isTimedSession ? "Jump to start" : "First lap"}
+          title={replayMode === "time" ? "Jump to start" : "First lap"}
         >
           <SkipBack className="h-4 w-4" />
         </Button>
@@ -296,7 +354,7 @@ export function ReplayController({ sessionKey, onClose }: ReplayControllerProps)
           className="h-8 w-8 p-0"
           onClick={prevLap}
           disabled={currentLap === 0}
-          title={isTimedSession ? "Previous (Left arrow)" : "Previous lap (Left arrow)"}
+          title={replayMode === "time" ? "Previous (Left arrow)" : "Previous lap (Left arrow)"}
         >
           <SkipBack className="h-3 w-3" />
         </Button>
@@ -322,8 +380,8 @@ export function ReplayController({ sessionKey, onClose }: ReplayControllerProps)
           size="sm"
           className="h-8 w-8 p-0"
           onClick={nextLap}
-          disabled={currentLap === totalLaps - 1}
-          title={isTimedSession ? "Next (Right arrow)" : "Next lap (Right arrow)"}
+          disabled={currentLap === effectiveTotal - 1}
+          title={replayMode === "time" ? "Next (Right arrow)" : "Next lap (Right arrow)"}
         >
           <SkipForward className="h-3 w-3" />
         </Button>
@@ -333,8 +391,8 @@ export function ReplayController({ sessionKey, onClose }: ReplayControllerProps)
           variant="outline"
           size="sm"
           className="h-8 w-8 p-0"
-          onClick={() => setCurrentLap(totalLaps - 1)}
-          title={isTimedSession ? "Jump to end" : "Last lap"}
+          onClick={() => setCurrentLap(effectiveTotal - 1)}
+          title={replayMode === "time" ? "Jump to end" : "Last lap"}
         >
           <SkipForward className="h-4 w-4" />
         </Button>
@@ -355,7 +413,7 @@ export function ReplayController({ sessionKey, onClose }: ReplayControllerProps)
       {/* Keyboard hints */}
       <div className="mt-3 pt-2 border-t border-border flex justify-center gap-4 text-[10px] text-muted-foreground">
         <span>Space: Play/Pause</span>
-        <span>←→: {isTimedSession ? "Step Back/Forward" : "Prev/Next Lap"}</span>
+        <span>←→: {replayMode === "time" ? "Step Back/Forward" : "Prev/Next Lap"}</span>
       </div>
     </div>
   );

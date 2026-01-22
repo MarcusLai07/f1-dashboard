@@ -60,12 +60,6 @@ interface PopoverState {
 }
 
 // =============================================================================
-// Track previous positions for animation
-// =============================================================================
-
-const previousPositions = new Map<string, number>();
-
-// =============================================================================
 // Main Component
 // =============================================================================
 
@@ -78,6 +72,8 @@ export function TimingTower({
   qualifyingRound,
   year = 2025,
 }: TimingTowerProps) {
+  // Track previous positions for animation (moved to useRef to avoid shared state)
+  const previousPositionsRef = useRef<Map<string, number>>(new Map());
   const containerRef = useRef<HTMLDivElement>(null);
   const isRace = sessionType === "race";
   const isQualifying = sessionType === "qualifying";
@@ -93,8 +89,9 @@ export function TimingTower({
 
   // Update position tracking
   useEffect(() => {
+    const prevMap = previousPositionsRef.current;
     drivers.forEach((driver) => {
-      previousPositions.set(driver.driverCode, driver.position);
+      prevMap.set(driver.driverCode, driver.position);
     });
   }, [drivers]);
 
@@ -189,6 +186,7 @@ export function TimingTower({
                   isInDropZone={isInDropZone}
                   isEliminated={isEliminated}
                   isRace={isRace}
+                  previousPositions={previousPositionsRef.current}
                 />
               </React.Fragment>
             );
@@ -223,6 +221,7 @@ interface TimingRowProps {
   isInDropZone?: boolean; // At risk in current round (yellow warning)
   isEliminated?: boolean; // Already knocked out from previous rounds (red KO)
   isRace?: boolean; // Whether this is a race session (for position diff, mini-sector bars, tyre history)
+  previousPositions: Map<string, number>; // For position change animation
 }
 
 function TimingRow({
@@ -235,6 +234,7 @@ function TimingRow({
   isInDropZone = false,
   isEliminated = false,
   isRace = false,
+  previousPositions,
 }: TimingRowProps) {
   const rowRef = useRef<HTMLDivElement>(null);
 
@@ -251,25 +251,32 @@ function TimingRow({
 
   useEffect(() => {
     if (rowRef.current && positionChange !== 0) {
-      import("animejs").then(({ animate }) => {
-        const flashColor =
-          positionChange > 0
-            ? "rgba(34, 197, 94, 0.3)"
-            : "rgba(239, 68, 68, 0.3)";
+      import("animejs")
+        .then(({ animate }) => {
+          // Check if element still exists (component may have unmounted)
+          if (!rowRef.current) return;
 
-        // Determine the base background color (must match CSS classes)
-        const baseColor = isKnockedOut
-          ? "rgba(69, 10, 10, 0.5)" // bg-red-950/50
-          : isInDropZone
-            ? "rgba(67, 20, 7, 0.6)" // bg-orange-950/60
-            : "rgba(0, 0, 0, 0)"; // transparent
+          const flashColor =
+            positionChange > 0
+              ? "rgba(34, 197, 94, 0.3)"
+              : "rgba(239, 68, 68, 0.3)";
 
-        animate(rowRef.current!, {
-          backgroundColor: [flashColor, baseColor],
-          duration: 1200,
-          easing: "easeOutQuad",
+          // Determine the base background color (must match CSS classes)
+          const baseColor = isKnockedOut
+            ? "rgba(69, 10, 10, 0.5)" // bg-red-950/50
+            : isInDropZone
+              ? "rgba(67, 20, 7, 0.6)" // bg-orange-950/60
+              : "rgba(0, 0, 0, 0)"; // transparent
+
+          animate(rowRef.current, {
+            backgroundColor: [flashColor, baseColor],
+            duration: 1200,
+            easing: "easeOutQuad",
+          });
+        })
+        .catch(() => {
+          // Silently fail if animation library fails to load
         });
-      });
     }
   }, [driver.position, positionChange, isInDropZone, isKnockedOut]);
 

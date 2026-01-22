@@ -59,6 +59,7 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
   const raceControlIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const weatherIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const lastRaceControlTimestamp = useRef<string | null>(null);
+  const raceControlFetchInProgress = useRef<boolean>(false);
 
   // Fetch and set current session
   const fetchSession = useCallback(async () => {
@@ -223,16 +224,26 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
     }
   }, [updateTiming]);
 
-  // Fetch race control messages
+  // Fetch race control messages (with race condition prevention)
   const fetchRaceControl = useCallback(
     async (key: number) => {
+      // Prevent concurrent fetches (race condition fix)
+      if (raceControlFetchInProgress.current) {
+        return;
+      }
+
+      raceControlFetchInProgress.current = true;
+
       try {
+        // Capture timestamp before fetch to avoid race conditions
+        const timestampForFetch = lastRaceControlTimestamp.current;
+
         const { messages } = await getRaceControl(
           key,
-          lastRaceControlTimestamp.current || undefined
+          timestampForFetch || undefined
         );
 
-        // Only add new messages
+        // Only add new messages (use Set for O(1) lookup)
         const existingTimestamps = new Set(raceControl.map((m) => m.timestamp));
         const newMessages = messages.filter(
           (m) => !existingTimestamps.has(m.timestamp)
@@ -240,8 +251,13 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
 
         newMessages.forEach((msg) => addRaceControlMessage(msg));
 
+        // Update timestamp only if we got messages and it's newer
         if (messages.length > 0) {
-          lastRaceControlTimestamp.current = messages[0].timestamp;
+          const newestTimestamp = messages[0].timestamp;
+          if (!lastRaceControlTimestamp.current ||
+              new Date(newestTimestamp) > new Date(lastRaceControlTimestamp.current)) {
+            lastRaceControlTimestamp.current = newestTimestamp;
+          }
         }
 
         // Derive track status from all messages (including existing)
@@ -252,6 +268,8 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
         deriveIncidentStatus(allMessages);
       } catch {
         // Silently ignore - polling will retry
+      } finally {
+        raceControlFetchInProgress.current = false;
       }
     },
     [addRaceControlMessage, raceControl, deriveTrackStatus, deriveIncidentStatus]
@@ -330,27 +348,38 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
 
   // Handle telemetry polling separately (depends on selected drivers)
   useEffect(() => {
-    if (!shouldPoll || !sessionKey) return;
-
-    if (telemetryIntervalRef.current) {
-      clearInterval(telemetryIntervalRef.current);
+    // Clear any existing interval first (before checking conditions)
+    const currentInterval = telemetryIntervalRef.current;
+    if (currentInterval) {
+      clearInterval(currentInterval);
+      telemetryIntervalRef.current = null;
     }
 
-    if (selectedDrivers.length > 0) {
-      // Immediate fetch
-      fetchTelemetry(sessionKey, selectedDrivers);
-
-      // Set up interval (session-aware)
-      telemetryIntervalRef.current = setInterval(
-        () => fetchTelemetry(sessionKey, selectedDrivers),
-        pollingIntervals.telemetry
-      );
+    if (!shouldPoll || !sessionKey || selectedDrivers.length === 0) {
+      return;
     }
+
+    // Use AbortController pattern for fetch cancellation
+    let isCancelled = false;
+
+    // Immediate fetch
+    fetchTelemetry(sessionKey, selectedDrivers);
+
+    // Set up interval (session-aware)
+    const intervalId = setInterval(() => {
+      if (!isCancelled) {
+        fetchTelemetry(sessionKey, selectedDrivers);
+      }
+    }, pollingIntervals.telemetry);
+
+    telemetryIntervalRef.current = intervalId;
 
     return () => {
-      if (telemetryIntervalRef.current) {
-        clearInterval(telemetryIntervalRef.current);
+      isCancelled = true;
+      if (intervalId) {
+        clearInterval(intervalId);
       }
+      telemetryIntervalRef.current = null;
     };
   }, [shouldPoll, sessionKey, selectedDrivers, fetchTelemetry, pollingIntervals.telemetry]);
 

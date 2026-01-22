@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,13 +12,25 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Bug, X, Eye, Timer, Flag } from "lucide-react";
-import { useDebugStore, DEBUG_PRESETS, SESSION_PRESETS, type SessionType } from "@/stores/debugStore";
+import { Bug, X, Eye, Timer, Flag, Wifi, WifiOff, RefreshCw, CheckCircle, XCircle, Clock } from "lucide-react";
+import { useDebugStore, DEBUG_PRESETS, SESSION_PRESETS } from "@/stores/debugStore";
 import { F1Loader } from "@/components/ui/f1-loader";
+import { getPollingIntervals, deriveSessionType } from "@/hooks/useSessionPolling";
+import { useLiveStore } from "@/stores/liveStore";
+
+// Connection test result type
+interface ConnectionTestResult {
+  endpoint: string;
+  status: "pending" | "success" | "error";
+  latency?: number;
+  error?: string;
+  dataCount?: number;
+}
 
 // Session type badge colors
 const SESSION_TYPE_COLORS: Record<string, string> = {
   practice: "bg-blue-500/20 text-blue-400 border-blue-500/30",
+  testing: "bg-cyan-500/20 text-cyan-400 border-cyan-500/30",
   qualifying: "bg-purple-500/20 text-purple-400 border-purple-500/30",
   sprint: "bg-orange-500/20 text-orange-400 border-orange-500/30",
   race: "bg-green-500/20 text-green-400 border-green-500/30",
@@ -41,6 +53,76 @@ export function DebugPanel({ mode = "auto" }: DebugPanelProps) {
     setShowLoader,
   } = useDebugStore();
   const [isOpen, setIsOpen] = useState(false);
+  const [connectionTests, setConnectionTests] = useState<ConnectionTestResult[]>([]);
+  const [isTesting, setIsTesting] = useState(false);
+  const [showPollingInfo, setShowPollingInfo] = useState(false);
+
+  const { currentSession, isConnected } = useLiveStore();
+
+  // Get current polling intervals
+  const sessionName = currentSession?.sessionName || "";
+  const sessionType = sessionName ? deriveSessionType(sessionName) : "practice";
+  const isLive = currentSession?.status === "live";
+  const pollingIntervals = getPollingIntervals(sessionType, isLive);
+
+  // Test all API connections
+  const runConnectionTests = useCallback(async () => {
+    setIsTesting(true);
+    const endpoints = [
+      { name: "Sessions", url: "/api/live/sessions" },
+      { name: "Timing", url: "/api/live/timing?session_key=latest" },
+      { name: "Position", url: "/api/live/position?session_key=latest" },
+      { name: "Race Control", url: "/api/live/race-control?session_key=latest" },
+      { name: "Weather", url: "/api/live/weather?session_key=latest" },
+      { name: "Drivers", url: "/api/live/drivers?session_key=latest" },
+    ];
+
+    // Initialize all as pending
+    setConnectionTests(endpoints.map(e => ({ endpoint: e.name, status: "pending" })));
+
+    // Test each endpoint
+    for (let i = 0; i < endpoints.length; i++) {
+      const endpoint = endpoints[i];
+      const startTime = performance.now();
+
+      try {
+        const response = await fetch(endpoint.url);
+        const latency = Math.round(performance.now() - startTime);
+        const data = await response.json();
+
+        setConnectionTests(prev => {
+          const updated = [...prev];
+          updated[i] = {
+            endpoint: endpoint.name,
+            status: response.ok ? "success" : "error",
+            latency,
+            error: response.ok ? undefined : data.error || `HTTP ${response.status}`,
+            dataCount: response.ok ? (Array.isArray(data) ? data.length : (data.timing?.length || data.positions?.length || data.messages?.length || 1)) : undefined,
+          };
+          return updated;
+        });
+      } catch (error) {
+        const latency = Math.round(performance.now() - startTime);
+        setConnectionTests(prev => {
+          const updated = [...prev];
+          updated[i] = {
+            endpoint: endpoint.name,
+            status: "error",
+            latency,
+            error: error instanceof Error ? error.message : "Network error",
+          };
+          return updated;
+        });
+      }
+
+      // Small delay between tests to avoid rate limiting
+      if (i < endpoints.length - 1) {
+        await new Promise(resolve => setTimeout(resolve, 200));
+      }
+    }
+
+    setIsTesting(false);
+  }, []);
 
   // Determine mode based on current path if auto
   const effectiveMode = mode === "auto"
@@ -131,7 +213,7 @@ export function DebugPanel({ mode = "auto" }: DebugPanelProps) {
                 ))}
               </SelectContent>
             </Select>
-            {enabled && currentSessionPreset && (
+            {enabled && currentSessionPreset && simulatedDate && (
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   {currentSessionPreset.sessionType && (
@@ -147,9 +229,12 @@ export function DebugPanel({ mode = "auto" }: DebugPanelProps) {
                 {currentSessionPreset.description && (
                   <p className="text-xs text-muted-foreground">{currentSessionPreset.description}</p>
                 )}
-                <p className="text-xs text-muted-foreground">
-                  {new Date(simulatedDate!).toLocaleString()}
-                </p>
+                {/* Only show date if it's a valid date (not epoch) */}
+                {new Date(simulatedDate).getFullYear() > 1971 && (
+                  <p className="text-xs text-muted-foreground">
+                    {new Date(simulatedDate).toLocaleString()}
+                  </p>
+                )}
               </div>
             )}
           </div>
@@ -185,6 +270,125 @@ export function DebugPanel({ mode = "auto" }: DebugPanelProps) {
               <p className="text-xs text-primary">
                 Simulating: {new Date(simulatedDate).toLocaleString()}
               </p>
+            )}
+          </div>
+        )}
+
+        {/* Connection Test */}
+        {effectiveMode === "live" && (
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
+                {isConnected ? (
+                  <Wifi className="h-3 w-3 text-green-500" />
+                ) : (
+                  <WifiOff className="h-3 w-3 text-red-500" />
+                )}
+                API Connection
+              </label>
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-6 text-xs gap-1"
+                onClick={runConnectionTests}
+                disabled={isTesting}
+              >
+                {isTesting ? (
+                  <RefreshCw className="h-3 w-3 animate-spin" />
+                ) : (
+                  <RefreshCw className="h-3 w-3" />
+                )}
+                Test
+              </Button>
+            </div>
+            {connectionTests.length > 0 && (
+              <div className="bg-secondary/30 rounded-lg p-2 space-y-1">
+                {connectionTests.map((test) => (
+                  <div key={test.endpoint} className="flex items-center justify-between text-xs">
+                    <span className="text-muted-foreground">{test.endpoint}</span>
+                    <div className="flex items-center gap-1.5">
+                      {test.status === "pending" && (
+                        <Clock className="h-3 w-3 text-yellow-500 animate-pulse" />
+                      )}
+                      {test.status === "success" && (
+                        <>
+                          <span className="text-muted-foreground">{test.latency}ms</span>
+                          {test.dataCount !== undefined && (
+                            <span className="text-muted-foreground">({test.dataCount})</span>
+                          )}
+                          <CheckCircle className="h-3 w-3 text-green-500" />
+                        </>
+                      )}
+                      {test.status === "error" && (
+                        <>
+                          <span className="text-red-400 text-[10px] truncate max-w-[80px]" title={test.error}>
+                            {test.error}
+                          </span>
+                          <XCircle className="h-3 w-3 text-red-500" />
+                        </>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Polling Intervals Info */}
+        {effectiveMode === "live" && (
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <label className="text-xs font-medium text-muted-foreground flex items-center gap-1.5">
+                <Clock className="h-3 w-3" />
+                Polling Intervals
+              </label>
+              <Button
+                variant={showPollingInfo ? "secondary" : "outline"}
+                size="sm"
+                className="h-6 text-xs gap-1"
+                onClick={() => setShowPollingInfo(!showPollingInfo)}
+              >
+                <Eye className="h-3 w-3" />
+                {showPollingInfo ? "Hide" : "Show"}
+              </Button>
+            </div>
+            {showPollingInfo && (
+              <div className="bg-secondary/30 rounded-lg p-2 space-y-1">
+                <div className="flex items-center justify-between text-xs mb-1">
+                  <span className="text-muted-foreground">Mode:</span>
+                  <Badge variant="outline" className={isLive ? "text-green-400 border-green-500/30" : "text-yellow-400 border-yellow-500/30"}>
+                    {isLive ? "LIVE" : "NOT LIVE"}
+                  </Badge>
+                </div>
+                <div className="flex items-center justify-between text-xs mb-1">
+                  <span className="text-muted-foreground">Session:</span>
+                  <Badge variant="outline" className={SESSION_TYPE_COLORS[sessionType] || "text-gray-400"}>
+                    {sessionType.toUpperCase()}
+                  </Badge>
+                </div>
+                <div className="border-t border-border/50 my-1.5" />
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-muted-foreground">Timing</span>
+                  <span className="font-mono">{(pollingIntervals.timing / 1000).toFixed(1)}s</span>
+                </div>
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-muted-foreground">Position</span>
+                  <span className="font-mono">{(pollingIntervals.position / 1000).toFixed(1)}s</span>
+                </div>
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-muted-foreground">Telemetry</span>
+                  <span className="font-mono">{(pollingIntervals.telemetry / 1000).toFixed(1)}s</span>
+                </div>
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-muted-foreground">Race Control</span>
+                  <span className="font-mono">{(pollingIntervals.raceControl / 1000).toFixed(1)}s</span>
+                </div>
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-muted-foreground">Weather</span>
+                  <span className="font-mono">{(pollingIntervals.weather / 1000).toFixed(1)}s</span>
+                </div>
+              </div>
             )}
           </div>
         )}

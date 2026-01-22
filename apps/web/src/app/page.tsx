@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Header } from "@/components/layout/Header";
 import { LiveDashboardLayout } from "@/components/layout/LiveDashboardLayout";
 import { SessionSelector } from "@/components/layout/SessionSelector";
@@ -127,8 +127,8 @@ export default function LiveDashboard() {
   // Get qualifying round from snapshot (detected from race control messages)
   const snapshotQualifyingRound = currentSnapshot?.qualifyingRound;
 
-  // Detect qualifying round from live race control messages
-  const detectQualifyingRoundFromMessages = (): "Q1" | "Q2" | "Q3" | "SQ1" | "SQ2" | "SQ3" | null => {
+  // Detect qualifying round from live race control messages (memoized for performance)
+  const liveQualifyingRound = useMemo((): "Q1" | "Q2" | "Q3" | "SQ1" | "SQ2" | "SQ3" | null => {
     if (raceControl.length === 0) return null;
 
     const isSprintSession = sessionNameLower.includes("sprint") ||
@@ -155,9 +155,7 @@ export default function LiveDashboard() {
       }
     }
     return null;
-  };
-
-  const liveQualifyingRound = detectQualifyingRoundFromMessages();
+  }, [raceControl, sessionNameLower, replaySessionTypeLower]);
 
   // Determine qualifying round - prefer snapshot (replay), then live detection, then fallback
   const qualifyingRound: "Q1" | "Q2" | "Q3" | "SQ1" | "SQ2" | "SQ3" | null = sessionType === "qualifying"

@@ -22,11 +22,15 @@ export interface PollingConfig {
  * Returns appropriate polling intervals based on session type and live status.
  *
  * During live sessions:
- * - Race/Sprint: Aggressive polling (1.5-2s) for position changes
- * - Qualifying: Medium polling (2-3s) for lap times
- * - Practice/Testing: Relaxed polling (4-5s) to save resources
+ * - Race/Sprint: Most aggressive polling (1-1.5s) for position changes
+ * - Qualifying: Aggressive polling (1.5-2s) for lap times
+ * - Practice/Testing: Active polling (2-3s) for real-time feel
  *
- * When not live: 60s intervals
+ * When not live: 30-60s intervals (still responsive for recently ended sessions)
+ *
+ * Note: OpenF1 free tier has rate limits. These intervals are tuned to stay
+ * within limits while maximizing responsiveness. With WebSocket access,
+ * data would be pushed instantly (~3s after live event).
  */
 export function getPollingIntervals(
   sessionType: SessionType,
@@ -34,11 +38,11 @@ export function getPollingIntervals(
 ): PollingConfig {
   if (!isLive) {
     return {
-      timing: 60000,
-      position: 60000,
-      telemetry: 60000,
-      raceControl: 60000,
-      weather: 300000, // 5 min
+      timing: 30000,      // 30s - check for updates periodically
+      position: 30000,    // 30s
+      telemetry: 60000,   // 1 min
+      raceControl: 30000, // 30s - catch any late messages
+      weather: 300000,    // 5 min
     };
   }
 
@@ -46,38 +50,39 @@ export function getPollingIntervals(
     case "race":
     case "sprint":
       return {
-        timing: 1500,      // 1.5s - position changes critical
-        position: 1500,    // 1.5s - track map updates
-        telemetry: 1500,   // 1.5s - speed/throttle data
-        raceControl: 2000, // 2s - flags/messages
-        weather: 30000,    // 30s
+        timing: 1000,      // 1s - position changes are critical
+        position: 1000,    // 1s - track map needs fast updates
+        telemetry: 1500,   // 1.5s - speed/throttle/brake data
+        raceControl: 1500, // 1.5s - flags/SC/VSC critical
+        weather: 30000,    // 30s - weather changes matter
       };
 
     case "qualifying":
       return {
-        timing: 2000,      // 2s - lap times matter
-        position: 2500,    // 2.5s - less critical
-        telemetry: 2000,   // 2s - for comparison
-        raceControl: 2000, // 2s - track limits etc
+        timing: 1500,      // 1.5s - lap times critical
+        position: 2000,    // 2s - track position less critical
+        telemetry: 1500,   // 1.5s - for comparison
+        raceControl: 1500, // 1.5s - track limits, flags
         weather: 30000,    // 30s
       };
 
     case "practice":
     case "testing":
+      // More aggressive than before - Bahrain testing is first live test
       return {
-        timing: 4000,      // 4s - less urgent
-        position: 5000,    // 5s - save resources
-        telemetry: 3000,   // 3s - still useful for analysis
-        raceControl: 5000, // 5s
+        timing: 2000,      // 2s - want responsive feel
+        position: 2500,    // 2.5s - track map updates
+        telemetry: 2000,   // 2s - telemetry comparison
+        raceControl: 3000, // 3s - flags, track limits
         weather: 60000,    // 1 min
       };
 
     default:
       return {
-        timing: 3000,
-        position: 4000,
+        timing: 2000,
+        position: 2500,
         telemetry: 2000,
-        raceControl: 5000,
+        raceControl: 3000,
         weather: 60000,
       };
   }

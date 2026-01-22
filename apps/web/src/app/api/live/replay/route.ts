@@ -112,13 +112,26 @@ interface SessionData {
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const sessionKey = searchParams.get("session_key");
+  const modeParam = searchParams.get("mode") || "lap";
+  const intervalParam = searchParams.get("interval") || "5";
 
+  // Validate session_key
   if (!sessionKey) {
     return NextResponse.json({ error: "session_key is required" }, { status: 400 });
   }
 
+  // Validate mode
+  const validModes = ["lap", "time"];
+  const mode = validModes.includes(modeParam) ? modeParam : "lap";
+
+  // Validate and clamp intervalSeconds (1-60 seconds)
+  const parsedInterval = parseInt(intervalParam, 10);
+  const intervalSeconds = isNaN(parsedInterval) || parsedInterval < 1
+    ? 5
+    : Math.min(parsedInterval, 60);
+
   // Check cache first
-  const cacheKey = `replay_${sessionKey}`;
+  const cacheKey = `replay_${sessionKey}_${mode}_${intervalSeconds}`;
   const cached = replayCache.get(cacheKey);
   if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
     return NextResponse.json(cached.data);
@@ -424,9 +437,304 @@ export async function GET(request: NextRequest) {
       return { isUnderInvestigation, hasPenalty, penaltySeconds };
     }
 
-    // Build snapshots for each lap
+    // Build snapshots based on mode
     const snapshots = [];
-    for (let lap = 1; lap <= maxLap; lap++) {
+
+    if (mode === "time") {
+      // TIME-BASED MODE: Create snapshots at regular time intervals
+      // This simulates how data flows during a live session
+
+      // Collect timestamps from ALL data sources to ensure full session coverage
+      const allTimestamps: number[] = [];
+
+      // Position data (most frequent updates)
+      positionsData.forEach((p) => allTimestamps.push(new Date(p.date).getTime()));
+
+      // Lap data (covers all laps including SQ3)
+      lapsData.forEach((l) => allTimestamps.push(new Date(l.date_start).getTime()));
+
+      // Race control data (has messages for all rounds)
+      raceControlData.forEach((rc) => allTimestamps.push(new Date(rc.date).getTime()));
+
+      // Weather data
+      weatherData.forEach((w) => allTimestamps.push(new Date(w.date).getTime()));
+
+      // Session info dates if available
+      if (sessionInfo?.date_start) {
+        allTimestamps.push(new Date(sessionInfo.date_start).getTime());
+      }
+      if (sessionInfo?.date_end) {
+        allTimestamps.push(new Date(sessionInfo.date_end).getTime());
+      }
+
+      if (allTimestamps.length === 0) {
+        return NextResponse.json(
+          { error: "No timestamp data found for this session" },
+          { status: 404 }
+        );
+      }
+
+      const sessionStartMs = Math.min(...allTimestamps);
+      const sessionEndMs = Math.max(...allTimestamps);
+      const intervalMs = intervalSeconds * 1000;
+
+      // Track state for each driver across time
+      const driverState = new Map<number, {
+        position: number;
+        lastLap: number | null;
+        bestLap: number | null;
+        sector1: number | null;
+        sector2: number | null;
+        sector3: number | null;
+        currentLapNumber: number;
+        status: string;
+        gap: number | null;
+        interval: number | null;
+      }>();
+
+      // Initialize driver state
+      driversData.forEach((driver) => {
+        driverState.set(driver.driver_number, {
+          position: 20,
+          lastLap: null,
+          bestLap: null,
+          sector1: null,
+          sector2: null,
+          sector3: null,
+          currentLapNumber: 0,
+          status: "RUNNING",
+          gap: null,
+          interval: null,
+        });
+      });
+
+      // Track personal and overall bests for time mode
+      const timePB = new Map<number, { s1: number; s2: number; s3: number; lap: number }>();
+      const timeOverallBests = { s1: Infinity, s2: Infinity, s3: Infinity, lap: Infinity };
+
+      // Pre-process lap data by timestamp for quick lookup
+      const lapsByTimestamp = lapsData.map((lap) => ({
+        ...lap,
+        timestampMs: new Date(lap.date_start).getTime(),
+      })).sort((a, b) => a.timestampMs - b.timestampMs);
+
+      // Pre-process position data
+      const positionsByTimestamp = positionsData.map((p) => ({
+        ...p,
+        timestampMs: new Date(p.date).getTime(),
+      })).sort((a, b) => a.timestampMs - b.timestampMs);
+
+      // Create snapshots at regular intervals
+      for (let currentMs = sessionStartMs; currentMs <= sessionEndMs; currentMs += intervalMs) {
+        const snapshotTimestamp = new Date(currentMs).toISOString();
+
+        // Update driver positions from position data up to this timestamp
+        positionsByTimestamp.forEach((pos) => {
+          if (pos.timestampMs <= currentMs) {
+            const state = driverState.get(pos.driver_number);
+            if (state) {
+              state.position = pos.position;
+            }
+          }
+        });
+
+        // Update driver lap data from laps up to this timestamp
+        lapsByTimestamp.forEach((lap) => {
+          if (lap.timestampMs <= currentMs) {
+            const state = driverState.get(lap.driver_number);
+            if (state) {
+              // Update current lap number
+              if (lap.lap_number > state.currentLapNumber) {
+                state.currentLapNumber = lap.lap_number;
+                state.sector1 = null;
+                state.sector2 = null;
+                state.sector3 = null;
+              }
+
+              // Update sector times
+              if (lap.duration_sector_1) state.sector1 = lap.duration_sector_1;
+              if (lap.duration_sector_2) state.sector2 = lap.duration_sector_2;
+              if (lap.duration_sector_3) state.sector3 = lap.duration_sector_3;
+
+              // Update lap times
+              if (lap.lap_duration) {
+                state.lastLap = lap.lap_duration;
+                if (!state.bestLap || lap.lap_duration < state.bestLap) {
+                  state.bestLap = lap.lap_duration;
+                }
+              }
+
+              // Update personal bests
+              const pb = timePB.get(lap.driver_number) || { s1: Infinity, s2: Infinity, s3: Infinity, lap: Infinity };
+              if (lap.duration_sector_1 && lap.duration_sector_1 < pb.s1) pb.s1 = lap.duration_sector_1;
+              if (lap.duration_sector_2 && lap.duration_sector_2 < pb.s2) pb.s2 = lap.duration_sector_2;
+              if (lap.duration_sector_3 && lap.duration_sector_3 < pb.s3) pb.s3 = lap.duration_sector_3;
+              if (lap.lap_duration && lap.lap_duration < pb.lap) pb.lap = lap.lap_duration;
+              timePB.set(lap.driver_number, pb);
+
+              // Update overall bests
+              if (lap.duration_sector_1 && lap.duration_sector_1 < timeOverallBests.s1) timeOverallBests.s1 = lap.duration_sector_1;
+              if (lap.duration_sector_2 && lap.duration_sector_2 < timeOverallBests.s2) timeOverallBests.s2 = lap.duration_sector_2;
+              if (lap.duration_sector_3 && lap.duration_sector_3 < timeOverallBests.s3) timeOverallBests.s3 = lap.duration_sector_3;
+              if (lap.lap_duration && lap.lap_duration < timeOverallBests.lap) timeOverallBests.lap = lap.lap_duration;
+
+              // Check for pit status
+              if (lap.is_pit_out_lap) {
+                state.status = "PIT";
+              } else {
+                state.status = "RUNNING";
+              }
+            }
+          }
+        });
+
+        // Calculate gaps and intervals
+        const sortedDrivers = Array.from(driverState.entries())
+          .sort((a, b) => a[1].position - b[1].position);
+
+        let leaderTime: number | null = null;
+        let prevDriverTime: number | null = null;
+
+        sortedDrivers.forEach(([, state], idx) => {
+          if (idx === 0) {
+            leaderTime = state.bestLap;
+            state.gap = null;
+            state.interval = null;
+          } else {
+            if (leaderTime && state.bestLap) {
+              state.gap = state.bestLap - leaderTime;
+            }
+            if (prevDriverTime && state.bestLap) {
+              state.interval = state.bestLap - prevDriverTime;
+            }
+          }
+          prevDriverTime = state.bestLap;
+        });
+
+        // Get race control messages up to this timestamp
+        const raceControl = raceControlData
+          .filter((rc) => new Date(rc.date).getTime() <= currentMs)
+          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+          .slice(0, 20)
+          .map((rc) => ({
+            timestamp: rc.date,
+            message: rc.message,
+            category: rc.category,
+            flag: rc.flag,
+            driverNumber: rc.driver_number,
+            lapNumber: rc.lap_number,
+          }));
+
+        // Get weather for this timestamp
+        const weatherReading = getWeatherForTimestamp(snapshotTimestamp);
+        const weather = weatherReading ? {
+          airTemp: weatherReading.air_temperature,
+          trackTemp: weatherReading.track_temperature,
+          humidity: weatherReading.humidity,
+          pressure: weatherReading.pressure,
+          windSpeed: weatherReading.wind_speed,
+          windDirection: weatherReading.wind_direction,
+          rainfall: weatherReading.rainfall > 0,
+        } : null;
+
+        // Derive track status from race control
+        let trackStatus: { status: "AllClear" | "Yellow" | "SCDeployed" | "VSCDeployed" | "Red"; message?: string } = { status: "AllClear" };
+        for (const rc of raceControl) {
+          const flag = rc.flag?.toUpperCase();
+          const msg = rc.message?.toLowerCase() || "";
+          if (flag === "RED") {
+            trackStatus = { status: "Red", message: rc.message };
+            break;
+          } else if (msg.includes("safety car deployed")) {
+            trackStatus = { status: "SCDeployed", message: rc.message };
+            break;
+          } else if (msg.includes("virtual safety car") || msg.includes("vsc")) {
+            trackStatus = { status: "VSCDeployed", message: rc.message };
+            break;
+          } else if (flag === "YELLOW" || flag === "DOUBLE_YELLOW") {
+            trackStatus = { status: "Yellow", message: rc.message };
+            break;
+          }
+        }
+
+        // Build timing data for all drivers
+        const timing = driversData.map((driverInfo) => {
+          const driverNumber = driverInfo.driver_number;
+          const state = driverState.get(driverNumber)!;
+          const pb = timePB.get(driverNumber) || { s1: Infinity, s2: Infinity, s3: Infinity, lap: Infinity };
+          const tyreInfo = getTyreInfo(driverNumber, state.currentLapNumber || 1);
+          const stintHistory = getStintHistory(driverNumber, state.currentLapNumber || 1);
+          const incidentStatus = getDriverIncidentStatus(driverNumber, snapshotTimestamp);
+
+          return {
+            position: state.position,
+            driverCode: driverInfo.name_acronym || `D${driverNumber}`,
+            driverNumber,
+            teamName: driverInfo.team_name || "Unknown",
+            teamColor: `#${driverInfo.team_colour || "808080"}`,
+            lastLap: state.lastLap,
+            bestLap: state.bestLap,
+            sector1: state.sector1,
+            sector2: state.sector2,
+            sector3: state.sector3,
+            sector1Best: state.sector1 === timeOverallBests.s1,
+            sector2Best: state.sector2 === timeOverallBests.s2,
+            sector3Best: state.sector3 === timeOverallBests.s3,
+            sector1PersonalBest: state.sector1 === pb.s1,
+            sector2PersonalBest: state.sector2 === pb.s2,
+            sector3PersonalBest: state.sector3 === pb.s3,
+            gap: state.gap,
+            interval: state.interval,
+            currentLap: state.currentLapNumber,
+            tyre: { compound: tyreInfo.compound.toUpperCase(), age: tyreInfo.age, isNew: tyreInfo.age === 0 },
+            stintHistory,
+            pitStops: stintHistory.length > 0 ? stintHistory.length - 1 : 0,
+            status: state.status,
+            isOverallBest: state.lastLap === timeOverallBests.lap,
+            isPersonalBest: state.lastLap === pb.lap,
+            isUnderInvestigation: incidentStatus.isUnderInvestigation,
+            hasPenalty: incidentStatus.hasPenalty,
+            penaltySeconds: incidentStatus.penaltySeconds ?? undefined,
+          };
+        }).sort((a, b) => a.position - b.position);
+
+        // Detect qualifying round from race control
+        let qualifyingRound: "Q1" | "Q2" | "Q3" | "SQ1" | "SQ2" | "SQ3" | null = null;
+        const isSprintQualifying =
+          sessionInfo?.session_name?.toLowerCase().includes("sprint") ||
+          sessionInfo?.session_name?.toLowerCase().includes("shootout");
+
+        for (const rc of raceControl) {
+          const msg = rc.message?.toUpperCase() || "";
+          if (msg.includes("Q3") && !msg.includes("SQ3")) {
+            qualifyingRound = isSprintQualifying ? "SQ3" : "Q3";
+            break;
+          } else if (msg.includes("Q2") && !msg.includes("SQ2")) {
+            qualifyingRound = isSprintQualifying ? "SQ2" : "Q2";
+            break;
+          } else if (msg.includes("Q1") && !msg.includes("SQ1")) {
+            qualifyingRound = isSprintQualifying ? "SQ1" : "Q1";
+            break;
+          }
+        }
+
+        if (!qualifyingRound && sessionInfo?.session_type?.toLowerCase().includes("qualifying")) {
+          qualifyingRound = isSprintQualifying ? "SQ1" : "Q1";
+        }
+
+        snapshots.push({
+          lap: Math.max(...Array.from(driverState.values()).map((s) => s.currentLapNumber), 1),
+          timestamp: snapshotTimestamp,
+          timing,
+          raceControl,
+          weather,
+          trackStatus,
+          qualifyingRound,
+        });
+      }
+    } else {
+      // LAP-BASED MODE (original): Create snapshots per lap
+      for (let lap = 1; lap <= maxLap; lap++) {
       const lapDrivers = lapsByNumber.get(lap) || [];
       const raceControlMessages = raceControlByLap.get(lap) || [];
 
@@ -691,11 +999,15 @@ export async function GET(request: NextRequest) {
         trackStatus,
         qualifyingRound,
       });
-    }
+      }
+    } // End of mode check (time vs lap)
 
     const responseData = {
       sessionKey: parseInt(sessionKey),
       totalLaps: maxLap,
+      totalSnapshots: snapshots.length,
+      mode,
+      intervalSeconds: mode === "time" ? intervalSeconds : null,
       snapshots,
       timestamp: new Date().toISOString(),
       // Session info for qualifying detection
