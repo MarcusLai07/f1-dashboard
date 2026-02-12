@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-
-const OPENF1_BASE = "https://api.openf1.org/v1";
+import { openf1Fetch } from "@/lib/openf1";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -15,15 +14,19 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    let url = `${OPENF1_BASE}/race_control?session_key=${sessionKey}`;
+    let url = `/race_control?session_key=${sessionKey}`;
     if (since) {
       url += `&date>=${since}`;
     }
 
-    const response = await fetch(url);
+    const response = await openf1Fetch(url);
 
     if (!response.ok) {
-      throw new Error(`OpenF1 API error: ${response.status}`);
+      // Return empty messages instead of 500 — next poll will retry
+      return NextResponse.json({
+        messages: [],
+        timestamp: new Date().toISOString(),
+      });
     }
 
     const messages = await response.json();

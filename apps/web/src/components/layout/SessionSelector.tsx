@@ -90,10 +90,16 @@ function buildEvents(now: Date, debugEnabled: boolean, races: F1Event[], preseas
         dayDate.setDate(dayDate.getDate() + day);
         const dayStr = dayDate.toISOString().split("T")[0];
 
-        // Morning session
+        // Morning session (runs until afternoon starts)
         const morningTime = test.sessions.morning.replace(/^\d{4}-\d{2}-\d{2}/, dayStr);
-        const isPastAM = new Date(morningTime) < now;
-        const isNowAM = Math.abs(new Date(morningTime).getTime() - now.getTime()) < 4 * 60 * 60 * 1000;
+        const afternoonTime = test.sessions.afternoon.replace(/^\d{4}-\d{2}-\d{2}/, dayStr);
+        const morningStart = new Date(morningTime).getTime();
+        const afternoonStart = new Date(afternoonTime).getTime();
+        const afternoonEnd = afternoonStart + 4 * 60 * 60 * 1000; // ~4 hours
+        const nowMs = now.getTime();
+
+        const isPastAM = nowMs >= afternoonStart; // Morning ends when afternoon starts
+        const isNowAM = nowMs >= morningStart && nowMs < afternoonStart;
         sessions.push({
           key: `test-${test.name.replace(/\s+/g, "-").toLowerCase()}-d${day + 1}-am`,
           name: `Day ${day + 1} Morning`,
@@ -101,13 +107,12 @@ function buildEvents(now: Date, debugEnabled: boolean, races: F1Event[], preseas
           time: morningTime,
           badge: SESSION_BADGES["AM"],
           isPast: isPastAM,
-          isNow: isNowAM && !isPastAM,
+          isNow: isNowAM,
         });
 
-        // Afternoon session
-        const afternoonTime = test.sessions.afternoon.replace(/^\d{4}-\d{2}-\d{2}/, dayStr);
-        const isPastPM = new Date(afternoonTime) < now;
-        const isNowPM = Math.abs(new Date(afternoonTime).getTime() - now.getTime()) < 4 * 60 * 60 * 1000;
+        // Afternoon session (runs ~4 hours after start)
+        const isPastPM = nowMs >= afternoonEnd;
+        const isNowPM = nowMs >= afternoonStart && nowMs < afternoonEnd;
         sessions.push({
           key: `test-${test.name.replace(/\s+/g, "-").toLowerCase()}-d${day + 1}-pm`,
           name: `Day ${day + 1} Afternoon`,
@@ -115,7 +120,7 @@ function buildEvents(now: Date, debugEnabled: boolean, races: F1Event[], preseas
           time: afternoonTime,
           badge: SESSION_BADGES["PM"],
           isPast: isPastPM,
-          isNow: isNowPM && !isPastPM,
+          isNow: isNowPM,
         });
       }
     }
@@ -288,13 +293,26 @@ export function SessionSelector({
     return buildEvents(now, debugEnabled, races, preseason);
   }, [now, debugEnabled, dataLoaded, races, preseason]);
 
-  // Fetch API sessions - always fetch 2025 for historical data
+  // Fetch API sessions - current year + 2025 for historical data
   useEffect(() => {
     async function fetchSessions() {
       try {
-        // Fetch 2025 season for historical debugging
-        const { recent } = await getSessions(2025);
-        setSessions(recent);
+        const currentYear = new Date().getFullYear();
+        const [currentYearData, historicalData] = await Promise.all([
+          getSessions(currentYear),
+          currentYear !== 2025 ? getSessions(2025) : Promise.resolve({ recent: [] as Session[] }),
+        ]);
+        // Include the current live session (may not be in the top 50 recent)
+        const allSessions = [...currentYearData.recent, ...historicalData.recent];
+        if (currentYearData.current && !allSessions.some(s => s.sessionKey === currentYearData.current!.sessionKey)) {
+          allSessions.unshift(currentYearData.current);
+        }
+        setSessions(allSessions);
+
+        // If there's a live session, connect to it immediately
+        if (currentYearData.current) {
+          onSessionChange(currentYearData.current.sessionKey);
+        }
       } catch (error) {
         console.error("Failed to fetch sessions:", error);
       } finally {
@@ -303,6 +321,7 @@ export function SessionSelector({
     }
 
     fetchSessions();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Auto-select first event and nearest upcoming session
@@ -312,13 +331,18 @@ export function SessionSelector({
       let foundEvent: SelectableEvent | null = null;
       let foundSession: SelectableSession | null = null;
 
+      // Prefer a currently live session, then first non-past session
       for (const event of events) {
-        // Find first non-past session in this event
+        const liveSession = event.sessions.find(s => s.isNow);
+        if (liveSession) {
+          foundEvent = event;
+          foundSession = liveSession;
+          break;
+        }
         const upcomingSession = event.sessions.find(s => !s.isPast);
-        if (upcomingSession) {
+        if (upcomingSession && !foundEvent) {
           foundEvent = event;
           foundSession = upcomingSession;
-          break;
         }
       }
 
@@ -337,6 +361,38 @@ export function SessionSelector({
     }
   }, [events, selectedEventId]);
 
+  // Try to find a matching OpenF1 session key for a calendar session time
+  const findApiSessionKey = (calendarTime: string): number | null => {
+    const calTime = new Date(calendarTime).getTime();
+    for (const s of sessions) {
+      const start = new Date(s.startTime).getTime();
+      const end = s.endTime ? new Date(s.endTime).getTime() : start + 12 * 60 * 60 * 1000;
+      if (calTime >= start && calTime <= end) {
+        return s.sessionKey;
+      }
+    }
+    return null;
+  };
+
+  // Auto-connect to live OpenF1 session when calendar session is selected
+  // and API sessions become available
+  useEffect(() => {
+    if (!selectedCalendarKey || sessions.length === 0 || currentSessionKey) return;
+
+    // Find the calendar session's time
+    for (const event of events) {
+      const calSession = event.sessions.find(s => s.key === selectedCalendarKey);
+      if (calSession) {
+        const apiKey = findApiSessionKey(calSession.time);
+        if (apiKey) {
+          onSessionChange(apiKey);
+        }
+        break;
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCalendarKey, sessions]);
+
   // Get selected event
   const selectedEvent = events.find(e => e.id === selectedEventId);
 
@@ -354,9 +410,16 @@ export function SessionSelector({
   // Handle calendar session selection
   const handleSessionSelect = (sessionKey: string) => {
     setSelectedCalendarKey(sessionKey);
-    // For calendar sessions, we don't have API data yet
-    // Clear the API session key since this is a future session
-    onSessionChange(null);
+
+    // Try to match this calendar session to a real OpenF1 session
+    const calSession = selectedEvent?.sessions.find(s => s.key === sessionKey);
+    const apiKey = calSession ? findApiSessionKey(calSession.time) : null;
+
+    if (apiKey) {
+      onSessionChange(apiKey);
+    } else {
+      onSessionChange(null);
+    }
     setOpen(false);
   };
 
@@ -504,11 +567,11 @@ export function SessionSelector({
                     <button
                       key={session.key}
                       onClick={() => handleSessionSelect(session.key)}
-                      disabled={session.isPast}
                       className={cn(
                         "w-full px-3 py-2 text-left text-sm flex items-center gap-2 hover:bg-secondary/50 transition-colors",
                         selectedCalendarKey === session.key && "bg-primary/10 border-l-2 border-l-primary",
-                        session.isPast && "opacity-40 cursor-not-allowed"
+                        session.isNow && "bg-green-500/10 border-l-2 border-l-green-500",
+                        session.isPast && !session.isNow && "opacity-50"
                       )}
                     >
                       <Badge variant="outline" className={cn("text-[9px] px-1.5 py-0", session.badge.className)}>

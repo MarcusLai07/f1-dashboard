@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { useDebugStore } from "@/stores/debugStore";
 
 interface HeaderProps {
   sessionName?: string;
@@ -12,6 +13,7 @@ interface HeaderProps {
 
 export function Header({ sessionName, isLive = false }: HeaderProps) {
   const pathname = usePathname();
+  const { enabled: debugEnabled } = useDebugStore();
 
   return (
     <header className="h-12 border-b border-border bg-card px-4 flex items-center justify-between">
@@ -78,6 +80,19 @@ export function Header({ sessionName, isLive = false }: HeaderProps) {
           >
             About
           </Link>
+          {debugEnabled && (
+            <Link
+              href="/circuit-editor"
+              className={cn(
+                "px-3 py-1.5 rounded-md text-sm font-medium transition-colors",
+                pathname === "/circuit-editor"
+                  ? "bg-primary/20 text-primary"
+                  : "text-primary/70 hover:text-primary hover:bg-primary/10"
+              )}
+            >
+              Circuit Editor
+            </Link>
+          )}
         </nav>
       </div>
 

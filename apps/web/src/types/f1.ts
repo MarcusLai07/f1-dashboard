@@ -86,6 +86,9 @@ export interface DriverTiming {
   // Lap tracking
   currentLap?: number;
   totalLaps?: number;
+  // Live car data (from /car_data endpoint)
+  speed?: number | null;
+  gear?: number | null;
   // Mini-sectors (Practice & Qualifying only)
   miniSectors?: {
     sector1: (number | null)[];
@@ -216,12 +219,40 @@ export interface CarPosition {
   y: number;
   z: number;
   timestamp: string;
+  // Extended fields for position estimation
+  position?: number; // Race position (1-20)
+  status?: "RACING" | "PIT" | "OUT" | "STOPPED" | "RUNNING";
+  currentLap?: number;
+  sector?: 1 | 2 | 3; // Current sector (estimated from timing)
+  sectorProgress?: number; // 0-1 progress within sector (estimated)
 }
 
 export interface PositionData {
   timestamp: string;
   sessionKey: number;
   positions: CarPosition[];
+}
+
+/**
+ * Car location from OpenF1 /location endpoint
+ * These are actual track coordinates (Cartesian, arbitrary origin)
+ * Sample rate: ~3.7Hz
+ */
+export interface CarLocation {
+  driverCode: string;
+  driverNumber: number;
+  teamColor: string;
+  x: number;
+  y: number;
+  z: number;
+  timestamp: string;
+}
+
+export interface LocationBounds {
+  minX: number;
+  maxX: number;
+  minY: number;
+  maxY: number;
 }
 
 // =============================================================================
@@ -355,6 +386,8 @@ export interface LiveState {
   currentSession: Session | null;
   timing: DriverTiming[];
   positions: CarPosition[];
+  locations: CarLocation[];
+  locationBounds: LocationBounds | null;
   telemetry: Record<string, DriverTelemetry>;
   raceControl: RaceControlMessage[];
   weather: Weather | null;

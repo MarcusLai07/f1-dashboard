@@ -111,5 +111,7 @@ export function deriveSessionType(sessionName: string): SessionType {
   if (name.includes("sprint") && !name.includes("qualifying")) return "sprint";
   if (name.includes("qualifying") || name.includes("quali")) return "qualifying";
   if (name.includes("test")) return "testing";
+  // Pre-season testing sessions are named "Day 1", "Day 2", etc.
+  if (/^day\s+\d+$/i.test(name.trim())) return "testing";
   return "practice";
 }

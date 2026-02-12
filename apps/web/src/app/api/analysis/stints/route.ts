@@ -1,29 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-
-const OPENF1_BASE = "https://api.openf1.org/v1";
+import { openf1Fetch } from "@/lib/openf1";
 
 interface DriverInfo {
   code: string;
   teamName: string;
   teamColor: string;
-}
-
-async function fetchWithRetry(url: string, retries = 3): Promise<any> {
-  for (let i = 0; i < retries; i++) {
-    try {
-      const res = await fetch(url);
-      if (res.status === 429) {
-        await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
-        continue;
-      }
-      const data = await res.json();
-      return Array.isArray(data) ? data : [];
-    } catch {
-      if (i === retries - 1) return [];
-      await new Promise(resolve => setTimeout(resolve, 500));
-    }
-  }
-  return [];
 }
 
 export async function GET(request: NextRequest) {
@@ -39,10 +20,18 @@ export async function GET(request: NextRequest) {
 
   try {
     // Fetch stints and driver info in parallel
-    const [stints, drivers] = await Promise.all([
-      fetchWithRetry(`${OPENF1_BASE}/stints?session_key=${sessionKey}`),
-      fetchWithRetry(`${OPENF1_BASE}/drivers?session_key=${sessionKey}`),
+    const [stintsRes, driversRes] = await Promise.all([
+      openf1Fetch(`/stints?session_key=${sessionKey}`),
+      openf1Fetch(`/drivers?session_key=${sessionKey}`),
     ]);
+
+    const [stintsData, driversData] = await Promise.all([
+      stintsRes.json(),
+      driversRes.json(),
+    ]);
+
+    const stints = Array.isArray(stintsData) ? stintsData : [];
+    const drivers = Array.isArray(driversData) ? driversData : [];
 
     // Build driver map
     const driverMap = new Map<number, DriverInfo>(

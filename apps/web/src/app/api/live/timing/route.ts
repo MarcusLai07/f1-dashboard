@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-
-const OPENF1_BASE = "https://api.openf1.org/v1";
+import { openf1Fetch } from "@/lib/openf1";
+import { getDriversFull, getTeamsFull } from "@/data";
 
 interface DriverInfo {
   driverNumber: number;
@@ -21,11 +21,17 @@ export async function GET(request: NextRequest) {
   }
 
   try {
+    // Date filter for car_data: only last 10 seconds (~680 entries for 20 drivers at 3.4Hz)
+    const tenSecondsAgo = new Date(Date.now() - 10000).toISOString();
+
     // Fetch multiple endpoints in parallel
-    const [driversRes, lapsRes, stintsRes] = await Promise.all([
-      fetch(`${OPENF1_BASE}/drivers?session_key=${sessionKey}`),
-      fetch(`${OPENF1_BASE}/laps?session_key=${sessionKey}`),
-      fetch(`${OPENF1_BASE}/stints?session_key=${sessionKey}`),
+    const [driversRes, lapsRes, stintsRes, carDataRes] = await Promise.all([
+      openf1Fetch(`/drivers?session_key=${sessionKey}`),
+      openf1Fetch(`/laps?session_key=${sessionKey}`),
+      openf1Fetch(`/stints?session_key=${sessionKey}`),
+      openf1Fetch(
+        `/car_data?session_key=${sessionKey}&date%3E${encodeURIComponent(tenSecondsAgo)}`
+      ).catch(() => null), // Non-fatal: graceful fallback if unavailable
     ]);
 
     const [driversData, lapsData, stintsData] = await Promise.all([
@@ -39,15 +45,62 @@ export async function GET(request: NextRequest) {
     const laps = Array.isArray(lapsData) ? lapsData : [];
     const stints = Array.isArray(stintsData) ? stintsData : [];
 
+    // Parse car_data separately (may be null if fetch failed)
+    let carData: any[] = [];
+    if (carDataRes) {
+      try {
+        const raw = await carDataRes.json();
+        carData = Array.isArray(raw) ? raw : [];
+      } catch { /* ignore parse errors */ }
+    }
+
+    // Build latest car_data per driver (most recent entry wins)
+    const latestCarData = new Map<number, { speed: number; gear: number; date: string }>();
+    for (const entry of carData) {
+      if (!entry?.driver_number) continue;
+      const existing = latestCarData.get(entry.driver_number);
+      if (!existing || new Date(entry.date) > new Date(existing.date)) {
+        latestCarData.set(entry.driver_number, {
+          speed: entry.speed ?? 0,
+          gear: entry.n_gear ?? 0,
+          date: entry.date,
+        });
+      }
+    }
+    const hasCarData = latestCarData.size > 0;
+
+    // Load local driver/team data as fallback for incomplete OpenF1 data
+    const [localDrivers, localTeams] = await Promise.all([
+      getDriversFull().catch(() => []),
+      getTeamsFull().catch(() => []),
+    ]);
+    const localDriverMap = new Map(localDrivers.map(d => [d.number, d]));
+    const localTeamMap = new Map(localTeams.map(t => [t.id, t]));
+
     // Build driver info list (all drivers in session)
     const allDrivers: DriverInfo[] = [];
     for (const d of drivers) {
       if (d?.driver_number) {
+        const local = localDriverMap.get(d.driver_number);
+        const localTeam = local?.teamId ? localTeamMap.get(local.teamId) : undefined;
         allDrivers.push({
           driverNumber: d.driver_number,
-          code: d.name_acronym || `D${d.driver_number}`,
-          teamName: d.team_name || "Unknown",
-          teamColor: `#${d.team_colour || "808080"}`,
+          code: d.name_acronym || local?.code || `D${d.driver_number}`,
+          teamName: d.team_name || localTeam?.name || "Unknown",
+          teamColor: d.team_colour ? `#${d.team_colour}` : (localTeam?.color || "#808080"),
+        });
+      }
+    }
+
+    // Add drivers from local data that aren't in OpenF1 response yet
+    for (const local of localDrivers) {
+      if (!allDrivers.some(d => d.driverNumber === local.number)) {
+        const localTeam = local.teamId ? localTeamMap.get(local.teamId) : undefined;
+        allDrivers.push({
+          driverNumber: local.number,
+          code: local.code,
+          teamName: localTeam?.name || "Unknown",
+          teamColor: localTeam?.color || "#808080",
         });
       }
     }
@@ -56,6 +109,7 @@ export async function GET(request: NextRequest) {
     const latestLaps = new Map<number, any>();
     const bestLaps = new Map<number, number>();
     let overallBest: { driver: number; time: number } | null = null;
+    const lastCompletedLaps = new Map<number, any>();
 
     for (const lap of laps) {
       const driverNum = lap.driver_number;
@@ -67,6 +121,13 @@ export async function GET(request: NextRequest) {
         lap.lap_number > latestLaps.get(driverNum).lap_number
       ) {
         latestLaps.set(driverNum, lap);
+      }
+
+      // Track last completed lap (for "Last" column when current lap is in progress)
+      if (lapTime != null) {
+        if (!lastCompletedLaps.has(driverNum) || lap.lap_number > lastCompletedLaps.get(driverNum).lap_number) {
+          lastCompletedLaps.set(driverNum, lap);
+        }
       }
 
       // Track best lap per driver (for position calculation)
@@ -144,6 +205,7 @@ export async function GET(request: NextRequest) {
       const stint = latestStints.get(driverNum);
       const driverBest = bestLaps.get(driverNum);
       const position = positionMap.get(driverNum) || 20;
+      const completedLap = lastCompletedLaps.get(driverNum);
 
       // Calculate gap and interval based on best lap times
       let gap: number | null = null;
@@ -162,9 +224,21 @@ export async function GET(request: NextRequest) {
         }
       }
 
-      // Determine if driver is currently on track (has recent lap data)
-      const hasLapData = lap !== undefined;
-      const isOnTrack = hasLapData && lap.lap_duration !== null;
+      // Determine on-track status using car_data speed (primary) or stint/lap (fallback)
+      const driverCarData = latestCarData.get(driverNum);
+      let isOnTrack: boolean;
+
+      if (hasCarData && driverCarData) {
+        // Primary: speed > 0 means the car is moving (on track or pit lane)
+        isOnTrack = driverCarData.speed > 0;
+      } else {
+        // Fallback: stint + lap-based detection (for historical sessions or API errors)
+        const stintOngoing = stint && (stint.lap_end === undefined || stint.lap_end === null);
+        const hasPartialLap = lap && lap.lap_duration === null && (
+          lap.duration_sector_1 !== null || lap.duration_sector_2 !== null
+        );
+        isOnTrack = stintOngoing || hasPartialLap;
+      }
 
       // Calculate tyre age
       let tyreAge = 0;
@@ -182,7 +256,7 @@ export async function GET(request: NextRequest) {
         teamColor: driverInfo.teamColor,
         gap,
         interval,
-        lastLap: lap?.lap_duration ?? null,
+        lastLap: lap?.lap_duration ?? completedLap?.lap_duration ?? null,
         bestLap: driverBest ?? null,
         sector1: lap?.duration_sector_1 ?? null,
         sector2: lap?.duration_sector_2 ?? null,
@@ -202,9 +276,11 @@ export async function GET(request: NextRequest) {
         pitStops: stint?.stint_number ? stint.stint_number - 1 : 0,
         // In practice, drivers without current lap data are "IN PIT", not "OUT"
         status: isOnTrack ? "RACING" : "PIT",
-        isPersonalBest: lap?.is_personal_best || false,
-        isOverallBest: overallBest?.driver === driverNum && lap?.lap_duration === overallBest?.time,
+        isPersonalBest: lap?.is_personal_best || completedLap?.is_personal_best || false,
+        isOverallBest: overallBest?.driver === driverNum && (lap?.lap_duration === overallBest?.time || completedLap?.lap_duration === overallBest?.time),
         currentLap: lap?.lap_number ?? 0,
+        speed: driverCarData?.speed ?? null,
+        gear: driverCarData?.gear ?? null,
         miniSectors: {
           sector1: lap?.segments_sector_1 || [],
           sector2: lap?.segments_sector_2 || [],

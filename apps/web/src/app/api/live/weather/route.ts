@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-
-const OPENF1_BASE = "https://api.openf1.org/v1";
+import { openf1Fetch } from "@/lib/openf1";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -14,12 +13,16 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const response = await fetch(
-      `${OPENF1_BASE}/weather?session_key=${sessionKey}`
+    const response = await openf1Fetch(
+      `/weather?session_key=${sessionKey}`
     );
 
     if (!response.ok) {
-      throw new Error(`OpenF1 API error: ${response.status}`);
+      // Return null weather instead of 500 — next poll will retry
+      return NextResponse.json({
+        weather: null,
+        timestamp: new Date().toISOString(),
+      });
     }
 
     const weatherData = await response.json();

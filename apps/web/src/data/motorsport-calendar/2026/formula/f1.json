@@ -197,12 +197,12 @@
       "location": "Sakhir",
       "dates": { "start": "2026-02-11", "end": "2026-02-13" },
       "sessions": [
-        { "name": "Day 1 Morning", "shortName": "D1 AM", "dateTime": "2026-02-11T06:00:00Z", "type": "practice" },
-        { "name": "Day 1 Afternoon", "shortName": "D1 PM", "dateTime": "2026-02-11T11:00:00Z", "type": "practice" },
-        { "name": "Day 2 Morning", "shortName": "D2 AM", "dateTime": "2026-02-12T06:00:00Z", "type": "practice" },
-        { "name": "Day 2 Afternoon", "shortName": "D2 PM", "dateTime": "2026-02-12T11:00:00Z", "type": "practice" },
-        { "name": "Day 3 Morning", "shortName": "D3 AM", "dateTime": "2026-02-13T06:00:00Z", "type": "practice" },
-        { "name": "Day 3 Afternoon", "shortName": "D3 PM", "dateTime": "2026-02-13T11:00:00Z", "type": "practice" }
+        { "name": "Day 1 Morning", "shortName": "D1 AM", "dateTime": "2026-02-11T07:00:00Z", "type": "practice" },
+        { "name": "Day 1 Afternoon", "shortName": "D1 PM", "dateTime": "2026-02-11T12:00:00Z", "type": "practice" },
+        { "name": "Day 2 Morning", "shortName": "D2 AM", "dateTime": "2026-02-12T07:00:00Z", "type": "practice" },
+        { "name": "Day 2 Afternoon", "shortName": "D2 PM", "dateTime": "2026-02-12T12:00:00Z", "type": "practice" },
+        { "name": "Day 3 Morning", "shortName": "D3 AM", "dateTime": "2026-02-13T07:00:00Z", "type": "practice" },
+        { "name": "Day 3 Afternoon", "shortName": "D3 PM", "dateTime": "2026-02-13T12:00:00Z", "type": "practice" }
       ],
       "status": "confirmed",
       "eventType": "testing",
@@ -218,12 +218,12 @@
       "location": "Sakhir",
       "dates": { "start": "2026-02-18", "end": "2026-02-20" },
       "sessions": [
-        { "name": "Day 1 Morning", "shortName": "D1 AM", "dateTime": "2026-02-18T06:00:00Z", "type": "practice" },
-        { "name": "Day 1 Afternoon", "shortName": "D1 PM", "dateTime": "2026-02-18T11:00:00Z", "type": "practice" },
-        { "name": "Day 2 Morning", "shortName": "D2 AM", "dateTime": "2026-02-19T06:00:00Z", "type": "practice" },
-        { "name": "Day 2 Afternoon", "shortName": "D2 PM", "dateTime": "2026-02-19T11:00:00Z", "type": "practice" },
-        { "name": "Day 3 Morning", "shortName": "D3 AM", "dateTime": "2026-02-20T06:00:00Z", "type": "practice" },
-        { "name": "Day 3 Afternoon", "shortName": "D3 PM", "dateTime": "2026-02-20T11:00:00Z", "type": "practice" }
+        { "name": "Day 1 Morning", "shortName": "D1 AM", "dateTime": "2026-02-18T07:00:00Z", "type": "practice" },
+        { "name": "Day 1 Afternoon", "shortName": "D1 PM", "dateTime": "2026-02-18T12:00:00Z", "type": "practice" },
+        { "name": "Day 2 Morning", "shortName": "D2 AM", "dateTime": "2026-02-19T07:00:00Z", "type": "practice" },
+        { "name": "Day 2 Afternoon", "shortName": "D2 PM", "dateTime": "2026-02-19T12:00:00Z", "type": "practice" },
+        { "name": "Day 3 Morning", "shortName": "D3 AM", "dateTime": "2026-02-20T07:00:00Z", "type": "practice" },
+        { "name": "Day 3 Afternoon", "shortName": "D3 PM", "dateTime": "2026-02-20T12:00:00Z", "type": "practice" }
       ],
       "status": "confirmed",
       "eventType": "testing",

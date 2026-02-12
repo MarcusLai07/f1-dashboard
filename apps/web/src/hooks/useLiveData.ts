@@ -7,11 +7,13 @@ import {
   getSessions,
   getTiming,
   getPositions,
+  getLocation,
   getTelemetry,
   getRaceControl,
   getWeather,
 } from "@/lib/api";
 import { getPollingIntervals, deriveSessionType, type SessionType } from "./useSessionPolling";
+import type { RaceControlMessage } from "@/types/f1";
 
 interface UseLiveDataOptions {
   enabled?: boolean;
@@ -30,12 +32,12 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
     currentSession,
     updateTiming,
     updatePositions,
+    updateLocations,
     updateTelemetry,
     addRaceControlMessage,
     updateWeather,
     updateTrackStatus,
     selectedDrivers,
-    raceControl,
   } = useLiveStore();
 
   // Derive session type and live status for polling intervals
@@ -55,6 +57,7 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
 
   const timingIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const positionIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const locationIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const telemetryIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const raceControlIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const weatherIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -62,10 +65,27 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
   const raceControlFetchInProgress = useRef<boolean>(false);
 
   // Fetch and set current session
-  const fetchSession = useCallback(async () => {
+  const fetchSession = useCallback(async (knownSessionKey?: number | null) => {
     try {
-      const { current } = await getSessions();
-      setSession(current);
+      const { current, recent } = await getSessions();
+
+      // If we have a specific session key, find it in the API response
+      if (knownSessionKey) {
+        const matchedSession =
+          (current?.sessionKey === knownSessionKey ? current : null) ||
+          recent.find((s) => s.sessionKey === knownSessionKey) ||
+          null;
+
+        if (matchedSession) {
+          setSession(matchedSession);
+        } else if (current) {
+          // Fallback: use current session info
+          setSession(current);
+        }
+      } else {
+        setSession(current);
+      }
+
       setConnected(true);
       return current?.sessionKey;
     } catch (error) {
@@ -101,6 +121,19 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
     [updatePositions]
   );
 
+  // Fetch location data (actual track coordinates)
+  const fetchLocation = useCallback(
+    async (key: number) => {
+      try {
+        const { locations, bounds } = await getLocation(key);
+        updateLocations(locations, bounds);
+      } catch {
+        // Silently ignore - polling will retry
+      }
+    },
+    [updateLocations]
+  );
+
   // Fetch telemetry for selected drivers
   const fetchTelemetry = useCallback(
     async (key: number, drivers: string[]) => {
@@ -127,7 +160,7 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
   );
 
   // Derive track status from race control messages
-  const deriveTrackStatus = useCallback((messages: typeof raceControl) => {
+  const deriveTrackStatus = useCallback((messages: RaceControlMessage[]) => {
     if (messages.length === 0) return;
 
     // Search from newest to oldest for track status indicators
@@ -159,7 +192,7 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
   }, [updateTrackStatus]);
 
   // Derive investigation/penalty status from race control messages and update timing
-  const deriveIncidentStatus = useCallback((messages: typeof raceControl) => {
+  const deriveIncidentStatus = useCallback((messages: RaceControlMessage[]) => {
     if (messages.length === 0) return;
 
     const timing = useLiveStore.getState().timing;
@@ -243,8 +276,11 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
           timestampForFetch || undefined
         );
 
+        // Read raceControl from store directly to avoid dependency cycle
+        const existingMessages = useLiveStore.getState().raceControl;
+
         // Only add new messages (use Set for O(1) lookup)
-        const existingTimestamps = new Set(raceControl.map((m) => m.timestamp));
+        const existingTimestamps = new Set(existingMessages.map((m) => m.timestamp));
         const newMessages = messages.filter(
           (m) => !existingTimestamps.has(m.timestamp)
         );
@@ -261,7 +297,7 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
         }
 
         // Derive track status from all messages (including existing)
-        const allMessages = [...newMessages, ...raceControl];
+        const allMessages = [...newMessages, ...existingMessages];
         deriveTrackStatus(allMessages);
 
         // Derive investigation/penalty status
@@ -272,7 +308,7 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
         raceControlFetchInProgress.current = false;
       }
     },
-    [addRaceControlMessage, raceControl, deriveTrackStatus, deriveIncidentStatus]
+    [addRaceControlMessage, deriveTrackStatus, deriveIncidentStatus]
   );
 
   // Fetch weather
@@ -294,6 +330,7 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
   const clearAllIntervals = useCallback(() => {
     if (timingIntervalRef.current) clearInterval(timingIntervalRef.current);
     if (positionIntervalRef.current) clearInterval(positionIntervalRef.current);
+    if (locationIntervalRef.current) clearInterval(locationIntervalRef.current);
     if (telemetryIntervalRef.current) clearInterval(telemetryIntervalRef.current);
     if (raceControlIntervalRef.current) clearInterval(raceControlIntervalRef.current);
     if (weatherIntervalRef.current) clearInterval(weatherIntervalRef.current);
@@ -307,6 +344,7 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
       // Initial fetch
       fetchTiming(key);
       fetchPositions(key);
+      fetchLocation(key);
       fetchRaceControl(key);
       fetchWeather(key);
       if (selectedDrivers.length > 0) {
@@ -324,6 +362,12 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
         pollingIntervals.position
       );
 
+      // Location updates at same rate as position (actual track coordinates)
+      locationIntervalRef.current = setInterval(
+        () => fetchLocation(key),
+        pollingIntervals.position
+      );
+
       raceControlIntervalRef.current = setInterval(
         () => fetchRaceControl(key),
         pollingIntervals.raceControl
@@ -338,6 +382,7 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
       clearAllIntervals,
       fetchTiming,
       fetchPositions,
+      fetchLocation,
       fetchRaceControl,
       fetchWeather,
       fetchTelemetry,
@@ -345,6 +390,10 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
       pollingIntervals,
     ]
   );
+
+  // Use a ref for startPolling to avoid dependency cycles in effects
+  const startPollingRef = useRef(startPolling);
+  startPollingRef.current = startPolling;
 
   // Handle telemetry polling separately (depends on selected drivers)
   useEffect(() => {
@@ -395,10 +444,14 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
     const init = async () => {
       if (!activeSessionKey) {
         activeSessionKey = await fetchSession();
+      } else {
+        // Always fetch session info to populate currentSession
+        // (needed for circuit name, isLive status, polling intervals)
+        await fetchSession(activeSessionKey);
       }
 
       if (activeSessionKey) {
-        startPolling(activeSessionKey);
+        startPollingRef.current(activeSessionKey);
       }
     };
 
@@ -407,14 +460,16 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
     return () => {
       clearAllIntervals();
     };
-  }, [shouldPoll, sessionKey, fetchSession, startPolling, clearAllIntervals]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shouldPoll, sessionKey, fetchSession, clearAllIntervals]);
 
-  // Restart polling when session type or live status changes
+  // Restart polling when polling intervals change (session type or live status changes)
   useEffect(() => {
     if (!shouldPoll || !sessionKey) return;
     // Restart polling with new intervals
-    startPolling(sessionKey);
-  }, [pollingIntervals, shouldPoll, sessionKey, startPolling]);
+    startPollingRef.current(sessionKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pollingIntervals, shouldPoll, sessionKey]);
 
   return {
     refresh: () => sessionKey && startPolling(sessionKey),

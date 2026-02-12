@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-
-const OPENF1_BASE = "https://api.openf1.org/v1";
+import { openf1Fetch } from "@/lib/openf1";
+import { getDriversFull, getTeamsFull } from "@/data";
 
 interface DriverInfo {
   code: string;
@@ -19,10 +19,12 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // Get driver info and positions
-    const [driversRes, positionsRes] = await Promise.all([
-      fetch(`${OPENF1_BASE}/drivers?session_key=${sessionKey}`),
-      fetch(`${OPENF1_BASE}/position?session_key=${sessionKey}`),
+    // Get driver info and positions (OpenF1 + local fallback)
+    const [driversRes, positionsRes, localDrivers, localTeams] = await Promise.all([
+      openf1Fetch(`/drivers?session_key=${sessionKey}`),
+      openf1Fetch(`/position?session_key=${sessionKey}`),
+      getDriversFull().catch(() => []),
+      getTeamsFull().catch(() => []),
     ]);
 
     const [driversData, positionsData] = await Promise.all([
@@ -33,14 +35,28 @@ export async function GET(request: NextRequest) {
     // Ensure arrays (API may return empty objects or null)
     const drivers = Array.isArray(driversData) ? driversData : [];
     const positions = Array.isArray(positionsData) ? positionsData : [];
+    const localDriverMap = new Map(localDrivers.map(d => [d.number, d]));
+    const localTeamMap = new Map(localTeams.map(t => [t.id, t]));
 
-    // Build driver info map
+    // Build driver info map (OpenF1 + local fallback)
     const driverMap = new Map<number, DriverInfo>();
     for (const d of drivers) {
       if (d?.driver_number) {
+        const local = localDriverMap.get(d.driver_number);
+        const localTeam = local?.teamId ? localTeamMap.get(local.teamId) : undefined;
         driverMap.set(d.driver_number, {
-          code: d.name_acronym || `D${d.driver_number}`,
-          teamColor: `#${d.team_colour || "808080"}`,
+          code: d.name_acronym || local?.code || `D${d.driver_number}`,
+          teamColor: d.team_colour ? `#${d.team_colour}` : (localTeam?.color || "#808080"),
+        });
+      }
+    }
+    // Add local drivers not in OpenF1
+    for (const local of localDrivers) {
+      if (!driverMap.has(local.number)) {
+        const localTeam = local.teamId ? localTeamMap.get(local.teamId) : undefined;
+        driverMap.set(local.number, {
+          code: local.code,
+          teamColor: localTeam?.color || "#808080",
         });
       }
     }

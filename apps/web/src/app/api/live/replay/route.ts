@@ -1,38 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-
-const OPENF1_BASE = "https://api.openf1.org/v1";
+import { openf1Fetch } from "@/lib/openf1";
 
 // Simple in-memory cache for replay data
 const replayCache = new Map<string, { data: unknown; timestamp: number }>();
 const CACHE_TTL = 10 * 60 * 1000; // 10 minutes
-
-// Helper to fetch with retry and delay
-async function fetchWithRetry(
-  url: string,
-  retries = 3,
-  delay = 500
-): Promise<Response> {
-  for (let i = 0; i < retries; i++) {
-    const response = await fetch(url, { cache: "force-cache" });
-
-    if (response.ok) {
-      return response;
-    }
-
-    if (response.status === 429 && i < retries - 1) {
-      // Rate limited - wait and retry with exponential backoff
-      await new Promise((resolve) => setTimeout(resolve, delay * Math.pow(2, i)));
-      continue;
-    }
-
-    if (!response.ok && i === retries - 1) {
-      return response; // Return last failed response
-    }
-  }
-
-  // Should never reach here, but TypeScript needs this
-  throw new Error("Fetch failed");
-}
 
 interface LapData {
   driver_number: number;
@@ -139,8 +110,8 @@ export async function GET(request: NextRequest) {
 
   try {
     // Fetch session info first
-    const sessionRes = await fetchWithRetry(
-      `${OPENF1_BASE}/sessions?session_key=${sessionKey}`
+    const sessionRes = await openf1Fetch(
+      `/sessions?session_key=${sessionKey}`, { cache: "force-cache" }
     );
 
     let sessionInfo: SessionData | null = null;
@@ -154,8 +125,8 @@ export async function GET(request: NextRequest) {
         // Fetch meeting info for meeting name
         if (sessionInfo && sessionInfo.meeting_key) {
           await new Promise((resolve) => setTimeout(resolve, 200));
-          const meetingRes = await fetchWithRetry(
-            `${OPENF1_BASE}/meetings?meeting_key=${sessionInfo.meeting_key}`
+          const meetingRes = await openf1Fetch(
+            `/meetings?meeting_key=${sessionInfo.meeting_key}`, { cache: "force-cache" }
           );
           if (meetingRes.ok) {
             const meetingData = await meetingRes.json();
@@ -171,8 +142,8 @@ export async function GET(request: NextRequest) {
 
     // Fetch data sequentially to avoid rate limiting
     // Start with drivers (smallest, fastest)
-    const driversRes = await fetchWithRetry(
-      `${OPENF1_BASE}/drivers?session_key=${sessionKey}`
+    const driversRes = await openf1Fetch(
+      `/drivers?session_key=${sessionKey}`, { cache: "force-cache" }
     );
 
     if (!driversRes.ok) {
@@ -188,8 +159,8 @@ export async function GET(request: NextRequest) {
     // Small delay between requests
     await new Promise((resolve) => setTimeout(resolve, 200));
 
-    const lapsRes = await fetchWithRetry(
-      `${OPENF1_BASE}/laps?session_key=${sessionKey}`
+    const lapsRes = await openf1Fetch(
+      `/laps?session_key=${sessionKey}`, { cache: "force-cache" }
     );
 
     if (!lapsRes.ok) {
@@ -204,26 +175,26 @@ export async function GET(request: NextRequest) {
 
     await new Promise((resolve) => setTimeout(resolve, 200));
 
-    const positionsRes = await fetchWithRetry(
-      `${OPENF1_BASE}/position?session_key=${sessionKey}`
+    const positionsRes = await openf1Fetch(
+      `/position?session_key=${sessionKey}`, { cache: "force-cache" }
     );
 
     await new Promise((resolve) => setTimeout(resolve, 200));
 
-    const stintsRes = await fetchWithRetry(
-      `${OPENF1_BASE}/stints?session_key=${sessionKey}`
+    const stintsRes = await openf1Fetch(
+      `/stints?session_key=${sessionKey}`, { cache: "force-cache" }
     );
 
     await new Promise((resolve) => setTimeout(resolve, 200));
 
-    const raceControlRes = await fetchWithRetry(
-      `${OPENF1_BASE}/race_control?session_key=${sessionKey}`
+    const raceControlRes = await openf1Fetch(
+      `/race_control?session_key=${sessionKey}`, { cache: "force-cache" }
     );
 
     await new Promise((resolve) => setTimeout(resolve, 200));
 
-    const weatherRes = await fetchWithRetry(
-      `${OPENF1_BASE}/weather?session_key=${sessionKey}`
+    const weatherRes = await openf1Fetch(
+      `/weather?session_key=${sessionKey}`, { cache: "force-cache" }
     );
 
     const [lapsData, driversData, positionsData, stintsData, raceControlData, weatherData]: [
@@ -478,7 +449,14 @@ export async function GET(request: NextRequest) {
       const sessionEndMs = Math.max(...allTimestamps);
       const intervalMs = intervalSeconds * 1000;
 
-      // Track state for each driver across time
+      // Limit maximum snapshots to prevent memory issues (max 1800 = 30 min at 1s or 1.5h at 5s)
+      const MAX_SNAPSHOTS = 1800;
+      const totalPossibleSnapshots = Math.ceil((sessionEndMs - sessionStartMs) / intervalMs);
+      const effectiveIntervalMs = totalPossibleSnapshots > MAX_SNAPSHOTS
+        ? Math.ceil((sessionEndMs - sessionStartMs) / MAX_SNAPSHOTS)
+        : intervalMs;
+
+      // Track state for each driver across time (including incident status)
       const driverState = new Map<number, {
         position: number;
         lastLap: number | null;
@@ -490,6 +468,9 @@ export async function GET(request: NextRequest) {
         status: string;
         gap: number | null;
         interval: number | null;
+        isUnderInvestigation: boolean;
+        hasPenalty: boolean;
+        penaltySeconds: number | null;
       }>();
 
       // Initialize driver state
@@ -505,6 +486,9 @@ export async function GET(request: NextRequest) {
           status: "RUNNING",
           gap: null,
           interval: null,
+          isUnderInvestigation: false,
+          hasPenalty: false,
+          penaltySeconds: null,
         });
       });
 
@@ -512,81 +496,127 @@ export async function GET(request: NextRequest) {
       const timePB = new Map<number, { s1: number; s2: number; s3: number; lap: number }>();
       const timeOverallBests = { s1: Infinity, s2: Infinity, s3: Infinity, lap: Infinity };
 
-      // Pre-process lap data by timestamp for quick lookup
+      // Pre-process lap data by timestamp for quick lookup (only parse dates once)
       const lapsByTimestamp = lapsData.map((lap) => ({
         ...lap,
         timestampMs: new Date(lap.date_start).getTime(),
       })).sort((a, b) => a.timestampMs - b.timestampMs);
 
-      // Pre-process position data
+      // Pre-process position data (only parse dates once)
       const positionsByTimestamp = positionsData.map((p) => ({
         ...p,
         timestampMs: new Date(p.date).getTime(),
       })).sort((a, b) => a.timestampMs - b.timestampMs);
 
+      // Pre-process race control data (sorted by timestamp, newest first for lookup)
+      const raceControlByTimestamp = raceControlData.map((rc) => ({
+        ...rc,
+        timestampMs: new Date(rc.date).getTime(),
+      })).sort((a, b) => a.timestampMs - b.timestampMs);
+
+      // Pre-process weather data (sorted by timestamp for binary search)
+      const weatherByTimestamp = weatherData.map((w) => ({
+        ...w,
+        timestampMs: new Date(w.date).getTime(),
+      })).sort((a, b) => a.timestampMs - b.timestampMs);
+
+      // Binary search for closest weather reading
+      function findClosestWeather(targetMs: number): WeatherData | null {
+        if (weatherByTimestamp.length === 0) return null;
+
+        let left = 0;
+        let right = weatherByTimestamp.length - 1;
+
+        while (left < right) {
+          const mid = Math.floor((left + right) / 2);
+          if (weatherByTimestamp[mid].timestampMs < targetMs) {
+            left = mid + 1;
+          } else {
+            right = mid;
+          }
+        }
+
+        // Check left-1 and left to find closest
+        if (left > 0) {
+          const diffLeft = Math.abs(weatherByTimestamp[left - 1].timestampMs - targetMs);
+          const diffRight = Math.abs(weatherByTimestamp[left].timestampMs - targetMs);
+          if (diffLeft < diffRight) {
+            return weatherByTimestamp[left - 1];
+          }
+        }
+        return weatherByTimestamp[left];
+      }
+
+      // Use index pointers to avoid re-scanning all data for each snapshot (O(n+m) instead of O(n*m))
+      let positionIndex = 0;
+      let lapIndex = 0;
+      let raceControlIndex = 0;
+
       // Create snapshots at regular intervals
-      for (let currentMs = sessionStartMs; currentMs <= sessionEndMs; currentMs += intervalMs) {
+      for (let currentMs = sessionStartMs; currentMs <= sessionEndMs; currentMs += effectiveIntervalMs) {
         const snapshotTimestamp = new Date(currentMs).toISOString();
 
-        // Update driver positions from position data up to this timestamp
-        positionsByTimestamp.forEach((pos) => {
-          if (pos.timestampMs <= currentMs) {
-            const state = driverState.get(pos.driver_number);
-            if (state) {
-              state.position = pos.position;
-            }
+        // Update driver positions - only process new data since last snapshot
+        while (positionIndex < positionsByTimestamp.length &&
+               positionsByTimestamp[positionIndex].timestampMs <= currentMs) {
+          const pos = positionsByTimestamp[positionIndex];
+          const state = driverState.get(pos.driver_number);
+          if (state) {
+            state.position = pos.position;
           }
-        });
+          positionIndex++;
+        }
 
-        // Update driver lap data from laps up to this timestamp
-        lapsByTimestamp.forEach((lap) => {
-          if (lap.timestampMs <= currentMs) {
-            const state = driverState.get(lap.driver_number);
-            if (state) {
-              // Update current lap number
-              if (lap.lap_number > state.currentLapNumber) {
-                state.currentLapNumber = lap.lap_number;
-                state.sector1 = null;
-                state.sector2 = null;
-                state.sector3 = null;
-              }
+        // Update driver lap data - only process new data since last snapshot
+        while (lapIndex < lapsByTimestamp.length &&
+               lapsByTimestamp[lapIndex].timestampMs <= currentMs) {
+          const lap = lapsByTimestamp[lapIndex];
+          const state = driverState.get(lap.driver_number);
+          if (state) {
+            // Update current lap number
+            if (lap.lap_number > state.currentLapNumber) {
+              state.currentLapNumber = lap.lap_number;
+              state.sector1 = null;
+              state.sector2 = null;
+              state.sector3 = null;
+            }
 
-              // Update sector times
-              if (lap.duration_sector_1) state.sector1 = lap.duration_sector_1;
-              if (lap.duration_sector_2) state.sector2 = lap.duration_sector_2;
-              if (lap.duration_sector_3) state.sector3 = lap.duration_sector_3;
+            // Update sector times
+            if (lap.duration_sector_1) state.sector1 = lap.duration_sector_1;
+            if (lap.duration_sector_2) state.sector2 = lap.duration_sector_2;
+            if (lap.duration_sector_3) state.sector3 = lap.duration_sector_3;
 
-              // Update lap times
-              if (lap.lap_duration) {
-                state.lastLap = lap.lap_duration;
-                if (!state.bestLap || lap.lap_duration < state.bestLap) {
-                  state.bestLap = lap.lap_duration;
-                }
-              }
-
-              // Update personal bests
-              const pb = timePB.get(lap.driver_number) || { s1: Infinity, s2: Infinity, s3: Infinity, lap: Infinity };
-              if (lap.duration_sector_1 && lap.duration_sector_1 < pb.s1) pb.s1 = lap.duration_sector_1;
-              if (lap.duration_sector_2 && lap.duration_sector_2 < pb.s2) pb.s2 = lap.duration_sector_2;
-              if (lap.duration_sector_3 && lap.duration_sector_3 < pb.s3) pb.s3 = lap.duration_sector_3;
-              if (lap.lap_duration && lap.lap_duration < pb.lap) pb.lap = lap.lap_duration;
-              timePB.set(lap.driver_number, pb);
-
-              // Update overall bests
-              if (lap.duration_sector_1 && lap.duration_sector_1 < timeOverallBests.s1) timeOverallBests.s1 = lap.duration_sector_1;
-              if (lap.duration_sector_2 && lap.duration_sector_2 < timeOverallBests.s2) timeOverallBests.s2 = lap.duration_sector_2;
-              if (lap.duration_sector_3 && lap.duration_sector_3 < timeOverallBests.s3) timeOverallBests.s3 = lap.duration_sector_3;
-              if (lap.lap_duration && lap.lap_duration < timeOverallBests.lap) timeOverallBests.lap = lap.lap_duration;
-
-              // Check for pit status
-              if (lap.is_pit_out_lap) {
-                state.status = "PIT";
-              } else {
-                state.status = "RUNNING";
+            // Update lap times
+            if (lap.lap_duration) {
+              state.lastLap = lap.lap_duration;
+              if (!state.bestLap || lap.lap_duration < state.bestLap) {
+                state.bestLap = lap.lap_duration;
               }
             }
+
+            // Update personal bests
+            const pb = timePB.get(lap.driver_number) || { s1: Infinity, s2: Infinity, s3: Infinity, lap: Infinity };
+            if (lap.duration_sector_1 && lap.duration_sector_1 < pb.s1) pb.s1 = lap.duration_sector_1;
+            if (lap.duration_sector_2 && lap.duration_sector_2 < pb.s2) pb.s2 = lap.duration_sector_2;
+            if (lap.duration_sector_3 && lap.duration_sector_3 < pb.s3) pb.s3 = lap.duration_sector_3;
+            if (lap.lap_duration && lap.lap_duration < pb.lap) pb.lap = lap.lap_duration;
+            timePB.set(lap.driver_number, pb);
+
+            // Update overall bests
+            if (lap.duration_sector_1 && lap.duration_sector_1 < timeOverallBests.s1) timeOverallBests.s1 = lap.duration_sector_1;
+            if (lap.duration_sector_2 && lap.duration_sector_2 < timeOverallBests.s2) timeOverallBests.s2 = lap.duration_sector_2;
+            if (lap.duration_sector_3 && lap.duration_sector_3 < timeOverallBests.s3) timeOverallBests.s3 = lap.duration_sector_3;
+            if (lap.lap_duration && lap.lap_duration < timeOverallBests.lap) timeOverallBests.lap = lap.lap_duration;
+
+            // Check for pit status
+            if (lap.is_pit_out_lap) {
+              state.status = "PIT";
+            } else {
+              state.status = "RUNNING";
+            }
           }
-        });
+          lapIndex++;
+        }
 
         // Calculate gaps and intervals
         const sortedDrivers = Array.from(driverState.entries())
@@ -611,22 +641,60 @@ export async function GET(request: NextRequest) {
           prevDriverTime = state.bestLap;
         });
 
-        // Get race control messages up to this timestamp
-        const raceControl = raceControlData
-          .filter((rc) => new Date(rc.date).getTime() <= currentMs)
-          .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-          .slice(0, 20)
-          .map((rc) => ({
+        // Get race control messages up to this timestamp using index pointer (O(1) per snapshot)
+        // Also update driver incident status incrementally
+        while (raceControlIndex < raceControlByTimestamp.length &&
+               raceControlByTimestamp[raceControlIndex].timestampMs <= currentMs) {
+          const rc = raceControlByTimestamp[raceControlIndex];
+          const driverNum = rc.driver_number;
+
+          // Update incident status for this driver if applicable
+          if (driverNum) {
+            const state = driverState.get(driverNum);
+            if (state) {
+              const msg = rc.message?.toUpperCase() || "";
+              if (msg.includes("TIME PENALTY") || msg.includes("SECOND TIME PENALTY") || msg.includes("SEC PENALTY")) {
+                state.hasPenalty = true;
+                state.isUnderInvestigation = false;
+                const match = msg.match(/(\d+)\s*SECOND/);
+                if (match) state.penaltySeconds = parseInt(match[1], 10);
+              } else if (msg.includes("PENALTY") && !msg.includes("NO FURTHER")) {
+                state.hasPenalty = true;
+                state.isUnderInvestigation = false;
+              } else if (msg.includes("NO FURTHER ACTION") || msg.includes("NO INVESTIGATION")) {
+                state.isUnderInvestigation = false;
+              } else if (msg.includes("UNDER INVESTIGATION") || msg.includes("NOTED") || msg.includes("WILL BE INVESTIGATED")) {
+                state.isUnderInvestigation = true;
+              }
+            }
+          }
+          raceControlIndex++;
+        }
+
+        // Get last 20 messages up to current time (more efficient slice)
+        const rcStartIdx = Math.max(0, raceControlIndex - 20);
+        const raceControl: Array<{
+          timestamp: string;
+          message: string;
+          category: string;
+          flag: string | null;
+          driverNumber: number | null;
+          lapNumber: number | null;
+        }> = [];
+        for (let i = raceControlIndex - 1; i >= rcStartIdx; i--) {
+          const rc = raceControlByTimestamp[i];
+          raceControl.push({
             timestamp: rc.date,
             message: rc.message,
             category: rc.category,
             flag: rc.flag,
             driverNumber: rc.driver_number,
             lapNumber: rc.lap_number,
-          }));
+          });
+        }
 
-        // Get weather for this timestamp
-        const weatherReading = getWeatherForTimestamp(snapshotTimestamp);
+        // Get weather for this timestamp using binary search (O(log n))
+        const weatherReading = findClosestWeather(currentMs);
         const weather = weatherReading ? {
           airTemp: weatherReading.air_temperature,
           trackTemp: weatherReading.track_temperature,
@@ -657,14 +725,13 @@ export async function GET(request: NextRequest) {
           }
         }
 
-        // Build timing data for all drivers
+        // Build timing data for all drivers (using pre-computed incident status from driverState)
         const timing = driversData.map((driverInfo) => {
           const driverNumber = driverInfo.driver_number;
           const state = driverState.get(driverNumber)!;
           const pb = timePB.get(driverNumber) || { s1: Infinity, s2: Infinity, s3: Infinity, lap: Infinity };
           const tyreInfo = getTyreInfo(driverNumber, state.currentLapNumber || 1);
           const stintHistory = getStintHistory(driverNumber, state.currentLapNumber || 1);
-          const incidentStatus = getDriverIncidentStatus(driverNumber, snapshotTimestamp);
 
           return {
             position: state.position,
@@ -692,9 +759,9 @@ export async function GET(request: NextRequest) {
             status: state.status,
             isOverallBest: state.lastLap === timeOverallBests.lap,
             isPersonalBest: state.lastLap === pb.lap,
-            isUnderInvestigation: incidentStatus.isUnderInvestigation,
-            hasPenalty: incidentStatus.hasPenalty,
-            penaltySeconds: incidentStatus.penaltySeconds ?? undefined,
+            isUnderInvestigation: state.isUnderInvestigation,
+            hasPenalty: state.hasPenalty,
+            penaltySeconds: state.penaltySeconds ?? undefined,
           };
         }).sort((a, b) => a.position - b.position);
 

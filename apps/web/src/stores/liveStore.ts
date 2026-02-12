@@ -4,6 +4,8 @@ import type {
   Session,
   DriverTiming,
   CarPosition,
+  CarLocation,
+  LocationBounds,
   DriverTelemetry,
   RaceControlMessage,
   Weather,
@@ -16,6 +18,7 @@ interface LiveStore extends LiveState {
   setSession: (session: Session | null) => void;
   updateTiming: (timing: DriverTiming[]) => void;
   updatePositions: (positions: CarPosition[]) => void;
+  updateLocations: (locations: CarLocation[], bounds: LocationBounds | null) => void;
   updateTelemetry: (driverCode: string, telemetry: DriverTelemetry) => void;
   addRaceControlMessage: (message: RaceControlMessage) => void;
   updateWeather: (weather: Weather) => void;
@@ -32,6 +35,8 @@ const initialState: LiveState = {
   currentSession: null,
   timing: [],
   positions: [],
+  locations: [],
+  locationBounds: null,
   telemetry: {},
   raceControl: [],
   weather: null,
@@ -54,6 +59,9 @@ export const useLiveStore = create<LiveStore>((set) => ({
 
   updatePositions: (positions) =>
     set({ positions, lastUpdate: new Date().toISOString() }),
+
+  updateLocations: (locations, bounds) =>
+    set({ locations, locationBounds: bounds, lastUpdate: new Date().toISOString() }),
 
   updateTelemetry: (driverCode, telemetry) =>
     set((state) => ({

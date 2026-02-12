@@ -2,6 +2,7 @@ import type {
   Session,
   DriverTiming,
   CarPosition,
+  CarLocation,
   DriverTelemetry,
   RaceControlMessage,
   Weather,
@@ -124,6 +125,22 @@ export async function getWeather(sessionKey: number): Promise<{
   timestamp: string;
 }> {
   return fetchAPI(`${API_BASE}/weather`, {
+    session_key: sessionKey.toString(),
+  });
+}
+
+// Location APIs (actual track coordinates)
+export async function getLocation(sessionKey: number): Promise<{
+  locations: CarLocation[];
+  bounds: {
+    minX: number;
+    maxX: number;
+    minY: number;
+    maxY: number;
+  } | null;
+  timestamp: string;
+}> {
+  return fetchAPI(`${API_BASE}/location`, {
     session_key: sessionKey.toString(),
   });
 }

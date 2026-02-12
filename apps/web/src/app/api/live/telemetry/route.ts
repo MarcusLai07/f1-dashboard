@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-
-const OPENF1_BASE = "https://api.openf1.org/v1";
+import { openf1Fetch } from "@/lib/openf1";
+import { getDriversFull, getTeamsFull } from "@/data";
 
 interface DriverInfo {
   code: string;
@@ -10,7 +10,7 @@ interface DriverInfo {
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const sessionKey = searchParams.get("session_key");
-  const drivers = searchParams.get("drivers"); // Comma-separated driver numbers
+  const driversParam = searchParams.get("drivers"); // Comma-separated driver numbers
 
   if (!sessionKey) {
     return NextResponse.json(
@@ -20,30 +20,47 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // Get driver info for colors
-    const driversRes = await fetch(
-      `${OPENF1_BASE}/drivers?session_key=${sessionKey}`
-    );
+    // Get driver info for codes and colors (OpenF1 + local fallback)
+    const [driversRes, localDrivers, localTeams] = await Promise.all([
+      openf1Fetch(`/drivers?session_key=${sessionKey}`),
+      getDriversFull().catch(() => []),
+      getTeamsFull().catch(() => []),
+    ]);
     const driversData = await driversRes.json();
-    const driverMap = new Map<number, DriverInfo>(
-      driversData.map((d: any) => [
-        d.driver_number,
-        {
-          code: d.name_acronym,
-          teamColor: `#${d.team_colour || "808080"}`,
-        },
-      ])
-    );
+    const localDriverMap = new Map(localDrivers.map(d => [d.number, d]));
+    const localTeamMap = new Map(localTeams.map(t => [t.id, t]));
+
+    const driverMap = new Map<number, DriverInfo>();
+    const drivers = Array.isArray(driversData) ? driversData : [];
+    for (const d of drivers) {
+      if (d?.driver_number) {
+        const local = localDriverMap.get(d.driver_number);
+        const localTeam = local?.teamId ? localTeamMap.get(local.teamId) : undefined;
+        driverMap.set(d.driver_number, {
+          code: d.name_acronym || local?.code || `D${d.driver_number}`,
+          teamColor: d.team_colour ? `#${d.team_colour}` : (localTeam?.color || "#808080"),
+        });
+      }
+    }
+    // Add any local drivers not in OpenF1 response
+    for (const local of localDrivers) {
+      if (!driverMap.has(local.number)) {
+        const localTeam = local.teamId ? localTeamMap.get(local.teamId) : undefined;
+        driverMap.set(local.number, {
+          code: local.code,
+          teamColor: localTeam?.color || "#808080",
+        });
+      }
+    }
 
     // Get car data for specified drivers or all
-    let carDataUrl = `${OPENF1_BASE}/car_data?session_key=${sessionKey}`;
-    if (drivers) {
+    if (driversParam) {
       // Fetch latest car data for each driver
-      const driverNums = drivers.split(",");
+      const driverNums = driversParam.split(",");
       const telemetryPromises = driverNums.map(async (driverNum) => {
         // Get the most recent car data entry
-        const res = await fetch(
-          `${OPENF1_BASE}/car_data?session_key=${sessionKey}&driver_number=${driverNum.trim()}`
+        const res = await openf1Fetch(
+          `/car_data?session_key=${sessionKey}&driver_number=${driverNum.trim()}`
         );
         const data = await res.json();
         // Return only the latest entry

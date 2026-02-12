@@ -14,7 +14,7 @@ import { useLiveStore } from "@/stores/liveStore";
 import { useDebugStore } from "@/stores/debugStore";
 import { useReplayStore } from "@/stores/replayStore";
 import { useLiveData } from "@/hooks/useLiveData";
-import type { DriverTelemetry } from "@/types/f1";
+import type { DriverTelemetry, CarPosition } from "@/types/f1";
 
 export default function LiveDashboard() {
   const [sessionKey, setSessionKey] = useState<number | null>(null);
@@ -23,6 +23,8 @@ export default function LiveDashboard() {
     currentSession,
     timing,
     positions,
+    locations,
+    locationBounds,
     telemetry,
     raceControl,
     weather,
@@ -42,17 +44,70 @@ export default function LiveDashboard() {
     currentLap: replayCurrentLap,
   } = useReplayStore();
 
-  // Live data polling (disabled when in replay mode)
+  // Live data polling (disabled when in replay mode — isReplayMode is checked inside the hook)
   useLiveData({
     enabled: sessionKey !== null,
     sessionKey,
-    replayMode: debugEnabled,
   });
 
   // Build telemetry array for selected drivers
   const selectedTelemetry: DriverTelemetry[] = selectedDrivers
     .map((code) => telemetry[code])
     .filter((t): t is DriverTelemetry => t !== undefined);
+
+  // Generate car positions from timing data for track map
+  // In replay mode, use timing data to derive positions since positions array isn't populated
+  const trackPositions: CarPosition[] = useMemo(() => {
+    // Use timing data to generate positions (works for both live and replay)
+    if (timing.length === 0) return positions;
+
+    return timing.map((driver) => {
+      // Estimate which sector the driver is in based on sector times
+      // If sector1 is filled but sector2 isn't -> in sector 2
+      // If sector2 is filled but sector3 isn't -> in sector 3
+      // If all sectors filled or none -> estimate from lap start
+      let sector: 1 | 2 | 3 = 1;
+      let sectorProgress = 0;
+
+      if (driver.sector3) {
+        // Completed all sectors, starting new lap
+        sector = 1;
+        sectorProgress = 0;
+      } else if (driver.sector2) {
+        // In sector 3
+        sector = 3;
+        sectorProgress = 0.5; // Estimate midway through
+      } else if (driver.sector1) {
+        // In sector 2
+        sector = 2;
+        sectorProgress = 0.5;
+      } else {
+        // In sector 1 or no data
+        sector = 1;
+        sectorProgress = 0.5;
+      }
+
+      // Determine if driver is in pit based on status
+      const status = driver.status === "PIT" || driver.status === "OUT"
+        ? driver.status
+        : "RACING";
+
+      return {
+        driverCode: driver.driverCode,
+        driverNumber: driver.driverNumber,
+        teamColor: driver.teamColor,
+        x: 0,
+        y: 0,
+        z: 0,
+        timestamp: new Date().toISOString(),
+        position: driver.position,
+        status,
+        currentLap: driver.currentLap,
+        sector,
+        sectorProgress,
+      };
+    });
+  }, [timing, positions]);
 
   // Lap count from timing data
   const lapCount = timing.length > 0
@@ -282,7 +337,9 @@ export default function LiveDashboard() {
         trackMap={
           <TrackMap3D
             trackName={circuitName}
-            positions={positions}
+            positions={trackPositions}
+            locations={locations}
+            locationBounds={locationBounds}
             selectedDrivers={selectedDrivers}
           />
         }

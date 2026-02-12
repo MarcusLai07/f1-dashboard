@@ -82,7 +82,6 @@ export const POLLING_INTERVALS = {
 
 // API Base URLs
 export const API_URLS = {
-  openF1: "https://api.openf1.org/v1",
   local: "/api",
 } as const;
 

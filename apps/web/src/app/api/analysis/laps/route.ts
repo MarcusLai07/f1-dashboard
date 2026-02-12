@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-
-const OPENF1_BASE = "https://api.openf1.org/v1";
+import { openf1Fetch } from "@/lib/openf1";
 
 interface DriverInfo {
   code: string;
@@ -8,25 +7,6 @@ interface DriverInfo {
   lastName: string;
   teamName: string;
   teamColor: string;
-}
-
-// Fetch with retry for rate limiting
-async function fetchWithRetry(url: string, retries = 3): Promise<any> {
-  for (let i = 0; i < retries; i++) {
-    try {
-      const res = await fetch(url);
-      if (res.status === 429) {
-        await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
-        continue;
-      }
-      const data = await res.json();
-      return Array.isArray(data) ? data : [];
-    } catch {
-      if (i === retries - 1) return [];
-      await new Promise(resolve => setTimeout(resolve, 500));
-    }
-  }
-  return [];
 }
 
 export async function GET(request: NextRequest) {
@@ -43,17 +23,23 @@ export async function GET(request: NextRequest) {
 
   try {
     // Build URL with optional driver filter
-    let url = `${OPENF1_BASE}/laps?session_key=${sessionKey}`;
+    let url = `/laps?session_key=${sessionKey}`;
     if (driverNumber) {
       url += `&driver_number=${driverNumber}`;
     }
 
-    const laps = await fetchWithRetry(url);
+    const [lapsRes, driversRes] = await Promise.all([
+      openf1Fetch(url),
+      openf1Fetch(`/drivers?session_key=${sessionKey}`),
+    ]);
 
-    // Also fetch driver info for reference
-    const drivers = await fetchWithRetry(
-      `${OPENF1_BASE}/drivers?session_key=${sessionKey}`
-    );
+    const [lapsData, driversData] = await Promise.all([
+      lapsRes.json(),
+      driversRes.json(),
+    ]);
+
+    const laps = Array.isArray(lapsData) ? lapsData : [];
+    const drivers = Array.isArray(driversData) ? driversData : [];
 
     // Build driver map
     const driverMap = new Map<number, DriverInfo>(

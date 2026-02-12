@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-
-const OPENF1_BASE = "https://api.openf1.org/v1";
+import { openf1Fetch } from "@/lib/openf1";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -9,22 +8,29 @@ export async function GET(request: NextRequest) {
   try {
     // Use requested year, or default to current/previous year
     const currentYear = new Date().getFullYear();
-    // During off-season (Jan-Feb), default to previous year's sessions
-    const defaultYear = new Date().getMonth() < 2 ? currentYear - 1 : currentYear;
+    // During off-season (Jan only), default to previous year's sessions
+    // February has pre-season testing, so use current year
+    const defaultYear = new Date().getMonth() < 1 ? currentYear - 1 : currentYear;
     const yearToFetch = yearParam ? parseInt(yearParam) : defaultYear;
 
     // Fetch both sessions and meetings to get meeting names
     const [sessionsRes, meetingsRes] = await Promise.all([
-      fetch(`${OPENF1_BASE}/sessions?year=${yearToFetch}`, {
+      openf1Fetch(`/sessions?year=${yearToFetch}`, {
         next: { revalidate: 60 },
       }),
-      fetch(`${OPENF1_BASE}/meetings?year=${yearToFetch}`, {
+      openf1Fetch(`/meetings?year=${yearToFetch}`, {
         next: { revalidate: 60 },
       }),
     ]);
 
     if (!sessionsRes.ok || !meetingsRes.ok) {
-      throw new Error(`OpenF1 API error: ${sessionsRes.status}`);
+      // Return empty data instead of 500 — next poll will retry
+      return NextResponse.json({
+        current: null,
+        recent: [],
+        year: yearToFetch,
+        timestamp: new Date().toISOString(),
+      });
     }
 
     const [sessions, meetings] = await Promise.all([
@@ -70,7 +76,7 @@ export async function GET(request: NextRequest) {
             startTime: currentSession.date_start,
             endTime: currentSession.date_end,
             year: currentSession.year,
-            status: currentSession.date_end ? "finished" : "live",
+            status: currentSession.date_end && new Date(currentSession.date_end) < now ? "finished" : "live",
           }
         : null,
       recent: sortedSessions.slice(0, 50).map((s: any) => ({
