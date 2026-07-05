@@ -1,0 +1,762 @@
+{
+  "apps/web/components.json": {
+    "mtime": 1766073724.0,
+    "ast_hash": "e9f64ed73f55abdf3d74ae4a99b565b6",
+    "semantic_hash": "e9f64ed73f55abdf3d74ae4a99b565b6"
+  },
+  "apps/web/eslint.config.mjs": {
+    "mtime": 1768849200.0,
+    "ast_hash": "42e9a2c7f5819ad3055d2edc9814723b",
+    "semantic_hash": "42e9a2c7f5819ad3055d2edc9814723b"
+  },
+  "apps/web/next-env.d.ts": {
+    "mtime": 1768848592.0,
+    "ast_hash": "ba64ff7d54714a8f64db89b1003207d8",
+    "semantic_hash": "ba64ff7d54714a8f64db89b1003207d8"
+  },
+  "apps/web/next.config.ts": {
+    "mtime": 1768848062.0,
+    "ast_hash": "7240caf297c1747c009dbba46f94e82c",
+    "semantic_hash": "7240caf297c1747c009dbba46f94e82c"
+  },
+  "apps/web/package.json": {
+    "mtime": 1771601944.0,
+    "ast_hash": "face9f69172a56752fcb4a6d268afacc",
+    "semantic_hash": "face9f69172a56752fcb4a6d268afacc"
+  },
+  "apps/web/postcss.config.mjs": {
+    "mtime": 1768850388.0,
+    "ast_hash": "d3fd1d29b05a09ff76b595a70e1e7d50",
+    "semantic_hash": "d3fd1d29b05a09ff76b595a70e1e7d50"
+  },
+  "apps/web/public/manifest.json": {
+    "mtime": 1766074058.0,
+    "ast_hash": "3f09d25e7caf8dfd391c02ef879c7d3b",
+    "semantic_hash": "3f09d25e7caf8dfd391c02ef879c7d3b"
+  },
+  "apps/web/scripts/all-circuits-fastf1.json": {
+    "mtime": 1768801082.0,
+    "ast_hash": "ee07bc44f77582ea0d75a9a99fb76f66",
+    "semantic_hash": "ee07bc44f77582ea0d75a9a99fb76f66"
+  },
+  "apps/web/scripts/circuit-positions-fastf1.json": {
+    "mtime": 1768762652.0,
+    "ast_hash": "7594c1593062ac47418cc8f7c59e8eae",
+    "semantic_hash": "7594c1593062ac47418cc8f7c59e8eae"
+  },
+  "apps/web/scripts/circuit-turns-fastf1.json": {
+    "mtime": 1768801220.0,
+    "ast_hash": "772cf95f0eb05d2a46413bd06252d5ca",
+    "semantic_hash": "772cf95f0eb05d2a46413bd06252d5ca"
+  },
+  "apps/web/scripts/extract-circuit-data.py": {
+    "mtime": 1768760744.0,
+    "ast_hash": "8e20bc60e6fe4ad5582ab358f82a8d15",
+    "semantic_hash": "8e20bc60e6fe4ad5582ab358f82a8d15"
+  },
+  "apps/web/scripts/extract-circuit-features.py": {
+    "mtime": 1768818832.0,
+    "ast_hash": "da711bfe1560352a375b2a3e86dd7e95",
+    "semantic_hash": "da711bfe1560352a375b2a3e86dd7e95"
+  },
+  "apps/web/scripts/generate-circuit-svg.py": {
+    "mtime": 1768796894.0,
+    "ast_hash": "abdc7170af33671d03693dd1b2da26a1",
+    "semantic_hash": "abdc7170af33671d03693dd1b2da26a1"
+  },
+  "apps/web/src/app/about/page.tsx": {
+    "mtime": 1768919520.0,
+    "ast_hash": "562e7606484ba92ea496a878c08740ea",
+    "semantic_hash": "562e7606484ba92ea496a878c08740ea"
+  },
+  "apps/web/src/app/analysis/page.tsx": {
+    "mtime": 1766159208.0,
+    "ast_hash": "8c36c4cb6ea58934be366d1c5a3deeef",
+    "semantic_hash": "8c36c4cb6ea58934be366d1c5a3deeef"
+  },
+  "apps/web/src/app/api/analysis/laps/route.ts": {
+    "mtime": 1770749464.0,
+    "ast_hash": "9a5e9a29120f9d59ee89151532c64310",
+    "semantic_hash": "9a5e9a29120f9d59ee89151532c64310"
+  },
+  "apps/web/src/app/api/analysis/stints/route.ts": {
+    "mtime": 1770749468.0,
+    "ast_hash": "00e1a0235c9049852ed67a65f2a66ed2",
+    "semantic_hash": "00e1a0235c9049852ed67a65f2a66ed2"
+  },
+  "apps/web/src/app/api/circuit/route.ts": {
+    "mtime": 1770970796.0,
+    "ast_hash": "f07edbd0dd8dcb9bec41195a4a79747d",
+    "semantic_hash": "f07edbd0dd8dcb9bec41195a4a79747d"
+  },
+  "apps/web/src/app/api/live/drivers/route.ts": {
+    "mtime": 1770798818.0,
+    "ast_hash": "12958c5ecd2bc075bf0a972196cd4fb0",
+    "semantic_hash": "12958c5ecd2bc075bf0a972196cd4fb0"
+  },
+  "apps/web/src/app/api/live/location/route.ts": {
+    "mtime": 1772817824.0,
+    "ast_hash": "066718fcec51e80b8da81f7a5ed58d2b",
+    "semantic_hash": "066718fcec51e80b8da81f7a5ed58d2b"
+  },
+  "apps/web/src/app/api/live/position/route.ts": {
+    "mtime": 1772817798.0,
+    "ast_hash": "9a4f86cf2e9b420ccb6478bc2ed38fcb",
+    "semantic_hash": "9a4f86cf2e9b420ccb6478bc2ed38fcb"
+  },
+  "apps/web/src/app/api/live/race-control/route.ts": {
+    "mtime": 1770799132.0,
+    "ast_hash": "cc65764ee1d36ca3376dc9791f67f5b9",
+    "semantic_hash": "cc65764ee1d36ca3376dc9791f67f5b9"
+  },
+  "apps/web/src/app/api/live/replay/route.ts": {
+    "mtime": 1770749528.0,
+    "ast_hash": "f28fc21ad1183a1296530016e743d21c",
+    "semantic_hash": "f28fc21ad1183a1296530016e743d21c"
+  },
+  "apps/web/src/app/api/live/sessions/route.ts": {
+    "mtime": 1770799144.0,
+    "ast_hash": "8762d31a23b40410c9249ef50ae65679",
+    "semantic_hash": "8762d31a23b40410c9249ef50ae65679"
+  },
+  "apps/web/src/app/api/live/sse/route.ts": {
+    "mtime": 1772851608.0,
+    "ast_hash": "22fa49d38f98c8ecace990b90a2b53e0",
+    "semantic_hash": "22fa49d38f98c8ecace990b90a2b53e0"
+  },
+  "apps/web/src/app/api/live/stream-token/route.ts": {
+    "mtime": 1771602192.0,
+    "ast_hash": "b6a1c846f5728b15982efc3a1f636dfe",
+    "semantic_hash": "b6a1c846f5728b15982efc3a1f636dfe"
+  },
+  "apps/web/src/app/api/live/telemetry/route.ts": {
+    "mtime": 1772817836.0,
+    "ast_hash": "91e141b9850b85675e9946ad4e7534af",
+    "semantic_hash": "91e141b9850b85675e9946ad4e7534af"
+  },
+  "apps/web/src/app/api/live/timing/route.ts": {
+    "mtime": 1772851598.0,
+    "ast_hash": "b6ced6916a97a7e9e3e20214f6bb1218",
+    "semantic_hash": "b6ced6916a97a7e9e3e20214f6bb1218"
+  },
+  "apps/web/src/app/api/live/weather/route.ts": {
+    "mtime": 1770799126.0,
+    "ast_hash": "433f92b8482d9c1f7b3bc17ba8a5fc25",
+    "semantic_hash": "433f92b8482d9c1f7b3bc17ba8a5fc25"
+  },
+  "apps/web/src/app/api/season/calendar/route.ts": {
+    "mtime": 1768882342.0,
+    "ast_hash": "6271b975baacf1f6f3dddd810b99a324",
+    "semantic_hash": "6271b975baacf1f6f3dddd810b99a324"
+  },
+  "apps/web/src/app/api/season/standings/route.ts": {
+    "mtime": 1768882342.0,
+    "ast_hash": "de499e0b615fec3866bf5f6dca5490c1",
+    "semantic_hash": "de499e0b615fec3866bf5f6dca5490c1"
+  },
+  "apps/web/src/app/api/season/teams/route.ts": {
+    "mtime": 1768882480.0,
+    "ast_hash": "9eeeb34cca2a5e30a700f892c18a987c",
+    "semantic_hash": "9eeeb34cca2a5e30a700f892c18a987c"
+  },
+  "apps/web/src/app/calendar/page.tsx": {
+    "mtime": 1768894622.0,
+    "ast_hash": "98d3610cb7654eaa575764d1e641b566",
+    "semantic_hash": "98d3610cb7654eaa575764d1e641b566"
+  },
+  "apps/web/src/app/circuit-editor/page.tsx": {
+    "mtime": 1769192856.0,
+    "ast_hash": "2c32ee44fa3c3fee96b5fb0a343fa12d",
+    "semantic_hash": "2c32ee44fa3c3fee96b5fb0a343fa12d"
+  },
+  "apps/web/src/app/layout.tsx": {
+    "mtime": 1768981052.0,
+    "ast_hash": "fbfe75abab4600a0403e1be6e7146fe8",
+    "semantic_hash": "fbfe75abab4600a0403e1be6e7146fe8"
+  },
+  "apps/web/src/app/page.tsx": {
+    "mtime": 1772817138.0,
+    "ast_hash": "44cfaa836f79f4228631a83ff9b4b69f",
+    "semantic_hash": "44cfaa836f79f4228631a83ff9b4b69f"
+  },
+  "apps/web/src/app/season/page.tsx": {
+    "mtime": 1768882820.0,
+    "ast_hash": "5aa0f6af0253d62853076002f919ebf2",
+    "semantic_hash": "5aa0f6af0253d62853076002f919ebf2"
+  },
+  "apps/web/src/components/analysis/DriverSelector.tsx": {
+    "mtime": 1768674420.0,
+    "ast_hash": "49b1b4c52353bbfc0dde183fcfe7f00e",
+    "semantic_hash": "49b1b4c52353bbfc0dde183fcfe7f00e"
+  },
+  "apps/web/src/components/analysis/LapTimeChart.tsx": {
+    "mtime": 1768848642.0,
+    "ast_hash": "0214c723af172cde1cf058c37bcf8e08",
+    "semantic_hash": "0214c723af172cde1cf058c37bcf8e08"
+  },
+  "apps/web/src/components/analysis/PositionChart.tsx": {
+    "mtime": 1768848660.0,
+    "ast_hash": "d219c18330250dd532f0282f9c83e8d3",
+    "semantic_hash": "d219c18330250dd532f0282f9c83e8d3"
+  },
+  "apps/web/src/components/analysis/StintChart.tsx": {
+    "mtime": 1766159170.0,
+    "ast_hash": "2e0d0e3dbd21312084219ebe63a2ffe8",
+    "semantic_hash": "2e0d0e3dbd21312084219ebe63a2ffe8"
+  },
+  "apps/web/src/components/calendar/CalendarGrid.tsx": {
+    "mtime": 1768916858.0,
+    "ast_hash": "8439ad23c919851009c9a43af555b54b",
+    "semantic_hash": "8439ad23c919851009c9a43af555b54b"
+  },
+  "apps/web/src/components/calendar/EventCard.tsx": {
+    "mtime": 1768916838.0,
+    "ast_hash": "4f4e9c4b831ea1f0d71868d725c09cf3",
+    "semantic_hash": "4f4e9c4b831ea1f0d71868d725c09cf3"
+  },
+  "apps/web/src/components/calendar/EventList.tsx": {
+    "mtime": 1768894680.0,
+    "ast_hash": "1f7565eb45d5d46fc00f7b5c24ecb9f5",
+    "semantic_hash": "1f7565eb45d5d46fc00f7b5c24ecb9f5"
+  },
+  "apps/web/src/components/calendar/MotorsportCalendar.tsx": {
+    "mtime": 1768894764.0,
+    "ast_hash": "9519417dbe1a8a5a2d30aae4c1276d31",
+    "semantic_hash": "9519417dbe1a8a5a2d30aae4c1276d31"
+  },
+  "apps/web/src/components/calendar/SeriesFilter.tsx": {
+    "mtime": 1768894680.0,
+    "ast_hash": "c28ddfe63fa1b4f8a62b7de02f363187",
+    "semantic_hash": "c28ddfe63fa1b4f8a62b7de02f363187"
+  },
+  "apps/web/src/components/calendar/index.ts": {
+    "mtime": 1768894624.0,
+    "ast_hash": "afd000d9ff924f39d7bd518b222bda64",
+    "semantic_hash": "afd000d9ff924f39d7bd518b222bda64"
+  },
+  "apps/web/src/components/debug/CircuitEditor.tsx": {
+    "mtime": 1769195642.0,
+    "ast_hash": "bd5487561cddf20d38a0be462a47bcde",
+    "semantic_hash": "bd5487561cddf20d38a0be462a47bcde"
+  },
+  "apps/web/src/components/debug/DebugPanel.tsx": {
+    "mtime": 1769073510.0,
+    "ast_hash": "801024806f60fb9124dc68dd35ccc0bb",
+    "semantic_hash": "801024806f60fb9124dc68dd35ccc0bb"
+  },
+  "apps/web/src/components/layout/Header.tsx": {
+    "mtime": 1769192882.0,
+    "ast_hash": "9f3f006f3bab2daa5534168fc0f2ad12",
+    "semantic_hash": "9f3f006f3bab2daa5534168fc0f2ad12"
+  },
+  "apps/web/src/components/layout/LiveDashboardLayout.tsx": {
+    "mtime": 1768987090.0,
+    "ast_hash": "4d318cf5bb98c4a760ce1e91e90aaeb1",
+    "semantic_hash": "4d318cf5bb98c4a760ce1e91e90aaeb1"
+  },
+  "apps/web/src/components/layout/SessionSelector.tsx": {
+    "mtime": 1770966862.0,
+    "ast_hash": "0373450fb8ae0e117efde93825c630fe",
+    "semantic_hash": "0373450fb8ae0e117efde93825c630fe"
+  },
+  "apps/web/src/components/live/RaceInfo.tsx": {
+    "mtime": 1768992398.0,
+    "ast_hash": "e70b53f6e3fbe796e2a3e5170ef783f4",
+    "semantic_hash": "e70b53f6e3fbe796e2a3e5170ef783f4"
+  },
+  "apps/web/src/components/live/ReplayController.tsx": {
+    "mtime": 1769071796.0,
+    "ast_hash": "12141c2418fb410433d8d73c8c087e1a",
+    "semantic_hash": "12141c2418fb410433d8d73c8c087e1a"
+  },
+  "apps/web/src/components/live/TelemetryPanel.tsx": {
+    "mtime": 1769073972.0,
+    "ast_hash": "ab61d7edaf4b50764276d5526e2d044f",
+    "semantic_hash": "ab61d7edaf4b50764276d5526e2d044f"
+  },
+  "apps/web/src/components/live/TimingTower.tsx": {
+    "mtime": 1770907234.0,
+    "ast_hash": "2532df153f8e1838067e40b95166c59b",
+    "semantic_hash": "2532df153f8e1838067e40b95166c59b"
+  },
+  "apps/web/src/components/live/TrackMap.tsx": {
+    "mtime": 1768805154.0,
+    "ast_hash": "147fec60ec9e64dfe8c8b95dcdc041e2",
+    "semantic_hash": "147fec60ec9e64dfe8c8b95dcdc041e2"
+  },
+  "apps/web/src/components/live/TrackMap3D.tsx": {
+    "mtime": 1771603178.0,
+    "ast_hash": "62f5203c8525046219d04f1c6c772b6b",
+    "semantic_hash": "62f5203c8525046219d04f1c6c772b6b"
+  },
+  "apps/web/src/components/season/CalendarExport.tsx": {
+    "mtime": 1768882786.0,
+    "ast_hash": "1edbe9ba91e4e4dd4f0a2241218ff486",
+    "semantic_hash": "1edbe9ba91e4e4dd4f0a2241218ff486"
+  },
+  "apps/web/src/components/season/CalendarTab.tsx": {
+    "mtime": 1768883120.0,
+    "ast_hash": "013c147f750fdb6358ec6bd4bd108133",
+    "semantic_hash": "013c147f750fdb6358ec6bd4bd108133"
+  },
+  "apps/web/src/components/season/CircuitInfoSlidePanel.tsx": {
+    "mtime": 1768916826.0,
+    "ast_hash": "fe2916ed7e7212c7be4d38bbd5404153",
+    "semantic_hash": "fe2916ed7e7212c7be4d38bbd5404153"
+  },
+  "apps/web/src/components/season/CountdownHero.tsx": {
+    "mtime": 1768883166.0,
+    "ast_hash": "4e9f980d8d322e37a55ce33d2595ce1d",
+    "semantic_hash": "4e9f980d8d322e37a55ce33d2595ce1d"
+  },
+  "apps/web/src/components/season/InteractiveTrackMap.tsx": {
+    "mtime": 1768851828.0,
+    "ast_hash": "a105b1a7ce328ab0765e7b8cf8e66697",
+    "semantic_hash": "a105b1a7ce328ab0765e7b8cf8e66697"
+  },
+  "apps/web/src/components/season/StandingsTab.tsx": {
+    "mtime": 1768882932.0,
+    "ast_hash": "d7e81d8ef08f3760d4981895c3371bfd",
+    "semantic_hash": "d7e81d8ef08f3760d4981895c3371bfd"
+  },
+  "apps/web/src/components/season/TeamsTab.tsx": {
+    "mtime": 1768849178.0,
+    "ast_hash": "0eb7ae2f5d5be41fb661ffe4aa5dc290",
+    "semantic_hash": "0eb7ae2f5d5be41fb661ffe4aa5dc290"
+  },
+  "apps/web/src/components/season/index.ts": {
+    "mtime": 1768674232.0,
+    "ast_hash": "9b33c7339ddda95db7ffce7efaeaae93",
+    "semantic_hash": "9b33c7339ddda95db7ffce7efaeaae93"
+  },
+  "apps/web/src/components/ui/badge.tsx": {
+    "mtime": 1766073748.0,
+    "ast_hash": "7efa8abd36eee59f14998b447d169304",
+    "semantic_hash": "7efa8abd36eee59f14998b447d169304"
+  },
+  "apps/web/src/components/ui/button.tsx": {
+    "mtime": 1766073746.0,
+    "ast_hash": "7e1b8d2215587c9ea334242b2afa4a40",
+    "semantic_hash": "7e1b8d2215587c9ea334242b2afa4a40"
+  },
+  "apps/web/src/components/ui/card.tsx": {
+    "mtime": 1766073746.0,
+    "ast_hash": "a6752f4d1da504c7f03196d90cde4b2c",
+    "semantic_hash": "a6752f4d1da504c7f03196d90cde4b2c"
+  },
+  "apps/web/src/components/ui/dropdown-menu.tsx": {
+    "mtime": 1766073746.0,
+    "ast_hash": "4d34f2b82c3880388c0eda72d38365dc",
+    "semantic_hash": "4d34f2b82c3880388c0eda72d38365dc"
+  },
+  "apps/web/src/components/ui/f1-loader.tsx": {
+    "mtime": 1768679970.0,
+    "ast_hash": "23c9e18400003399eb29c5474bfe4d9f",
+    "semantic_hash": "23c9e18400003399eb29c5474bfe4d9f"
+  },
+  "apps/web/src/components/ui/popover.tsx": {
+    "mtime": 1768732528.0,
+    "ast_hash": "a3c2855a4235042dd933251c54cce2d8",
+    "semantic_hash": "a3c2855a4235042dd933251c54cce2d8"
+  },
+  "apps/web/src/components/ui/select.tsx": {
+    "mtime": 1766073746.0,
+    "ast_hash": "d78565b69ac44fcfb81882c220697748",
+    "semantic_hash": "d78565b69ac44fcfb81882c220697748"
+  },
+  "apps/web/src/components/ui/separator.tsx": {
+    "mtime": 1766073748.0,
+    "ast_hash": "07b35dc35f811b26a1ee3982582ba9fb",
+    "semantic_hash": "07b35dc35f811b26a1ee3982582ba9fb"
+  },
+  "apps/web/src/components/ui/slider.tsx": {
+    "mtime": 1768936684.0,
+    "ast_hash": "de6c7a450d8a58e5c9210dbe36f21b1f",
+    "semantic_hash": "de6c7a450d8a58e5c9210dbe36f21b1f"
+  },
+  "apps/web/src/components/ui/tabs.tsx": {
+    "mtime": 1766073746.0,
+    "ast_hash": "65854b541abbc3c9f39cb075d4cb43ca",
+    "semantic_hash": "65854b541abbc3c9f39cb075d4cb43ca"
+  },
+  "apps/web/src/components/ui/tooltip.tsx": {
+    "mtime": 1766073748.0,
+    "ast_hash": "34079b3ac4d0eb8851c6cab74bd68e00",
+    "semantic_hash": "34079b3ac4d0eb8851c6cab74bd68e00"
+  },
+  "apps/web/src/data/circuits/_manifest.json": {
+    "mtime": 1768852724.0,
+    "ast_hash": "e79ec5e7f2e23720ead270ca5a4ef48c",
+    "semantic_hash": "e79ec5e7f2e23720ead270ca5a4ef48c"
+  },
+  "apps/web/src/data/circuits/_schema.ts": {
+    "mtime": 1768916780.0,
+    "ast_hash": "0553a4ca556405e844d483b064b48674",
+    "semantic_hash": "0553a4ca556405e844d483b064b48674"
+  },
+  "apps/web/src/data/circuits/albert-park.json": {
+    "mtime": 1768916800.0,
+    "ast_hash": "11b5edd5a9ecf6285fa8af9e5fc12c5e",
+    "semantic_hash": "11b5edd5a9ecf6285fa8af9e5fc12c5e"
+  },
+  "apps/web/src/data/circuits/bahrain.json": {
+    "mtime": 1770817954.0,
+    "ast_hash": "12deed48a85efee967808b9da482e703",
+    "semantic_hash": "12deed48a85efee967808b9da482e703"
+  },
+  "apps/web/src/data/circuits/baku.json": {
+    "mtime": 1768852712.0,
+    "ast_hash": "0b93d59636f5c26ea24f7bdb68f8c877",
+    "semantic_hash": "0b93d59636f5c26ea24f7bdb68f8c877"
+  },
+  "apps/web/src/data/circuits/barcelona.json": {
+    "mtime": 1768852712.0,
+    "ast_hash": "929e70018648e7b35c255f063a82408e",
+    "semantic_hash": "929e70018648e7b35c255f063a82408e"
+  },
+  "apps/web/src/data/circuits/cota.json": {
+    "mtime": 1768852712.0,
+    "ast_hash": "2950b949e5c6de68e2ea994c18dd7c5a",
+    "semantic_hash": "2950b949e5c6de68e2ea994c18dd7c5a"
+  },
+  "apps/web/src/data/circuits/hungaroring.json": {
+    "mtime": 1768852712.0,
+    "ast_hash": "67c8c20537f607bdac2e203982e727fb",
+    "semantic_hash": "67c8c20537f607bdac2e203982e727fb"
+  },
+  "apps/web/src/data/circuits/imola.json": {
+    "mtime": 1768852712.0,
+    "ast_hash": "08c3727ab21f76bbacb4e2ca23905661",
+    "semantic_hash": "08c3727ab21f76bbacb4e2ca23905661"
+  },
+  "apps/web/src/data/circuits/interlagos.json": {
+    "mtime": 1768852712.0,
+    "ast_hash": "0b09a98f1eb9cc955df9308d28df8349",
+    "semantic_hash": "0b09a98f1eb9cc955df9308d28df8349"
+  },
+  "apps/web/src/data/circuits/jeddah.json": {
+    "mtime": 1768852712.0,
+    "ast_hash": "99f5be7381bc799e03ac366a8df740fa",
+    "semantic_hash": "99f5be7381bc799e03ac366a8df740fa"
+  },
+  "apps/web/src/data/circuits/las-vegas.json": {
+    "mtime": 1768853450.0,
+    "ast_hash": "98e52d6cb3ce422d5dc23edfa64d61de",
+    "semantic_hash": "98e52d6cb3ce422d5dc23edfa64d61de"
+  },
+  "apps/web/src/data/circuits/lusail.json": {
+    "mtime": 1768852712.0,
+    "ast_hash": "692a92ee9cfc25c7a4dbedb535c1519e",
+    "semantic_hash": "692a92ee9cfc25c7a4dbedb535c1519e"
+  },
+  "apps/web/src/data/circuits/marina-bay.json": {
+    "mtime": 1768853450.0,
+    "ast_hash": "02a51a5c6b7539a7f3d17f286ec82937",
+    "semantic_hash": "02a51a5c6b7539a7f3d17f286ec82937"
+  },
+  "apps/web/src/data/circuits/mexico-city.json": {
+    "mtime": 1768853450.0,
+    "ast_hash": "b658917962e50bee62b52d5c3d936334",
+    "semantic_hash": "b658917962e50bee62b52d5c3d936334"
+  },
+  "apps/web/src/data/circuits/miami.json": {
+    "mtime": 1768852712.0,
+    "ast_hash": "27f12a38a2febd7fd75903a993f32db7",
+    "semantic_hash": "27f12a38a2febd7fd75903a993f32db7"
+  },
+  "apps/web/src/data/circuits/monaco.json": {
+    "mtime": 1768852712.0,
+    "ast_hash": "dd712357c03a1265144abeaceff49494",
+    "semantic_hash": "dd712357c03a1265144abeaceff49494"
+  },
+  "apps/web/src/data/circuits/montreal.json": {
+    "mtime": 1768852712.0,
+    "ast_hash": "007f2aa510a1f9dd388214faf6a49e59",
+    "semantic_hash": "007f2aa510a1f9dd388214faf6a49e59"
+  },
+  "apps/web/src/data/circuits/monza.json": {
+    "mtime": 1768852712.0,
+    "ast_hash": "548d8c3043f9998292554363b3cdf17c",
+    "semantic_hash": "548d8c3043f9998292554363b3cdf17c"
+  },
+  "apps/web/src/data/circuits/red-bull-ring.json": {
+    "mtime": 1768852712.0,
+    "ast_hash": "353154ec365352926332bed6872b7fd6",
+    "semantic_hash": "353154ec365352926332bed6872b7fd6"
+  },
+  "apps/web/src/data/circuits/shanghai.json": {
+    "mtime": 1768852712.0,
+    "ast_hash": "3753ff77d663bf389af1ac7f50cb079e",
+    "semantic_hash": "3753ff77d663bf389af1ac7f50cb079e"
+  },
+  "apps/web/src/data/circuits/silverstone.json": {
+    "mtime": 1768852712.0,
+    "ast_hash": "e43fb63d63921ce389f66b23ee561044",
+    "semantic_hash": "e43fb63d63921ce389f66b23ee561044"
+  },
+  "apps/web/src/data/circuits/spa.json": {
+    "mtime": 1768852712.0,
+    "ast_hash": "9cdb4764be8464ac8632ecd535799db8",
+    "semantic_hash": "9cdb4764be8464ac8632ecd535799db8"
+  },
+  "apps/web/src/data/circuits/suzuka.json": {
+    "mtime": 1768852712.0,
+    "ast_hash": "4b231b59e1b394f8413552288a986ae1",
+    "semantic_hash": "4b231b59e1b394f8413552288a986ae1"
+  },
+  "apps/web/src/data/circuits/yas-marina.json": {
+    "mtime": 1768853450.0,
+    "ast_hash": "0476cca666034e5d4f35f2e16f130584",
+    "semantic_hash": "0476cca666034e5d4f35f2e16f130584"
+  },
+  "apps/web/src/data/circuits/zandvoort.json": {
+    "mtime": 1769194938.0,
+    "ast_hash": "7817a105b2f2e945b2eb4099b33580b0",
+    "semantic_hash": "7817a105b2f2e945b2eb4099b33580b0"
+  },
+  "apps/web/src/data/drivers/2026.json": {
+    "mtime": 1768882080.0,
+    "ast_hash": "8b6a088c48e4b06efe253fb35a762a83",
+    "semantic_hash": "8b6a088c48e4b06efe253fb35a762a83"
+  },
+  "apps/web/src/data/drivers/_schema.ts": {
+    "mtime": 1768882080.0,
+    "ast_hash": "ebf3a3e14390a84905c7ae6f4b042aa7",
+    "semantic_hash": "ebf3a3e14390a84905c7ae6f4b042aa7"
+  },
+  "apps/web/src/data/index.ts": {
+    "mtime": 1768899538.0,
+    "ast_hash": "50254d3e0a361924f549b7cfad574a90",
+    "semantic_hash": "50254d3e0a361924f549b7cfad574a90"
+  },
+  "apps/web/src/data/motorsport-calendar/2026/endurance/wec.json": {
+    "mtime": 1768894536.0,
+    "ast_hash": "4ec21246010e47bb469949c1c90746b6",
+    "semantic_hash": "4ec21246010e47bb469949c1c90746b6"
+  },
+  "apps/web/src/data/motorsport-calendar/2026/formula/f1.json": {
+    "mtime": 1770793392.0,
+    "ast_hash": "be1d9a3dc8321a89dc63a2fec147f8c9",
+    "semantic_hash": "be1d9a3dc8321a89dc63a2fec147f8c9"
+  },
+  "apps/web/src/data/motorsport-calendar/2026/motorcycle/motogp.json": {
+    "mtime": 1768894536.0,
+    "ast_hash": "8950eb9966336b1e0eadba083a925197",
+    "semantic_hash": "8950eb9966336b1e0eadba083a925197"
+  },
+  "apps/web/src/data/motorsport-calendar/2026/rally/wrc.json": {
+    "mtime": 1768894536.0,
+    "ast_hash": "cb80dac37db4d14dcd5eae2533266b3a",
+    "semantic_hash": "cb80dac37db4d14dcd5eae2533266b3a"
+  },
+  "apps/web/src/data/motorsport-calendar/2026/special/festivals.json": {
+    "mtime": 1768897104.0,
+    "ast_hash": "ced86c5f7aa9dcc32ec1665320ac0ecd",
+    "semantic_hash": "ced86c5f7aa9dcc32ec1665320ac0ecd"
+  },
+  "apps/web/src/data/motorsport-calendar/_schema.ts": {
+    "mtime": 1768899306.0,
+    "ast_hash": "ea476da62f5391e9cfd3a9e67799692b",
+    "semantic_hash": "ea476da62f5391e9cfd3a9e67799692b"
+  },
+  "apps/web/src/data/motorsport-calendar/_series.json": {
+    "mtime": 1768897046.0,
+    "ast_hash": "2e6f51d39e7870415918de74a7f14d02",
+    "semantic_hash": "2e6f51d39e7870415918de74a7f14d02"
+  },
+  "apps/web/src/data/motorsport-calendar/index.ts": {
+    "mtime": 1768897062.0,
+    "ast_hash": "cd0178959756b932289623c6bc040c8d",
+    "semantic_hash": "cd0178959756b932289623c6bc040c8d"
+  },
+  "apps/web/src/data/overrides/calendar-overrides.json": {
+    "mtime": 1768844516.0,
+    "ast_hash": "fb4eb7cda931b50c4c86ca69eefad0ea",
+    "semantic_hash": "fb4eb7cda931b50c4c86ca69eefad0ea"
+  },
+  "apps/web/src/data/teams/2026.json": {
+    "mtime": 1768882038.0,
+    "ast_hash": "6e59d44ff840399aaaef578a8dacb915",
+    "semantic_hash": "6e59d44ff840399aaaef578a8dacb915"
+  },
+  "apps/web/src/data/teams/_schema.ts": {
+    "mtime": 1768882036.0,
+    "ast_hash": "c66fc37aa0563073fe446e0643cb9d36",
+    "semantic_hash": "c66fc37aa0563073fe446e0643cb9d36"
+  },
+  "apps/web/src/data/types.ts": {
+    "mtime": 1768844378.0,
+    "ast_hash": "c08ecef28f8d3add3cb4dc3fbd9db0ae",
+    "semantic_hash": "c08ecef28f8d3add3cb4dc3fbd9db0ae"
+  },
+  "apps/web/src/hooks/useLiveData.ts": {
+    "mtime": 1772817168.0,
+    "ast_hash": "7083108aae8d28fc580576f889ae9385",
+    "semantic_hash": "7083108aae8d28fc580576f889ae9385"
+  },
+  "apps/web/src/hooks/useLiveSSE.ts": {
+    "mtime": 1772817078.0,
+    "ast_hash": "3079d67d401feda0b1647abf5b9902f6",
+    "semantic_hash": "3079d67d401feda0b1647abf5b9902f6"
+  },
+  "apps/web/src/hooks/useLocationStream.ts": {
+    "mtime": 1772852204.0,
+    "ast_hash": "661611f61c22394b6e6809a234b25dfa",
+    "semantic_hash": "661611f61c22394b6e6809a234b25dfa"
+  },
+  "apps/web/src/hooks/useSeasonData.ts": {
+    "mtime": 1768882864.0,
+    "ast_hash": "17fd922f5143ac7f31edd0fc578fb95b",
+    "semantic_hash": "17fd922f5143ac7f31edd0fc578fb95b"
+  },
+  "apps/web/src/hooks/useSessionPolling.ts": {
+    "mtime": 1770798038.0,
+    "ast_hash": "4f3cce5ae4dc734bc61f4a533e7d638d",
+    "semantic_hash": "4f3cce5ae4dc734bc61f4a533e7d638d"
+  },
+  "apps/web/src/lib/animations.ts": {
+    "mtime": 1768805138.0,
+    "ast_hash": "585af8dd58faef704656257d990bc535",
+    "semantic_hash": "585af8dd58faef704656257d990bc535"
+  },
+  "apps/web/src/lib/api.ts": {
+    "mtime": 1769099238.0,
+    "ast_hash": "3a8b4de5c291ffe8d00ba49e7d7abdbb",
+    "semantic_hash": "3a8b4de5c291ffe8d00ba49e7d7abdbb"
+  },
+  "apps/web/src/lib/calendarUtils.ts": {
+    "mtime": 1768882222.0,
+    "ast_hash": "f0b4f0c48b81f50debb71d2ca07c0365",
+    "semantic_hash": "f0b4f0c48b81f50debb71d2ca07c0365"
+  },
+  "apps/web/src/lib/constants.ts": {
+    "mtime": 1770749572.0,
+    "ast_hash": "d01889168d0affb6db166602da9d44f5",
+    "semantic_hash": "d01889168d0affb6db166602da9d44f5"
+  },
+  "apps/web/src/lib/driverCache.ts": {
+    "mtime": 1772816950.0,
+    "ast_hash": "4a9e53e96373b888b56dbee27498d8d6",
+    "semantic_hash": "4a9e53e96373b888b56dbee27498d8d6"
+  },
+  "apps/web/src/lib/openf1.ts": {
+    "mtime": 1771602154.0,
+    "ast_hash": "42ff883bf0b6f930a13c360f45cddd48",
+    "semantic_hash": "42ff883bf0b6f930a13c360f45cddd48"
+  },
+  "apps/web/src/lib/utils.ts": {
+    "mtime": 1766073728.0,
+    "ast_hash": "5a6fd53fdcf2be529e9cc0b718fde352",
+    "semantic_hash": "5a6fd53fdcf2be529e9cc0b718fde352"
+  },
+  "apps/web/src/stores/calendarStore.ts": {
+    "mtime": 1768897114.0,
+    "ast_hash": "68e86c2eb99d4bf7c20fff597a825f92",
+    "semantic_hash": "68e86c2eb99d4bf7c20fff597a825f92"
+  },
+  "apps/web/src/stores/debugStore.ts": {
+    "mtime": 1768732174.0,
+    "ast_hash": "75bfc4801bbad86c224da5b4c12c10eb",
+    "semantic_hash": "75bfc4801bbad86c224da5b4c12c10eb"
+  },
+  "apps/web/src/stores/liveStore.ts": {
+    "mtime": 1771602172.0,
+    "ast_hash": "6f2c26c57b64041cb0cfd832b05621b0",
+    "semantic_hash": "6f2c26c57b64041cb0cfd832b05621b0"
+  },
+  "apps/web/src/stores/replayStore.ts": {
+    "mtime": 1769071802.0,
+    "ast_hash": "51eedebb78e6538c5d2e9fc4872ab8b5",
+    "semantic_hash": "51eedebb78e6538c5d2e9fc4872ab8b5"
+  },
+  "apps/web/src/stores/seasonStore.ts": {
+    "mtime": 1768680632.0,
+    "ast_hash": "8106d3b0e3c30e7ddf95c44fd0db8909",
+    "semantic_hash": "8106d3b0e3c30e7ddf95c44fd0db8909"
+  },
+  "apps/web/src/types/f1.ts": {
+    "mtime": 1771602146.0,
+    "ast_hash": "1122444c2b8f46d87a8d1b89f17debf2",
+    "semantic_hash": "1122444c2b8f46d87a8d1b89f17debf2"
+  },
+  "apps/web/tailwind.config.ts": {
+    "mtime": 1768981056.0,
+    "ast_hash": "78808775101809405e311a53f61d609e",
+    "semantic_hash": "78808775101809405e311a53f61d609e"
+  },
+  "apps/web/tsconfig.json": {
+    "mtime": 1768848592.0,
+    "ast_hash": "11fc9923a6d4750fb9179f67274fa709",
+    "semantic_hash": "11fc9923a6d4750fb9179f67274fa709"
+  },
+  "README.md": {
+    "mtime": 1768917822.0,
+    "ast_hash": "ec7bc5223764615bbedefe799e9752d7",
+    "semantic_hash": "ec7bc5223764615bbedefe799e9752d7"
+  },
+  "apps/web/README.md": {
+    "mtime": 1766073564.0,
+    "ast_hash": "f15aaa42d5d299d091b1171097ea56ad",
+    "semantic_hash": "f15aaa42d5d299d091b1171097ea56ad"
+  },
+  "docs/DATA_SOURCES.md": {
+    "mtime": 1766047110.0,
+    "ast_hash": "5ded3343fc5df46d5c1f26a992c23797",
+    "semantic_hash": "5ded3343fc5df46d5c1f26a992c23797"
+  },
+  "docs/DESKTOP_APP_SPEC.md": {
+    "mtime": 1768923986.0,
+    "ast_hash": "15654e2bd6d21643ab5b532a98252626",
+    "semantic_hash": "15654e2bd6d21643ab5b532a98252626"
+  },
+  "docs/LIVE_SECTION_SPEC.md": {
+    "mtime": 1768929094.0,
+    "ast_hash": "b802643058b55aa51866b0f7011acb9e",
+    "semantic_hash": "b802643058b55aa51866b0f7011acb9e"
+  },
+  "docs/TECHNICAL_SPEC.md": {
+    "mtime": 1766049478.0,
+    "ast_hash": "f83da8cf577d204ba16a8f6c11b02db7",
+    "semantic_hash": "f83da8cf577d204ba16a8f6c11b02db7"
+  },
+  "docs/plans/2026-01-20-modular-data-architecture-design.md": {
+    "mtime": 1768843950.0,
+    "ast_hash": "c26d8ca0294ca1f33dcf2d8430fb1045",
+    "semantic_hash": "c26d8ca0294ca1f33dcf2d8430fb1045"
+  },
+  "docs/plans/2026-01-20-modular-data-architecture-implementation.md": {
+    "mtime": 1768844296.0,
+    "ast_hash": "0d0ab53ef660db0356176d24da16b149",
+    "semantic_hash": "0d0ab53ef660db0356176d24da16b149"
+  },
+  "docs/plans/2026-01-20-motorsport-calendar.md": {
+    "mtime": 1768894336.0,
+    "ast_hash": "26502ae59f31e335542077f741906086",
+    "semantic_hash": "26502ae59f31e335542077f741906086"
+  },
+  "apps/web/public/file.svg": {
+    "mtime": 1766073564.0,
+    "ast_hash": "d09f95206c3fa0bb9bd9fefabfd0ea71",
+    "semantic_hash": "d09f95206c3fa0bb9bd9fefabfd0ea71"
+  },
+  "apps/web/public/globe.svg": {
+    "mtime": 1766073564.0,
+    "ast_hash": "2aaafa6a49b6563925fe440891e32717",
+    "semantic_hash": "2aaafa6a49b6563925fe440891e32717"
+  },
+  "apps/web/public/next.svg": {
+    "mtime": 1766073564.0,
+    "ast_hash": "8e061864f388b47f33a1c3780831193e",
+    "semantic_hash": "8e061864f388b47f33a1c3780831193e"
+  },
+  "apps/web/public/vercel.svg": {
+    "mtime": 1766073564.0,
+    "ast_hash": "c0af2f507b369b085b35ef4bbe3bcf1e",
+    "semantic_hash": "c0af2f507b369b085b35ef4bbe3bcf1e"
+  },
+  "apps/web/public/window.svg": {
+    "mtime": 1766073564.0,
+    "ast_hash": "a2760511c65806022ad20adf74370ff3",
+    "semantic_hash": "a2760511c65806022ad20adf74370ff3"
+  }
+}
