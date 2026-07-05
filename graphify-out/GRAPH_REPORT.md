@@ -5,7 +5,7 @@
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 762 nodes · 1550 edges · 43 communities (37 shown, 6 thin omitted)
+- 762 nodes · 1550 edges · 42 communities (36 shown, 6 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 12 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
@@ -17,23 +17,23 @@
 - [[_COMMUNITY_componentsseason StandingsTab|components/season: StandingsTab]]
 - [[_COMMUNITY_componentsui CircuitInfoSlidePanel|components/ui: CircuitInfoSlidePanel]]
 - [[_COMMUNITY_srcdata index|src/data: index]]
-- [[_COMMUNITY_componentslayout SessionSelector|components/layout: SessionSelector]]
 - [[_COMMUNITY_componentsui dropdown-menu|components/ui: dropdown-menu]]
 - [[_COMMUNITY_srctypes f1|src/types: f1]]
+- [[_COMMUNITY_componentslayout SessionSelector|components/layout: SessionSelector]]
 - [[_COMMUNITY_componentscalendar calendarStore|components/calendar: calendarStore]]
 - [[_COMMUNITY_componentslive TrackMap3D|components/live: TrackMap3D]]
 - [[_COMMUNITY_srchooks LiveDashboardLayout|src/hooks: LiveDashboardLayout]]
 - [[_COMMUNITY_datamotorsport-calendar index|data/motorsport-calendar: index]]
 - [[_COMMUNITY_appsweb tsconfig|apps/web: tsconfig]]
 - [[_COMMUNITY_componentsui select|components/ui: select]]
-- [[_COMMUNITY_docs TECHNICAL_SPEC|docs: TECHNICAL_SPEC]]
-- [[_COMMUNITY_appsweb components|apps/web: components]]
 - [[_COMMUNITY_srclib api|src/lib: api]]
-- [[_COMMUNITY_componentslive RaceInfo|components/live: RaceInfo]]
+- [[_COMMUNITY_f1-dashboarddocs TECHNICAL_SPEC|f1-dashboard/docs: TECHNICAL_SPEC]]
+- [[_COMMUNITY_appsweb components|apps/web: components]]
 - [[_COMMUNITY_appabout page|app/about: page]]
 - [[_COMMUNITY_srchooks useSeasonData|src/hooks: useSeasonData]]
 - [[_COMMUNITY_componentsseason CountdownHero|components/season: CountdownHero]]
 - [[_COMMUNITY_componentsseason TeamsTab|components/season: TeamsTab]]
+- [[_COMMUNITY_componentslive RaceInfo|components/live: RaceInfo]]
 - [[_COMMUNITY_componentsseason CalendarTab|components/season: CalendarTab]]
 - [[_COMMUNITY_datacircuits _schema|data/circuits: _schema]]
 - [[_COMMUNITY_webpublic manifest|web/public: manifest]]
@@ -43,7 +43,6 @@
 - [[_COMMUNITY_srcdata index|src/data: index]]
 - [[_COMMUNITY_srcapp layout|src/app: layout]]
 - [[_COMMUNITY_webscripts extract-circuit-data|web/scripts: extract-circuit-data]]
-- [[_COMMUNITY_componentsanalysis DriverSelector|components/analysis: DriverSelector]]
 - [[_COMMUNITY_datadrivers _schema|data/drivers: _schema]]
 - [[_COMMUNITY_apicircuit route|api/circuit: route]]
 - [[_COMMUNITY_srcdata index|src/data: index]]
@@ -65,8 +64,6 @@
 10. `Button()` - 13 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `Tauri Desktop App Approach` --references--> `F1 Dashboard Project`  [EXTRACTED]
-  docs/DESKTOP_APP_SPEC.md → README.md
 - `CollapsibleCard()` --calls--> `cn()`  [EXTRACTED]
   apps/web/src/app/about/page.tsx → apps/web/src/lib/utils.ts
 - `useLiveData()` --calls--> `fetchTiming()`  [INFERRED]
@@ -75,14 +72,16 @@
   apps/web/src/hooks/useLiveData.ts → apps/web/src/app/api/live/sse/route.ts
 - `useLiveData()` --calls--> `fetchRaceControl()`  [INFERRED]
   apps/web/src/hooks/useLiveData.ts → apps/web/src/app/api/live/sse/route.ts
+- `useLiveData()` --calls--> `fetchWeather()`  [INFERRED]
+  apps/web/src/hooks/useLiveData.ts → apps/web/src/app/api/live/sse/route.ts
 
 ## Import Cycles
 - None detected.
 
 ## Hyperedges (group relationships)
-- **F1 Hybrid Live/Historical Data Pipeline** — docs_data_sources_openf1_api, docs_data_sources_fast_f1_library, docs_technical_spec_nextjs_api_routes, docs_technical_spec_python_fastapi_backend [EXTRACTED 1.00]
+- **F1 Hybrid Live/Historical Data Pipeline** — personal_f1_dashboard_docs_data_sources_openf1_api, personal_f1_dashboard_docs_data_sources_fast_f1_library, personal_f1_dashboard_docs_technical_spec_nextjs_api_routes, personal_f1_dashboard_docs_technical_spec_python_fastapi_backend [EXTRACTED 1.00]
 
-## Communities (43 total, 6 thin omitted)
+## Communities (42 total, 6 thin omitted)
 
 ### Community 0 - "src/lib: route"
 Cohesion: 0.06
@@ -112,17 +111,17 @@ Nodes (25): Driver, LapData, StintData, LapData, PositionChart(), PositionChartP
 Cohesion: 0.09
 Nodes (21): calendarCache, CalendarData, circuitCache, circuitNameToId, driverFullCache, getCalendar(), getLaunches(), getSprintRounds() (+13 more)
 
-### Community 7 - "components/layout: SessionSelector"
+### Community 7 - "components/ui: dropdown-menu"
+Cohesion: 0.10
+Nodes (15): Driver, DriverSelector(), DriverSelectorProps, DropdownMenuCheckboxItem(), DropdownMenuContent(), DropdownMenuItem(), DropdownMenuLabel(), DropdownMenuRadioItem() (+7 more)
+
+### Community 8 - "src/types: f1"
+Cohesion: 0.08
+Nodes (25): TimingTowerProps, AnalysisState, APIError, APIResponse, DriverComparison, DriverStatus, DriverTiming, DriverTimingWithMiniSectors (+17 more)
+
+### Community 9 - "components/layout: SessionSelector"
 Cohesion: 0.12
 Nodes (20): CircuitEditor, CircuitEditorPage(), buildEvents(), EventType, formatShortTime(), HistoricalSessionsPanel(), HistoricalSessionsPanelProps, SelectableEvent (+12 more)
-
-### Community 8 - "components/ui: dropdown-menu"
-Cohesion: 0.12
-Nodes (12): DropdownMenuCheckboxItem(), DropdownMenuContent(), DropdownMenuItem(), DropdownMenuLabel(), DropdownMenuRadioItem(), DropdownMenuSeparator(), DropdownMenuShortcut(), DropdownMenuSubContent() (+4 more)
-
-### Community 9 - "src/types: f1"
-Cohesion: 0.09
-Nodes (23): AnalysisState, APIError, APIResponse, Driver, DriverComparison, DriverStatus, DRSStatus, FlagType (+15 more)
 
 ### Community 10 - "components/calendar: calendarStore"
 Cohesion: 0.21
@@ -148,37 +147,37 @@ Nodes (20): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModu
 Cohesion: 0.18
 Nodes (15): TIMEZONES, ConnectionTestResult, DebugPanelProps, SESSION_TYPE_COLORS, Button(), buttonVariants, Select(), SelectContent() (+7 more)
 
-### Community 17 - "docs: TECHNICAL_SPEC"
-Cohesion: 0.13
-Nodes (20): Fast-F1 Python Library, Hybrid Live/Historical Data Approach, OpenF1 API, Tauri Desktop App Approach, Telemetry Panel Spec, Timing Tower Component Spec, Track Map Component Spec, Modular F1 Data Architecture (+12 more)
+### Community 17 - "src/lib: api"
+Cohesion: 0.26
+Nodes (17): useLiveData(), UseLiveDataOptions, getPollingIntervals(), PollingConfig, SessionType, usePollingIntervals(), fetchAPI(), getAllLiveData() (+9 more)
 
-### Community 18 - "apps/web: components"
+### Community 18 - "f1-dashboard/docs: TECHNICAL_SPEC"
+Cohesion: 0.13
+Nodes (20): Modular F1 Data Architecture, Override Merging Pattern, Session-Aware Polling, Circuit Data JSON Schema, Unified Data Access Layer (src/data/index.ts), calendarStore (Zustand), Unified Motorsport Calendar, Fast-F1 Python Library (+12 more)
+
+### Community 19 - "apps/web: components"
 Cohesion: 0.11
 Nodes (18): aliases, components, hooks, lib, ui, utils, iconLibrary, registries (+10 more)
 
-### Community 19 - "src/lib: api"
-Cohesion: 0.28
-Nodes (16): useLiveData(), UseLiveDataOptions, getPollingIntervals(), PollingConfig, SessionType, usePollingIntervals(), fetchAPI(), getAllLiveData() (+8 more)
-
-### Community 20 - "components/live: RaceInfo"
-Cohesion: 0.18
-Nodes (14): RaceInfo(), RaceInfoProps, TrackStatusIndicator(), TrackStatusIndicatorProps, WeatherItemProps, TimingTowerProps, initialState, LapSnapshot (+6 more)
-
-### Community 21 - "app/about: page"
+### Community 20 - "app/about: page"
 Cohesion: 0.19
 Nodes (5): CollapsibleCard(), Header(), HeaderProps, Badge(), badgeVariants
 
-### Community 22 - "src/hooks: useSeasonData"
+### Community 21 - "src/hooks: useSeasonData"
 Cohesion: 0.21
 Nodes (15): formatTimeSince(), SeasonPage(), EventCard(), SessionRow(), calculateRefreshInterval(), getTimeToNextSession(), isSessionLive(), REFRESH_INTERVALS (+7 more)
 
-### Community 23 - "components/season: CountdownHero"
+### Community 22 - "components/season: CountdownHero"
 Cohesion: 0.16
 Nodes (12): CountdownDigitProps, CountdownHero(), CountdownProgressProps, COUNTRY_FLAGS, DaytimeIconProps, getNextEvent(), getTimeOfDay(), getTimeRemaining() (+4 more)
 
-### Community 24 - "components/season: TeamsTab"
+### Community 23 - "components/season: TeamsTab"
 Cohesion: 0.16
 Nodes (9): CAR_IMAGES, DriverCardProps, LightboxProps, TeamCardProps, TeamsTab(), F1Loader(), F1LoaderProps, MiniF1Car() (+1 more)
+
+### Community 24 - "components/live: RaceInfo"
+Cohesion: 0.23
+Nodes (11): RaceInfo(), RaceInfoProps, TrackStatusIndicator(), TrackStatusIndicatorProps, WeatherItemProps, initialState, LapSnapshot, ReplayState (+3 more)
 
 ### Community 25 - "components/season: CalendarTab"
 Cohesion: 0.19
@@ -216,11 +215,7 @@ Nodes (5): geistMono, geistSans, metadata, titilliumWeb, viewport
 Cohesion: 0.50
 Nodes (4): extract_circuit_data(), main(), Extract data for all circuits and output as JSON., Extract corner and sector data for a circuit.
 
-### Community 34 - "components/analysis: DriverSelector"
-Cohesion: 0.50
-Nodes (3): Driver, DriverSelector(), DriverSelectorProps
-
-### Community 37 - "src/data: index"
+### Community 36 - "src/data: index"
 Cohesion: 0.67
 Nodes (3): getEventByRound(), getEventsByMonth(), getRaces()
 
@@ -232,7 +227,7 @@ Nodes (3): getEventByRound(), getEventsByMonth(), getRaces()
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `cn()` connect `components/ui: dropdown-menu` to `components/analysis: DriverSelector`, `src/lib: constants`, `components/ui: CircuitInfoSlidePanel`, `components/layout: SessionSelector`, `components/calendar: calendarStore`, `components/ui: select`, `components/live: RaceInfo`, `app/about: page`, `src/hooks: useSeasonData`, `components/season: CalendarTab`, `data/circuits: _schema`, `components/live: TelemetryPanel`?**
+- **Why does `cn()` connect `components/ui: dropdown-menu` to `src/lib: constants`, `components/ui: CircuitInfoSlidePanel`, `components/layout: SessionSelector`, `components/calendar: calendarStore`, `components/ui: select`, `app/about: page`, `src/hooks: useSeasonData`, `components/live: RaceInfo`, `components/season: CalendarTab`, `data/circuits: _schema`, `components/live: TelemetryPanel`?**
   _High betweenness centrality (0.108) - this node is a cross-community bridge._
 - **Are the 4 inferred relationships involving `useLiveData()` (e.g. with `fetchLocation()` and `fetchRaceControl()`) actually correct?**
   _`useLiveData()` has 4 INFERRED edges - model-reasoned connections that need verification._

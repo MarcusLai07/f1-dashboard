@@ -7,15 +7,15 @@
         "id": "f1_hybrid_data_pipeline",
         "label": "F1 Hybrid Live/Historical Data Pipeline",
         "nodes": [
-          "docs_data_sources_openf1_api",
-          "docs_data_sources_fast_f1_library",
-          "docs_technical_spec_nextjs_api_routes",
-          "docs_technical_spec_python_fastapi_backend"
+          "personal_f1_dashboard_docs_data_sources_openf1_api",
+          "personal_f1_dashboard_docs_data_sources_fast_f1_library",
+          "personal_f1_dashboard_docs_technical_spec_nextjs_api_routes",
+          "personal_f1_dashboard_docs_technical_spec_python_fastapi_backend"
         ],
         "relation": "participate_in",
         "confidence": "EXTRACTED",
         "confidence_score": 1.0,
-        "source_file": "docs/TECHNICAL_SPEC.md"
+        "source_file": "personal/f1-dashboard/docs/TECHNICAL_SPEC.md"
       }
     ]
   },
@@ -27,7 +27,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_components",
-      "community": 18,
+      "community": 19,
       "norm_label": "components.json"
     },
     {
@@ -37,7 +37,7 @@
       "source_location": "L2",
       "_origin": "ast",
       "id": "apps_web_components_schema",
-      "community": 18,
+      "community": 19,
       "norm_label": "$schema"
     },
     {
@@ -47,7 +47,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_web_components_style",
-      "community": 18,
+      "community": 19,
       "norm_label": "style"
     },
     {
@@ -57,7 +57,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "apps_web_components_rsc",
-      "community": 18,
+      "community": 19,
       "norm_label": "rsc"
     },
     {
@@ -67,7 +67,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_web_components_tsx",
-      "community": 18,
+      "community": 19,
       "norm_label": "tsx"
     },
     {
@@ -77,7 +77,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_web_components_tailwind",
-      "community": 18,
+      "community": 19,
       "norm_label": "tailwind"
     },
     {
@@ -87,7 +87,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_web_components_tailwind_config",
-      "community": 18,
+      "community": 19,
       "norm_label": "config"
     },
     {
@@ -97,7 +97,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_web_components_tailwind_css",
-      "community": 18,
+      "community": 19,
       "norm_label": "css"
     },
     {
@@ -107,7 +107,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_web_components_tailwind_basecolor",
-      "community": 18,
+      "community": 19,
       "norm_label": "basecolor"
     },
     {
@@ -117,7 +117,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_web_components_tailwind_cssvariables",
-      "community": 18,
+      "community": 19,
       "norm_label": "cssvariables"
     },
     {
@@ -127,7 +127,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_web_components_tailwind_prefix",
-      "community": 18,
+      "community": 19,
       "norm_label": "prefix"
     },
     {
@@ -137,7 +137,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_web_components_iconlibrary",
-      "community": 18,
+      "community": 19,
       "norm_label": "iconlibrary"
     },
     {
@@ -147,7 +147,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_web_components_aliases",
-      "community": 18,
+      "community": 19,
       "norm_label": "aliases"
     },
     {
@@ -157,7 +157,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "apps_web_components_aliases_components",
-      "community": 18,
+      "community": 19,
       "norm_label": "components"
     },
     {
@@ -167,7 +167,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_web_components_aliases_utils",
-      "community": 18,
+      "community": 19,
       "norm_label": "utils"
     },
     {
@@ -177,7 +177,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_web_components_aliases_ui",
-      "community": 18,
+      "community": 19,
       "norm_label": "ui"
     },
     {
@@ -187,7 +187,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "apps_web_components_aliases_lib",
-      "community": 18,
+      "community": 19,
       "norm_label": "lib"
     },
     {
@@ -197,7 +197,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "apps_web_components_aliases_hooks",
-      "community": 18,
+      "community": 19,
       "norm_label": "hooks"
     },
     {
@@ -207,7 +207,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "apps_web_components_registries",
-      "community": 18,
+      "community": 19,
       "norm_label": "registries"
     },
     {
@@ -217,7 +217,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_eslint_config",
-      "community": 38,
+      "community": 37,
       "norm_label": "eslint.config.mjs"
     },
     {
@@ -227,7 +227,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_web_eslint_config_eslintconfig",
-      "community": 38,
+      "community": 37,
       "norm_label": "eslintconfig"
     },
     {
@@ -237,7 +237,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_next_env_d",
-      "community": 42,
+      "community": 41,
       "norm_label": "next-env.d.ts"
     },
     {
@@ -247,7 +247,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_next_config",
-      "community": 39,
+      "community": 38,
       "norm_label": "next.config.ts"
     },
     {
@@ -257,7 +257,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_web_next_config_nextconfig",
-      "community": 39,
+      "community": 38,
       "norm_label": "nextconfig"
     },
     {
@@ -677,7 +677,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_postcss_config",
-      "community": 40,
+      "community": 39,
       "norm_label": "postcss.config.mjs"
     },
     {
@@ -687,7 +687,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_postcss_config_config",
-      "community": 40,
+      "community": 39,
       "norm_label": "config"
     },
     {
@@ -1107,7 +1107,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_app_about_page",
-      "community": 21,
+      "community": 20,
       "norm_label": "page.tsx"
     },
     {
@@ -1117,7 +1117,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "apps_web_src_app_about_page_aboutpage",
-      "community": 21,
+      "community": 20,
       "norm_label": "aboutpage()"
     },
     {
@@ -1127,7 +1127,7 @@
       "source_location": "L275",
       "_origin": "ast",
       "id": "apps_web_src_app_about_page_collapsiblecard",
-      "community": 21,
+      "community": 20,
       "norm_label": "collapsiblecard()"
     },
     {
@@ -1137,7 +1137,7 @@
       "source_location": "L319",
       "_origin": "ast",
       "id": "apps_web_src_app_about_page_featureitem",
-      "community": 21,
+      "community": 20,
       "norm_label": "featureitem()"
     },
     {
@@ -1147,7 +1147,7 @@
       "source_location": "L339",
       "_origin": "ast",
       "id": "apps_web_src_app_about_page_datasourceitem",
-      "community": 21,
+      "community": 20,
       "norm_label": "datasourceitem()"
     },
     {
@@ -1157,7 +1157,7 @@
       "source_location": "L374",
       "_origin": "ast",
       "id": "apps_web_src_app_about_page_seriessource",
-      "community": 21,
+      "community": 20,
       "norm_label": "seriessource()"
     },
     {
@@ -1167,7 +1167,7 @@
       "source_location": "L389",
       "_origin": "ast",
       "id": "apps_web_src_app_about_page_techbadge",
-      "community": 21,
+      "community": 20,
       "norm_label": "techbadge()"
     },
     {
@@ -1287,7 +1287,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_app_api_circuit_route",
-      "community": 36,
+      "community": 35,
       "norm_label": "route.ts"
     },
     {
@@ -1297,7 +1297,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_web_src_app_api_circuit_route_circuitnamemap",
-      "community": 36,
+      "community": 35,
       "norm_label": "circuitnamemap"
     },
     {
@@ -1307,7 +1307,7 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "apps_web_src_app_api_circuit_route_get",
-      "community": 36,
+      "community": 35,
       "norm_label": "get()"
     },
     {
@@ -1897,7 +1897,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_app_calendar_page",
-      "community": 21,
+      "community": 20,
       "norm_label": "page.tsx"
     },
     {
@@ -1907,7 +1907,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_web_src_app_calendar_page_calendarpage",
-      "community": 21,
+      "community": 20,
       "norm_label": "calendarpage()"
     },
     {
@@ -1917,7 +1917,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_app_circuit_editor_page",
-      "community": 7,
+      "community": 9,
       "norm_label": "page.tsx"
     },
     {
@@ -1927,7 +1927,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "apps_web_src_app_circuit_editor_page_circuiteditor",
-      "community": 7,
+      "community": 9,
       "norm_label": "circuiteditor"
     },
     {
@@ -1937,7 +1937,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "apps_web_src_app_circuit_editor_page_circuiteditorpage",
-      "community": 7,
+      "community": 9,
       "norm_label": "circuiteditorpage()"
     },
     {
@@ -2057,7 +2057,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "apps_web_src_app_season_page_formattimesince",
-      "community": 22,
+      "community": 21,
       "norm_label": "formattimesince()"
     },
     {
@@ -2067,7 +2067,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "apps_web_src_app_season_page_seasonpage",
-      "community": 22,
+      "community": 21,
       "norm_label": "seasonpage()"
     },
     {
@@ -2077,7 +2077,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_components_analysis_driverselector",
-      "community": 34,
+      "community": 7,
       "norm_label": "driverselector.tsx"
     },
     {
@@ -2087,7 +2087,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_web_src_components_analysis_driverselector_driver",
-      "community": 34,
+      "community": 7,
       "norm_label": "driver"
     },
     {
@@ -2097,7 +2097,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "apps_web_src_components_analysis_driverselector_driverselectorprops",
-      "community": 34,
+      "community": 7,
       "norm_label": "driverselectorprops"
     },
     {
@@ -2107,7 +2107,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "apps_web_src_components_analysis_driverselector_driverselector",
-      "community": 34,
+      "community": 7,
       "norm_label": "driverselector()"
     },
     {
@@ -2597,7 +2597,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_components_layout_header",
-      "community": 21,
+      "community": 20,
       "norm_label": "header.tsx"
     },
     {
@@ -2607,7 +2607,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_web_src_components_layout_header_headerprops",
-      "community": 21,
+      "community": 20,
       "norm_label": "headerprops"
     },
     {
@@ -2617,7 +2617,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_web_src_components_layout_header_header",
-      "community": 21,
+      "community": 20,
       "norm_label": "header()"
     },
     {
@@ -2657,7 +2657,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_components_layout_sessionselector",
-      "community": 7,
+      "community": 9,
       "norm_label": "sessionselector.tsx"
     },
     {
@@ -2667,7 +2667,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "apps_web_src_components_layout_sessionselector_sessionselectorprops",
-      "community": 7,
+      "community": 9,
       "norm_label": "sessionselectorprops"
     },
     {
@@ -2677,7 +2677,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "apps_web_src_components_layout_sessionselector_eventtype",
-      "community": 7,
+      "community": 9,
       "norm_label": "eventtype"
     },
     {
@@ -2687,7 +2687,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "apps_web_src_components_layout_sessionselector_selectableevent",
-      "community": 7,
+      "community": 9,
       "norm_label": "selectableevent"
     },
     {
@@ -2697,7 +2697,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "apps_web_src_components_layout_sessionselector_selectablesession",
-      "community": 7,
+      "community": 9,
       "norm_label": "selectablesession"
     },
     {
@@ -2707,7 +2707,7 @@
       "source_location": "L47",
       "_origin": "ast",
       "id": "apps_web_src_components_layout_sessionselector_session_badges",
-      "community": 7,
+      "community": 9,
       "norm_label": "session_badges"
     },
     {
@@ -2717,7 +2717,7 @@
       "source_location": "L59",
       "_origin": "ast",
       "id": "apps_web_src_components_layout_sessionselector_formatshorttime",
-      "community": 7,
+      "community": 9,
       "norm_label": "formatshorttime()"
     },
     {
@@ -2727,7 +2727,7 @@
       "source_location": "L71",
       "_origin": "ast",
       "id": "apps_web_src_components_layout_sessionselector_buildevents",
-      "community": 7,
+      "community": 9,
       "norm_label": "buildevents()"
     },
     {
@@ -2737,7 +2737,7 @@
       "source_location": "L266",
       "_origin": "ast",
       "id": "apps_web_src_components_layout_sessionselector_sessionselector",
-      "community": 7,
+      "community": 9,
       "norm_label": "sessionselector()"
     },
     {
@@ -2747,7 +2747,7 @@
       "source_location": "L605",
       "_origin": "ast",
       "id": "apps_web_src_components_layout_sessionselector_historicalsessionspanelprops",
-      "community": 7,
+      "community": 9,
       "norm_label": "historicalsessionspanelprops"
     },
     {
@@ -2757,7 +2757,7 @@
       "source_location": "L611",
       "_origin": "ast",
       "id": "apps_web_src_components_layout_sessionselector_historicalsessionspanel",
-      "community": 7,
+      "community": 9,
       "norm_label": "historicalsessionspanel()"
     },
     {
@@ -2767,7 +2767,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_components_live_raceinfo",
-      "community": 20,
+      "community": 24,
       "norm_label": "raceinfo.tsx"
     },
     {
@@ -2777,7 +2777,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_web_src_components_live_raceinfo_raceinfoprops",
-      "community": 20,
+      "community": 24,
       "norm_label": "raceinfoprops"
     },
     {
@@ -2787,7 +2787,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_web_src_components_live_raceinfo_raceinfo",
-      "community": 20,
+      "community": 24,
       "norm_label": "raceinfo()"
     },
     {
@@ -2797,7 +2797,7 @@
       "source_location": "L151",
       "_origin": "ast",
       "id": "apps_web_src_components_live_raceinfo_trackstatusindicatorprops",
-      "community": 20,
+      "community": 24,
       "norm_label": "trackstatusindicatorprops"
     },
     {
@@ -2807,7 +2807,7 @@
       "source_location": "L155",
       "_origin": "ast",
       "id": "apps_web_src_components_live_raceinfo_trackstatusindicator",
-      "community": 20,
+      "community": 24,
       "norm_label": "trackstatusindicator()"
     },
     {
@@ -2817,7 +2817,7 @@
       "source_location": "L180",
       "_origin": "ast",
       "id": "apps_web_src_components_live_raceinfo_weatheritemprops",
-      "community": 20,
+      "community": 24,
       "norm_label": "weatheritemprops"
     },
     {
@@ -2827,7 +2827,7 @@
       "source_location": "L185",
       "_origin": "ast",
       "id": "apps_web_src_components_live_raceinfo_weatheritem",
-      "community": 20,
+      "community": 24,
       "norm_label": "weatheritem()"
     },
     {
@@ -2977,7 +2977,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_web_src_components_live_timingtower_timingtowerprops",
-      "community": 20,
+      "community": 8,
       "norm_label": "timingtowerprops"
     },
     {
@@ -3367,7 +3367,7 @@
       "source_location": "L433",
       "_origin": "ast",
       "id": "apps_web_src_components_season_calendartab_sessionrow",
-      "community": 22,
+      "community": 21,
       "norm_label": "sessionrow()"
     },
     {
@@ -3407,7 +3407,7 @@
       "source_location": "L564",
       "_origin": "ast",
       "id": "apps_web_src_components_season_calendartab_eventcard",
-      "community": 22,
+      "community": 21,
       "norm_label": "eventcard()"
     },
     {
@@ -3517,7 +3517,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_components_season_countdownhero",
-      "community": 23,
+      "community": 22,
       "norm_label": "countdownhero.tsx"
     },
     {
@@ -3527,7 +3527,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_web_src_components_season_countdownhero_usecurrenttime",
-      "community": 23,
+      "community": 22,
       "norm_label": "usecurrenttime()"
     },
     {
@@ -3537,7 +3537,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "apps_web_src_components_season_countdownhero_country_flags",
-      "community": 23,
+      "community": 22,
       "norm_label": "country_flags"
     },
     {
@@ -3547,7 +3547,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "apps_web_src_components_season_countdownhero_timeremaining",
-      "community": 23,
+      "community": 22,
       "norm_label": "timeremaining"
     },
     {
@@ -3557,7 +3557,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "apps_web_src_components_season_countdownhero_gettimeremaining",
-      "community": 23,
+      "community": 22,
       "norm_label": "gettimeremaining()"
     },
     {
@@ -3567,7 +3567,7 @@
       "source_location": "L88",
       "_origin": "ast",
       "id": "apps_web_src_components_season_countdownhero_timeofday",
-      "community": 23,
+      "community": 22,
       "norm_label": "timeofday"
     },
     {
@@ -3577,7 +3577,7 @@
       "source_location": "L90",
       "_origin": "ast",
       "id": "apps_web_src_components_season_countdownhero_gettimeofday",
-      "community": 23,
+      "community": 22,
       "norm_label": "gettimeofday()"
     },
     {
@@ -3587,7 +3587,7 @@
       "source_location": "L102",
       "_origin": "ast",
       "id": "apps_web_src_components_season_countdownhero_daytimeiconprops",
-      "community": 23,
+      "community": 22,
       "norm_label": "daytimeiconprops"
     },
     {
@@ -3597,7 +3597,7 @@
       "source_location": "L107",
       "_origin": "ast",
       "id": "apps_web_src_components_season_countdownhero_daytimeicon",
-      "community": 23,
+      "community": 22,
       "norm_label": "daytimeicon()"
     },
     {
@@ -3607,7 +3607,7 @@
       "source_location": "L163",
       "_origin": "ast",
       "id": "apps_web_src_components_season_countdownhero_countdowndigitprops",
-      "community": 23,
+      "community": 22,
       "norm_label": "countdowndigitprops"
     },
     {
@@ -3617,7 +3617,7 @@
       "source_location": "L168",
       "_origin": "ast",
       "id": "apps_web_src_components_season_countdownhero_countdowndigit",
-      "community": 23,
+      "community": 22,
       "norm_label": "countdowndigit()"
     },
     {
@@ -3627,7 +3627,7 @@
       "source_location": "L180",
       "_origin": "ast",
       "id": "apps_web_src_components_season_countdownhero_countdownprogressprops",
-      "community": 23,
+      "community": 22,
       "norm_label": "countdownprogressprops"
     },
     {
@@ -3637,7 +3637,7 @@
       "source_location": "L185",
       "_origin": "ast",
       "id": "apps_web_src_components_season_countdownhero_countdownprogress",
-      "community": 23,
+      "community": 22,
       "norm_label": "countdownprogress()"
     },
     {
@@ -3647,7 +3647,7 @@
       "source_location": "L230",
       "_origin": "ast",
       "id": "apps_web_src_components_season_countdownhero_nexteventresult",
-      "community": 23,
+      "community": 22,
       "norm_label": "nexteventresult"
     },
     {
@@ -3657,7 +3657,7 @@
       "source_location": "L235",
       "_origin": "ast",
       "id": "apps_web_src_components_season_countdownhero_getnextevent",
-      "community": 23,
+      "community": 22,
       "norm_label": "getnextevent()"
     },
     {
@@ -3667,7 +3667,7 @@
       "source_location": "L311",
       "_origin": "ast",
       "id": "apps_web_src_components_season_countdownhero_countdownhero",
-      "community": 23,
+      "community": 22,
       "norm_label": "countdownhero()"
     },
     {
@@ -3867,7 +3867,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_components_season_teamstab",
-      "community": 24,
+      "community": 23,
       "norm_label": "teamstab.tsx"
     },
     {
@@ -3877,7 +3877,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_web_src_components_season_teamstab_lightboxprops",
-      "community": 24,
+      "community": 23,
       "norm_label": "lightboxprops"
     },
     {
@@ -3887,7 +3887,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "apps_web_src_components_season_teamstab_imagelightbox",
-      "community": 24,
+      "community": 23,
       "norm_label": "imagelightbox()"
     },
     {
@@ -3897,7 +3897,7 @@
       "source_location": "L100",
       "_origin": "ast",
       "id": "apps_web_src_components_season_teamstab_car_images",
-      "community": 24,
+      "community": 23,
       "norm_label": "car_images"
     },
     {
@@ -3907,7 +3907,7 @@
       "source_location": "L114",
       "_origin": "ast",
       "id": "apps_web_src_components_season_teamstab_drivercardprops",
-      "community": 24,
+      "community": 23,
       "norm_label": "drivercardprops"
     },
     {
@@ -3917,7 +3917,7 @@
       "source_location": "L121",
       "_origin": "ast",
       "id": "apps_web_src_components_season_teamstab_drivercard",
-      "community": 24,
+      "community": 23,
       "norm_label": "drivercard()"
     },
     {
@@ -3927,7 +3927,7 @@
       "source_location": "L213",
       "_origin": "ast",
       "id": "apps_web_src_components_season_teamstab_teamcardprops",
-      "community": 24,
+      "community": 23,
       "norm_label": "teamcardprops"
     },
     {
@@ -3937,7 +3937,7 @@
       "source_location": "L219",
       "_origin": "ast",
       "id": "apps_web_src_components_season_teamstab_teamcard",
-      "community": 24,
+      "community": 23,
       "norm_label": "teamcard()"
     },
     {
@@ -3947,7 +3947,7 @@
       "source_location": "L343",
       "_origin": "ast",
       "id": "apps_web_src_components_season_teamstab_teamstab",
-      "community": 24,
+      "community": 23,
       "norm_label": "teamstab()"
     },
     {
@@ -3957,7 +3957,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_components_season_index",
-      "community": 24,
+      "community": 23,
       "norm_label": "index.ts"
     },
     {
@@ -3967,7 +3967,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_badge",
-      "community": 21,
+      "community": 20,
       "norm_label": "badge.tsx"
     },
     {
@@ -3977,7 +3977,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_badge_badgevariants",
-      "community": 21,
+      "community": 20,
       "norm_label": "badgevariants"
     },
     {
@@ -3987,7 +3987,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_badge_badge",
-      "community": 21,
+      "community": 20,
       "norm_label": "badge()"
     },
     {
@@ -4107,7 +4107,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_dropdown_menu",
-      "community": 8,
+      "community": 7,
       "norm_label": "dropdown-menu.tsx"
     },
     {
@@ -4117,7 +4117,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_dropdown_menu_dropdownmenu",
-      "community": 8,
+      "community": 7,
       "norm_label": "dropdownmenu()"
     },
     {
@@ -4127,7 +4127,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_dropdown_menu_dropdownmenuportal",
-      "community": 8,
+      "community": 7,
       "norm_label": "dropdownmenuportal()"
     },
     {
@@ -4137,7 +4137,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_dropdown_menu_dropdownmenutrigger",
-      "community": 8,
+      "community": 7,
       "norm_label": "dropdownmenutrigger()"
     },
     {
@@ -4147,7 +4147,7 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_dropdown_menu_dropdownmenucontent",
-      "community": 8,
+      "community": 7,
       "norm_label": "dropdownmenucontent()"
     },
     {
@@ -4157,7 +4157,7 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_dropdown_menu_dropdownmenugroup",
-      "community": 8,
+      "community": 7,
       "norm_label": "dropdownmenugroup()"
     },
     {
@@ -4167,7 +4167,7 @@
       "source_location": "L62",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_dropdown_menu_dropdownmenuitem",
-      "community": 8,
+      "community": 7,
       "norm_label": "dropdownmenuitem()"
     },
     {
@@ -4177,7 +4177,7 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_dropdown_menu_dropdownmenucheckboxitem",
-      "community": 8,
+      "community": 7,
       "norm_label": "dropdownmenucheckboxitem()"
     },
     {
@@ -4187,7 +4187,7 @@
       "source_location": "L111",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_dropdown_menu_dropdownmenuradiogroup",
-      "community": 8,
+      "community": 7,
       "norm_label": "dropdownmenuradiogroup()"
     },
     {
@@ -4197,7 +4197,7 @@
       "source_location": "L122",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_dropdown_menu_dropdownmenuradioitem",
-      "community": 8,
+      "community": 7,
       "norm_label": "dropdownmenuradioitem()"
     },
     {
@@ -4207,7 +4207,7 @@
       "source_location": "L146",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_dropdown_menu_dropdownmenulabel",
-      "community": 8,
+      "community": 7,
       "norm_label": "dropdownmenulabel()"
     },
     {
@@ -4217,7 +4217,7 @@
       "source_location": "L166",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_dropdown_menu_dropdownmenuseparator",
-      "community": 8,
+      "community": 7,
       "norm_label": "dropdownmenuseparator()"
     },
     {
@@ -4227,7 +4227,7 @@
       "source_location": "L179",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_dropdown_menu_dropdownmenushortcut",
-      "community": 8,
+      "community": 7,
       "norm_label": "dropdownmenushortcut()"
     },
     {
@@ -4237,7 +4237,7 @@
       "source_location": "L195",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_dropdown_menu_dropdownmenusub",
-      "community": 8,
+      "community": 7,
       "norm_label": "dropdownmenusub()"
     },
     {
@@ -4247,7 +4247,7 @@
       "source_location": "L201",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_dropdown_menu_dropdownmenusubtrigger",
-      "community": 8,
+      "community": 7,
       "norm_label": "dropdownmenusubtrigger()"
     },
     {
@@ -4257,7 +4257,7 @@
       "source_location": "L225",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_dropdown_menu_dropdownmenusubcontent",
-      "community": 8,
+      "community": 7,
       "norm_label": "dropdownmenusubcontent()"
     },
     {
@@ -4267,7 +4267,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_f1_loader",
-      "community": 24,
+      "community": 23,
       "norm_label": "f1-loader.tsx"
     },
     {
@@ -4277,7 +4277,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_f1_loader_f1loaderprops",
-      "community": 24,
+      "community": 23,
       "norm_label": "f1loaderprops"
     },
     {
@@ -4287,7 +4287,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_f1_loader_f1loader",
-      "community": 24,
+      "community": 23,
       "norm_label": "f1loader()"
     },
     {
@@ -4297,7 +4297,7 @@
       "source_location": "L189",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_f1_loader_minif1car",
-      "community": 24,
+      "community": 23,
       "norm_label": "minif1car()"
     },
     {
@@ -4307,7 +4307,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_popover",
-      "community": 7,
+      "community": 9,
       "norm_label": "popover.tsx"
     },
     {
@@ -4317,7 +4317,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_popover_popovercontent",
-      "community": 7,
+      "community": 9,
       "norm_label": "popovercontent"
     },
     {
@@ -4437,7 +4437,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_separator",
-      "community": 8,
+      "community": 7,
       "norm_label": "separator.tsx"
     },
     {
@@ -4447,7 +4447,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_separator_separator",
-      "community": 8,
+      "community": 7,
       "norm_label": "separator()"
     },
     {
@@ -4537,7 +4537,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_tooltip",
-      "community": 8,
+      "community": 7,
       "norm_label": "tooltip.tsx"
     },
     {
@@ -4547,7 +4547,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_tooltip_tooltipprovider",
-      "community": 8,
+      "community": 7,
       "norm_label": "tooltipprovider()"
     },
     {
@@ -4557,7 +4557,7 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_tooltip_tooltip",
-      "community": 8,
+      "community": 7,
       "norm_label": "tooltip()"
     },
     {
@@ -4567,7 +4567,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_tooltip_tooltiptrigger",
-      "community": 8,
+      "community": 7,
       "norm_label": "tooltiptrigger()"
     },
     {
@@ -4577,7 +4577,7 @@
       "source_location": "L37",
       "_origin": "ast",
       "id": "apps_web_src_components_ui_tooltip_tooltipcontent",
-      "community": 8,
+      "community": 7,
       "norm_label": "tooltipcontent()"
     },
     {
@@ -4677,7 +4677,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_data_drivers_schema",
-      "community": 35,
+      "community": 34,
       "norm_label": "_schema.ts"
     },
     {
@@ -4687,7 +4687,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "apps_web_src_data_drivers_schema_driverfull",
-      "community": 35,
+      "community": 34,
       "norm_label": "driverfull"
     },
     {
@@ -4697,7 +4697,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "apps_web_src_data_drivers_schema_driversdata",
-      "community": 35,
+      "community": 34,
       "norm_label": "driversdata"
     },
     {
@@ -4707,7 +4707,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "apps_web_src_data_drivers_schema_builddriverimageurl",
-      "community": 35,
+      "community": 34,
       "norm_label": "builddriverimageurl()"
     },
     {
@@ -4857,7 +4857,7 @@
       "source_location": "L193",
       "_origin": "ast",
       "id": "apps_web_src_data_index_getraces",
-      "community": 37,
+      "community": 36,
       "norm_label": "getraces()"
     },
     {
@@ -4897,7 +4897,7 @@
       "source_location": "L213",
       "_origin": "ast",
       "id": "apps_web_src_data_index_geteventbyround",
-      "community": 37,
+      "community": 36,
       "norm_label": "geteventbyround()"
     },
     {
@@ -4917,7 +4917,7 @@
       "source_location": "L241",
       "_origin": "ast",
       "id": "apps_web_src_data_index_geteventsbymonth",
-      "community": 37,
+      "community": 36,
       "norm_label": "geteventsbymonth()"
     },
     {
@@ -5507,7 +5507,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_hooks_uselivedata",
-      "community": 19,
+      "community": 17,
       "norm_label": "uselivedata.ts"
     },
     {
@@ -5517,7 +5517,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "apps_web_src_hooks_uselivedata_uselivedataoptions",
-      "community": 19,
+      "community": 17,
       "norm_label": "uselivedataoptions"
     },
     {
@@ -5527,7 +5527,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "apps_web_src_hooks_uselivedata_uselivedata",
-      "community": 19,
+      "community": 17,
       "norm_label": "uselivedata()"
     },
     {
@@ -5607,7 +5607,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_hooks_useseasondata",
-      "community": 22,
+      "community": 21,
       "norm_label": "useseasondata.ts"
     },
     {
@@ -5617,7 +5617,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "apps_web_src_hooks_useseasondata_refresh_intervals",
-      "community": 22,
+      "community": 21,
       "norm_label": "refresh_intervals"
     },
     {
@@ -5627,7 +5627,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_web_src_hooks_useseasondata_gettimetonextsession",
-      "community": 22,
+      "community": 21,
       "norm_label": "gettimetonextsession()"
     },
     {
@@ -5637,7 +5637,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "apps_web_src_hooks_useseasondata_issessionlive",
-      "community": 22,
+      "community": 21,
       "norm_label": "issessionlive()"
     },
     {
@@ -5647,7 +5647,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "apps_web_src_hooks_useseasondata_sessionjustended",
-      "community": 22,
+      "community": 21,
       "norm_label": "sessionjustended()"
     },
     {
@@ -5657,7 +5657,7 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "apps_web_src_hooks_useseasondata_calculaterefreshinterval",
-      "community": 22,
+      "community": 21,
       "norm_label": "calculaterefreshinterval()"
     },
     {
@@ -5667,7 +5667,7 @@
       "source_location": "L124",
       "_origin": "ast",
       "id": "apps_web_src_hooks_useseasondata_useseasondataoptions",
-      "community": 22,
+      "community": 21,
       "norm_label": "useseasondataoptions"
     },
     {
@@ -5677,7 +5677,7 @@
       "source_location": "L128",
       "_origin": "ast",
       "id": "apps_web_src_hooks_useseasondata_useseasondata",
-      "community": 22,
+      "community": 21,
       "norm_label": "useseasondata()"
     },
     {
@@ -5687,7 +5687,7 @@
       "source_location": "L239",
       "_origin": "ast",
       "id": "apps_web_src_hooks_useseasondata_usenotificationpermission",
-      "community": 22,
+      "community": 21,
       "norm_label": "usenotificationpermission()"
     },
     {
@@ -5697,7 +5697,7 @@
       "source_location": "L272",
       "_origin": "ast",
       "id": "apps_web_src_hooks_useseasondata_usesessionnotifications",
-      "community": 22,
+      "community": 21,
       "norm_label": "usesessionnotifications()"
     },
     {
@@ -5707,7 +5707,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_hooks_usesessionpolling",
-      "community": 19,
+      "community": 17,
       "norm_label": "usesessionpolling.ts"
     },
     {
@@ -5717,7 +5717,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "apps_web_src_hooks_usesessionpolling_sessiontype",
-      "community": 19,
+      "community": 17,
       "norm_label": "sessiontype"
     },
     {
@@ -5727,7 +5727,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "apps_web_src_hooks_usesessionpolling_pollingconfig",
-      "community": 19,
+      "community": 17,
       "norm_label": "pollingconfig"
     },
     {
@@ -5737,7 +5737,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "apps_web_src_hooks_usesessionpolling_getpollingintervals",
-      "community": 19,
+      "community": 17,
       "norm_label": "getpollingintervals()"
     },
     {
@@ -5747,7 +5747,7 @@
       "source_location": "L94",
       "_origin": "ast",
       "id": "apps_web_src_hooks_usesessionpolling_usepollingintervals",
-      "community": 19,
+      "community": 17,
       "norm_label": "usepollingintervals()"
     },
     {
@@ -5987,7 +5987,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_lib_api",
-      "community": 19,
+      "community": 17,
       "norm_label": "api.ts"
     },
     {
@@ -5997,7 +5997,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "apps_web_src_lib_api_fetchapi",
-      "community": 19,
+      "community": 17,
       "norm_label": "fetchapi()"
     },
     {
@@ -6007,7 +6007,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "apps_web_src_lib_api_getsessions",
-      "community": 19,
+      "community": 17,
       "norm_label": "getsessions()"
     },
     {
@@ -6017,7 +6017,7 @@
       "source_location": "L63",
       "_origin": "ast",
       "id": "apps_web_src_lib_api_getdrivers",
-      "community": 19,
+      "community": 17,
       "norm_label": "getdrivers()"
     },
     {
@@ -6027,7 +6027,7 @@
       "source_location": "L73",
       "_origin": "ast",
       "id": "apps_web_src_lib_api_gettiming",
-      "community": 19,
+      "community": 17,
       "norm_label": "gettiming()"
     },
     {
@@ -6037,7 +6037,7 @@
       "source_location": "L83",
       "_origin": "ast",
       "id": "apps_web_src_lib_api_gettelemetry",
-      "community": 19,
+      "community": 17,
       "norm_label": "gettelemetry()"
     },
     {
@@ -6047,7 +6047,7 @@
       "source_location": "L97",
       "_origin": "ast",
       "id": "apps_web_src_lib_api_getpositions",
-      "community": 19,
+      "community": 17,
       "norm_label": "getpositions()"
     },
     {
@@ -6057,7 +6057,7 @@
       "source_location": "L107",
       "_origin": "ast",
       "id": "apps_web_src_lib_api_getracecontrol",
-      "community": 19,
+      "community": 17,
       "norm_label": "getracecontrol()"
     },
     {
@@ -6067,7 +6067,7 @@
       "source_location": "L123",
       "_origin": "ast",
       "id": "apps_web_src_lib_api_getweather",
-      "community": 19,
+      "community": 17,
       "norm_label": "getweather()"
     },
     {
@@ -6077,7 +6077,7 @@
       "source_location": "L133",
       "_origin": "ast",
       "id": "apps_web_src_lib_api_getlocation",
-      "community": 19,
+      "community": 17,
       "norm_label": "getlocation()"
     },
     {
@@ -6087,7 +6087,7 @@
       "source_location": "L149",
       "_origin": "ast",
       "id": "apps_web_src_lib_api_getalllivedata",
-      "community": 19,
+      "community": 17,
       "norm_label": "getalllivedata()"
     },
     {
@@ -6127,7 +6127,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "apps_web_src_lib_calendarutils_formatsessiontime",
-      "community": 22,
+      "community": 21,
       "norm_label": "formatsessiontime()"
     },
     {
@@ -6507,7 +6507,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_lib_utils",
-      "community": 21,
+      "community": 20,
       "norm_label": "utils.ts"
     },
     {
@@ -6517,7 +6517,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "apps_web_src_lib_utils_cn",
-      "community": 8,
+      "community": 7,
       "norm_label": "cn()"
     },
     {
@@ -6577,7 +6577,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_stores_debugstore",
-      "community": 7,
+      "community": 9,
       "norm_label": "debugstore.ts"
     },
     {
@@ -6587,7 +6587,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "apps_web_src_stores_debugstore_sessiontype",
-      "community": 7,
+      "community": 9,
       "norm_label": "sessiontype"
     },
     {
@@ -6597,7 +6597,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_web_src_stores_debugstore_debugstate",
-      "community": 7,
+      "community": 9,
       "norm_label": "debugstate"
     },
     {
@@ -6607,7 +6607,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "apps_web_src_stores_debugstore_usedebugstore",
-      "community": 7,
+      "community": 9,
       "norm_label": "usedebugstore"
     },
     {
@@ -6617,7 +6617,7 @@
       "source_location": "L44",
       "_origin": "ast",
       "id": "apps_web_src_stores_debugstore_getsimulatednow",
-      "community": 7,
+      "community": 9,
       "norm_label": "getsimulatednow()"
     },
     {
@@ -6627,7 +6627,7 @@
       "source_location": "L53",
       "_origin": "ast",
       "id": "apps_web_src_stores_debugstore_debug_presets",
-      "community": 7,
+      "community": 9,
       "norm_label": "debug_presets"
     },
     {
@@ -6637,7 +6637,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "apps_web_src_stores_debugstore_sessionpreset",
-      "community": 7,
+      "community": 9,
       "norm_label": "sessionpreset"
     },
     {
@@ -6647,7 +6647,7 @@
       "source_location": "L78",
       "_origin": "ast",
       "id": "apps_web_src_stores_debugstore_session_presets",
-      "community": 7,
+      "community": 9,
       "norm_label": "session_presets"
     },
     {
@@ -6697,7 +6697,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_stores_replaystore",
-      "community": 20,
+      "community": 24,
       "norm_label": "replaystore.ts"
     },
     {
@@ -6717,7 +6717,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_web_src_stores_replaystore_lapsnapshot",
-      "community": 20,
+      "community": 24,
       "norm_label": "lapsnapshot"
     },
     {
@@ -6727,7 +6727,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "apps_web_src_stores_replaystore_replaystate",
-      "community": 20,
+      "community": 24,
       "norm_label": "replaystate"
     },
     {
@@ -6737,7 +6737,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "apps_web_src_stores_replaystore_initialstate",
-      "community": 20,
+      "community": 24,
       "norm_label": "initialstate"
     },
     {
@@ -6797,7 +6797,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "apps_web_src_stores_seasonstore_teaminfo",
-      "community": 24,
+      "community": 23,
       "norm_label": "teaminfo"
     },
     {
@@ -6847,7 +6847,7 @@
       "source_location": "L110",
       "_origin": "ast",
       "id": "apps_web_src_stores_seasonstore_useseasonstore",
-      "community": 22,
+      "community": 21,
       "norm_label": "useseasonstore"
     },
     {
@@ -6857,7 +6857,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_src_types_f1",
-      "community": 9,
+      "community": 8,
       "norm_label": "f1.ts"
     },
     {
@@ -6867,7 +6867,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_sessiontype",
-      "community": 9,
+      "community": 8,
       "norm_label": "sessiontype"
     },
     {
@@ -6877,7 +6877,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_sessionstatus",
-      "community": 9,
+      "community": 8,
       "norm_label": "sessionstatus"
     },
     {
@@ -6897,7 +6897,7 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_driver",
-      "community": 9,
+      "community": 17,
       "norm_label": "driver"
     },
     {
@@ -6907,7 +6907,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_driverstatus",
-      "community": 9,
+      "community": 8,
       "norm_label": "driverstatus"
     },
     {
@@ -6917,7 +6917,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_drivertiming",
-      "community": 20,
+      "community": 8,
       "norm_label": "drivertiming"
     },
     {
@@ -6927,7 +6927,7 @@
       "source_location": "L108",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_minisectorstatus",
-      "community": 9,
+      "community": 8,
       "norm_label": "minisectorstatus"
     },
     {
@@ -6937,7 +6937,7 @@
       "source_location": "L110",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_mini_sector_values",
-      "community": 9,
+      "community": 8,
       "norm_label": "mini_sector_values"
     },
     {
@@ -6947,7 +6947,7 @@
       "source_location": "L121",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_minisectordata",
-      "community": 9,
+      "community": 8,
       "norm_label": "minisectordata"
     },
     {
@@ -6957,7 +6957,7 @@
       "source_location": "L130",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_lapdatawithminisectors",
-      "community": 9,
+      "community": 8,
       "norm_label": "lapdatawithminisectors"
     },
     {
@@ -6967,7 +6967,7 @@
       "source_location": "L137",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_drivertimingwithminisectors",
-      "community": 20,
+      "community": 8,
       "norm_label": "drivertimingwithminisectors"
     },
     {
@@ -6977,7 +6977,7 @@
       "source_location": "L141",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_timingdata",
-      "community": 9,
+      "community": 8,
       "norm_label": "timingdata"
     },
     {
@@ -6997,7 +6997,7 @@
       "source_location": "L153",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_tyreinfo",
-      "community": 9,
+      "community": 8,
       "norm_label": "tyreinfo"
     },
     {
@@ -7007,7 +7007,7 @@
       "source_location": "L159",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_stint",
-      "community": 9,
+      "community": 8,
       "norm_label": "stint"
     },
     {
@@ -7017,7 +7017,7 @@
       "source_location": "L171",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_pitstop",
-      "community": 9,
+      "community": 8,
       "norm_label": "pitstop"
     },
     {
@@ -7037,7 +7037,7 @@
       "source_location": "L197",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_drsstatus",
-      "community": 9,
+      "community": 8,
       "norm_label": "drsstatus"
     },
     {
@@ -7047,7 +7047,7 @@
       "source_location": "L199",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_telemetrydatapoint",
-      "community": 9,
+      "community": 8,
       "norm_label": "telemetrydatapoint"
     },
     {
@@ -7067,7 +7067,7 @@
       "source_location": "L230",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_positiondata",
-      "community": 9,
+      "community": 8,
       "norm_label": "positiondata"
     },
     {
@@ -7097,7 +7097,7 @@
       "source_location": "L262",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_racecontrolcategory",
-      "community": 9,
+      "community": 8,
       "norm_label": "racecontrolcategory"
     },
     {
@@ -7107,7 +7107,7 @@
       "source_location": "L272",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_flagtype",
-      "community": 9,
+      "community": 8,
       "norm_label": "flagtype"
     },
     {
@@ -7117,7 +7117,7 @@
       "source_location": "L282",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_racecontrolmessage",
-      "community": 20,
+      "community": 24,
       "norm_label": "racecontrolmessage"
     },
     {
@@ -7127,7 +7127,7 @@
       "source_location": "L292",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_trackstatus",
-      "community": 20,
+      "community": 24,
       "norm_label": "trackstatus"
     },
     {
@@ -7137,7 +7137,7 @@
       "source_location": "L301",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_weather",
-      "community": 20,
+      "community": 24,
       "norm_label": "weather"
     },
     {
@@ -7147,7 +7147,7 @@
       "source_location": "L316",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_lapdata",
-      "community": 9,
+      "community": 8,
       "norm_label": "lapdata"
     },
     {
@@ -7157,7 +7157,7 @@
       "source_location": "L342",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_drivercomparison",
-      "community": 9,
+      "community": 8,
       "norm_label": "drivercomparison"
     },
     {
@@ -7167,7 +7167,7 @@
       "source_location": "L358",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_telemetrydelta",
-      "community": 9,
+      "community": 8,
       "norm_label": "telemetrydelta"
     },
     {
@@ -7177,7 +7177,7 @@
       "source_location": "L368",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_apiresponse",
-      "community": 9,
+      "community": 8,
       "norm_label": "apiresponse"
     },
     {
@@ -7187,7 +7187,7 @@
       "source_location": "L374",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_apierror",
-      "community": 9,
+      "community": 8,
       "norm_label": "apierror"
     },
     {
@@ -7207,7 +7207,7 @@
       "source_location": "L400",
       "_origin": "ast",
       "id": "apps_web_src_types_f1_analysisstate",
-      "community": 9,
+      "community": 8,
       "norm_label": "analysisstate"
     },
     {
@@ -7217,7 +7217,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "apps_web_tailwind_config",
-      "community": 41,
+      "community": 40,
       "norm_label": "tailwind.config.ts"
     },
     {
@@ -7227,7 +7227,7 @@
       "source_location": "L3",
       "_origin": "ast",
       "id": "apps_web_tailwind_config_config",
-      "community": 41,
+      "community": 40,
       "norm_label": "config"
     },
     {
@@ -7443,180 +7443,180 @@
     {
       "label": "F1 Dashboard Project",
       "file_type": "document",
-      "source_file": "README.md",
+      "source_file": "personal/f1-dashboard/README.md",
       "source_location": null,
       "source_url": null,
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "readme_f1_dashboard",
-      "community": 17,
+      "id": "personal_f1_dashboard_readme_f1_dashboard",
+      "community": 18,
       "norm_label": "f1 dashboard project"
+    },
+    {
+      "label": "Jolpica API",
+      "file_type": "concept",
+      "source_file": "personal/f1-dashboard/README.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "personal_f1_dashboard_readme_jolpica_api",
+      "community": 18,
+      "norm_label": "jolpica api"
     },
     {
       "label": "OpenF1 API",
       "file_type": "concept",
-      "source_file": "docs/DATA_SOURCES.md",
+      "source_file": "personal/f1-dashboard/docs/DATA_SOURCES.md",
       "source_location": null,
       "source_url": null,
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "docs_data_sources_openf1_api",
-      "community": 17,
+      "id": "personal_f1_dashboard_docs_data_sources_openf1_api",
+      "community": 18,
       "norm_label": "openf1 api"
     },
     {
       "label": "Fast-F1 Python Library",
       "file_type": "concept",
-      "source_file": "docs/DATA_SOURCES.md",
+      "source_file": "personal/f1-dashboard/docs/DATA_SOURCES.md",
       "source_location": null,
       "source_url": null,
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "id": "docs_data_sources_fast_f1_library",
-      "community": 17,
+      "id": "personal_f1_dashboard_docs_data_sources_fast_f1_library",
+      "community": 18,
       "norm_label": "fast-f1 python library"
-    },
-    {
-      "label": "Jolpica API",
-      "file_type": "concept",
-      "source_file": "README.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "readme_jolpica_api",
-      "community": 17,
-      "norm_label": "jolpica api"
     },
     {
       "label": "Hybrid Live/Historical Data Approach",
       "file_type": "rationale",
-      "source_file": "docs/DATA_SOURCES.md",
+      "source_file": "personal/f1-dashboard/docs/DATA_SOURCES.md",
       "source_location": null,
       "source_url": null,
       "captured_at": null,
       "author": null,
       "contributor": null,
       "rationale": "Live sessions use OpenF1 polling (1-5s), historical analysis uses Fast-F1 pre-computed data served via own API; cache duration is tiered by volatility (telemetry 1-2s live, historical indefinite).",
-      "id": "docs_data_sources_hybrid_data_approach",
-      "community": 17,
+      "id": "personal_f1_dashboard_docs_data_sources_hybrid_data_approach",
+      "community": 18,
       "norm_label": "hybrid live/historical data approach"
-    },
-    {
-      "label": "Next.js Live Data Proxy Routes",
-      "file_type": "concept",
-      "source_file": "docs/TECHNICAL_SPEC.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "rationale": "API routes proxy OpenF1 to add caching and rate limiting between the polling client and the public API.",
-      "id": "docs_technical_spec_nextjs_api_routes",
-      "community": 17,
-      "norm_label": "next.js live data proxy routes"
-    },
-    {
-      "label": "Python FastAPI Historical Backend",
-      "file_type": "concept",
-      "source_file": "docs/TECHNICAL_SPEC.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "docs_technical_spec_python_fastapi_backend",
-      "community": 17,
-      "norm_label": "python fastapi historical backend"
-    },
-    {
-      "label": "liveStore (Zustand)",
-      "file_type": "concept",
-      "source_file": "docs/TECHNICAL_SPEC.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "docs_technical_spec_livestore",
-      "community": 17,
-      "norm_label": "livestore (zustand)"
-    },
-    {
-      "label": "analysisStore (Zustand)",
-      "file_type": "concept",
-      "source_file": "docs/TECHNICAL_SPEC.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "docs_technical_spec_analysisstore",
-      "community": 17,
-      "norm_label": "analysisstore (zustand)"
-    },
-    {
-      "label": "Timing Tower Component Spec",
-      "file_type": "document",
-      "source_file": "docs/LIVE_SECTION_SPEC.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "rationale": "Timing tower columns adapt per session type: mini-sectors and Q1/Q2/Q3 columns only in practice/qualifying, interval/pit-stop columns only in sprint/race.",
-      "id": "docs_live_section_spec_timing_tower",
-      "community": 17,
-      "norm_label": "timing tower component spec"
-    },
-    {
-      "label": "Track Map Component Spec",
-      "file_type": "document",
-      "source_file": "docs/LIVE_SECTION_SPEC.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "docs_live_section_spec_track_map",
-      "community": 17,
-      "norm_label": "track map component spec"
-    },
-    {
-      "label": "Telemetry Panel Spec",
-      "file_type": "document",
-      "source_file": "docs/LIVE_SECTION_SPEC.md",
-      "source_location": null,
-      "source_url": null,
-      "captured_at": null,
-      "author": null,
-      "contributor": null,
-      "id": "docs_live_section_spec_telemetry_panel",
-      "community": 17,
-      "norm_label": "telemetry panel spec"
     },
     {
       "label": "Tauri Desktop App Approach",
       "file_type": "rationale",
-      "source_file": "docs/DESKTOP_APP_SPEC.md",
+      "source_file": "personal/f1-dashboard/docs/DESKTOP_APP_SPEC.md",
       "source_location": null,
       "source_url": null,
       "captured_at": null,
       "author": null,
       "contributor": null,
       "rationale": "Tauri chosen over Electron for ~10-20MB bundles vs 150MB+, lower memory via native webview, faster startup, and stronger isolation; Electron only if Node.js native modules or specific Chromium features are required. Requires converting Next.js to static export and moving API routes client-side or to Rust commands.",
-      "id": "docs_desktop_app_spec_tauri_approach",
-      "community": 17,
+      "id": "personal_f1_dashboard_docs_desktop_app_spec_tauri_approach",
+      "community": 18,
       "norm_label": "tauri desktop app approach"
+    },
+    {
+      "label": "Timing Tower Component Spec",
+      "file_type": "document",
+      "source_file": "personal/f1-dashboard/docs/LIVE_SECTION_SPEC.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "Timing tower columns adapt per session type: mini-sectors and Q1/Q2/Q3 columns only in practice/qualifying, interval/pit-stop columns only in sprint/race.",
+      "id": "personal_f1_dashboard_docs_live_section_spec_timing_tower",
+      "community": 18,
+      "norm_label": "timing tower component spec"
+    },
+    {
+      "label": "Track Map Component Spec",
+      "file_type": "document",
+      "source_file": "personal/f1-dashboard/docs/LIVE_SECTION_SPEC.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "personal_f1_dashboard_docs_live_section_spec_track_map",
+      "community": 18,
+      "norm_label": "track map component spec"
+    },
+    {
+      "label": "Telemetry Panel Spec",
+      "file_type": "document",
+      "source_file": "personal/f1-dashboard/docs/LIVE_SECTION_SPEC.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "personal_f1_dashboard_docs_live_section_spec_telemetry_panel",
+      "community": 18,
+      "norm_label": "telemetry panel spec"
+    },
+    {
+      "label": "Next.js Live Data Proxy Routes",
+      "file_type": "concept",
+      "source_file": "personal/f1-dashboard/docs/TECHNICAL_SPEC.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "rationale": "API routes proxy OpenF1 to add caching and rate limiting between the polling client and the public API.",
+      "id": "personal_f1_dashboard_docs_technical_spec_nextjs_api_routes",
+      "community": 18,
+      "norm_label": "next.js live data proxy routes"
+    },
+    {
+      "label": "Python FastAPI Historical Backend",
+      "file_type": "concept",
+      "source_file": "personal/f1-dashboard/docs/TECHNICAL_SPEC.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "personal_f1_dashboard_docs_technical_spec_python_fastapi_backend",
+      "community": 18,
+      "norm_label": "python fastapi historical backend"
+    },
+    {
+      "label": "liveStore (Zustand)",
+      "file_type": "concept",
+      "source_file": "personal/f1-dashboard/docs/TECHNICAL_SPEC.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "personal_f1_dashboard_docs_technical_spec_livestore",
+      "community": 18,
+      "norm_label": "livestore (zustand)"
+    },
+    {
+      "label": "analysisStore (Zustand)",
+      "file_type": "concept",
+      "source_file": "personal/f1-dashboard/docs/TECHNICAL_SPEC.md",
+      "source_location": null,
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "id": "personal_f1_dashboard_docs_technical_spec_analysisstore",
+      "community": 18,
+      "norm_label": "analysisstore (zustand)"
     },
     {
       "label": "Modular F1 Data Architecture",
       "file_type": "rationale",
-      "source_file": "docs/plans/2026-01-20-modular-data-architecture-design.md",
+      "source_file": "personal/f1-dashboard/docs/plans/2026-01-20-modular-data-architecture-design.md",
       "source_location": null,
       "source_url": null,
       "captured_at": null,
@@ -7624,13 +7624,13 @@
       "contributor": null,
       "rationale": "F1 data hardcoded in TypeScript required code changes for every update; the hybrid replaces it with API-driven live data (OpenF1/Ergast), git-versioned JSON for manual circuit visuals and reference data, and surgical override files for API corrections.",
       "id": "docs_plans_2026_01_20_modular_data_architecture_design_modular_data_architecture",
-      "community": 17,
+      "community": 18,
       "norm_label": "modular f1 data architecture"
     },
     {
       "label": "Override Merging Pattern",
       "file_type": "rationale",
-      "source_file": "docs/plans/2026-01-20-modular-data-architecture-design.md",
+      "source_file": "personal/f1-dashboard/docs/plans/2026-01-20-modular-data-architecture-design.md",
       "source_location": null,
       "source_url": null,
       "captured_at": null,
@@ -7638,13 +7638,13 @@
       "contributor": null,
       "rationale": "API data stays the base; usually-empty override JSON files specify only fields needing correction and are merged surgically, with static fallback JSON served (X-Data-Source: fallback) when the API fails, so corrections never fork the dataset.",
       "id": "docs_plans_2026_01_20_modular_data_architecture_design_override_merging_pattern",
-      "community": 17,
+      "community": 18,
       "norm_label": "override merging pattern"
     },
     {
       "label": "Session-Aware Polling",
       "file_type": "rationale",
-      "source_file": "docs/plans/2026-01-20-modular-data-architecture-design.md",
+      "source_file": "personal/f1-dashboard/docs/plans/2026-01-20-modular-data-architecture-design.md",
       "source_location": null,
       "source_url": null,
       "captured_at": null,
@@ -7652,26 +7652,26 @@
       "contributor": null,
       "rationale": "Polling interval depends on session type and live status: race/sprint 1.5s because position changes are critical, qualifying 2s for lap times, practice/testing 5s to save resources, 60s when not live.",
       "id": "docs_plans_2026_01_20_modular_data_architecture_design_session_aware_polling",
-      "community": 17,
+      "community": 18,
       "norm_label": "session-aware polling"
     },
     {
       "label": "Unified Data Access Layer (src/data/index.ts)",
       "file_type": "concept",
-      "source_file": "docs/plans/2026-01-20-modular-data-architecture-implementation.md",
+      "source_file": "personal/f1-dashboard/docs/plans/2026-01-20-modular-data-architecture-implementation.md",
       "source_location": null,
       "source_url": null,
       "captured_at": null,
       "author": null,
       "contributor": null,
       "id": "docs_plans_2026_01_20_modular_data_architecture_implementation_unified_data_access_layer",
-      "community": 17,
+      "community": 18,
       "norm_label": "unified data access layer (src/data/index.ts)"
     },
     {
       "label": "Circuit Data JSON Schema",
       "file_type": "concept",
-      "source_file": "docs/plans/2026-01-20-modular-data-architecture-implementation.md",
+      "source_file": "personal/f1-dashboard/docs/plans/2026-01-20-modular-data-architecture-implementation.md",
       "source_location": null,
       "source_url": null,
       "captured_at": null,
@@ -7679,13 +7679,13 @@
       "contributor": null,
       "rationale": "One JSON file per circuit gives clean diffs and easy editing; 0-1 position values along the track path work with existing getPointAtLength() visualization logic.",
       "id": "docs_plans_2026_01_20_modular_data_architecture_implementation_circuit_data_schema",
-      "community": 17,
+      "community": 18,
       "norm_label": "circuit data json schema"
     },
     {
       "label": "Unified Motorsport Calendar",
       "file_type": "concept",
-      "source_file": "docs/plans/2026-01-20-motorsport-calendar.md",
+      "source_file": "personal/f1-dashboard/docs/plans/2026-01-20-motorsport-calendar.md",
       "source_location": null,
       "source_url": null,
       "captured_at": null,
@@ -7693,13 +7693,13 @@
       "contributor": null,
       "rationale": "Separate JSON files per series organized by category (formula/endurance/rally/motorcycle/stock/touring) under one shared MotorsportEvent schema, so F1, WEC, WRC, MotoGP and others render in one filterable calendar and the Season panel migrates to the same structure.",
       "id": "docs_plans_2026_01_20_motorsport_calendar_unified_motorsport_calendar",
-      "community": 17,
+      "community": 18,
       "norm_label": "unified motorsport calendar"
     },
     {
       "label": "calendarStore (Zustand)",
       "file_type": "concept",
-      "source_file": "docs/plans/2026-01-20-motorsport-calendar.md",
+      "source_file": "personal/f1-dashboard/docs/plans/2026-01-20-motorsport-calendar.md",
       "source_location": null,
       "source_url": null,
       "captured_at": null,
@@ -7707,7 +7707,7 @@
       "contributor": null,
       "rationale": "Series filter selection persists to localStorage so include/exclude choices survive reloads.",
       "id": "docs_plans_2026_01_20_motorsport_calendar_calendarstore",
-      "community": 17,
+      "community": 18,
       "norm_label": "calendarstore (zustand)"
     }
   ],
@@ -23858,16 +23858,6 @@
       "confidence_score": 1.0
     },
     {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "docs/DESKTOP_APP_SPEC.md",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "docs_desktop_app_spec_tauri_approach",
-      "target": "readme_f1_dashboard"
-    },
-    {
       "relation": "implements",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
@@ -23875,7 +23865,17 @@
       "source_location": null,
       "weight": 1.0,
       "source": "docs_plans_2026_01_20_motorsport_calendar_unified_motorsport_calendar",
-      "target": "readme_f1_dashboard"
+      "target": "personal_f1_dashboard_readme_f1_dashboard"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DESKTOP_APP_SPEC.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "personal_f1_dashboard_docs_desktop_app_spec_tauri_approach",
+      "target": "personal_f1_dashboard_readme_f1_dashboard"
     },
     {
       "relation": "references",
@@ -23884,8 +23884,8 @@
       "source_file": "README.md",
       "source_location": null,
       "weight": 1.0,
-      "source": "readme_f1_dashboard",
-      "target": "docs_data_sources_fast_f1_library"
+      "source": "personal_f1_dashboard_readme_f1_dashboard",
+      "target": "personal_f1_dashboard_docs_data_sources_fast_f1_library"
     },
     {
       "relation": "references",
@@ -23894,8 +23894,8 @@
       "source_file": "README.md",
       "source_location": null,
       "weight": 1.0,
-      "source": "readme_f1_dashboard",
-      "target": "docs_data_sources_openf1_api"
+      "source": "personal_f1_dashboard_readme_f1_dashboard",
+      "target": "personal_f1_dashboard_docs_data_sources_openf1_api"
     },
     {
       "relation": "references",
@@ -23904,38 +23904,8 @@
       "source_file": "README.md",
       "source_location": null,
       "weight": 1.0,
-      "source": "readme_f1_dashboard",
-      "target": "readme_jolpica_api"
-    },
-    {
-      "relation": "conceptually_related_to",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "docs/DATA_SOURCES.md",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "docs_data_sources_hybrid_data_approach",
-      "target": "docs_data_sources_openf1_api"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "docs/LIVE_SECTION_SPEC.md",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "docs_live_section_spec_timing_tower",
-      "target": "docs_data_sources_openf1_api"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "docs/LIVE_SECTION_SPEC.md",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "docs_live_section_spec_track_map",
-      "target": "docs_data_sources_openf1_api"
+      "source": "personal_f1_dashboard_readme_f1_dashboard",
+      "target": "personal_f1_dashboard_readme_jolpica_api"
     },
     {
       "relation": "references",
@@ -23945,17 +23915,7 @@
       "source_location": null,
       "weight": 1.0,
       "source": "docs_plans_2026_01_20_modular_data_architecture_design_modular_data_architecture",
-      "target": "docs_data_sources_openf1_api"
-    },
-    {
-      "relation": "shares_data_with",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "docs/TECHNICAL_SPEC.md",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "docs_technical_spec_nextjs_api_routes",
-      "target": "docs_data_sources_openf1_api"
+      "target": "personal_f1_dashboard_docs_data_sources_openf1_api"
     },
     {
       "relation": "conceptually_related_to",
@@ -23964,8 +23924,48 @@
       "source_file": "docs/DATA_SOURCES.md",
       "source_location": null,
       "weight": 1.0,
-      "source": "docs_data_sources_hybrid_data_approach",
-      "target": "docs_data_sources_fast_f1_library"
+      "source": "personal_f1_dashboard_docs_data_sources_hybrid_data_approach",
+      "target": "personal_f1_dashboard_docs_data_sources_openf1_api"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/LIVE_SECTION_SPEC.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "personal_f1_dashboard_docs_live_section_spec_timing_tower",
+      "target": "personal_f1_dashboard_docs_data_sources_openf1_api"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/LIVE_SECTION_SPEC.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "personal_f1_dashboard_docs_live_section_spec_track_map",
+      "target": "personal_f1_dashboard_docs_data_sources_openf1_api"
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/TECHNICAL_SPEC.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "personal_f1_dashboard_docs_technical_spec_nextjs_api_routes",
+      "target": "personal_f1_dashboard_docs_data_sources_openf1_api"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DATA_SOURCES.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "personal_f1_dashboard_docs_data_sources_hybrid_data_approach",
+      "target": "personal_f1_dashboard_docs_data_sources_fast_f1_library"
     },
     {
       "relation": "references",
@@ -23974,18 +23974,8 @@
       "source_file": "docs/TECHNICAL_SPEC.md",
       "source_location": null,
       "weight": 1.0,
-      "source": "docs_technical_spec_python_fastapi_backend",
-      "target": "docs_data_sources_fast_f1_library"
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "INFERRED",
-      "confidence_score": 0.95,
-      "source_file": "docs/TECHNICAL_SPEC.md",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "docs_data_sources_hybrid_data_approach",
-      "target": "docs_technical_spec_nextjs_api_routes"
+      "source": "personal_f1_dashboard_docs_technical_spec_python_fastapi_backend",
+      "target": "personal_f1_dashboard_docs_data_sources_fast_f1_library"
     },
     {
       "relation": "conceptually_related_to",
@@ -23995,17 +23985,17 @@
       "source_location": null,
       "weight": 1.0,
       "source": "docs_plans_2026_01_20_modular_data_architecture_design_session_aware_polling",
-      "target": "docs_data_sources_hybrid_data_approach"
+      "target": "personal_f1_dashboard_docs_data_sources_hybrid_data_approach"
     },
     {
-      "relation": "shares_data_with",
+      "relation": "rationale_for",
       "confidence": "INFERRED",
-      "confidence_score": 0.85,
+      "confidence_score": 0.95,
       "source_file": "docs/TECHNICAL_SPEC.md",
       "source_location": null,
       "weight": 1.0,
-      "source": "docs_technical_spec_analysisstore",
-      "target": "docs_technical_spec_python_fastapi_backend"
+      "source": "personal_f1_dashboard_docs_data_sources_hybrid_data_approach",
+      "target": "personal_f1_dashboard_docs_technical_spec_nextjs_api_routes"
     },
     {
       "relation": "shares_data_with",
@@ -24014,18 +24004,8 @@
       "source_file": "docs/TECHNICAL_SPEC.md",
       "source_location": null,
       "weight": 1.0,
-      "source": "docs_technical_spec_livestore",
-      "target": "docs_live_section_spec_telemetry_panel"
-    },
-    {
-      "relation": "shares_data_with",
-      "confidence": "INFERRED",
-      "confidence_score": 0.95,
-      "source_file": "docs/TECHNICAL_SPEC.md",
-      "source_location": null,
-      "weight": 1.0,
-      "source": "docs_technical_spec_livestore",
-      "target": "docs_live_section_spec_timing_tower"
+      "source": "personal_f1_dashboard_docs_technical_spec_livestore",
+      "target": "personal_f1_dashboard_docs_live_section_spec_timing_tower"
     },
     {
       "relation": "shares_data_with",
@@ -24034,8 +24014,28 @@
       "source_file": "docs/plans/2026-01-20-modular-data-architecture-implementation.md",
       "source_location": null,
       "weight": 1.0,
-      "source": "docs_live_section_spec_track_map",
+      "source": "personal_f1_dashboard_docs_live_section_spec_track_map",
       "target": "docs_plans_2026_01_20_modular_data_architecture_implementation_circuit_data_schema"
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "INFERRED",
+      "confidence_score": 0.95,
+      "source_file": "docs/TECHNICAL_SPEC.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "personal_f1_dashboard_docs_technical_spec_livestore",
+      "target": "personal_f1_dashboard_docs_live_section_spec_telemetry_panel"
+    },
+    {
+      "relation": "shares_data_with",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "docs/TECHNICAL_SPEC.md",
+      "source_location": null,
+      "weight": 1.0,
+      "source": "personal_f1_dashboard_docs_technical_spec_analysisstore",
+      "target": "personal_f1_dashboard_docs_technical_spec_python_fastapi_backend"
     },
     {
       "relation": "implements",
@@ -24103,16 +24103,16 @@
       "id": "f1_hybrid_data_pipeline",
       "label": "F1 Hybrid Live/Historical Data Pipeline",
       "nodes": [
-        "docs_data_sources_openf1_api",
-        "docs_data_sources_fast_f1_library",
-        "docs_technical_spec_nextjs_api_routes",
-        "docs_technical_spec_python_fastapi_backend"
+        "personal_f1_dashboard_docs_data_sources_openf1_api",
+        "personal_f1_dashboard_docs_data_sources_fast_f1_library",
+        "personal_f1_dashboard_docs_technical_spec_nextjs_api_routes",
+        "personal_f1_dashboard_docs_technical_spec_python_fastapi_backend"
       ],
       "relation": "participate_in",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
-      "source_file": "docs/TECHNICAL_SPEC.md"
+      "source_file": "personal/f1-dashboard/docs/TECHNICAL_SPEC.md"
     }
   ],
-  "built_at_commit": "46b51e4dd7245f905f196bc70469a8d37cbb3165"
+  "built_at_commit": "7f940e33e51604aa229a3a2dc82e1a2a272bee91"
 }
