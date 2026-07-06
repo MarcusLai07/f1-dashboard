@@ -90,21 +90,6 @@ export function animatePitStop(element: HTMLElement) {
   });
 }
 
-// Track position dot animation
-export function animateTrackPosition(
-  element: SVGElement,
-  toX: number,
-  toY: number,
-  duration: number = 500
-) {
-  animate(element, {
-    cx: toX,
-    cy: toY,
-    duration,
-    ease: "outQuad",
-  });
-}
-
 // Number counter animation
 export function animateCounter(
   element: HTMLElement,

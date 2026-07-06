@@ -62,44 +62,6 @@ interface CircuitHistory {
   lastRaceYear: number | null;
 }
 
-// Turn data for circuits (approximate positions along the track percentage)
-const CIRCUIT_TURNS: Record<string, { name: string; number: number; position: number }[]> = {
-  "albert park": [
-    { name: "Turn 1", number: 1, position: 3 },
-    { name: "Turn 2", number: 2, position: 8 },
-    { name: "Turn 3", number: 3, position: 12 },
-    { name: "Turn 4", number: 4, position: 18 },
-    { name: "Turn 5", number: 5, position: 22 },
-    { name: "Turn 6", number: 6, position: 30 },
-    { name: "Turn 7", number: 7, position: 38 },
-    { name: "Turn 8", number: 8, position: 42 },
-    { name: "Turn 9", number: 9, position: 52 },
-    { name: "Turn 10", number: 10, position: 58 },
-    { name: "Turn 11", number: 11, position: 68 },
-    { name: "Turn 12", number: 12, position: 75 },
-    { name: "Turn 13", number: 13, position: 85 },
-    { name: "Turn 14", number: 14, position: 95 },
-  ],
-  "bahrain": [
-    { name: "Turn 1", number: 1, position: 5 },
-    { name: "Turn 2", number: 2, position: 8 },
-    { name: "Turn 3", number: 3, position: 12 },
-    { name: "Turn 4", number: 4, position: 18 },
-    { name: "Turn 5", number: 5, position: 25 },
-    { name: "Turn 6", number: 6, position: 32 },
-    { name: "Turn 7", number: 7, position: 38 },
-    { name: "Turn 8", number: 8, position: 45 },
-    { name: "Turn 9", number: 9, position: 52 },
-    { name: "Turn 10", number: 10, position: 58 },
-    { name: "Turn 11", number: 11, position: 68 },
-    { name: "Turn 12", number: 12, position: 75 },
-    { name: "Turn 13", number: 13, position: 82 },
-    { name: "Turn 14", number: 14, position: 90 },
-    { name: "Turn 15", number: 15, position: 96 },
-  ],
-  // Add more circuits as needed
-};
-
 interface CircuitInfoSlidePanelProps {
   isOpen: boolean;
   onClose: () => void;
@@ -237,13 +199,6 @@ export function CircuitInfoSlidePanel({
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
   }, [isOpen, handleClose]);
-
-  // Get turn positions on SVG path
-  const getTurnPosition = (pathElement: SVGPathElement, percentage: number): { x: number; y: number } => {
-    const length = pathElement.getTotalLength();
-    const point = pathElement.getPointAtLength((percentage / 100) * length);
-    return { x: point.x, y: point.y };
-  };
 
   if (!mounted || !isOpen) return null;
 

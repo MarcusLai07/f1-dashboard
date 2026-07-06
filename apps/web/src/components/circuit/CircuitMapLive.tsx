@@ -4,6 +4,12 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { useLiveStore } from "@/stores/liveStore";
 import type { CarLocation, CarPosition } from "@/types/f1";
+
+// Dev-only: lets tooling pump synthetic sessions/locations through the store
+// for headless verification (e.g. replaying OpenF1 data without a live session)
+if (process.env.NODE_ENV === "development" && typeof window !== "undefined") {
+  (window as unknown as Record<string, unknown>).__liveStore = useLiveStore;
+}
 import { makeGpsMapper, type GpsMapper } from "@/lib/circuit3d/gpsTransform";
 import { createCarLayer, type CarRenderInput } from "@/lib/circuit3d/cars";
 import type { CircuitEngine } from "./CircuitMap";
@@ -12,6 +18,8 @@ interface CircuitMapLiveProps {
   engine: CircuitEngine;
   chipContainer: HTMLElement;
   followSelected: boolean;
+  /** Synthetic positions from timing data (replay / no-GPS sessions) */
+  fallbackPositions?: CarPosition[];
 }
 
 /**
@@ -19,8 +27,22 @@ interface CircuitMapLiveProps {
  * location stream never re-renders React — updates flow straight into the
  * three.js car meshes (smoothed by per-car animatables in cars.ts).
  */
-export function CircuitMapLive({ engine, chipContainer, followSelected }: CircuitMapLiveProps) {
+export function CircuitMapLive({
+  engine,
+  chipContainer,
+  followSelected,
+  fallbackPositions,
+}: CircuitMapLiveProps) {
   const followVec = useRef(new THREE.Vector3());
+  const fallbackRef = useRef<CarPosition[] | undefined>(fallbackPositions);
+  fallbackRef.current = fallbackPositions;
+  const applyRef = useRef<(() => void) | null>(null);
+
+  // Fallback positions arrive via props (derived from timing in the page),
+  // not the store — re-sync when they change.
+  useEffect(() => {
+    applyRef.current?.();
+  }, [fallbackPositions]);
 
   useEffect(() => {
     const { handle, controls, projector, geometry } = engine;
@@ -70,10 +92,14 @@ export function CircuitMapLive({ engine, chipContainer, followSelected }: Circui
 
     const applyState = (state: ReturnType<typeof useLiveStore.getState>) => {
       selected = state.selectedDrivers;
+      const fallback =
+        fallbackRef.current && fallbackRef.current.length > 0
+          ? fallbackRef.current
+          : state.positions;
       if (mapper && state.locations.length > 0) {
         carLayer.sync(fromLocations(state.locations, selected));
-      } else if (state.positions.length > 0) {
-        carLayer.sync(fromPositions(state.positions, selected));
+      } else if (fallback.length > 0) {
+        carLayer.sync(fromPositions(fallback, selected));
       } else {
         carLayer.sync([]);
       }
@@ -89,6 +115,7 @@ export function CircuitMapLive({ engine, chipContainer, followSelected }: Circui
       }
     };
 
+    applyRef.current = () => applyState(useLiveStore.getState());
     applyState(useLiveStore.getState());
 
     let prevLocations: CarLocation[] | null = null;
@@ -109,6 +136,7 @@ export function CircuitMapLive({ engine, chipContainer, followSelected }: Circui
     });
 
     return () => {
+      applyRef.current = null;
       unsub();
       controls.setFollowTarget(null);
       carLayer.dispose();

@@ -5,7 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { LiveDashboardLayout } from "@/components/layout/LiveDashboardLayout";
 import { SessionSelector } from "@/components/layout/SessionSelector";
 import { TimingTower } from "@/components/live/TimingTower";
-import { TrackMap3D } from "@/components/live/TrackMap3D";
+import { CircuitMap } from "@/components/circuit";
 import { TelemetryPanel } from "@/components/live/TelemetryPanel";
 import { RaceInfo } from "@/components/live/RaceInfo";
 import { ReplayController } from "@/components/live/ReplayController";
@@ -25,8 +25,6 @@ export default function LiveDashboard() {
     currentSession,
     timing,
     positions,
-    locations,
-    locationBounds,
     telemetry,
     raceControl,
     weather,
@@ -354,12 +352,11 @@ export default function LiveDashboard() {
           )
         }
         trackMap={
-          <TrackMap3D
+          <CircuitMap
+            variant="live"
             trackName={circuitName}
-            positions={trackPositions}
-            locations={locations}
-            locationBounds={locationBounds}
-            selectedDrivers={selectedDrivers}
+            fallbackPositions={trackPositions}
+            className="h-full w-full"
           />
         }
         raceInfo={

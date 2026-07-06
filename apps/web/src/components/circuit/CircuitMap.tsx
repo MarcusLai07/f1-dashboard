@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import { animate } from "animejs";
 import { cn } from "@/lib/utils";
+import type { CarPosition } from "@/types/f1";
 import {
   getCircuit,
   getCircuitByName,
@@ -31,6 +32,8 @@ export interface CircuitMapProps {
   showIntro?: boolean;
   showGhostCar?: boolean;
   followSelected?: boolean;
+  /** Synthetic positions (e.g. replay mode) used when no GPS stream exists */
+  fallbackPositions?: CarPosition[];
   onCornerClick?: (turn: Turn) => void;
 }
 
@@ -56,6 +59,7 @@ export function CircuitMap({
   showIntro,
   showGhostCar,
   followSelected = true,
+  fallbackPositions,
   onCornerClick,
 }: CircuitMapProps) {
   const hostRef = useRef<HTMLDivElement>(null);
@@ -192,7 +196,6 @@ export function CircuitMap({
       controls.dispose();
       handle.dispose();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaded, circuit, geometry, variant, wantGhost, wantIntro]);
 
   const applyPreset = (p: ViewPreset) => {
@@ -276,6 +279,7 @@ export function CircuitMap({
           engine={engine}
           chipContainer={carContainerRef.current}
           followSelected={followSelected}
+          fallbackPositions={fallbackPositions}
         />
       )}
     </div>
