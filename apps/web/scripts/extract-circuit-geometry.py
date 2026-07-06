@@ -126,6 +126,53 @@ def corner_fracs(circuit_info, lap_len_m: float):
     return out
 
 
+def overtake_zones(tel, n_zones_max=3):
+    """Sustained flat-out segments as lap-fraction ranges.
+
+    2026 replaced DRS zones with Overtake Mode (proximity-armed energy boost,
+    deployable anywhere) plus active-aero straight mode. Neither has official
+    machine-readable zone data, so we derive the practical overtaking zones —
+    the sustained full-throttle stretches — from throttle traces. Straights
+    don't move between seasons, so cached telemetry is a valid source.
+    """
+    thr = tel["Throttle"].to_numpy(dtype=float)
+    dist = tel["Distance"].to_numpy(dtype=float)
+    keep = np.concatenate([[True], np.diff(dist) > 0])
+    thr, dist = thr[keep], dist[keep]
+    lap_len = dist[-1] - dist[0]
+    frac = (dist - dist[0]) / lap_len
+
+    flat = thr >= 96
+    # Collect [start, end) runs of flat-out running
+    runs = []
+    start = None
+    for i, f in enumerate(flat):
+        if f and start is None:
+            start = frac[i]
+        elif not f and start is not None:
+            runs.append([start, frac[i]])
+            start = None
+    if start is not None:
+        runs.append([start, 1.0])
+    # Merge runs separated by tiny lifts (kinks taken nearly flat)
+    merged = []
+    for run in runs:
+        if merged and run[0] - merged[-1][1] < 0.012:
+            merged[-1][1] = run[1]
+        else:
+            merged.append(run)
+    # Wrap-around: join last run into first across start/finish
+    if len(merged) >= 2 and merged[0][0] < 0.005 and merged[-1][1] > 0.995:
+        merged[0][0] = merged[-1][0] - 1.0
+        merged.pop()
+    # Keep only proper straights, longest first, in lap order
+    # Only the major straights: where overtake-mode passes actually complete
+    zones = [z for z in merged if z[1] - z[0] >= 0.055]
+    zones = sorted(zones, key=lambda z: z[0] - z[1])[:n_zones_max]
+    zones.sort(key=lambda z: z[0])
+    return [[round(a % 1.0, 4), round(b % 1.0, 4)] for a, b in zones]
+
+
 def sector_fracs(tel, lap):
     s1, s2 = lap["Sector1Time"], lap["Sector2Time"]
     if pd.isna(s1) or pd.isna(s2):
@@ -176,6 +223,7 @@ def main():
             xn, yn, zs, lap_m, transform = process(tel, circuit_info.rotation)
             corners = corner_fracs(circuit_info, lap_m)
             sectors = sector_fracs(tel, lap)
+            overtake = overtake_zones(tel)
             out = {
                 "id": cid,
                 "pts": [[round(float(a), 3), round(float(b), 3), round(float(c), 1)]
@@ -184,6 +232,7 @@ def main():
                 "elev": round(float(zs.max()), 1),
                 "sectors": sectors,
                 "corners": corners,
+                "overtakeZones": overtake,
                 "transform": transform,
                 "source": f"FastF1 {YEAR} R{rnd} {kind} fastest lap",
             }

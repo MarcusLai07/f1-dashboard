@@ -35,6 +35,10 @@ export interface CircuitGeometry {
   /** [label, lapFraction] from FastF1 circuit info — fallback/validation only;
    *  runtime corner chips prefer CircuitData.corners (hand-calibrated + metadata) */
   corners: [string, number][];
+  /** Major flat-out stretches as [start, end] lap fractions (end may wrap past
+   *  start/finish). 2026 has no DRS zones — Overtake Mode deploys anywhere —
+   *  so these throttle-derived straights mark where passes actually happen. */
+  overtakeZones: [number, number][];
   transform: GpsTransform;
   source: string;
 }

@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import { animate } from "animejs";
 import { cn } from "@/lib/utils";
-import { getCircuitByName, getTurnTypeColor, type CircuitData } from "@/data";
+import { getCircuitByName, getCircuitGeometry, getTurnTypeColor, type CircuitData } from "@/data";
 import { CircuitMap } from "@/components/circuit";
 
 // Types for circuit history (optional external API data)
@@ -78,6 +78,7 @@ export function CircuitInfoSlidePanel({
   const [mounted, setMounted] = useState(false);
   const [circuitHistory, setCircuitHistory] = useState<CircuitHistory | null>(null);
   const [circuitFeats, setCircuitFeats] = useState<CircuitData | null>(null);
+  const [overtakeZoneCount, setOvertakeZoneCount] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -100,6 +101,9 @@ export function CircuitInfoSlidePanel({
         .then((circuitData) => {
           if (circuitData) {
             setCircuitFeats(circuitData);
+            getCircuitGeometry(circuitData.id).then((g) =>
+              setOvertakeZoneCount(g?.overtakeZones?.length ?? null)
+            );
 
             // Load history from local circuit data if available
             if (circuitData.history) {
@@ -250,7 +254,7 @@ export function CircuitInfoSlidePanel({
                       Track Layout
                       {circuitFeats && (
                         <Badge variant="outline" className="text-[10px] ml-auto">
-                          {circuitFeats.corners.length} turns • {circuitFeats.drsZones.length} DRS
+                          {circuitFeats.corners.length} turns{overtakeZoneCount ? ` • ${overtakeZoneCount} OT zones` : ""}
                         </Badge>
                       )}
                     </CardTitle>
