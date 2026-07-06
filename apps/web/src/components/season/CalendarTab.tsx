@@ -711,7 +711,7 @@ export function CalendarTab({ hideExport = false }: CalendarTabProps) {
           "none"
         ],
         duration: 1500,
-        easing: "easeOutQuad",
+        ease: "outQuad",
         onComplete: () => {
           // Reset inline styles after animation to prevent color persistence
           htmlElement.style.backgroundColor = "";

@@ -19,9 +19,13 @@ interface UseLiveDataOptions {
   enabled?: boolean;
   sessionKey?: number | null;
   replayMode?: boolean;
+  locationStreamActive?: boolean;
+  /** When true, SSE handles timing/positions/location/raceControl/weather.
+   *  useLiveData only handles session discovery + telemetry polling. */
+  sseActive?: boolean;
 }
 
-export function useLiveData({ enabled = true, sessionKey, replayMode = false }: UseLiveDataOptions = {}) {
+export function useLiveData({ enabled = true, sessionKey, replayMode = false, locationStreamActive = false, sseActive = false }: UseLiveDataOptions = {}) {
   const { isReplayMode } = useReplayStore();
 
   // Don't poll when in replay mode
@@ -337,14 +341,24 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
   }, []);
 
   // Start polling with session-aware intervals
+  // When sseActive=true, SSE handles timing/positions/location/raceControl/weather
+  // so we only poll telemetry here.
   const startPolling = useCallback(
     (key: number) => {
       clearAllIntervals();
 
+      // When SSE is active, skip all data types it handles
+      if (sseActive) {
+        // Only telemetry polling (handled separately in its own useEffect)
+        return;
+      }
+
+      // --- Full polling fallback (no SSE, e.g. replay mode) ---
+
       // Initial fetch
       fetchTiming(key);
       fetchPositions(key);
-      fetchLocation(key);
+      if (!locationStreamActive) fetchLocation(key);
       fetchRaceControl(key);
       fetchWeather(key);
       if (selectedDrivers.length > 0) {
@@ -363,10 +377,13 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
       );
 
       // Location updates at same rate as position (actual track coordinates)
-      locationIntervalRef.current = setInterval(
-        () => fetchLocation(key),
-        pollingIntervals.position
-      );
+      // Skip when MQTT streaming is active — streaming provides ~3.7Hz updates
+      if (!locationStreamActive) {
+        locationIntervalRef.current = setInterval(
+          () => fetchLocation(key),
+          pollingIntervals.position
+        );
+      }
 
       raceControlIntervalRef.current = setInterval(
         () => fetchRaceControl(key),
@@ -388,6 +405,8 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
       fetchTelemetry,
       selectedDrivers,
       pollingIntervals,
+      locationStreamActive,
+      sseActive,
     ]
   );
 
@@ -460,7 +479,6 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
     return () => {
       clearAllIntervals();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldPoll, sessionKey, fetchSession, clearAllIntervals]);
 
   // Restart polling when polling intervals change (session type or live status changes)
@@ -468,7 +486,6 @@ export function useLiveData({ enabled = true, sessionKey, replayMode = false }: 
     if (!shouldPoll || !sessionKey) return;
     // Restart polling with new intervals
     startPollingRef.current(sessionKey);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pollingIntervals, shouldPoll, sessionKey]);
 
   return {

@@ -76,6 +76,7 @@ function buildEvents(now: Date, debugEnabled: boolean, races: F1Event[], preseas
     if (test.type !== "testing" && test.type !== "shakedown") continue;
 
     const eventEnd = new Date(test.dates.end);
+    eventEnd.setUTCHours(23, 59, 59, 999); // Include the entire last day
     const isPastEvent = eventEnd < now;
     if (isPastEvent && !debugEnabled) continue;
 
@@ -138,6 +139,7 @@ function buildEvents(now: Date, debugEnabled: boolean, races: F1Event[], preseas
   // Add race events
   for (const race of races) {
     const eventEnd = new Date(race.dates.end);
+    eventEnd.setUTCHours(23, 59, 59, 999); // Include the entire last day
     const isPastEvent = eventEnd < now;
     if (isPastEvent && !debugEnabled) continue;
 

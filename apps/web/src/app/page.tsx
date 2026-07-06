@@ -14,6 +14,8 @@ import { useLiveStore } from "@/stores/liveStore";
 import { useDebugStore } from "@/stores/debugStore";
 import { useReplayStore } from "@/stores/replayStore";
 import { useLiveData } from "@/hooks/useLiveData";
+import { useLiveSSE } from "@/hooks/useLiveSSE";
+import { useLocationStream } from "@/hooks/useLocationStream";
 import type { DriverTelemetry, CarPosition } from "@/types/f1";
 
 export default function LiveDashboard() {
@@ -44,10 +46,27 @@ export default function LiveDashboard() {
     currentLap: replayCurrentLap,
   } = useReplayStore();
 
-  // Live data polling (disabled when in replay mode — isReplayMode is checked inside the hook)
+  // MQTT streaming for real-time location data (~3.7Hz)
+  const { isStreaming } = useLocationStream({
+    enabled: sessionKey !== null && !isReplayMode,
+    sessionKey,
+  });
+
+  // SSE: single connection replaces 5+ independent polling loops
+  // Handles timing, positions, location, race control, weather
+  useLiveSSE({
+    enabled: sessionKey !== null && !isReplayMode,
+    sessionKey,
+    locationStreamActive: isStreaming,
+  });
+
+  // Polling fallback: session discovery + telemetry (driver-specific, not in SSE)
+  // Also serves as full fallback during replay mode
   useLiveData({
     enabled: sessionKey !== null,
     sessionKey,
+    locationStreamActive: isStreaming,
+    sseActive: !isReplayMode, // when SSE is active, useLiveData only handles session + telemetry
   });
 
   // Build telemetry array for selected drivers

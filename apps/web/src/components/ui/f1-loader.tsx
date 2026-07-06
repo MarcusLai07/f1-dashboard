@@ -27,7 +27,7 @@ export function F1Loader({ size = "md", text = "Loading..." }: F1LoaderProps) {
         rotate: "360deg",
         duration: 350,
         loop: true,
-        easing: "linear",
+        ease: "linear",
       });
     }
 
@@ -36,7 +36,7 @@ export function F1Loader({ size = "md", text = "Loading..." }: F1LoaderProps) {
         rotate: "360deg",
         duration: 350,
         loop: true,
-        easing: "linear",
+        ease: "linear",
       });
     }
 
@@ -45,7 +45,7 @@ export function F1Loader({ size = "md", text = "Loading..." }: F1LoaderProps) {
         translateY: [0, -1, 0],
         duration: 200,
         loop: true,
-        easing: "easeInOutQuad",
+        ease: "inOutQuad",
       });
     }
   }, []);
@@ -198,7 +198,7 @@ export function MiniF1Car({ spinning = true }: { spinning?: boolean }) {
         rotate: "360deg",
         duration: 200,
         loop: true,
-        easing: "linear",
+        ease: "linear",
       });
     }
     if (frontWheelRef.current) {
@@ -206,7 +206,7 @@ export function MiniF1Car({ spinning = true }: { spinning?: boolean }) {
         rotate: "360deg",
         duration: 200,
         loop: true,
-        easing: "linear",
+        ease: "linear",
       });
     }
   }, [spinning]);

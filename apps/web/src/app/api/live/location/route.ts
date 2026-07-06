@@ -1,11 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { openf1Fetch } from "@/lib/openf1";
-import { getDriversFull, getTeamsFull } from "@/data";
-
-interface DriverInfo {
-  code: string;
-  teamColor: string;
-}
+import { getCachedDrivers } from "@/lib/driverCache";
 
 interface LocationPoint {
   driverCode: string;
@@ -40,41 +35,8 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // Fetch drivers from OpenF1 + local fallback
-    const [driversRes, localDrivers, localTeams] = await Promise.all([
-      openf1Fetch(`/drivers?session_key=${sessionKey}`),
-      getDriversFull().catch(() => []),
-      getTeamsFull().catch(() => []),
-    ]);
-    const driversData = await driversRes.json();
-    const localDriverMap = new Map(localDrivers.map(d => [d.number, d]));
-    const localTeamMap = new Map(localTeams.map(t => [t.id, t]));
-
-    // Ensure drivers array
-    const drivers = Array.isArray(driversData) ? driversData : [];
-
-    // Build driver info map (OpenF1 + local fallback)
-    const driverMap = new Map<number, DriverInfo>();
-    for (const d of drivers) {
-      if (d?.driver_number) {
-        const local = localDriverMap.get(d.driver_number);
-        const localTeam = local?.teamId ? localTeamMap.get(local.teamId) : undefined;
-        driverMap.set(d.driver_number, {
-          code: d.name_acronym || local?.code || `D${d.driver_number}`,
-          teamColor: d.team_colour ? `#${d.team_colour}` : (localTeam?.color || "#808080"),
-        });
-      }
-    }
-    // Add local drivers not in OpenF1
-    for (const local of localDrivers) {
-      if (!driverMap.has(local.number)) {
-        const localTeam = local.teamId ? localTeamMap.get(local.teamId) : undefined;
-        driverMap.set(local.number, {
-          code: local.code,
-          teamColor: localTeam?.color || "#808080",
-        });
-      }
-    }
+    // Use cached driver info (no redundant /drivers call)
+    const driverMap = await getCachedDrivers(sessionKey);
 
     // Try fetching recent location data (for live sessions)
     // Use date filter for last 30 seconds to reduce payload
@@ -132,8 +94,9 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    // Calculate bounds (with padding)
-    const bounds = locationPoints.length > 0 ? {
+    // Calculate bounds (with padding) — only when real GPS coordinates exist
+    const hasRealBounds = minX !== Infinity && maxX !== -Infinity;
+    const bounds = hasRealBounds ? {
       minX: minX - 100,
       maxX: maxX + 100,
       minY: minY - 100,

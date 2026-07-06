@@ -15,7 +15,7 @@ export function animatePositionChange(
   animate(element, {
     backgroundColor: [flashColor, "transparent"],
     duration: 800,
-    easing: "easeOutQuad",
+    ease: "outQuad",
   });
 
   // Scale pulse for significant position changes
@@ -23,7 +23,7 @@ export function animatePositionChange(
     animate(element, {
       scale: [1, 1.02, 1],
       duration: 400,
-      easing: "easeOutElastic(1, 0.5)",
+      ease: "outElastic(1, 0.5)",
     });
   }
 }
@@ -35,7 +35,7 @@ export function animateOvertake(element: HTMLElement) {
     borderLeftColor: ["#a855f7", "transparent"],
     borderLeftWidth: ["4px", "0px"],
     duration: 1200,
-    easing: "easeOutExpo",
+    ease: "outExpo",
   });
 }
 
@@ -48,8 +48,8 @@ export function animateTelemetryValue(
   animate(element, {
     innerHTML: [fromValue, toValue],
     duration: 300,
-    easing: "linear",
-    round: 1,
+    ease: "linear",
+    modifier: utils.round(0),
   });
 }
 
@@ -58,7 +58,7 @@ export function animateProgressBar(element: HTMLElement, toValue: number) {
   animate(element, {
     width: `${toValue}%`,
     duration: 150,
-    easing: "easeOutQuad",
+    ease: "outQuad",
   });
 }
 
@@ -77,7 +77,7 @@ export function animateLapTime(
     backgroundColor: [colors[type] + "40", "transparent"],
     scale: type !== "normal" ? [1, 1.05, 1] : [1],
     duration: type !== "normal" ? 600 : 0,
-    easing: "easeOutQuad",
+    ease: "outQuad",
   });
 }
 
@@ -86,7 +86,7 @@ export function animatePitStop(element: HTMLElement) {
   animate(element, {
     backgroundColor: ["rgba(234, 179, 8, 0.3)", "transparent"],
     duration: 2000,
-    easing: "easeOutQuad",
+    ease: "outQuad",
   });
 }
 
@@ -101,7 +101,7 @@ export function animateTrackPosition(
     cx: toX,
     cy: toY,
     duration,
-    easing: "easeOutQuad",
+    ease: "outQuad",
   });
 }
 
@@ -116,8 +116,8 @@ export function animateCounter(
   animate(obj, {
     value: to,
     duration,
-    easing: "easeOutQuad",
-    update: () => {
+    ease: "outQuad",
+    onUpdate: () => {
       element.textContent = Math.round(obj.value).toString();
     },
   });
@@ -130,7 +130,7 @@ export function animateListStagger(elements: HTMLElement[]) {
     translateY: [20, 0],
     duration: 400,
     delay: stagger(50),
-    easing: "easeOutQuad",
+    ease: "outQuad",
   });
 }
 
@@ -139,7 +139,7 @@ export function animateFadeIn(element: HTMLElement, duration: number = 300) {
   animate(element, {
     opacity: [0, 1],
     duration,
-    easing: "easeOutQuad",
+    ease: "outQuad",
   });
 }
 
@@ -149,7 +149,7 @@ export function animatePulse(element: HTMLElement) {
     scale: [1, 1.1, 1],
     opacity: [1, 0.8, 1],
     duration: 600,
-    easing: "easeInOutQuad",
+    ease: "inOutQuad",
     loop: 3,
   });
 }
@@ -160,7 +160,7 @@ export function animateRaceControlMessage(element: HTMLElement) {
     opacity: [0, 1],
     translateX: [-20, 0],
     duration: 400,
-    easing: "easeOutQuad",
+    ease: "outQuad",
   });
 }
 
@@ -175,10 +175,10 @@ export function animateTabSlideOut(
     opacity: [1, 0],
     translateX: [0, translateX],
     duration: 200,
-    easing: "easeInQuad",
+    ease: "inQuad",
   };
   if (onComplete) {
-    options.complete = onComplete;
+    options.onComplete = onComplete;
   }
   animate(element, options);
 }
@@ -192,7 +192,7 @@ export function animateTabSlideIn(
     opacity: [0, 1],
     translateX: [translateX, 0],
     duration: 250,
-    easing: "easeOutQuad",
+    ease: "outQuad",
   });
 }
 
@@ -202,14 +202,14 @@ export function animateCountdownDigit(element: HTMLElement, newValue: string) {
     translateY: [0, -10],
     opacity: [1, 0],
     duration: 150,
-    easing: "easeInQuad",
+    ease: "inQuad",
     onComplete: () => {
       element.textContent = newValue;
       animate(element, {
         translateY: [10, 0],
         opacity: [0, 1],
         duration: 150,
-        easing: "easeOutQuad",
+        ease: "outQuad",
       });
     },
   });
@@ -225,7 +225,7 @@ export function animateProgressBarFill(
     width: `${toValue}%`,
     boxShadow: [`0 0 10px ${color}`, `0 0 5px ${color}`],
     duration: 1000,
-    easing: "easeOutExpo",
+    ease: "outExpo",
   });
 }
 
@@ -244,7 +244,7 @@ export function animatePositionIndicator(
     opacity: [0, 1],
     color: [color, color],
     duration: 400,
-    easing: "easeOutBack",
+    ease: "outBack",
   });
 }
 
@@ -259,7 +259,7 @@ export function animatePointsChange(
     backgroundColor: [color, "transparent"],
     scale: [1, 1.1, 1],
     duration: 600,
-    easing: "easeOutElastic(1, 0.5)",
+    ease: "outElastic(1, 0.5)",
   });
 }
 
@@ -291,7 +291,7 @@ export function animateDaytimeIcon(element: HTMLElement, type: "sunrise" | "day"
   animate(element, {
     ...animations[type],
     duration: 800,
-    easing: "easeOutQuad",
+    ease: "outQuad",
   });
 }
 
@@ -302,7 +302,7 @@ export function animateStandingsStagger(elements: HTMLElement[]) {
     translateX: [-20, 0],
     duration: 300,
     delay: stagger(30, { start: 0 }),
-    easing: "easeOutQuad",
+    ease: "outQuad",
   });
 }
 
@@ -311,7 +311,7 @@ export function animateShimmer(element: HTMLElement) {
   return animate(element, {
     backgroundPosition: ["200% 0", "-200% 0"],
     duration: 1500,
-    easing: "linear",
+    ease: "linear",
     loop: true,
   });
 }

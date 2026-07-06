@@ -15,6 +15,7 @@ import type {
 interface LiveStore extends LiveState {
   // Actions
   setConnected: (connected: boolean) => void;
+  setStreaming: (streaming: boolean) => void;
   setSession: (session: Session | null) => void;
   updateTiming: (timing: DriverTiming[]) => void;
   updatePositions: (positions: CarPosition[]) => void;
@@ -32,6 +33,7 @@ interface LiveStore extends LiveState {
 
 const initialState: LiveState = {
   isConnected: false,
+  isStreaming: false,
   currentSession: null,
   timing: [],
   positions: [],
@@ -50,6 +52,9 @@ export const useLiveStore = create<LiveStore>((set) => ({
 
   setConnected: (connected) =>
     set({ isConnected: connected }),
+
+  setStreaming: (streaming) =>
+    set({ isStreaming: streaming }),
 
   setSession: (session) =>
     set({ currentSession: session }),

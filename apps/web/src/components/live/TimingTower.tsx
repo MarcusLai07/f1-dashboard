@@ -271,7 +271,7 @@ function TimingRow({
           animate(rowRef.current, {
             backgroundColor: [flashColor, baseColor],
             duration: 1200,
-            easing: "easeOutQuad",
+            ease: "outQuad",
           });
         })
         .catch(() => {

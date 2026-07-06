@@ -83,7 +83,7 @@ export function TrackMap({
             animate(pathRef.current, {
               strokeDashoffset: [length, 0],
               duration: 2000,
-              easing: "easeInOutQuad",
+              ease: "inOutQuad",
               onComplete: () => {
                 setIsDrawing(false);
                 setIsLoaded(true);

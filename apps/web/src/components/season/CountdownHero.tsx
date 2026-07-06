@@ -134,7 +134,7 @@ function DaytimeIcon({ timeOfDay, className = "" }: DaytimeIconProps) {
     animate(iconRef.current, {
       ...animations[timeOfDay],
       duration: 1000,
-      easing: "easeOutQuad",
+      ease: "outQuad",
     });
   }, [timeOfDay]);
 
@@ -203,7 +203,7 @@ function CountdownProgress({ total, maxDays = 14 }: CountdownProgressProps) {
     animate(progressRef.current, {
       width: `${percentage}%`,
       duration: 1000,
-      easing: "easeOutExpo",
+      ease: "outExpo",
     });
   }, [percentage]);
 

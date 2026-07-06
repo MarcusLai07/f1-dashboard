@@ -123,9 +123,12 @@ export async function GET(request: NextRequest) {
       svgPath: circuitData.svg?.path || "",
       pitLanePath: circuitData.svg?.pitLanePath || null,
       viewBox: circuitData.svg?.viewBox || "0 0 800 500",
-      coordinates: [], // We don't use coordinates in our current implementation
-      // Include GeoJSON bounds for automatic coordinate calibration
+      coordinates: [],
       geojson: circuitData.geojson || null,
+      // Track annotations
+      sectors: circuitData.sectors || [],
+      corners: circuitData.corners || [],
+      drsZones: circuitData.drsZones || [],
     };
 
     return NextResponse.json(response);

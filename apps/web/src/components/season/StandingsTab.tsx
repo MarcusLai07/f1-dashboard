@@ -23,7 +23,7 @@ function PositionIndicator({ change }: PositionIndicatorProps) {
       translateY: change > 0 ? [5, 0] : [-5, 0],
       opacity: [0, 1],
       duration: 400,
-      easing: "easeOutBack",
+      ease: "outBack",
     });
   }, [change]);
 
@@ -66,7 +66,7 @@ function PointsChangeBadge({ change }: PointsChangeBadgeProps) {
       scale: [0.5, 1.1, 1],
       opacity: [0, 1],
       duration: 500,
-      easing: "easeOutElastic(1, 0.5)",
+      ease: "outElastic(1, 0.5)",
     });
   }, [change]);
 
@@ -103,7 +103,7 @@ function PointsBar({ points, maxPoints, color }: PointsBarProps) {
       width: `${percentage}%`,
       duration: 800,
       delay: 100,
-      easing: "easeOutQuad",
+      ease: "outQuad",
     });
   }, [percentage]);
 
@@ -142,7 +142,7 @@ function DriverRow({ standing, maxPoints, onHover, isHighlighted, positionChange
       translateX: [-20, 0],
       duration: 300,
       delay: index * 30,
-      easing: "easeOutQuad",
+      ease: "outQuad",
     });
   }, [index]);
 
@@ -207,7 +207,7 @@ function ConstructorRow({ standing, maxPoints, isHighlighted, onHover, positionC
       translateX: [-20, 0],
       duration: 300,
       delay: index * 40,
-      easing: "easeOutQuad",
+      ease: "outQuad",
     });
   }, [index]);
 

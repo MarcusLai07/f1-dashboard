@@ -2,6 +2,7 @@
 // Single entry point for all F1 data - circuits, teams, drivers, calendar
 
 import type { CircuitData, CircuitManifest } from "./circuits/_schema";
+import type { CircuitGeometry } from "./circuits/geometry/_schema";
 import type { MotorsportEvent, MotorsportSession } from "./motorsport-calendar/_schema";
 
 // Legacy types for backward compatibility with Season panel
@@ -83,6 +84,26 @@ export async function getAllCircuits(): Promise<CircuitData[]> {
 
 export function clearCircuitCache(): void {
   circuitCache.clear();
+}
+
+// 3D geometry (FastF1 telemetry) — separate lazy files, loaded only when a
+// 3D map mounts. See ./circuits/geometry/_schema.ts.
+const geometryCache = new Map<string, CircuitGeometry | null>();
+
+export async function getCircuitGeometry(id: string): Promise<CircuitGeometry | null> {
+  if (geometryCache.has(id)) {
+    return geometryCache.get(id)!;
+  }
+  try {
+    const data = await import(`./circuits/geometry/${id}.json`);
+    const geometry = data.default as unknown as CircuitGeometry;
+    geometryCache.set(id, geometry);
+    return geometry;
+  } catch {
+    // Expected for circuits without telemetry (e.g. brand-new tracks)
+    geometryCache.set(id, null);
+    return null;
+  }
 }
 
 // ============================================================================
@@ -616,6 +637,7 @@ export type {
   LapRecord,
   CircuitSvg,
 } from "./circuits/_schema";
+export type { CircuitGeometry, GpsTransform } from "./circuits/geometry/_schema";
 // F1Event, PreSeasonEvent, CalendarData are defined inline above for backward compatibility
 export type {
   TeamFull,

@@ -23,7 +23,7 @@ import {
 import { animate } from "animejs";
 import { cn } from "@/lib/utils";
 import { getCircuitByName, getTurnTypeColor, type CircuitData } from "@/data";
-import { InteractiveTrackMap } from "./InteractiveTrackMap";
+import { CircuitMap } from "@/components/circuit";
 
 // Types for circuit history (optional external API data)
 interface RaceResult {
@@ -116,7 +116,6 @@ export function CircuitInfoSlidePanel({
   country,
 }: CircuitInfoSlidePanelProps) {
   const [mounted, setMounted] = useState(false);
-  const [showDebugMarkers, setShowDebugMarkers] = useState(false);
   const [circuitHistory, setCircuitHistory] = useState<CircuitHistory | null>(null);
   const [circuitFeats, setCircuitFeats] = useState<CircuitData | null>(null);
   const [loading, setLoading] = useState(false);
@@ -192,13 +191,13 @@ export function CircuitInfoSlidePanel({
       animate(backdropRef.current, {
         opacity: [0, 1],
         duration: 300,
-        easing: "easeOutQuad",
+        ease: "outQuad",
       });
 
       animate(panelRef.current, {
         translateX: ["100%", "0%"],
         duration: 400,
-        easing: "easeOutCubic",
+        ease: "outCubic",
       });
     }
   }, [isOpen, mounted]);
@@ -209,13 +208,13 @@ export function CircuitInfoSlidePanel({
       animate(backdropRef.current, {
         opacity: [1, 0],
         duration: 250,
-        easing: "easeInQuad",
+        ease: "inQuad",
       });
 
       animate(panelRef.current, {
         translateX: ["0%", "100%"],
         duration: 350,
-        easing: "easeInCubic",
+        ease: "inCubic",
         onComplete: () => {
           document.body.style.overflow = "";
           onClose();
@@ -304,36 +303,20 @@ export function CircuitInfoSlidePanel({
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    {circuitFeats?.svg?.path ? (
+                    {circuitFeats ? (
                       <div className="relative bg-gradient-to-b from-secondary/30 to-secondary/10 rounded-lg p-2">
-                        <InteractiveTrackMap
-                          svgPath={circuitFeats.svg.path}
-                          viewBox={circuitFeats.svg.viewBox}
-                          circuitFeatures={circuitFeats}
+                        <CircuitMap
+                          variant="explore"
+                          circuitId={circuitFeats.id}
                           className="w-full aspect-[4/3]"
-                          showAnimation={true}
-                          showDebugMarkers={showDebugMarkers}
                         />
 
                         {/* Track info overlay */}
-                        <div className="absolute bottom-2 right-2 flex gap-2">
+                        <div className="absolute top-2 left-2 flex gap-2 pointer-events-none">
                           <Badge variant="secondary" className="text-xs bg-black/60">
                             {circuitFeats.length.toFixed(3)}km
                           </Badge>
                         </div>
-
-                        {/* Debug toggle for sector calibration */}
-                        <button
-                          onClick={() => setShowDebugMarkers(!showDebugMarkers)}
-                          className={cn(
-                            "absolute bottom-2 left-2 px-2 py-1 rounded text-[10px] font-mono transition-colors",
-                            showDebugMarkers
-                              ? "bg-yellow-500/80 text-black"
-                              : "bg-black/60 text-white/60 hover:text-white"
-                          )}
-                        >
-                          {showDebugMarkers ? "DEBUG ON" : "DEBUG"}
-                        </button>
                       </div>
                     ) : (
                       <div className="text-center py-10 text-muted-foreground">

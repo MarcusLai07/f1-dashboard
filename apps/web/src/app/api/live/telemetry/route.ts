@@ -1,11 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { openf1Fetch } from "@/lib/openf1";
-import { getDriversFull, getTeamsFull } from "@/data";
-
-interface DriverInfo {
-  code: string;
-  teamColor: string;
-}
+import { getCachedDrivers } from "@/lib/driverCache";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -20,38 +15,8 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // Get driver info for codes and colors (OpenF1 + local fallback)
-    const [driversRes, localDrivers, localTeams] = await Promise.all([
-      openf1Fetch(`/drivers?session_key=${sessionKey}`),
-      getDriversFull().catch(() => []),
-      getTeamsFull().catch(() => []),
-    ]);
-    const driversData = await driversRes.json();
-    const localDriverMap = new Map(localDrivers.map(d => [d.number, d]));
-    const localTeamMap = new Map(localTeams.map(t => [t.id, t]));
-
-    const driverMap = new Map<number, DriverInfo>();
-    const drivers = Array.isArray(driversData) ? driversData : [];
-    for (const d of drivers) {
-      if (d?.driver_number) {
-        const local = localDriverMap.get(d.driver_number);
-        const localTeam = local?.teamId ? localTeamMap.get(local.teamId) : undefined;
-        driverMap.set(d.driver_number, {
-          code: d.name_acronym || local?.code || `D${d.driver_number}`,
-          teamColor: d.team_colour ? `#${d.team_colour}` : (localTeam?.color || "#808080"),
-        });
-      }
-    }
-    // Add any local drivers not in OpenF1 response
-    for (const local of localDrivers) {
-      if (!driverMap.has(local.number)) {
-        const localTeam = local.teamId ? localTeamMap.get(local.teamId) : undefined;
-        driverMap.set(local.number, {
-          code: local.code,
-          teamColor: localTeam?.color || "#808080",
-        });
-      }
-    }
+    // Use cached driver info (no redundant /drivers call)
+    const driverMap = await getCachedDrivers(sessionKey);
 
     // Get car data for specified drivers or all
     if (driversParam) {

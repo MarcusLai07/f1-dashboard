@@ -257,7 +257,7 @@ export function InteractiveTrackMap({
       animate(path, {
         strokeDashoffset: [pathLength, 0],
         duration: 1500,
-        easing: "easeInOutQuad",
+        ease: "inOutQuad",
         onComplete: () => {
           setIsAnimated(true);
           // Start racing line animation after a small delay

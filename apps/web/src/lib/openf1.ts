@@ -80,7 +80,7 @@ async function fetchToken(): Promise<string | null> {
   }
 }
 
-async function getToken(): Promise<string | null> {
+export async function getToken(): Promise<string | null> {
   if (!getCredentials()) return null;
 
   const tokenState = globalForOpenF1.__openf1Token;
@@ -113,6 +113,15 @@ async function getToken(): Promise<string | null> {
   }
 
   return token;
+}
+
+export async function getTokenWithExpiry(): Promise<{ accessToken: string; expiresAt: number } | null> {
+  const token = await getToken();
+  if (!token || !globalForOpenF1.__openf1Token) return null;
+  return {
+    accessToken: globalForOpenF1.__openf1Token.accessToken,
+    expiresAt: globalForOpenF1.__openf1Token.expiresAt,
+  };
 }
 
 // --- Authenticated Fetch ---

@@ -100,14 +100,14 @@ function DriverTelemetryCard({ driver }: DriverTelemetryCardProps) {
           animate(throttleBarRef.current, {
             width: `${driver.throttle}%`,
             duration: 150,
-            easing: "easeOutQuad",
+            ease: "outQuad",
           });
         }
         if (brakeBarRef.current) {
           animate(brakeBarRef.current, {
             width: `${driver.brake}%`,
             duration: 150,
-            easing: "easeOutQuad",
+            ease: "outQuad",
           });
         }
       })
@@ -125,7 +125,7 @@ function DriverTelemetryCard({ driver }: DriverTelemetryCardProps) {
           animate(obj, {
             value: driver.speed,
             duration: 200,
-            easing: "easeOutQuad",
+            ease: "outQuad",
             onUpdate: () => {
               if (speedRef.current) {
                 speedRef.current.textContent = Math.round(obj.value).toString();

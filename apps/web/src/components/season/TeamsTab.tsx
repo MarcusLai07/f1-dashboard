@@ -228,7 +228,7 @@ function TeamCard({ team, index, onImageClick }: TeamCardProps) {
       translateY: [20, 0],
       duration: 400,
       delay: index * 80,
-      easing: "easeOutQuad",
+      ease: "outQuad",
     });
   }, [index]);
 

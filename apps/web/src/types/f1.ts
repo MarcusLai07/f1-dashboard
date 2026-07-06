@@ -383,6 +383,7 @@ export interface APIError {
 
 export interface LiveState {
   isConnected: boolean;
+  isStreaming: boolean;
   currentSession: Session | null;
   timing: DriverTiming[];
   positions: CarPosition[];
