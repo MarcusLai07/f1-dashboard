@@ -113,7 +113,7 @@ export function CalendarGrid({
     const todayDate = isCurrentMonth ? today.getDate() : -1;
 
     return { year, month, daysInMonth, startDayOfWeek, eventsByDay, todayDate };
-  }, [currentMonth, events, seriesColors]);
+  }, [currentMonth, events, series, seriesColors]);
 
   const goToPrevMonth = () => {
     setCurrentMonth((prev) => {

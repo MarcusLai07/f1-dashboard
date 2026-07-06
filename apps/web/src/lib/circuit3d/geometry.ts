@@ -156,22 +156,60 @@ export function buildDrsBands(
   return meshes;
 }
 
-/** Cheap elevation lookup: nearest of the curve's uniform samples. */
+/** Cheap elevation lookup: nearest of the curve's uniform samples.
+ *
+ * Runs per car per frame, so a caller-provided hint object caches the last
+ * matched sample index: cars move continuously along the track, so the next
+ * match is almost always within a few samples of the previous one. Full scans
+ * only happen on the first lookup or after a discontinuity (pit exit, GPS
+ * glitch), detected when the local neighborhood is a poor fit. */
+export interface ElevationHint {
+  index: number;
+}
+
 export function makeElevationSampler(curve: THREE.CatmullRomCurve3, samples = 240) {
-  const pts: THREE.Vector3[] = [];
-  for (let i = 0; i < samples; i++) pts.push(curve.getPointAt(i / samples));
-  return (x: number, z: number): number => {
-    let best = 0;
+  const px = new Float32Array(samples);
+  const py = new Float32Array(samples);
+  const pz = new Float32Array(samples);
+  for (let i = 0; i < samples; i++) {
+    const p = curve.getPointAt(i / samples);
+    px[i] = p.x;
+    py[i] = p.y;
+    pz[i] = p.z;
+  }
+  // A neighborhood miss = farther than a few sample spacings from the track
+  const JUMP_THRESHOLD_SQ = 0.05 * 0.05;
+  const NEIGHBORHOOD = 6;
+
+  const distSq = (i: number, x: number, z: number) => {
+    const dx = px[i] - x;
+    const dz = pz[i] - z;
+    return dx * dx + dz * dz;
+  };
+
+  return (x: number, z: number, hint?: ElevationHint): number => {
+    let best = -1;
     let bestD = Infinity;
-    for (let i = 0; i < samples; i++) {
-      const dx = pts[i].x - x;
-      const dz = pts[i].z - z;
-      const d = dx * dx + dz * dz;
-      if (d < bestD) {
-        bestD = d;
-        best = i;
+    if (hint && hint.index >= 0) {
+      for (let o = -NEIGHBORHOOD; o <= NEIGHBORHOOD; o++) {
+        const i = (hint.index + o + samples) % samples;
+        const d = distSq(i, x, z);
+        if (d < bestD) {
+          bestD = d;
+          best = i;
+        }
       }
     }
-    return pts[best].y;
+    if (best < 0 || bestD > JUMP_THRESHOLD_SQ) {
+      for (let i = 0; i < samples; i++) {
+        const d = distSq(i, x, z);
+        if (d < bestD) {
+          bestD = d;
+          best = i;
+        }
+      }
+    }
+    if (hint) hint.index = best;
+    return py[best];
   };
 }

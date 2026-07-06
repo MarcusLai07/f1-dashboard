@@ -18,8 +18,6 @@ import {
   Github,
   Code2,
   Heart,
-  Image,
-  Globe,
   ChevronDown,
   AlertTriangle,
 } from "lucide-react";

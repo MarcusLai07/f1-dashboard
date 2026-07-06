@@ -47,7 +47,7 @@ export interface SceneHandle {
   drsMeshes: THREE.Mesh[];
   width: number;
   height: number;
-  elevationAt: (x: number, z: number) => number;
+  elevationAt: (x: number, z: number, hint?: { index: number }) => number;
   /** Register a per-frame callback; returns unsubscribe */
   onFrame: (cb: (deltaMs: number) => void) => () => void;
   dispose: () => void;

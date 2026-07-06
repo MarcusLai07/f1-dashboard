@@ -44,3 +44,4 @@ next-env.d.ts
 scripts/.fastf1_cache/
 *.ff1pkl
 *.sqlite
+.next-build/

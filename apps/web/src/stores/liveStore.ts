@@ -116,3 +116,9 @@ export const useLiveStore = create<LiveStore>((set) => ({
   reset: () =>
     set(initialState),
 }));
+
+// Dev-only: lets tooling pump synthetic sessions/locations through the store
+// for headless verification (e.g. replaying OpenF1 data without a live session)
+if (process.env.NODE_ENV === "development" && typeof window !== "undefined") {
+  (window as unknown as Record<string, unknown>).__liveStore = useLiveStore;
+}

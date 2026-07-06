@@ -16,7 +16,6 @@ import {
   Calendar,
   ExternalLink,
   Loader2,
-  ChevronRight,
   Gauge,
   Zap,
 } from "lucide-react";
@@ -75,7 +74,6 @@ export function CircuitInfoSlidePanel({
   onClose,
   circuitName,
   eventName,
-  country,
 }: CircuitInfoSlidePanelProps) {
   const [mounted, setMounted] = useState(false);
   const [circuitHistory, setCircuitHistory] = useState<CircuitHistory | null>(null);

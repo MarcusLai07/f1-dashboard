@@ -46,7 +46,6 @@ export interface CalendarData {
 }
 import type { TeamFull, TeamsData } from "./teams/_schema";
 import type { DriverFull, DriversData } from "./drivers/_schema";
-import type { CalendarOverrides } from "./types";
 
 // ============================================================================
 // CIRCUITS (Manual JSON files)
@@ -111,12 +110,6 @@ export async function getCircuitGeometry(id: string): Promise<CircuitGeometry | 
 // ============================================================================
 
 const calendarCache = new Map<number, CalendarData>();
-
-// Helper to find session time by type
-function findSessionTime(sessions: MotorsportSession[], type: string): string | undefined {
-  const session = sessions.find((s) => s.type === type || s.shortName === type);
-  return session?.dateTime;
-}
 
 // Transform unified MotorsportEvent to legacy F1Event format
 function transformToF1Event(event: MotorsportEvent): F1Event {

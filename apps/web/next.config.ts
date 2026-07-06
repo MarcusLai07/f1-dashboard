@@ -4,6 +4,12 @@ const nextConfig: NextConfig = {
   // Enable React strict mode for better development experience
   reactStrictMode: true,
 
+  // `next build` and `next dev` share .next/ by default, so running a
+  // production build while the dev server is up corrupts its chunk graph
+  // (Cannot find module './NNNN.js'). `npm run build:check` sets this env
+  // to build into an isolated directory instead.
+  distDir: process.env.NEXT_DIST_DIR || ".next",
+
   // Image optimization configuration
   images: {
     remotePatterns: [

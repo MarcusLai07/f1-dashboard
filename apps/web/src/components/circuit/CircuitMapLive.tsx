@@ -4,12 +4,6 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { useLiveStore } from "@/stores/liveStore";
 import type { CarLocation, CarPosition } from "@/types/f1";
-
-// Dev-only: lets tooling pump synthetic sessions/locations through the store
-// for headless verification (e.g. replaying OpenF1 data without a live session)
-if (process.env.NODE_ENV === "development" && typeof window !== "undefined") {
-  (window as unknown as Record<string, unknown>).__liveStore = useLiveStore;
-}
 import { makeGpsMapper, type GpsMapper } from "@/lib/circuit3d/gpsTransform";
 import { createCarLayer, type CarRenderInput } from "@/lib/circuit3d/cars";
 import type { CircuitEngine } from "./CircuitMap";

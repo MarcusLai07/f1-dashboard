@@ -239,7 +239,6 @@ function getNextEvent(now: number, races: F1Event[], preseason: PreSeasonEvent[]
     // Only include shakedown and testing events that have session times
     if ((event.type === "shakedown" || event.type === "testing") && event.sessions) {
       // Check morning session
-      const morningDate = new Date(event.sessions.morning);
       // Calculate end of testing period (last day afternoon session end)
       const startDate = new Date(event.dates.start);
       const endDate = new Date(event.dates.end);
@@ -249,7 +248,6 @@ function getNextEvent(now: number, races: F1Event[], preseason: PreSeasonEvent[]
       for (let day = 0; day < daysCount; day++) {
         const dayDate = new Date(startDate);
         dayDate.setDate(dayDate.getDate() + day);
-        const dateStr = dayDate.toISOString().split("T")[0];
 
         // Morning session for this day
         const morningTime = new Date(event.sessions.morning);

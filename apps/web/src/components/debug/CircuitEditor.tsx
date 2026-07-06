@@ -7,9 +7,8 @@ import "leaflet/dist/leaflet.css";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
-  Copy, Trash2, Plus, RotateCcw, Eye, EyeOff, Edit3,
-  Flag, MapPin, Layers, Route, CornerDownRight, ChevronDown, ChevronRight,
-  Minus, ZoomIn, Undo2, Download, Move, RotateCw, Maximize2
+  Copy, Trash2, Eye, EyeOff, Flag, MapPin, Layers, Route, CornerDownRight, ChevronDown, ChevronRight,
+  Minus, Undo2, Download, Move, RotateCw, Maximize2
 } from "lucide-react";
 
 // Circuit data with GeoJSON coordinates
@@ -295,10 +294,9 @@ export default function CircuitEditor() {
   const [transform, setTransform] = useState<Transform>({ offsetX: 0, offsetY: 0, scale: 1, rotation: 0 });
   const [originalPoints, setOriginalPoints] = useState<Point[]>([]);
   const [isCalibrating, setIsCalibrating] = useState(false);
-  const [loadedCircuitData, setLoadedCircuitData] = useState<LoadedCircuitData | null>(null);
+  const [, setLoadedCircuitData] = useState<LoadedCircuitData | null>(null);
 
   const currentCircuit = CIRCUITS[selectedCircuit];
-  const mapRef = useRef<L.Map | null>(null);
 
   // Save to history before changes
   const saveTrackHistory = useCallback(() => {

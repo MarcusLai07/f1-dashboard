@@ -22,6 +22,31 @@ interface UseLocationStreamOptions {
 const BATCH_INTERVAL_MS = 150;
 const TOKEN_REFRESH_BUFFER_MS = 5 * 60 * 1000;
 
+// mqtt.js's browser transport rejects internal promises with the raw
+// WebSocket close/error *Event* when a connection is torn down mid-dial
+// (e.g. React StrictMode cleanup, session switches). That reaches the page
+// as an unhandled rejection of "[object Event]" and crashes the dev overlay.
+// Swallow exactly that case — Event reasons from WebSocket targets — and
+// let every real Error keep surfacing.
+let wsRejectionGuardInstalled = false;
+function installWsRejectionGuard() {
+  if (wsRejectionGuardInstalled || typeof window === "undefined") return;
+  wsRejectionGuardInstalled = true;
+  window.addEventListener("unhandledrejection", (e) => {
+    const reason = e.reason as unknown;
+    if (
+      reason instanceof Event &&
+      typeof WebSocket !== "undefined" &&
+      reason.target instanceof WebSocket
+    ) {
+      console.warn(
+        `[LocationStream] WebSocket ${reason.type} during MQTT teardown (suppressed)`
+      );
+      e.preventDefault();
+    }
+  });
+}
+
 export function useLocationStream({ enabled, sessionKey }: UseLocationStreamOptions) {
   const [isStreaming, setIsStreaming] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,6 +57,9 @@ export function useLocationStream({ enabled, sessionKey }: UseLocationStreamOpti
   const sessionKeyRef = useRef<number | null>(sessionKey);
   const connectingRef = useRef(false);
   const hasReceivedDataRef = useRef(false);
+  // Bumped on every disconnect; in-flight connects check it after each await
+  // so a StrictMode remount or session switch can't leak a zombie client.
+  const generationRef = useRef(0);
 
   // Keep session key ref current for filtering in message handler
   useEffect(() => {
@@ -95,6 +123,7 @@ export function useLocationStream({ enabled, sessionKey }: UseLocationStreamOpti
   }, []);
 
   const disconnect = useCallback(() => {
+    generationRef.current++;
     if (flushTimerRef.current) {
       clearInterval(flushTimerRef.current);
       flushTimerRef.current = null;
@@ -117,8 +146,11 @@ export function useLocationStream({ enabled, sessionKey }: UseLocationStreamOpti
   const connect = useCallback(async () => {
     if (clientRef.current || connectingRef.current) return;
     connectingRef.current = true;
+    installWsRejectionGuard();
+    const generation = generationRef.current;
 
     const token = await fetchToken();
+    if (generation !== generationRef.current) return; // disconnected while fetching
     if (!token) {
       console.log("[LocationStream] No token available, falling back to polling");
       connectingRef.current = false;
@@ -127,6 +159,7 @@ export function useLocationStream({ enabled, sessionKey }: UseLocationStreamOpti
 
     try {
       const mqttModule = await import("mqtt");
+      if (generation !== generationRef.current) return; // disconnected while loading
       const mqttConnect = mqttModule.connect || mqttModule.default?.connect;
 
       const client = mqttConnect("wss://mqtt.openf1.org:8084/mqtt", {
@@ -200,7 +233,7 @@ export function useLocationStream({ enabled, sessionKey }: UseLocationStreamOpti
       console.error("[LocationStream] Failed to initialize MQTT:", err);
       connectingRef.current = false;
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [fetchToken, flushBatch]);
 
   useEffect(() => {

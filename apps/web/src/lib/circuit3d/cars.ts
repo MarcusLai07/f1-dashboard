@@ -15,13 +15,17 @@ export interface CarRenderInput {
   selected: boolean;
 }
 
+/** Setter methods createAnimatable generates for the animated properties */
+type PositionLerp = { x: (v: number) => void; z: (v: number) => void };
+
 interface CarEntry {
   mesh: THREE.Mesh;
   mat: THREE.MeshBasicMaterial;
-  lerp: ReturnType<typeof createAnimatable>;
+  lerp: PositionLerp;
   chip: HTMLElement;
   anchor: THREE.Vector3;
   color: string;
+  elevHint: { index: number };
 }
 
 export interface CarLayer {
@@ -44,7 +48,8 @@ export function createCarLayer(
   const unsubFrame = handle.onFrame(() => {
     // Keep car height glued to the track as it lerps + keep chip anchored
     for (const car of cars.values()) {
-      car.mesh.position.y = handle.elevationAt(car.mesh.position.x, car.mesh.position.z) + 0.012;
+      car.mesh.position.y =
+        handle.elevationAt(car.mesh.position.x, car.mesh.position.z, car.elevHint) + 0.012;
       car.anchor.set(car.mesh.position.x, car.mesh.position.y + CHIP_LIFT, car.mesh.position.z);
     }
   });
@@ -71,8 +76,8 @@ export function createCarLayer(
       x: CAR_LERP_MS,
       z: CAR_LERP_MS,
       ease: "linear",
-    });
-    return { mesh, mat, lerp, chip, anchor, color: input.color };
+    }) as unknown as PositionLerp;
+    return { mesh, mat, lerp, chip, anchor, color: input.color, elevHint: { index: -1 } };
   };
 
   return {
@@ -85,8 +90,8 @@ export function createCarLayer(
           car = addCar(input);
           cars.set(input.code, car);
         }
-        (car.lerp as unknown as { x: (v: number) => void; z: (v: number) => void }).x(input.x);
-        (car.lerp as unknown as { x: (v: number) => void; z: (v: number) => void }).z(input.z);
+        car.lerp.x(input.x);
+        car.lerp.z(input.z);
         if (car.color !== input.color) {
           car.color = input.color;
           car.mat.color.set(input.color);

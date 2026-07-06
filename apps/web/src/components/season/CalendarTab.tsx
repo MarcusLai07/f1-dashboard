@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useRef, useCallback, useEffect } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Bell, Calendar, ChevronDown, ChevronRight, ChevronLeft, CheckCircle } from "lucide-react";
@@ -15,7 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { animate } from "animejs";
 import { getCircuitByName, type CircuitData } from "@/data";
-import { MapPin, Trophy, Flag, Timer, Route, Repeat, Info } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { CircuitInfoSlidePanel } from "./CircuitInfoSlidePanel";
 
 // Session type badges for styling (matching Live dropdown)
@@ -78,7 +78,7 @@ function getEventDatesForMonth(year: number, month: number, races: F1Event[], pr
     const endDate = new Date(event.dates.end);
 
     if (startDate.getFullYear() === year && startDate.getMonth() === month) {
-      let currentDate = new Date(startDate);
+      const currentDate = new Date(startDate);
       while (currentDate <= endDate) {
         const day = currentDate.getDate();
         const existing = eventDates.get(day);
@@ -101,7 +101,7 @@ function getEventDatesForMonth(year: number, month: number, races: F1Event[], pr
     const endDate = new Date(event.dates.end);
 
     if (startDate.getFullYear() === year && startDate.getMonth() === month) {
-      let currentDate = new Date(startDate);
+      const currentDate = new Date(startDate);
       while (currentDate <= endDate) {
         const day = currentDate.getDate();
         const existing = eventDates.get(day);
@@ -141,7 +141,7 @@ function getEventDays(event: F1Event | PreSeasonEvent, year: number, month: numb
   const startDate = new Date(event.dates.start);
   const endDate = new Date(event.dates.end);
 
-  let currentDate = new Date(startDate);
+  const currentDate = new Date(startDate);
   while (currentDate <= endDate) {
     if (currentDate.getFullYear() === year && currentDate.getMonth() === month) {
       days.add(currentDate.getDate());
@@ -521,7 +521,7 @@ interface CircuitInfoButtonProps {
   onOpenPanel: () => void;
 }
 
-function CircuitInfoButton({ circuitName, eventName, country, onOpenPanel }: CircuitInfoButtonProps) {
+function CircuitInfoButton({ circuitName, onOpenPanel }: CircuitInfoButtonProps) {
   const [circuit, setCircuit] = useState<CircuitData | null>(null);
 
   useEffect(() => {

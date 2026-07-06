@@ -286,7 +286,9 @@ export function SessionSelector({
     });
   }, []);
 
-  // Get simulated time
+  // Get simulated time; debugEnabled is a deliberate cache-buster so the
+  // simulated clock refreshes when debug mode toggles
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const now = useMemo(() => new Date(getSimulatedNow()), [debugEnabled]);
 
   // Build events list
@@ -684,7 +686,6 @@ function HistoricalSessionsPanel({
           <div className="py-1">
             {meetings.map((meeting) => {
               const meetingSessions = sessionsByMeeting.get(meeting) || [];
-              const hasRace = meetingSessions.some(s => s.sessionName === "Race");
               const hasSprint = meetingSessions.some(s => s.sessionName === "Sprint");
 
               return (
