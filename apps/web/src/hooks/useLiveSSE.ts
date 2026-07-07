@@ -4,7 +4,7 @@ import { useEffect, useRef, useCallback, useMemo } from "react";
 import { useLiveStore } from "@/stores/liveStore";
 import { useReplayStore } from "@/stores/replayStore";
 import { deriveSessionType, type SessionType } from "./useSessionPolling";
-import type { RaceControlMessage } from "@/types/f1";
+import type { Overtake, RaceControlMessage } from "@/types/f1";
 
 interface UseLiveSSEOptions {
   enabled?: boolean;
@@ -39,12 +39,14 @@ export function useLiveSSE({
     updatePositions,
     updateLocations,
     addRaceControlMessage,
+    addOvertakes,
     updateWeather,
     updateTrackStatus,
   } = useLiveStore();
 
   const eventSourceRef = useRef<EventSource | null>(null);
   const raceControlTimestamps = useRef<Set<string>>(new Set());
+  const overtakeKeys = useRef<Set<string>>(new Set());
 
   // Derive session info for the SSE query params
   const sessionName = currentSession?.sessionName;
@@ -190,6 +192,19 @@ export function useLiveSSE({
         const allMessages = [...newMessages, ...existingMessages];
         deriveTrackStatus(allMessages);
         deriveIncidentStatus(allMessages);
+      } catch { /* ignore */ }
+    });
+
+    es.addEventListener("overtakes", (e) => {
+      try {
+        const { overtakes } = JSON.parse(e.data);
+        const fresh = (overtakes as Overtake[]).filter((o) => {
+          const key = `${o.timestamp}|${o.overtakingDriverNumber}|${o.overtakenDriverNumber}`;
+          if (overtakeKeys.current.has(key)) return false;
+          overtakeKeys.current.add(key);
+          return true;
+        });
+        if (fresh.length > 0) addOvertakes(fresh);
       } catch { /* ignore */ }
     });
 

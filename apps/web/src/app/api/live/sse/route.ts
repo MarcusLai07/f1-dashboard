@@ -344,6 +344,32 @@ async function fetchRaceControl(sessionKey: string, since?: string) {
   return formatted;
 }
 
+async function fetchOvertakes(sessionKey: string, since?: string) {
+  let url = `/overtakes?session_key=${sessionKey}`;
+  if (since) url += `&date>=${since}`;
+
+  const response = await openf1Fetch(url);
+  if (!response.ok) return [];
+
+  const data = await response.json();
+  if (!Array.isArray(data)) return [];
+
+  const formatted = data
+    .filter((o: any) => o.overtaking_driver_number && o.overtaken_driver_number)
+    .map((o: any) => ({
+      timestamp: o.date,
+      position: o.position,
+      overtakingDriverNumber: o.overtaking_driver_number,
+      overtakenDriverNumber: o.overtaken_driver_number,
+    }));
+
+  formatted.sort(
+    (a: any, b: any) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+  );
+
+  return formatted;
+}
+
 async function fetchWeather(sessionKey: string) {
   const response = await openf1Fetch(`/weather?session_key=${sessionKey}`);
   if (!response.ok) return null;
@@ -381,6 +407,7 @@ export async function GET(request: NextRequest) {
 
   const intervals = getIntervals(sessionType, isLive);
   let lastRaceControlTimestamp: string | undefined;
+  let lastOvertakeTimestamp: string | undefined;
   let closed = false;
 
   const stream = new ReadableStream({
@@ -447,6 +474,17 @@ export async function GET(request: NextRequest) {
         } catch { /* next poll will retry */ }
       }
 
+      async function pollOvertakes() {
+        if (closed) return;
+        try {
+          const overtakes = await fetchOvertakes(sessionKey!, lastOvertakeTimestamp);
+          if (overtakes.length > 0) {
+            lastOvertakeTimestamp = overtakes[0].timestamp;
+            send("overtakes", { overtakes, timestamp: new Date().toISOString() });
+          }
+        } catch { /* next poll will retry */ }
+      }
+
       async function pollWeather() {
         if (closed) return;
         try {
@@ -460,6 +498,7 @@ export async function GET(request: NextRequest) {
       pollPosition();
       pollLocation();
       pollRaceControl();
+      pollOvertakes();
       pollWeather();
 
       // Set up independent intervals
@@ -467,6 +506,7 @@ export async function GET(request: NextRequest) {
       const positionTimer = setInterval(pollPosition, intervals.position);
       const locationTimer = skipLocation ? null : setInterval(pollLocation, intervals.position);
       const raceControlTimer = setInterval(pollRaceControl, intervals.raceControl);
+      const overtakesTimer = setInterval(pollOvertakes, intervals.raceControl);
       const weatherTimer = setInterval(pollWeather, intervals.weather);
 
       // Cleanup when stream is cancelled (client disconnect)
@@ -477,6 +517,7 @@ export async function GET(request: NextRequest) {
         clearInterval(positionTimer);
         if (locationTimer) clearInterval(locationTimer);
         clearInterval(raceControlTimer);
+        clearInterval(overtakesTimer);
         clearInterval(weatherTimer);
       });
     },

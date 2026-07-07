@@ -381,6 +381,15 @@ export interface APIError {
 // Store Types
 // =============================================================================
 
+export interface Overtake {
+  /** ISO timestamp of the pass */
+  timestamp: string;
+  /** Position gained by the overtaking driver */
+  position: number;
+  overtakingDriverNumber: number;
+  overtakenDriverNumber: number;
+}
+
 export interface LiveState {
   isConnected: boolean;
   isStreaming: boolean;
@@ -391,6 +400,7 @@ export interface LiveState {
   locationBounds: LocationBounds | null;
   telemetry: Record<string, DriverTelemetry>;
   raceControl: RaceControlMessage[];
+  overtakes: Overtake[];
   weather: Weather | null;
   trackStatus: TrackStatus;
   selectedDrivers: string[];

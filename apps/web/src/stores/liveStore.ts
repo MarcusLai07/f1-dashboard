@@ -8,6 +8,7 @@ import type {
   LocationBounds,
   DriverTelemetry,
   RaceControlMessage,
+  Overtake,
   Weather,
   TrackStatus,
 } from "@/types/f1";
@@ -22,6 +23,7 @@ interface LiveStore extends LiveState {
   updateLocations: (locations: CarLocation[], bounds: LocationBounds | null) => void;
   updateTelemetry: (driverCode: string, telemetry: DriverTelemetry) => void;
   addRaceControlMessage: (message: RaceControlMessage) => void;
+  addOvertakes: (overtakes: Overtake[]) => void;
   updateWeather: (weather: Weather) => void;
   updateTrackStatus: (status: TrackStatus) => void;
   selectDriver: (code: string) => void;
@@ -41,6 +43,7 @@ const initialState: LiveState = {
   locationBounds: null,
   telemetry: {},
   raceControl: [],
+  overtakes: [],
   weather: null,
   trackStatus: { status: "AllClear" },
   selectedDrivers: [],
@@ -77,6 +80,12 @@ export const useLiveStore = create<LiveStore>((set) => ({
   addRaceControlMessage: (message) =>
     set((state) => ({
       raceControl: [message, ...state.raceControl].slice(0, 50), // Keep last 50
+      lastUpdate: new Date().toISOString(),
+    })),
+
+  addOvertakes: (overtakes) =>
+    set((state) => ({
+      overtakes: [...overtakes, ...state.overtakes].slice(0, 30), // Keep last 30
       lastUpdate: new Date().toISOString(),
     })),
 

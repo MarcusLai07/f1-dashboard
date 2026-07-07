@@ -7,6 +7,7 @@ import { SessionSelector } from "@/components/layout/SessionSelector";
 import { TimingTower } from "@/components/live/TimingTower";
 import { CircuitMap } from "@/components/circuit";
 import { TelemetryPanel } from "@/components/live/TelemetryPanel";
+import { OvertakesFeed } from "@/components/live/OvertakesFeed";
 import { RaceInfo } from "@/components/live/RaceInfo";
 import { ReplayController } from "@/components/live/ReplayController";
 import { DebugPanel } from "@/components/debug/DebugPanel";
@@ -300,7 +301,7 @@ export default function LiveDashboard() {
               currentSessionKey={sessionKey}
               onSessionChange={(key) => {
                 setSessionKey(key);
-                useLiveStore.setState({ raceControl: [], timing: [], positions: [] });
+                useLiveStore.setState({ raceControl: [], overtakes: [], timing: [], positions: [] });
               }}
             />
 
@@ -360,6 +361,7 @@ export default function LiveDashboard() {
           />
         }
         raceInfo={
+          <>
           <RaceInfo
             lapCount={lapCount}
             sessionTime={
@@ -374,6 +376,8 @@ export default function LiveDashboard() {
             trackStatus={trackStatus}
             recentMessages={raceControl.slice(0, 10)}
           />
+          <OvertakesFeed />
+          </>
         }
         telemetryPanel={<TelemetryPanel drivers={selectedTelemetry} />}
       />
